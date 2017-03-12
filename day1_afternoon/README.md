@@ -86,7 +86,7 @@ samtools view -Sb Rush_KPC_266__aln.sam > Rush_KPC_266__aln.bam
 Now before indexing this BAM file, we will sort the data by positions(default) using samtools. Some expression tools require it to be sorted by read name which is achieved by passing -n flag.
 
 ```
-samtools sort Rush_KPC_266__aln.bam Rush_KPC_266__aln_sort
+samtools sort Rush_KPC_266__aln.bam -o Rush_KPC_266__aln_sort
 ```
 
 **4. Mark duplicates(PCR optical duplicates) and remove them using [PICARD](http://broadinstitute.github.io/picard/command-line-overview.html#MarkDuplicates "Picard MarkDuplicates")**
