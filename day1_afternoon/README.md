@@ -239,7 +239,7 @@ The file AlignmentSummaryMetrics.txt contains many columns and at times it becom
 grep 'CATEGORY' AlignmentSummaryMetrics.txt | tr '\t' '\n' | cat --number
 ```
 
-> Question: Extract alignment percentage from AlignmentSummaryMetrics file. (% of reads aligned to reference genome)
+- Question: Extract alignment percentage from AlignmentSummaryMetrics file. (% of reads aligned to reference genome)
 
 <!---
 awk -F'\t' '{print $7}' AlignmentSummaryMetrics.txt
@@ -273,7 +273,8 @@ grep 'GENOME_TERRITORY' WgsMetrics.txt | tr '\t' '\n' | cat --number
 Since "WgsMetrics.txt" also contains histogram information, we will run commands on only the first few lines to extract information.
 
 
-> Question: Extract mean coverage information from "WgsMetrics.txt"
+- Question: Extract mean coverage information from "WgsMetrics.txt"
+
 <!---
 sed -n 7,8p WgsMetrics.txt | awk -F'\t' '{print $2}'
 -->
@@ -485,13 +486,14 @@ While these various statistical/text analyses are helpful, visualization of all 
 We will be using [Artemis](http://www.sanger.ac.uk/science/tools/artemis) here, developed by the Sanger Institute for viewing BAM and vcf files for manual inspection of some of the variants.
 
 
-> Required Input files: 
-* KPNIH1 reference fasta 
-* KPNIH1 genbank file
-* Rush_KPC_266__aln_marked.bam 
-* Rush_KPC_266__aln_marked.bam.bai
-* Rush_KPC_266__filter_gatk_ann.vcf.gz 
-* Rush_KPC_266__filter_gatk_ann.vcf.gz.tbi
+- Required Input files: 
+
+> KPNIH1 reference fasta 
+> KPNIH1 genbank file
+> Rush_KPC_266__aln_marked.bam 
+> Rush_KPC_266__aln_marked.bam.bai
+> Rush_KPC_266__filter_gatk_ann.vcf.gz 
+> Rush_KPC_266__filter_gatk_ann.vcf.gz.tbi
 
 Let's make a seperate folder (make sure you are in the Rush_KPC_266_varcall_result folder) for the files that we need for visualization and copy it to that folder
 
