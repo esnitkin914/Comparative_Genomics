@@ -35,7 +35,7 @@ There are a wide range of tools available for assembly of microbial genomes. The
 
 Here we will use the Spades assembler with default parameters. Because genome assembly is a computationally intensive process, we will submit our assembly jobs to the cluster, and move ahead with some pre-assembled genomes, while your assemblies are running. 
 
->i. Create directory to hold your assembly output.
+> ***i. Create directory to hold your assembly output.***
 
 Create a new directory for the spades output in your day2_morn folder
 
@@ -56,7 +56,7 @@ mkdir Rush_KPC_266_assembly_result
 
 Now, we will use a genome assembly tool called Spades for assembling the reads.
 
->ii. Test out Spades to make sure it's in your path
+> ***ii. Test out Spades to make sure it's in your path***
 
 To make sure that your paths are set up correctly, try running Spades with the –h (help) flag, which should produce usage instruction.
 
@@ -67,7 +67,7 @@ spades.py -h
 
 ```
 
->iii. Submit a cluster job to assemble 
+> ***iii. Submit a cluster job to assemble***
 
 Since it takes a huge amount of memory and time to assemble genomes using spades, we will run a pbs script on the cluster for this step.
 
@@ -86,13 +86,13 @@ spades.py --pe1-1 forward_paired.fq.gz --pe1-2 reverse_paired.fq.gz --pe1-s forw
 
 ```
 
->iv. Submit your job to the cluster with qsub
+> ***iv. Submit your job to the cluster with qsub***
 
 ```
 qsub -V spades.pbs
 ```
 
->v. Verify that your job is in the queue with the qstat command
+> ***v. Verify that your job is in the queue with the qstat command***
 
 ```
 qstat –u username 
@@ -107,7 +107,7 @@ The output of an assembler is a set of contigs (contiguous sequences), that are 
 
 To evaluate some example assemblies we will use the tool quast. Quast produces a series of metrics describing the quality of your genome assemblies. 
 
->i. Run quast on a set of previously generated assemblies
+> ***i. Run quast on a set of previously generated assemblies***
 
 Now to check the example assemblies residing in your day2_morn folder, run the below quast command. Make sure you are in day2_morn folder in your home directory using 'pwd'
 
@@ -117,7 +117,7 @@ quast.py -o quast sample_264_contigs.fasta sample_266_contigs.fasta
 
 The command above will generate a report file in /scratch/micro612w18_fluxod/username/day2_morn/quast
 
->ii. Explore quast output
+> ***ii. Explore quast output***
 
 QUAST creates output in different formats such as html, pdf and text. Now lets check the report.txt file residing in quast folder for assembly statistics. Open report.txt using nano.
 
@@ -134,7 +134,7 @@ Generating multiple sample reports using [multiqc](http://multiqc.info/)
 
 Let's imagine a real-life scenario where you are working on a project which requires you to analyze and process hundreds of samples. Having a few samples with extremely bad quality is very commonplace. Including these bad samples into your analysis without adjusting their quality threshold can have a profound effect on downstream analysis and interpretations. 
 
-> Question: How will you find those bad apples?  
+- Question: How will you find those bad apples?  
 
 Yesterday, we learned how to assess and control the quality of samples as well as screen for contaminants. But the problem with such tools or any other tools is, they work on per-sample basis and produce only single report/logs per sample. Therefore, it becomes cumbersome to dig through each sample's reports and make appropriate quality control calls.  
 
@@ -151,9 +151,11 @@ scp username@flux-xfer.arc-ts.umich.edu:/scratch/micro612w18_fluxod/username/day
 
 ```
 
-> Question: Open this report in a browser and try to find the outlier sample/s
-> Question: What is the most important parameter to look for while identifying contamination or bad samples?
-> Question: What is the overall quality of data? 
+- Question: Open this report in a browser and try to find the outlier sample/s
+
+- Question: What is the most important parameter to look for while identifying contamination or bad samples?
+
+- Question: What is the overall quality of data? 
 
 Lets run multiqc on one such directory where we ran and stored FastQC, FastQ Screen and Quast reports.
 
@@ -190,13 +192,13 @@ scp username@flux-xfer.arc-ts.umich.edu:/scratch/micro612w18_fluxod/username/day
 
 The report contains the Assembly, Fastq Screen and FastQC report for a mixture of 51 organisms' sequence data. Sample names for Assembly statistics ends with "l500_contigs".
 
-> Question: Play around with the General statistics table by sorting different columns. (click on a column header). To view just the assembly statistics, click on the N50 column header. Which sample has the worst N50 value? What do you think must be the reason?
+- Question: Play around with the General statistics table by sorting different columns. (click on a column header). To view just the assembly statistics, click on the N50 column header. Which sample has the worst N50 value? What do you think must be the reason?
 
-> Question: Which two sample's genome length i.e column Length (Mbp) stand out from all the other genome lengths? What is their GC %? What about their FastQ Screen result?
+- Question: Which two sample's genome length i.e column Length (Mbp) stand out from all the other genome lengths? What is their GC %? What about their FastQ Screen result?
 
-> Question: What about Number of Contigs section? Are you getting reasonable number of contigs or is there any bad assembly?
+- Question: What about Number of Contigs section? Are you getting reasonable number of contigs or is there any bad assembly?
 
-> Question: Any sample's quality stand out from the rest of the bunch?
+- Question: Any sample's quality stand out from the rest of the bunch?
 
 
 Compare assembly to reference genome and post-assembly genome improvement
@@ -259,7 +261,7 @@ Click Apply button
 
 In order to simplify the comparison between assembly and reference, we first need to orient the order of the contigs to reference. 
 
-i. Run abacas to orient contigs to the reference
+> ***i. Run abacas to orient contigs to the reference***
 
 To orient our contigs relative to the reference we will use a tool called abacas. [ABACAS](http://www.sanger.ac.uk/science/tools/pagit) aligns contigs to a reference genome and then stitches them together to form a “pseudo-chromosome”. 
 
@@ -272,8 +274,6 @@ d2m
 
 cd /scratch/micro612w18_fluxod/username/day2_morn/
 ```
-
-
 
 Now, we will run abacas using these input parameters: 
 
@@ -294,9 +294,7 @@ Now, we will run abacas using these input parameters:
 Check if abacas can be properly invoked:
 
 ```
-
 abacas.1.3.1.pl -h
-
 ```
 
 Run abacas on assembly:
@@ -305,9 +303,9 @@ Run abacas on assembly:
 abacas.1.3.1.pl -r KPNIH1.fasta -q sample_266_contigs.fasta -p nucmer -b -d -a -o sample_266_contigs_ordered
 ```
 
-ii. Use ACT to view contig alignment to reference genome
+> ***ii. Use ACT to view contig alignment to reference genome***
 
-> Use scp to get ordered fasta sequence and .cruch file onto your laptop 
+- Use scp to get ordered fasta sequence and .cruch file onto your laptop 
 
 ```
 > Dont forget to change username and /path-to-local-ACT_contig_comparison-directory/ in the below command
@@ -316,7 +314,7 @@ scp username@flux-xfer.arc-ts.umich.edu:/scratch/micro612w18_fluxod/username/day
 
 ```
 
-> Read files into ACT
+- Read files into ACT
 
 ```
 Go to File on top left corner of ACT window -> open 
@@ -326,10 +324,10 @@ Sequence file 2  = sample_266_contigs_ordered.fasta
 
 Click Apply button
 
-> Dont close the ACT window
+Dont close the ACT window
 ```
 
-> Notice that the alignment is totally beautiful now!!! Scan through the alignment and play with ACT features to look at genes present in reference but not in assembly. Keep the ACT window open for further visualizations.
+- Notice that the alignment is totally beautiful now!!! Scan through the alignment and play with ACT features to look at genes present in reference but not in assembly. Keep the ACT window open for further visualizations.
 
 ![alt tag](https://github.com/alipirani88/Comparative_Genomics/blob/master/_img/day2_morning/beautiful.png)
 
@@ -340,7 +338,7 @@ Map reads to the final ordered assembly
 
 You already know the drill/steps involved in reads mapping. Here, we will map the reads to the final ordered assembly genome instead of KPNIH1.fasta.
 
-First create a bwa index of the ordered fasta file.
+- First create a bwa index of the ordered fasta file.
 
 ```
 > Only proceed further if everything worked uptil now. Make sure you are in day2_morn directory.
@@ -356,7 +354,7 @@ samtools faidx sample_266_contigs_ordered.fasta
 
 ```
 
-Align the trimmed reads which we used for genome assembly to this ordered assembly using BWA mem. Convert SAM to BAM. Sort and index it.
+- Align the trimmed reads which we used for genome assembly to this ordered assembly using BWA mem. Convert SAM to BAM. Sort and index it.
 
 ```
 
@@ -370,7 +368,8 @@ samtools index sample_266_contigs_ordered_sort.bam
 
 ```
 
-Lets visualize the alignments against our ordered assembly.
+- Lets visualize the alignments against our ordered assembly.
+
 Copy this sorted and indexed BAM files to local ACT_contig_comparison directory.
 
 ```
@@ -402,7 +401,7 @@ Genome Annotation
 
 From our ACT comparison of our assembly and the reference we can clearly see that there is unique sequence in our assembly. However, we still don’t know what that sequence encodes! To try to get some insight into the sorts of genes unique to our assembly we will run a genome annotation pipeline called Prokka. Prokka works by first running *de novo* gene prediction algorithms to identify protein coding genes and tRNA genes. Next, for protein coding genes Prokka runs a series of comparisons against databases of annotated genes to generate putative annotations for your genome. 
 
->i. Run Prokka on assembly
+> ***i. Run Prokka on assembly***
 
 ```
 prokka –setupdb
@@ -429,7 +428,7 @@ scp -r username@flux-xfer.arc-ts.umich.edu:/scratch/micro612w18_fluxod/username/
 
 ```
 
->ii. Reload comparison into ACT now that we’ve annotated the un-annotated!
+> ***ii. Reload comparison into ACT now that we’ve annotated the un-annotated!***
 
 Read files into ACT
 
@@ -440,4 +439,4 @@ Comparison file 1  = sample_266_contigs_ordered.crunch
 Sequence file 2  = sample_266_contigs_ordered.gbf
 ```
 
->Play around with ACT to see what types of genes are unique to sample 266!!! 
+- Play around with ACT to see what types of genes are unique to sample 266!!! 
