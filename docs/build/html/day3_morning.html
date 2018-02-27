@@ -136,7 +136,7 @@ cp -r /scratch/micro612w18_fluxod/shared/data/day3_morn ./
 <a class="reference external" href="index.html">[HOME]</a></p>
 <p>An alternative approach for identification of variants among genomes is to perform whole genome alignments of assemblies. If the original short read data is unavailable, this might be the only approach available to you. Typically, these programs don’t scale well to large numbers of genomes (e.g. &gt; 100), but they are worth being familiar with. We will use the tool mauve for constructing whole genome alignments of our five A. baumannii genomes.</p>
 <blockquote>
-<div>i. Perform mauve alignment and transfer xmfa back to flux</div></blockquote>
+<div><strong><em>i. Perform mauve alignment and transfer xmfa back to flux</em></strong></div></blockquote>
 <p>Use cyberduck/scp to get genomes folder Abau_genomes onto your laptop</p>
 <pre class="literal-block">
 Run these commands on your local system/terminal:
@@ -147,7 +147,7 @@ mkdir Abau_mauve
 
 cd Abau_mauve 
 
-&gt; Now copy Abau_genomes folder residing in your day3_morn folder using scp or cyberduck:
+- Now copy Abau_genomes folder residing in your day3_morn folder using scp or cyberduck:
 
 scp -r username&#64;flux-xfer.arc-ts.umich.edu:/scratch/micro612w18_fluxod/username/day3_morn/Abau_genomes ./
 
@@ -170,7 +170,7 @@ scp ~/Desktop/Abau_mauve/mauve_ECII_outgroup username&#64;flux-xfer.arc-ts.umich
 
 </pre>
 <blockquote>
-<div>ii. Convert alignment to fasta format</div></blockquote>
+<div><strong><em>ii. Convert alignment to fasta format</em></strong></div></blockquote>
 <p>Mauve produces alignments in .xmfa format (use less to see what this looks like), which is not compatible with other programs we want to use. We will use a custom script convert_msa_format.pl to change the alignment format to fasta format</p>
 <pre class="literal-block">
 Now run these command in day3_morn folder on flux:
@@ -188,7 +188,7 @@ perl convert_msa_format.pl -i mauve_ECII_outgroup -o mauve_ECII_outgroup.fasta -
 <p>There are lots of options for phylogenetic analysis. Here, we will use the ape package in R to look at our multiple alignments and construct a tree using the Neighbor Joining method.</p>
 <p>Note that ape has a ton of useful functions for more sophisticated phylogenetic analyses!</p>
 <blockquote>
-<div>i. Get fasta alignment you just converted to your own computer using cyberduck or scp</div></blockquote>
+<div><strong><em>i. Get fasta alignment you just converted to your own computer using cyberduck or scp</em></strong></div></blockquote>
 <pre class="literal-block">
 
 cd ~/Desktop/Abau_mauve
@@ -197,7 +197,8 @@ cd ~/Desktop/Abau_mauve
 scp username&#64;flux-xfer.arc-ts.umich.edu:/scratch/micro612w18_fluxod/username/day3_morn/mauve_ECII_outgroup.fasta ./
 
 </pre>
-<p>ii. Read alignment into R</p>
+<blockquote>
+<div><strong><em>ii. Read alignment into R</em></strong></div></blockquote>
 <p>Fire up RStudio, set your working directory to ~/Desktop/Abau_mauve/ or wherever you have downloaded mauve_ECII_outgroup.fasta file and install/load ape</p>
 <p>Use the read.dna function in ape to read in you multiple alignments.
 Print out the variable to get a summary.</p>
@@ -208,7 +209,7 @@ library(ape)
 abau_msa = read.dna('mauve_ECII_outgroup.fasta', format = &quot;fasta&quot;) 
 </pre>
 <blockquote>
-<div>iii. Get variable positions</div></blockquote>
+<div><strong><em>iii. Get variable positions</em></strong></div></blockquote>
 <p>The DNA object created by read.dna can also be addressed as a matrix, where the columns are positions in the alignment and rows are your sequences. We will next treat our alignment as a matrix, and use apply and colSums to get positions in the alignment that vary among our sequences. Examine these commands in detail to understand how they are working together to give you a logical vector indicating which positions vary in your alignment.</p>
 <pre class="literal-block">
 
@@ -217,13 +218,13 @@ abau_msa_bin = apply(abau_msa, 2, FUN = function(x){x == x[1]})
 abau_var_pos = colSums(abau_msa_bin) &lt; 5
 </pre>
 <blockquote>
-<div>iv. Get non-gap positions</div></blockquote>
+<div><strong><em>iv. Get non-gap positions</em></strong></div></blockquote>
 <p>For our phylogenetic analysis we want to focus on the core genome, so we will next identify positions in the alignment where all our genomes have sequence.</p>
 <pre class="literal-block">
 non_gap_pos = colSums(as.character(abau_msa) == '-') == 0
 </pre>
 <blockquote>
-<div>v. Count number of variants between sequences</div></blockquote>
+<div><strong><em>v. Count number of variants between sequences</em></strong></div></blockquote>
 <p>Now that we know which positions in the alignment are core and variable, we can extract these positions and count how many variants there are among our genomes. Do count pairwise variants we will use the dist.dna function in ape. The model parameter indicates that we want to compare sequences by counting differences. Print out the resulting matrix to see how different our genomes are.</p>
 <pre class="literal-block">
 
@@ -232,7 +233,7 @@ var_count_matrix = dist.dna(abau_msa_var, model = &quot;N&quot;)
 
 </pre>
 <blockquote>
-<div>vi. Construct phylogenetic tree</div></blockquote>
+<div><strong><em>vi. Construct phylogenetic tree</em></strong></div></blockquote>
 <p>Now we are ready to construct our first phylogenetic tree!</p>
 <p>We are going to use the Neighbor Joining algorithm, which takes a matrix of pairwise distances among the input sequences and produces the tree with the minimal total distance. In essence, you can think of this as a distance-based maximum parsimony algorithm, with the advantage being that it runs way faster than if you were to apply a standard maximum parsimony phylogenetic reconstruction.</p>
 <p>As a first step we are going to build a more accurate distance matrix, where instead of counting variants, we will measure nucleotide distance using the Jukes-Cantor model of sequence evolution. This is the simplest model of sequence evolution, with a single mutation rate assumed for all types of nucleotide changes.</p>
@@ -254,17 +255,18 @@ plot(abau_nj_tree)
 <a class="reference external" href="index.html">[HOME]</a></p>
 <p>An often-overlooked aspect of a proper phylogenetic analysis is to exclude recombinant sequences. Homologous recombination in bacterial genomes is a mode of horizontal transfer, wherein genomic DNA is taken up and swapped in for a homologous sequence. The reason it is critical to account for these recombinant regions is that these horizontally acquired sequences do not represent the phylogenetic history of the strain of interest, but rather in contains information regarding the strain in which the sequence was acquired from. One simple approach for detecting the presence of recombination is to look at the density of variants across a genome. The existence of unusually high or low densities of variants is suggestive that these regions of aberrant density were horizontally acquired. Here we will look at our closely related A. baumannii genomes to see if there is evidence of aberrant variant densities.</p>
 <blockquote>
-<div>i. Subset sequences to exclude the out-group</div></blockquote>
+<div><strong><em>i. Subset sequences to exclude the out-group</em></strong></div></blockquote>
 <p>For this analysis we want to exclude the out-group, because we are interested in determining whether recombination would hamper our ability to reconstruct the phylogenetic relationship among our closely related set of genomes.</p>
-<blockquote>
-<div>Note that the names of the sequences might be different for you, so check that if the command doesn’t work.</div></blockquote>
+<ul class="simple">
+<li>Note that the names of the sequences might be different for you, so check that if the command doesn’t work.</li>
+</ul>
 <pre class="literal-block">
 
 abau_msa_no_outgroup = abau_msa[c('ACICU_genome','AbauA_genome','AbauC_genome','AbauB_genome'),]
 
 </pre>
 <blockquote>
-<div>ii. Get variable positions</div></blockquote>
+<div><strong><em>ii. Get variable positions</em></strong></div></blockquote>
 <p>Next, we will get the variable positions, as before</p>
 <pre class="literal-block">
 
@@ -274,7 +276,7 @@ abau_no_outgroup_var_pos = colSums(abau_msa_no_outgroup_bin) &lt; 4
 
 </pre>
 <blockquote>
-<div>iii. Get non-gap positions</div></blockquote>
+<div><strong><em>iii. Get non-gap positions</em></strong></div></blockquote>
 <p>Next, we will get the core positions, as before</p>
 <pre class="literal-block">
 
@@ -282,7 +284,7 @@ abau_no_outgroup_non_gap_pos = colSums(as.character(abau_msa_no_outgroup) == '-'
 
 </pre>
 <blockquote>
-<div>iv. Create overall histogram of SNP density</div></blockquote>
+<div><strong><em>iv. Create overall histogram of SNP density</em></strong></div></blockquote>
 <p>Finally, create a histogram of SNP density across the genome. Does the density look even, or do you think there might be just a touch of recombination?</p>
 <pre class="literal-block">
 hist(which(abau_no_outgroup_var_pos &amp; abau_no_outgroup_non_gap_pos), 10000)
@@ -294,7 +296,7 @@ hist(which(abau_no_outgroup_var_pos &amp; abau_no_outgroup_non_gap_pos), 10000)
 <a class="reference external" href="index.html">[HOME]</a></p>
 <p>Now that we know there is recombination, we know that we need to filter out the recombinant regions to discern the true phylogenetic relationship among our strains. In fact, this is such an extreme case (~99% of variants of recombinant), that we could be totally misled without filtering recombinant regions. To accomplish this we will use the tool gubbins, which essentially relies on elevated regions of variant density to perform recombination filtering.</p>
 <blockquote>
-<div>i. Run gubbins on your fasta alignment</div></blockquote>
+<div><strong><em>i. Run gubbins on your fasta alignment</em></strong></div></blockquote>
 <p>Go back on flux and load modules required by gubbins</p>
 <!---
 Older version:
@@ -316,7 +318,7 @@ run_gubbins.py -v -f 50 -o Abau_AB0057_genome mauve_ECII_outgroup.fasta
 
 </pre>
 <blockquote>
-<div>ii. Create gubbins output figure</div></blockquote>
+<div><strong><em>ii. Create gubbins output figure</em></strong></div></blockquote>
 <p>Gubbins produces a series of output files, some of which can be run through another program to produce a visual display of filtered recombinant regions. Run the gubbins_drawer.py script to create a pdf visualization of recombinant regions.</p>
 <p>The inputs are:</p>
 <ol class="simple">
@@ -330,7 +332,7 @@ gubbins_drawer.py -t mauve_ECII_outgroup.final_tree.tre -o mauve_ECII_outgroup.r
 
 </pre>
 <blockquote>
-<div>iii. Download and view gubbins figure and filtered tree</div></blockquote>
+<div><strong><em>iii. Download and view gubbins figure and filtered tree</em></strong></div></blockquote>
 <p>Use cyberduck or scp to get gubbins output files into Abau_mauve on your local system</p>
 <pre class="literal-block">
 
@@ -357,8 +359,9 @@ To view sub-tree of interest click on “sub-tree” and select the sub-tree exc
 
 </pre>
 <p>How does the structure look different than the unfiltered tree?</p>
-<blockquote>
-<div>Note that turning back to the backstory of these isolates, Abau_B and Abau_C were both isolated first from the same patient. So this analysis supports that patient having imported both strains, which likely diverged at a prior hospital at which they resided.</div></blockquote>
+<ul class="simple">
+<li>Note that turning back to the backstory of these isolates, Abau_B and Abau_C were both isolated first from the same patient. So this analysis supports that patient having imported both strains, which likely diverged at a prior hospital at which they resided.</li>
+</ul>
 </div>
 <div class="section" id="create-annotated-publication-quality-trees-with-itol">
 <span id="create-annotated-publication-quality-trees-with-itol"></span><h2>Create annotated publication quality trees with <a class="reference external" href="http://itol.embl.de/">iTOL</a><a class="headerlink" href="#create-annotated-publication-quality-trees-with-itol" title="Permalink to this headline">¶</a></h2>
@@ -366,7 +369,7 @@ To view sub-tree of interest click on “sub-tree” and select the sub-tree exc
 <a class="reference external" href="index.html">[HOME]</a></p>
 <p>For the final exercise we will use a different dataset, composed of USA300 methicillin-resistant Staphylococcus aureus genomes. USA300 is a strain of growing concern, as it has been observed to cause infections in both hospitals and in otherwise healthy individuals in the community. An open question is whether there are sub-clades of USA300 in the hospital and the community, or if they are all the same. Here you will create an annotated phylogenetic tree of strains from the community and the hospital, to discern if these form distinct clusters.</p>
 <blockquote>
-<div>i. Download MRSA genome alignment from flux</div></blockquote>
+<div><strong><em>i. Download MRSA genome alignment from flux</em></strong></div></blockquote>
 <p>Use cyberduck or scp to get genomes onto your laptop</p>
 <pre class="literal-block">
 
@@ -380,7 +383,7 @@ scp username&#64;flux-xfer.arc-ts.umich.edu:/scratch/micro612w18_fluxod/username
 
 </pre>
 <blockquote>
-<div>ii. Look at SNP density for MRSA alignment in R</div></blockquote>
+<div><strong><em>ii. Look at SNP density for MRSA alignment in R</em></strong></div></blockquote>
 <p>Before we embark on our phylogenetic analysis, lets look at the SNP density to verify that there is no recombination</p>
 <pre class="literal-block">
 
@@ -392,7 +395,7 @@ hist(which(mrsa_var_pos), 10000)
 </pre>
 <p>Does it look like there is evidence of recombination?</p>
 <blockquote>
-<div>iii. Create fasta alignment with only variable positions</div></blockquote>
+<div><strong><em>iii. Create fasta alignment with only variable positions</em></strong></div></blockquote>
 <p>Next, lets create a new fasta alignment file containing only the variant positions, as this will be easier to deal with in Seaview</p>
 <pre class="literal-block">
 
@@ -400,7 +403,7 @@ write.dna(mrsa_msa[, mrsa_var_pos], file = '2016-3-9_KP_BSI_USA300_var_pos.fa', 
 
 </pre>
 <blockquote>
-<div>iv. Read alignment into Seaview and construct Neighbor Joining tree</div></blockquote>
+<div><strong><em>iv. Read alignment into Seaview and construct Neighbor Joining tree</em></strong></div></blockquote>
 <p>In the previous exercise, we used Seaview to look at a pre-existing tree, here we will use Seaview to create a tree from a
 multiple sequence alignment</p>
 <p>Read in multiple alignment of variable positions</p>
@@ -416,7 +419,8 @@ Go to Trees -&gt; select Distance Methods -&gt; BioNJ -&gt; (Select Bootstrap wi
 File -&gt; Save rooted tree
 </pre>
 <p>Note that in your research it is not a good idea to use these phylogenetic tools completely blind and I strongly encourage embarking on deeper learning yourself, or consulting with an expert before doing an analysis for a publication</p>
-<p>v. Read tree into iTOL</p>
+<blockquote>
+<div><strong><em>v. Read tree into iTOL</em></strong></div></blockquote>
 <pre class="literal-block">
 
 To make a prettier tree and add annotations we will use iTOL (http://itol.embl.de/). 
@@ -429,10 +433,11 @@ To load your tree, click on upload, and select the rooted tree you just created 
 <p>Explore different visualization options for your tree (e.g. make it circular, show bootstrap values, try collapsing nodes/branches)</p>
 <p>Note that you can always reset your tree if you are unhappy with the changes you’ve made</p>
 <blockquote>
-<div>vi. Add annotations to tree</div></blockquote>
+<div><strong><em>vi. Add annotations to tree</em></strong></div></blockquote>
 <p>One of the most powerful features of iTOL is its ability to overlay diverse types of descriptive meta-data on your tree (http://itol.embl.de/help.cgi#datasets). Here, we will overlay our data on whether an isolate was from a community or hospital infection. To do this simply drag-and-drop the annotation file (2016-3-9_KP_BSI_USA300_iTOL_HA_vs_CA.txt) on your tree and voila!</p>
-<blockquote>
-<div>Do community and hospital isolates cluster together, or are they inter-mixed?</div></blockquote>
+<ul class="simple">
+<li>Do community and hospital isolates cluster together, or are they inter-mixed?</li>
+</ul>
 </div>
 </div>
 

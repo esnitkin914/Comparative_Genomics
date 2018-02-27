@@ -36,7 +36,7 @@ Perform whole genome alignment with [Mauve](http://darlinglab.org/mauve/mauve.ht
 
 An alternative approach for identification of variants among genomes is to perform whole genome alignments of assemblies. If the original short read data is unavailable, this might be the only approach available to you. Typically, these programs don’t scale well to large numbers of genomes (e.g. > 100), but they are worth being familiar with. We will use the tool mauve for constructing whole genome alignments of our five A. baumannii genomes.
 
->i. Perform mauve alignment and transfer xmfa back to flux
+> ***i. Perform mauve alignment and transfer xmfa back to flux***
 
 Use cyberduck/scp to get genomes folder Abau_genomes onto your laptop
 
@@ -49,7 +49,7 @@ mkdir Abau_mauve
 
 cd Abau_mauve 
 
-> Now copy Abau_genomes folder residing in your day3_morn folder using scp or cyberduck:
+- Now copy Abau_genomes folder residing in your day3_morn folder using scp or cyberduck:
 
 scp -r username@flux-xfer.arc-ts.umich.edu:/scratch/micro612w18_fluxod/username/day3_morn/Abau_genomes ./
 
@@ -76,7 +76,7 @@ scp ~/Desktop/Abau_mauve/mauve_ECII_outgroup username@flux-xfer.arc-ts.umich.edu
 
 ```
  
->ii. Convert alignment to fasta format
+> ***ii. Convert alignment to fasta format***
 
 Mauve produces alignments in .xmfa format (use less to see what this looks like), which is not compatible with other programs we want to use. We will use a custom script convert_msa_format.pl to change the alignment format to fasta format
 
@@ -99,7 +99,7 @@ There are lots of options for phylogenetic analysis. Here, we will use the ape p
 
 Note that ape has a ton of useful functions for more sophisticated phylogenetic analyses!
 
->i. Get fasta alignment you just converted to your own computer using cyberduck or scp
+> ***i. Get fasta alignment you just converted to your own computer using cyberduck or scp***
 
 ```
 
@@ -110,7 +110,7 @@ scp username@flux-xfer.arc-ts.umich.edu:/scratch/micro612w18_fluxod/username/day
 
 ```
 
-ii. Read alignment into R
+> ***ii. Read alignment into R***
 
 Fire up RStudio, set your working directory to ~/Desktop/Abau_mauve/ or wherever you have downloaded mauve_ECII_outgroup.fasta file and install/load ape
 
@@ -124,7 +124,7 @@ library(ape)
 abau_msa = read.dna('mauve_ECII_outgroup.fasta', format = "fasta") 
 ```
 
->iii. Get variable positions
+> ***iii. Get variable positions***
 
 The DNA object created by read.dna can also be addressed as a matrix, where the columns are positions in the alignment and rows are your sequences. We will next treat our alignment as a matrix, and use apply and colSums to get positions in the alignment that vary among our sequences. Examine these commands in detail to understand how they are working together to give you a logical vector indicating which positions vary in your alignment.
 
@@ -135,7 +135,7 @@ abau_msa_bin = apply(abau_msa, 2, FUN = function(x){x == x[1]})
 abau_var_pos = colSums(abau_msa_bin) < 5
 ```
 
->iv. Get non-gap positions
+> ***iv. Get non-gap positions***
 
 For our phylogenetic analysis we want to focus on the core genome, so we will next identify positions in the alignment where all our genomes have sequence.
 
@@ -143,7 +143,7 @@ For our phylogenetic analysis we want to focus on the core genome, so we will ne
 non_gap_pos = colSums(as.character(abau_msa) == '-') == 0
 ```
 
->v. Count number of variants between sequences
+> ***v. Count number of variants between sequences***
 
 Now that we know which positions in the alignment are core and variable, we can extract these positions and count how many variants there are among our genomes. Do count pairwise variants we will use the dist.dna function in ape. The model parameter indicates that we want to compare sequences by counting differences. Print out the resulting matrix to see how different our genomes are.
 
@@ -154,7 +154,7 @@ var_count_matrix = dist.dna(abau_msa_var, model = "N")
 
 ```
 
->vi. Construct phylogenetic tree
+> ***vi. Construct phylogenetic tree***
 
 Now we are ready to construct our first phylogenetic tree! 
 
@@ -185,11 +185,11 @@ Perform SNP density analysis to discern evidence of recombination
 
 An often-overlooked aspect of a proper phylogenetic analysis is to exclude recombinant sequences. Homologous recombination in bacterial genomes is a mode of horizontal transfer, wherein genomic DNA is taken up and swapped in for a homologous sequence. The reason it is critical to account for these recombinant regions is that these horizontally acquired sequences do not represent the phylogenetic history of the strain of interest, but rather in contains information regarding the strain in which the sequence was acquired from. One simple approach for detecting the presence of recombination is to look at the density of variants across a genome. The existence of unusually high or low densities of variants is suggestive that these regions of aberrant density were horizontally acquired. Here we will look at our closely related A. baumannii genomes to see if there is evidence of aberrant variant densities.
 
->i. Subset sequences to exclude the out-group
+> ***i. Subset sequences to exclude the out-group***
 
 For this analysis we want to exclude the out-group, because we are interested in determining whether recombination would hamper our ability to reconstruct the phylogenetic relationship among our closely related set of genomes.  
 
->Note that the names of the sequences might be different for you, so check that if the command doesn’t work.
+- Note that the names of the sequences might be different for you, so check that if the command doesn’t work.
 
 ```
 
@@ -197,7 +197,7 @@ abau_msa_no_outgroup = abau_msa[c('ACICU_genome','AbauA_genome','AbauC_genome','
 
 ```
 
->ii. Get variable positions
+> ***ii. Get variable positions***
 
 Next, we will get the variable positions, as before
 
@@ -209,7 +209,7 @@ abau_no_outgroup_var_pos = colSums(abau_msa_no_outgroup_bin) < 4
 
 ```
 
->iii. Get non-gap positions
+> ***iii. Get non-gap positions***
 
 Next, we will get the core positions, as before
 
@@ -219,7 +219,7 @@ abau_no_outgroup_non_gap_pos = colSums(as.character(abau_msa_no_outgroup) == '-'
 
 ```
 
->iv. Create overall histogram of SNP density
+> ***iv. Create overall histogram of SNP density***
 
 Finally, create a histogram of SNP density across the genome. Does the density look even, or do you think there might be just a touch of recombination?
 
@@ -234,7 +234,7 @@ Perform recombination filtering with [Gubbins](https://www.google.com/search?q=g
 
 Now that we know there is recombination, we know that we need to filter out the recombinant regions to discern the true phylogenetic relationship among our strains. In fact, this is such an extreme case (~99% of variants of recombinant), that we could be totally misled without filtering recombinant regions. To accomplish this we will use the tool gubbins, which essentially relies on elevated regions of variant density to perform recombination filtering.
 
->i. Run gubbins on your fasta alignment
+> ***i. Run gubbins on your fasta alignment***
 
 Go back on flux and load modules required by gubbins
 
@@ -262,7 +262,7 @@ run_gubbins.py -v -f 50 -o Abau_AB0057_genome mauve_ECII_outgroup.fasta
 
 ```
 
->ii. Create gubbins output figure
+> ***ii. Create gubbins output figure***
 
 Gubbins produces a series of output files, some of which can be run through another program to produce a visual display of filtered recombinant regions. Run the gubbins_drawer.py script to create a pdf visualization of recombinant regions. 
 
@@ -279,7 +279,7 @@ The inputs are:
 gubbins_drawer.py -t mauve_ECII_outgroup.final_tree.tre -o mauve_ECII_outgroup.recombination.pdf mauve_ECII_outgroup.recombination_predictions.embl
 
 ```
->iii. Download and view gubbins figure and filtered tree
+> ***iii. Download and view gubbins figure and filtered tree***
 
 Use cyberduck or scp to get gubbins output files into Abau_mauve on your local system
 
@@ -316,7 +316,7 @@ To view sub-tree of interest click on “sub-tree” and select the sub-tree exc
 
 How does the structure look different than the unfiltered tree?
 
-> Note that turning back to the backstory of these isolates, Abau_B and Abau_C were both isolated first from the same patient. So this analysis supports that patient having imported both strains, which likely diverged at a prior hospital at which they resided.
+- Note that turning back to the backstory of these isolates, Abau_B and Abau_C were both isolated first from the same patient. So this analysis supports that patient having imported both strains, which likely diverged at a prior hospital at which they resided.
 
 Create annotated publication quality trees with [iTOL](http://itol.embl.de/)
 ------------------------------------------------------
@@ -325,7 +325,7 @@ Create annotated publication quality trees with [iTOL](http://itol.embl.de/)
 
 For the final exercise we will use a different dataset, composed of USA300 methicillin-resistant Staphylococcus aureus genomes. USA300 is a strain of growing concern, as it has been observed to cause infections in both hospitals and in otherwise healthy individuals in the community. An open question is whether there are sub-clades of USA300 in the hospital and the community, or if they are all the same. Here you will create an annotated phylogenetic tree of strains from the community and the hospital, to discern if these form distinct clusters.
 
->i. Download MRSA genome alignment from flux
+> ***i. Download MRSA genome alignment from flux***
 
 Use cyberduck or scp to get genomes onto your laptop
 
@@ -341,7 +341,7 @@ scp username@flux-xfer.arc-ts.umich.edu:/scratch/micro612w18_fluxod/username/day
 
 ```
 
->ii. Look at SNP density for MRSA alignment in R
+> ***ii. Look at SNP density for MRSA alignment in R***
 
 Before we embark on our phylogenetic analysis, lets look at the SNP density to verify that there is no recombination
 
@@ -356,7 +356,7 @@ hist(which(mrsa_var_pos), 10000)
 
 Does it look like there is evidence of recombination?
 
->iii. Create fasta alignment with only variable positions
+> ***iii. Create fasta alignment with only variable positions***
 
 Next, lets create a new fasta alignment file containing only the variant positions, as this will be easier to deal with in Seaview
 
@@ -366,7 +366,7 @@ write.dna(mrsa_msa[, mrsa_var_pos], file = '2016-3-9_KP_BSI_USA300_var_pos.fa', 
 
 ```
 
->iv. Read alignment into Seaview and construct Neighbor Joining tree
+> ***iv. Read alignment into Seaview and construct Neighbor Joining tree***
 
 In the previous exercise, we used Seaview to look at a pre-existing tree, here we will use Seaview to create a tree from a
 multiple sequence alignment 
@@ -391,7 +391,7 @@ File -> Save rooted tree
 
 Note that in your research it is not a good idea to use these phylogenetic tools completely blind and I strongly encourage embarking on deeper learning yourself, or consulting with an expert before doing an analysis for a publication
 
-v. Read tree into iTOL
+> ***v. Read tree into iTOL***
 
 ```
 
@@ -407,9 +407,9 @@ Explore different visualization options for your tree (e.g. make it circular, sh
 
 Note that you can always reset your tree if you are unhappy with the changes you’ve made
 
->vi. Add annotations to tree
+> ***vi. Add annotations to tree***
 
 One of the most powerful features of iTOL is its ability to overlay diverse types of descriptive meta-data on your tree (http://itol.embl.de/help.cgi#datasets). Here, we will overlay our data on whether an isolate was from a community or hospital infection. To do this simply drag-and-drop the annotation file (2016-3-9_KP_BSI_USA300_iTOL_HA_vs_CA.txt) on your tree and voila! 
 
-> Do community and hospital isolates cluster together, or are they inter-mixed?
+- Do community and hospital isolates cluster together, or are they inter-mixed?
 
