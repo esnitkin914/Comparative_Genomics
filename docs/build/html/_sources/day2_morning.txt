@@ -56,7 +56,7 @@ mkdir Rush_KPC_266_assembly_result
 
 Now, we will use a genome assembly tool called Spades for assembling the reads.
 
->ii. Test out Spades to make sure its in your path
+>ii. Test out Spades to make sure it's in your path
 
 To make sure that your paths are set up correctly, try running Spades with the –h (help) flag, which should produce usage instruction.
 
@@ -69,12 +69,12 @@ spades.py -h
 
 >iii. Submit a cluster job to assemble 
 
-Since it takes huge amount of memory and time to assemble genomes using spades, we will run a pbs script on cluster for this step.
+Since it takes a huge amount of memory and time to assemble genomes using spades, we will run a pbs script on the cluster for this step.
 
-Now, Open the spades.pbs file residing in day2_morning folder with nano and add the following spades command to the bottom of the file. Replace the EMAIL_ADDRESS in spades.pbs file with your actual email-address. This will make sure that whenever the job starts, aborts or ends, you will get an email notification.
+Now, open the spades.pbs file residing in the day2_morning folder with nano and add the following spades command to the bottom of the file. Replace the EMAIL_ADDRESS in spades.pbs file with your actual email-address. This will make sure that whenever the job starts, aborts or ends, you will get an email notification.
 
 ```
-> Open spades.pbs file using nano:
+> Open the spades.pbs file using nano:
 
 nano spades.pbs
 
@@ -103,7 +103,7 @@ Assembly evaluation using [QUAST](http://bioinf.spbau.ru/quast)
 [[back to top]](day2_morning.html)
 [[HOME]](index.html)
 
-The output of an assembler is a set of contigs (contiguous sequences), that are composed of the short reads that we fed in. Once we have an assembly we want to evaluate how good it is. This is somewhat qualitative, but there are some standard metrics that people use to quantify the quality of their assembly. Useful metrics include: i) number of contigs (the fewer the better), ii) N50 (the minimum contig size that at least 50% of your assembly belongs, the bigger the better). In general you want your assembly to be less than 200 contigs and have an N50 greater than 50 Kb, although these numbers of highly dependent on the properties of the assembled genome. 
+The output of an assembler is a set of contigs (contiguous sequences), that are composed of the short reads that we fed in. Once we have an assembly we want to evaluate how good it is. This is somewhat qualitative, but there are some standard metrics that people use to quantify the quality of their assembly. Useful metrics include: i) number of contigs (the fewer the better), ii) N50 (the minimum contig size that at least 50% of your assembly belongs, the bigger the better). In general you want your assembly to be less than 200 contigs and have an N50 greater than 50 Kb, although these numbers are highly dependent on the properties of the assembled genome. 
 
 To evaluate some example assemblies we will use the tool quast. Quast produces a series of metrics describing the quality of your genome assemblies. 
 
@@ -125,27 +125,27 @@ QUAST creates output in different formats such as html, pdf and text. Now lets c
 less quast/report.txt
 ```
 
-Check the difference between each assembly statistics. Also check different types of report it generated.
+Check the difference between the different assembly statistics. Also check the different types of report it generated.
 
 Generating multiple sample reports using [multiqc](http://multiqc.info/)
 --------------------------------------------------
 
 ![alt tag](multiqc.jpeg)
 
-Lets imagine a real life scenario where you are working on a project which requires you to analyze and process hundreds of samples. Having a few samples with extremely bad quality is a very commonplace. including these bad samples into your analysis without adjusting their quality threshold can have a profound effect on downstream analysis and interpretations. 
+Let's imagine a real-life scenario where you are working on a project which requires you to analyze and process hundreds of samples. Having a few samples with extremely bad quality is very commonplace. Including these bad samples into your analysis without adjusting their quality threshold can have a profound effect on downstream analysis and interpretations. 
 
-> Question How will you find those bad apples?  
+> Question: How will you find those bad apples?  
 
-Yesterday, we learned how to assess and control the quality of samples as well as screen for contaminants. But the problem with such tools or any other tools is, they work on per-sample basis and produce only single report/logs per sample. Therefore, it becomes cumbersome to dig through each sample reports and make appropriate quality control calls.  
+Yesterday, we learned how to assess and control the quality of samples as well as screen for contaminants. But the problem with such tools or any other tools is, they work on per-sample basis and produce only single report/logs per sample. Therefore, it becomes cumbersome to dig through each sample's reports and make appropriate quality control calls.  
 
-Thankfully, there is a tool called multiqc which parses the results directory containing output from various tools, reads the log report created by those tools (ex: FastQC, FastqScreen, Quast), aggregates them and create a single report summarizing all of these results so that you have everything in one place. This helps greatly in identifying the outliers and removing or reanalysizing it individually.
+Thankfully, there is a tool called multiqc which parses the results directory containing output from various tools, reads the log report created by those tools (ex: FastQC, FastqScreen, Quast), aggregates them and creates a single report summarizing all of these results so that you have everything in one place. This helps greatly in identifying the outliers and removing or reanalysizing it individually.
 
-Lets take a look at one such mutiqc report that was generated using FastQC results on C. difficile samples.
+Lets take a look at one such mutiqc report that was generated using FastQC results on *C. difficile* samples.
 
-Download the html report Cdiff_multiqc_report.html from your day2_morn folder
+Download the html report Cdiff_multiqc_report.html from your day2_morn folder.
 
 ```
-#Note: Make sure you change 'username' in the below command with your 'uniqname'.
+#Note: Make sure you change 'username' in the below command to your 'uniqname'.
 
 scp username@flux-xfer.arc-ts.umich.edu:/scratch/micro612w18_fluxod/username/day2_morn/Cdiff_multiqc_report.html /path-to-local-directory/
 
@@ -188,15 +188,15 @@ scp username@flux-xfer.arc-ts.umich.edu:/scratch/micro612w18_fluxod/username/day
 
 ```
 
-The report contains Assembly, Fastq Screen and FastQC report for a mixture of 51 organism sequence data. Sample names for Assembly statistics ends with "l500_contigs".
+The report contains the Assembly, Fastq Screen and FastQC report for a mixture of 51 organisms' sequence data. Sample names for Assembly statistics ends with "l500_contigs".
 
-> Question: Play around with General statistics table by sorting different columns. (click on a column header). To view just the assembly statistics, click on N50 column header. Which sample has the worst N50 value? what do you think must be the reason?
+> Question: Play around with the General statistics table by sorting different columns. (click on a column header). To view just the assembly statistics, click on the N50 column header. Which sample has the worst N50 value? What do you think must be the reason?
 
-> Question? Which two sample's genome length i.e column Length(Mbp) stand out from all the other genome lengths? What is their GC %? What about their FastQ Screen result?
+> Question: Which two sample's genome length i.e column Length (Mbp) stand out from all the other genome lengths? What is their GC %? What about their FastQ Screen result?
 
-> Question? What about Number of Contigs section? Are you getting reasonable number of contigs or is there any bad assembly?
+> Question: What about Number of Contigs section? Are you getting reasonable number of contigs or is there any bad assembly?
 
-> Question? Any sample's quality stand from the rest of the bunch?
+> Question: Any sample's quality stand out from the rest of the bunch?
 
 
 Compare assembly to reference genome and post-assembly genome improvement
@@ -204,7 +204,7 @@ Compare assembly to reference genome and post-assembly genome improvement
 [[back to top]](day2_morning.html)
 [[HOME]](index.html)
 
-Now that we feel confident in our assembly, lets compare it to our reference to see if we can identify any large insertions/deletions using a graphical user interface called Artemis Comparison Tool (ACT) for visualization. 
+Now that we feel confident in our assembly, let's compare it to our reference to see if we can identify any large insertions/deletions using a graphical user interface called Artemis Comparison Tool (ACT) for visualization. 
 
 <!---
 changed on 23 feb 2018
@@ -259,7 +259,7 @@ Click Apply button
 
 In order to simplify the comparison between assembly and reference, we first need to orient the order of the contigs to reference. 
 
-i. Run abacas to orient contigs to reference
+i. Run abacas to orient contigs to the reference
 
 To orient our contigs relative to the reference we will use a tool called abacas. [ABACAS](http://www.sanger.ac.uk/science/tools/pagit) aligns contigs to a reference genome and then stitches them together to form a “pseudo-chromosome”. 
 
@@ -340,7 +340,7 @@ Map reads to the final ordered assembly
 
 You already know the drill/steps involved in reads mapping. Here, we will map the reads to the final ordered assembly genome instead of KPNIH1.fasta.
 
-First create bwa index of ordered fasta file.
+First create a bwa index of the ordered fasta file.
 
 ```
 > Only proceed further if everything worked uptil now. Make sure you are in day2_morn directory.
@@ -400,7 +400,7 @@ Genome Annotation
 
 **Identify protein-coding genes with [Prokka](http://www.vicbioinformatics.com/software.prokka.shtml)**
 
-From our ACT comparison of our assembly and the reference we can clearly see that there is unique sequence in our assembly. However, we still don’t know what that sequence encodes! To try to get some insight into the sorts of genes unique to our assembly we will run a genome annotation pipeline called Prokka. Prokka works by first running denovo gene prediction algorithms to identify protein coding genes and tRNA genes. Next, for protein coding genes Prokka runs a series of comparisons against databases of annotated genes to generate putative annotations for your genome. 
+From our ACT comparison of our assembly and the reference we can clearly see that there is unique sequence in our assembly. However, we still don’t know what that sequence encodes! To try to get some insight into the sorts of genes unique to our assembly we will run a genome annotation pipeline called Prokka. Prokka works by first running *de novo* gene prediction algorithms to identify protein coding genes and tRNA genes. Next, for protein coding genes Prokka runs a series of comparisons against databases of annotated genes to generate putative annotations for your genome. 
 
 >i. Run Prokka on assembly
 

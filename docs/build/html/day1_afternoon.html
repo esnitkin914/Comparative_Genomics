@@ -138,7 +138,7 @@ For transcriptomic data (RNA-Seq): use Splice-aware Mapper such as Tophat. (Not 
 <p>Read Mapping is a time-consuming step that involves searching the reference and finding the optimal location for the alignment for millions of reads. Creating an index file of a reference sequence for quick lookup/search operations significantly decreases the time required for read alignment. Imagine indexing a genome sequence like the index at the end of a book. If you want to know on which page a word appears or a chapter begins, it is much more efficient to look it up in a pre-built index than going through every page of the book. Similarly, an index of a large DNA sequence allows aligners to rapidly find shorter sequences embedded within it.</p>
 <p>Note: each read mapper has its own unique way of indexing a reference genome and therefore the reference index created by BWA cannot be used for Bowtie. (Most Bioinformatics tools nowadays require some kind of indexing or reference database creation)</p>
 <blockquote>
-<div>i. To create BWA index of Reference, you need to run following command.</div></blockquote>
+<div><strong><em>i. To create BWA index of Reference, you need to run following command.</em></strong></div></blockquote>
 <p>Start a flux interactive session</p>
 <pre class="literal-block">
 iflux
@@ -163,7 +163,7 @@ bwa index KPNIH1.fasta
 samtools faidx KPNIH1.fasta
 </pre>
 <blockquote>
-<div>ii. Align reads to reference and redirect the output into SAM file</div></blockquote>
+<div><strong><em>ii. Align reads to reference and redirect the output into SAM file</em></strong></div></blockquote>
 <p>Quoting BWA:
 &#8220;BWA consists of three algorithms: BWA-backtrack, BWA-SW and BWA-MEM. The first algorithm is designed for Illumina sequence reads up to 100bp, while the rest two for longer sequences ranged from 70bp to 1Mbp. BWA-MEM and BWA-SW share similar features such as long-read support and split alignment, but BWA-MEM, which is the latest, is generally recommended for high-quality queries as it is faster and more accurate. BWA-MEM also has better performance than BWA-backtrack for 70-100bp Illumina reads.&#8221;</p>
 <p>For other algorithms employed by BWA, you can refer to BWA <a class="reference external" href="http://bio-bwa.sourceforge.net/bwa.shtml">manual</a></p>
@@ -178,7 +178,7 @@ bwa mem -M -R &quot;&#64;RG\tID:96\tSM:Rush_KPC_266_1_combine.fastq.gz\tLB:1\tPL
 <p>You can extract this information from fastq read header. (&#64;M02127:96:000000000-AG04W:1:1101:13648:1481 1:N:0:44)</p>
 <p><strong>3. SAM/BAM manipulation and variant calling using <a class="reference external" href="http://www.htslib.org/doc/samtools.html">Samtools</a></strong></p>
 <blockquote>
-<div>i. Change directory to results folder and look for BWA output:</div></blockquote>
+<div><strong><em>i. Change directory to results folder and look for BWA output:</em></strong></div></blockquote>
 <pre class="literal-block">
 cd Rush_KPC_266_varcall_result
 
@@ -209,14 +209,14 @@ M02127:96:000000000-AG04W:1:1101:23094:1725     99      gi|661922017|gb|CP008827
 <p>MD tag tells you what positions in the read alignment are different from reference base and is used by variant callers to call SNP&#8217;s. For example, The tag &#8220;MD:Z:161G77A10&#8221; implies that position 162 in the read carries a different base whereas the reference genome carries base &#8220;G&#8221;</p>
 <p>AS is an alignment score and XS:i:0 is an suboptimal alignment score.</p>
 <blockquote>
-<div>ii. Convert SAM to BAM using SAMTOOLS:</div></blockquote>
+<div><strong><em>ii. Convert SAM to BAM using SAMTOOLS:</em></strong></div></blockquote>
 <p>BAM is the compressed binary equivalent of SAM but are usually quite smaller in size than SAM format. Since, parsing through a SAM format is slow, Most of the downstream tools require SAM file to be converted to BAM so that it can be easily sorted and indexed.</p>
 <p>The below command will ask samtools to convert SAM format(-S) to BAM format(-b)</p>
 <pre class="literal-block">
 samtools view -Sb Rush_KPC_266__aln.sam &gt; Rush_KPC_266__aln.bam
 </pre>
 <blockquote>
-<div>iii. Sort BAM file using SAMTOOLS:</div></blockquote>
+<div><strong><em>iii. Sort BAM file using SAMTOOLS:</em></strong></div></blockquote>
 <p>Most of the downstream tools such as GATK requires your BAM file to be indexed and sorted by reference genome positions.</p>
 <p>Now before indexing this BAM file, we will sort the data by positions(default) using samtools. Some RNA Seq/Gene expression tools require it to be sorted by read name which is achieved by passing -n flag.</p>
 <pre class="literal-block">
@@ -228,7 +228,7 @@ samtools sort Rush_KPC_266__aln.bam Rush_KPC_266__aln_sort
 <p>Picard identifies duplicates by searching reads that have same start position on reference or in PE reads same start for both ends. It will choose a representative from each group of duplicate reads based on best base quality scores and other criteria and retain it while removing other duplicates. This step plays a significant role in removing false positive variant calls(such as sequencing error) during variant calling that are represented by PCR duplicate reads.</p>
 <p><img alt="alt tag" src="_images/picard.png" /></p>
 <blockquote>
-<div>i. Create a dictionary for reference fasta file required by PICARD</div></blockquote>
+<div><strong><em>i. Create a dictionary for reference fasta file required by PICARD</em></strong></div></blockquote>
 <p>Make sure you are in Rush_KPC_266_varcall_result directory and are giving proper reference genome path (day1_after directory).</p>
 <pre class="literal-block">
 
@@ -236,7 +236,7 @@ java -jar /scratch/micro612w18_fluxod/shared/bin/picard-tools-1.130/picard.jar C
 
 </pre>
 <blockquote>
-<div>ii. Run PICARD for removing duplicates.</div></blockquote>
+<div><strong><em>ii. Run PICARD for removing duplicates.</em></strong></div></blockquote>
 <pre class="literal-block">
 
 java -jar /scratch/micro612w18_fluxod/shared/bin/picard-tools-1.130/picard.jar MarkDuplicates REMOVE_DUPLICATES=true INPUT=Rush_KPC_266__aln_sort.bam OUTPUT=Rush_KPC_266__aln_marked.bam METRICS_FILE=Rush_KPC_266__markduplicates_metrics CREATE_INDEX=true VALIDATION_STRINGENCY=LENIENT
@@ -245,7 +245,7 @@ java -jar /scratch/micro612w18_fluxod/shared/bin/picard-tools-1.130/picard.jar M
 <p>The output of Picard remove duplicate step is a new bam file &#8220;Rush_KPC_266__aln_marked.bam&#8221; without PCR duplicates.</p>
 <p>You will need to index this new marked.bam file for further processing.</p>
 <blockquote>
-<div>iii. Index these marked bam file again using SAMTOOLS(For input in Artemis later)</div></blockquote>
+<div><strong><em>iii. Index these marked bam file again using SAMTOOLS(For input in Artemis later)</em></strong></div></blockquote>
 <pre class="literal-block">
 samtools index Rush_KPC_266__aln_marked.bam
 </pre>
@@ -263,7 +263,7 @@ less Rush_KPC_266__markduplicates_metrics
 <span id="generate-alignment-statistics"></span><h2>Generate Alignment Statistics<a class="headerlink" href="#generate-alignment-statistics" title="Permalink to this headline">¶</a></h2>
 <p>Often, while analyzing sequencing data, we are required to make sure that our analysis steps are correct. Some statistics about our analysis will help us in making that decision. So Lets try to get some statistics about various outputs that were created using the above steps and check if everything makes sense.</p>
 <blockquote>
-<div>i. Collect Alignment statistics using Picard</div></blockquote>
+<div><strong><em>i. Collect Alignment statistics using Picard</em></strong></div></blockquote>
 <p>Run the below command on your marked.bam file</p>
 <pre class="literal-block">
 
@@ -275,8 +275,9 @@ java -jar /scratch/micro612w18_fluxod/shared/bin/picard-tools-1.130/picard.jar C
 <pre class="literal-block">
 grep 'CATEGORY' AlignmentSummaryMetrics.txt | tr '\t' '\n' | cat --number
 </pre>
-<blockquote>
-<div>Question: Extract alignment percentage from AlignmentSummaryMetrics file. (% of reads aligned to reference genome)</div></blockquote>
+<ul class="simple">
+<li>Question: Extract alignment percentage from AlignmentSummaryMetrics file. (% of reads aligned to reference genome)</li>
+</ul>
 <!---
 awk -F'\t' '{print $7}' AlignmentSummaryMetrics.txt
 --><pre class="literal-block">
@@ -284,7 +285,7 @@ grep -v '#' AlignmentSummaryMetrics.txt | cut -f7
 </pre>
 <p>Try to explore other statistics and their definitions from Picard AlignmentSummaryMetrics <a class="reference external" href="http://broadinstitute.github.io/picard/picard-metric-definitions.html#AlignmentSummaryMetrics">link</a></p>
 <blockquote>
-<div>ii. Estimate read coverage/read depth using Picard</div></blockquote>
+<div><strong><em>ii. Estimate read coverage/read depth using Picard</em></strong></div></blockquote>
 <p>Read coverage/depth describes the average number of reads that align to, or &#8220;cover,&#8221; known reference bases. The sequencing depth is one of the most crucial issue in the design of next-generation sequencing experiments. This <a class="reference external" href="https://www.nature.com/articles/nrg3642">paper</a> review current guidelines and precedents on the issue of coverage, as well as their underlying considerations, for four major study designs, which include de novo genome sequencing, genome resequencing, transcriptome sequencing and genomic location analyses</p>
 <p>After read mapping, it is important to make sure that the reference bases are represented by enough read depth before making any inferences such as variant calling.</p>
 <pre class="literal-block">
@@ -297,8 +298,9 @@ java -jar /scratch/micro612w18_fluxod/shared/bin/picard-tools-1.130/picard.jar C
 grep 'GENOME_TERRITORY' WgsMetrics.txt | tr '\t' '\n' | cat --number
 </pre>
 <p>Since &#8220;WgsMetrics.txt&#8221; also contains histogram information, we will run commands on only the first few lines to extract information.</p>
-<blockquote>
-<div>Question: Extract mean coverage information from &#8220;WgsMetrics.txt&#8221;</div></blockquote>
+<ul class="simple">
+<li>Question: Extract mean coverage information from &#8220;WgsMetrics.txt&#8221;</li>
+</ul>
 <!---
 sed -n 7,8p WgsMetrics.txt | awk -F'\t' '{print $2}'
 --><pre class="literal-block">
@@ -363,7 +365,7 @@ grep -v '#' Rush_KPC_266__aln_mpileup_raw.vcf | grep 'INDEL' | wc -l
 </pre>
 <p><strong>2. Variant filtering and processed file generation using GATK and vcftools</strong></p>
 <blockquote>
-<div>i. Variant filtering using <a class="reference external" href="https://www.broadinstitute.org/gatk/guide/tooldocs/org_broadinstitute_gatk_tools_walkers_filters_VariantFiltration.php">GATK</a>:</div></blockquote>
+<div><strong><em>i. Variant filtering using <a class="reference external" href="https://www.broadinstitute.org/gatk/guide/tooldocs/org_broadinstitute_gatk_tools_walkers_filters_VariantFiltration.php">GATK</a>:</em></strong></div></blockquote>
 <p>There are various tools that can you can try for variant filteration such as vcftools, GATK, vcfutils etc. Here we will use GATK VariantFiltration utility to filter out low confidence variants.</p>
 <p>Run this command on raw vcf file Rush_KPC_266__aln_mpileup_raw.vcf.</p>
 <pre class="literal-block">
@@ -383,9 +385,9 @@ java -jar /scratch/micro612w18_fluxod/shared/bin/GenomeAnalysisTK-3.3-0/GenomeAn
 grep 'pass_filter' Rush_KPC_266__filter_gatk.vcf | head
 
 </pre>
-<p>Caveat: This filter criteria should be applied carefully after giving some thought to the type of library, coverage, average mapping quality, type of analysis and other such requirements.</p>
+<p><strong><em>Caveat: This filter criteria should be applied carefully after giving some thought to the type of library, coverage, average mapping quality, type of analysis and other such requirements.</em></strong></p>
 <blockquote>
-<div>ii. Remove indels and keep only SNPS that passed our filter criteria using <a class="reference external" href="http://vcftools.sourceforge.net/man_latest.html">the vcftools manual</a>:</div></blockquote>
+<div><strong><em>ii. Remove indels and keep only SNPS that passed our filter criteria using <a class="reference external" href="http://vcftools.sourceforge.net/man_latest.html">the vcftools manual</a>:</em></strong></div></blockquote>
 <p>vcftools is a program package that is especially written to work with vcf file formats. It thus saves your precious time by making available all the common operations that you would like to perform on the vcf file using a single command. One such operation is removing INDEL information from a vcf file.</p>
 <p>Now, let&#8217;s remove indels from our final vcf file and keep only variants that passed our filter criteria (positions with pass_filter in their FILTER column).</p>
 <pre class="literal-block">
@@ -409,23 +411,23 @@ Check the fasta header and change it using sed.
 head -n1 Rush_KPC_266__consensus.fa
 sed -i 's/>.*/>Rush_KPC_266_/g' Rush_KPC_266__consensus.fa 
 ```
---><p><strong>3. Variant Annotation using snpEff</strong></p>
+--><p><strong><em>3. Variant Annotation using snpEff</em></strong></p>
 <p>Variant annotation is one of the crucial steps in any variant calling pipeline. Most of the variant annotation tools create their own database or use an external one to assign function and predict the effect of variants on genes. We will try to touch base on some basic steps of annotating variants in our vcf file using snpEff.</p>
 <p>You can annotate these variants before performing any filtering steps that we did earlier or you can decide to annotate just the final filtered variants.</p>
 <p>snpEff contains a database of about 20,000 reference genomes built from trusted and public sources. Lets check if snpEff contains a database of our reference genome.</p>
 <blockquote>
-<div>i. Check snpEff internal database for your reference genome:</div></blockquote>
+<div><strong><em>i. Check snpEff internal database for your reference genome:</em></strong></div></blockquote>
 <div class="highlight-"><div class="highlight"><pre>java -jar /scratch/micro612w18_fluxod/shared/bin/snpEff/snpEff.jar databases | grep &#39;kpnih1&#39;
 </pre></div>
 </div>
 <p>Note down the genome id for your reference genome KPNIH1. In this case: GCA_000281535.2.29</p>
 <blockquote>
-<div>ii. Change the chromosome name in the vcf file to ‘Chromosome’ for snpEff reference database compatibility.</div></blockquote>
+<div><strong><em>ii. Change the chromosome name in the vcf file to ‘Chromosome’ for snpEff reference database compatibility.</em></strong></div></blockquote>
 <pre class="literal-block">
 sed -i 's/gi.*|/Chromosome/g' Rush_KPC_266__filter_gatk.vcf
 </pre>
 <blockquote>
-<div>iii. Run snpEff for variant annotation.</div></blockquote>
+<div><strong><em>iii. Run snpEff for variant annotation.</em></strong></div></blockquote>
 <pre class="literal-block">
 
 java -jar /scratch/micro612w18_fluxod/shared/bin/snpEff/snpEff.jar -onlyProtein -no-upstream -no-downstream  -no-intergenic -v GCA_000281535.2.29 Rush_KPC_266__filter_gatk.vcf &gt; Rush_KPC_266__filter_gatk_ann.vcf -csvStats Rush_KPC_266__filter_gatk_stats
@@ -466,16 +468,16 @@ grep '^Chromosome.*pass_filter' Rush_KPC_266__filter_gatk_ann.vcf | grep 'INDEL'
 <a class="reference external" href="index.html">[HOME]</a></p>
 <p>While these various statistical/text analyses are helpful, visualization of all of these various output files can help in making some significant decisions and inferences about your entire analysis. There are a wide variety of visualization tools out there that you can choose from for this purpose.</p>
 <p>We will be using <a class="reference external" href="http://www.sanger.ac.uk/science/tools/artemis">Artemis</a> here, developed by the Sanger Institute for viewing BAM and vcf files for manual inspection of some of the variants.</p>
-<blockquote>
-<div>Required Input files:</div></blockquote>
 <ul class="simple">
-<li>KPNIH1 reference fasta</li>
-<li>KPNIH1 genbank file</li>
-<li>Rush_KPC_266__aln_marked.bam</li>
-<li>Rush_KPC_266__aln_marked.bam.bai</li>
-<li>Rush_KPC_266__filter_gatk_ann.vcf.gz</li>
-<li>Rush_KPC_266__filter_gatk_ann.vcf.gz.tbi</li>
+<li><strong><em>Required Input files:</em></strong></li>
 </ul>
+<blockquote>
+<div>KPNIH1 reference fasta
+KPNIH1 genbank file
+Rush_KPC_266__aln_marked.bam
+Rush_KPC_266__aln_marked.bam.bai
+Rush_KPC_266__filter_gatk_ann.vcf.gz
+Rush_KPC_266__filter_gatk_ann.vcf.gz.tbi</div></blockquote>
 <p>Let&#8217;s make a seperate folder (make sure you are in the Rush_KPC_266_varcall_result folder) for the files that we need for visualization and copy it to that folder</p>
 <pre class="literal-block">
 
@@ -503,31 +505,31 @@ scp -r username&#64;flux-xfer.arc-ts.umich.edu:/scratch/micro612w18_fluxod/usern
 #You can use ~/Desktop/ as your local directory path
 </pre>
 <p>Start Artemis.</p>
-<p>Set your working directory to Artemis_files (The Artemis_files folder that you copied to your local system) by clicking the browse button  and click OK.</p>
+<p>Set your working directory to Artemis_files (the Artemis_files folder that you copied to your local system) by clicking the browse button  and click OK.</p>
 <p>Now go to the top left File options and select Open File Manager. You should see the folder Artemis_files. Expand it and select KPNIH.gb file. A new window should open displaying your features stored in a genbank file.</p>
-<p>Now open BAM file by selecting File (Top left corner) -&gt; Read BAM/VCF file -&gt; Select -&gt; Rush_KPC_266__aln_marked.bam -&gt; OK</p>
-<p>Reads aligned to your reference are displayed as stacked at the top panel of Artemis. The reads are colour coded so that paired reads are blue and those with an inversion are red. Reads that do not have a mapped mate are black and are optionally shown in the inferred insert size view. In the stack view, duplicated reads that span the same region are collapsed into one green line.</p>
-<p>Now right click on any of the stacked reads and Go to Graph and select Coverage(screenshot below).</p>
-<p>Now right click on any of the stacked reads and Go to Show and select SNP marks to show SNP&#8217;s in red marks.</p>
+<p>Now open the BAM file by selecting File (Top left corner) -&gt; Read BAM/VCF file -&gt; Select -&gt; Rush_KPC_266__aln_marked.bam -&gt; OK</p>
+<p>Reads aligned to your reference are displayed as stacked at the top panel of Artemis. The reads are color-coded so that paired reads are blue and those with an inversion are red. Reads that do not have a mapped mate are black and are optionally shown in the inferred insert size view. In the stack view, duplicated reads that span the same region are collapsed into one green line.</p>
+<p>Now right click on any of the stacked reads and Go to Graph and select Coverage (screenshot below).</p>
+<p>Now right click on any of the stacked reads and Go to Show and select SNP marks to show SNPs in red marks.</p>
 <p><img alt="alt tag" src="_images/select_graph.png" /></p>
 <p>Follow the same procedure and select SNP graph. Adjust the gene features panel height to show all the graph in a window.</p>
 <p><img alt="alt tag" src="_images/graphs.png" /></p>
 <p>Play around by moving the genbank panel cursor to look at coverage and SNP density across the genome. This will let you look at any regions where the coverage or SNP density is unusually high or low.</p>
 <p>If you click a read, its mate pair will also be selected. If the cursor hovers over a read for long enough details of that read will appear in a small box. For more details of the read, right-click and select &#8216;Show details of: READ NAME&#8217; (last option in list) from the
-menu.(screenshot below) This will open up a new window giving you some useful details such as mapping quality, coordinates etc.</p>
+menu (screenshot below). This will open up a new window giving you some useful details such as mapping quality, coordinates etc.</p>
 <p><img alt="alt tag" src="_images/read_details.png" /></p>
-<p>The snps are denoted by red marks as observed inside the reads. Go to one of the SNPs in VCF file(Position: 50195) by directly navigating to the position. For this, select Goto at the top -&gt; select Navigator -&gt; Type the position in Goto Base box</p>
-<p>You will Notice a spike in the middle of the SNP graph window. This is one of the SNPs that passed all our filter criteria. (Screenshot)</p>
+<p>The snps are denoted by red marks as observed inside the reads. Go to one of the SNPs in the VCF file (Position: 50195) by directly navigating to the position. For this, select Goto at the top -&gt; select Navigator -&gt; Type the position in Goto Base box</p>
+<p>You will notice a spike in the middle of the SNP graph window. This is one of the SNPs that passed all our filter criteria. (Screenshot)</p>
 <p><img alt="alt tag" src="_images/spike_true.png" /></p>
-<p>Lets try to see an example of HET variant. Variant positions where more than one allele(variants) with suffficiently high read depth are observed are considered as HET type variant.</p>
-<p>For this, click on Goto option at the top and select navigator. Type 321818 in Goto Base box and click Goto.</p>
-<p>You will see a thick spike in the SNP graph as well as thick red vertical line in BAM panel. Also notice the sudden spike in the coverage for this particular region compared to its flanking region(Region before and after a selected region). The coverage here is more than 300 which is unusually high compared to the entire genome coverage. This means that more than one allele with high quality and depth were observed at these positions so we cannot decide which one of these is a true variant. We removed these types of variants during our Variant Filteration step using the criteria FQ. (If the FQ is unusually high, it is suggestive of HET variant and negative FQ value is a suggestive of true variant as observed in the mapped reads)</p>
+<p>Lets try to see an example of HET variant. Variant positions where more than one allele (variant) with sufficiently high read depth are observed are considered HET type variants.</p>
+<p>For this, click on tje Goto option at the top and select navigator. Type 321818 in Goto Base box and click Goto.</p>
+<p>You will see a thick spike in the SNP graph as well as thick red vertical line in BAM panel. Also notice the sudden spike in the coverage for this particular region compared to its flanking region (the region before and after a selected region). The coverage here is more than 300 which is unusually high compared to the entire genome coverage. This means that more than one allele with high quality and depth were observed at these positions so we cannot decide which one of these is a true variant. We removed these types of variants during our Variant Filteration step using the criteria FQ. (If the FQ is unusually high, it is suggestive of a HET variant and negative FQ value is a suggestive of true variant as observed in the mapped reads)</p>
 <p><img alt="alt tag" src="_images/HET_variant.png" /></p>
-<p>Now select the gene right below this spiked region. Right click on this gene(KPNIH1_RS01560) and select Zoom to Selection.</p>
+<p>Now select the gene right below this spiked region. Right click on this gene (KPNIH1_RS01560) and select Zoom to Selection.</p>
 <p><img alt="alt tag" src="_images/HET_variant_gene_selected.png" /></p>
 <p>Check the details about gene by selecting View -&gt; Selected Features</p>
-<p>You can inspect these type of HET variants later for any gene duplication or copy number analysis (by extracting variant positions with high FQ values). Addition of these details will give a better resolution while inferring Phylogenetic trees.</p>
-<p>Play around with Artemis to look at what other kind of information you can find from these BAM and vcf files. Also refer to the manual at Artemis <a class="reference external" href="http://www.sanger.ac.uk/science/tools/artemis">Homepage</a> for full information about its usage.</p>
+<p>You can inspect these type of HET variants later for any gene duplication or copy number analysis (by extracting variant positions with high FQ values). Addition of these details will give a better resolution while inferring phylogenetic trees.</p>
+<p>Play around with Artemis to look at what other kind of information you can find from these BAM and vcf files. Also refer to the manual at the <a class="reference external" href="http://www.sanger.ac.uk/science/tools/artemis">Artemis Homepage</a> for full information about its usage.</p>
 <p><a class="reference external" href="day1_afternoon.html">[back to top]</a>
 <a class="reference external" href="index.html">[HOME]</a></p>
 </div>

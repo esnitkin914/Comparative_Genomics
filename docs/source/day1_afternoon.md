@@ -46,7 +46,7 @@ Read Mapping is a time-consuming step that involves searching the reference and 
 
 Note: each read mapper has its own unique way of indexing a reference genome and therefore the reference index created by BWA cannot be used for Bowtie. (Most Bioinformatics tools nowadays require some kind of indexing or reference database creation)
 
->i. To create BWA index of Reference, you need to run following command.
+> ***i. To create BWA index of Reference, you need to run following command.***
 
 Start a flux interactive session
 
@@ -80,7 +80,7 @@ Also go ahead and create fai index file using samtools required by GATK in later
 samtools faidx KPNIH1.fasta
 ```
 
->ii. Align reads to reference and redirect the output into SAM file
+> ***ii. Align reads to reference and redirect the output into SAM file***
 
 Quoting BWA:
 "BWA consists of three algorithms: BWA-backtrack, BWA-SW and BWA-MEM. The first algorithm is designed for Illumina sequence reads up to 100bp, while the rest two for longer sequences ranged from 70bp to 1Mbp. BWA-MEM and BWA-SW share similar features such as long-read support and split alignment, but BWA-MEM, which is the latest, is generally recommended for high-quality queries as it is faster and more accurate. BWA-MEM also has better performance than BWA-backtrack for 70-100bp Illumina reads."
@@ -103,7 +103,7 @@ You can extract this information from fastq read header. (@M02127:96:000000000-A
 
 **3. SAM/BAM manipulation and variant calling using [Samtools](http://www.htslib.org/doc/samtools.html "Samtools Manual")**
 
->i. Change directory to results folder and look for BWA output:
+> ***i. Change directory to results folder and look for BWA output:***
 
 ```
 cd Rush_KPC_266_varcall_result
@@ -148,7 +148,7 @@ MD tag tells you what positions in the read alignment are different from referen
 
 AS is an alignment score and XS:i:0 is an suboptimal alignment score.
 
->ii. Convert SAM to BAM using SAMTOOLS:
+> ***ii. Convert SAM to BAM using SAMTOOLS:***
 
 BAM is the compressed binary equivalent of SAM but are usually quite smaller in size than SAM format. Since, parsing through a SAM format is slow, Most of the downstream tools require SAM file to be converted to BAM so that it can be easily sorted and indexed.
 
@@ -158,7 +158,7 @@ The below command will ask samtools to convert SAM format(-S) to BAM format(-b)
 samtools view -Sb Rush_KPC_266__aln.sam > Rush_KPC_266__aln.bam
 ```
 
->iii. Sort BAM file using SAMTOOLS:
+> ***iii. Sort BAM file using SAMTOOLS:***
 
 Most of the downstream tools such as GATK requires your BAM file to be indexed and sorted by reference genome positions.
 
@@ -178,7 +178,7 @@ Picard identifies duplicates by searching reads that have same start position on
 
 ![alt tag](picard.png)
 
->i. Create a dictionary for reference fasta file required by PICARD
+> ***i. Create a dictionary for reference fasta file required by PICARD***
 
 Make sure you are in Rush_KPC_266_varcall_result directory and are giving proper reference genome path (day1_after directory).
 
@@ -188,7 +188,7 @@ java -jar /scratch/micro612w18_fluxod/shared/bin/picard-tools-1.130/picard.jar C
 
 ```
 
->ii. Run PICARD for removing duplicates.
+> ***ii. Run PICARD for removing duplicates.***
 
 ```
 
@@ -200,7 +200,7 @@ The output of Picard remove duplicate step is a new bam file "Rush_KPC_266__aln_
 
 You will need to index this new marked.bam file for further processing.
 
->iii. Index these marked bam file again using SAMTOOLS(For input in Artemis later)
+> ***iii. Index these marked bam file again using SAMTOOLS(For input in Artemis later)***
 
 ```
 samtools index Rush_KPC_266__aln_marked.bam
@@ -222,7 +222,7 @@ Generate Alignment Statistics
 
 Often, while analyzing sequencing data, we are required to make sure that our analysis steps are correct. Some statistics about our analysis will help us in making that decision. So Lets try to get some statistics about various outputs that were created using the above steps and check if everything makes sense.
 
->i. Collect Alignment statistics using Picard
+> ***i. Collect Alignment statistics using Picard***
 
 Run the below command on your marked.bam file
 
@@ -239,7 +239,7 @@ The file AlignmentSummaryMetrics.txt contains many columns and at times it becom
 grep 'CATEGORY' AlignmentSummaryMetrics.txt | tr '\t' '\n' | cat --number
 ```
 
-> Question: Extract alignment percentage from AlignmentSummaryMetrics file. (% of reads aligned to reference genome)
+- Question: Extract alignment percentage from AlignmentSummaryMetrics file. (% of reads aligned to reference genome)
 
 <!---
 awk -F'\t' '{print $7}' AlignmentSummaryMetrics.txt
@@ -251,7 +251,7 @@ grep -v '#' AlignmentSummaryMetrics.txt | cut -f7
 
 Try to explore other statistics and their definitions from Picard AlignmentSummaryMetrics [link](http://broadinstitute.github.io/picard/picard-metric-definitions.html#AlignmentSummaryMetrics)
 
->ii. Estimate read coverage/read depth using Picard
+> ***ii. Estimate read coverage/read depth using Picard***
 
 Read coverage/depth describes the average number of reads that align to, or "cover," known reference bases. The sequencing depth is one of the most crucial issue in the design of next-generation sequencing experiments. This [paper](https://www.nature.com/articles/nrg3642) review current guidelines and precedents on the issue of coverage, as well as their underlying considerations, for four major study designs, which include de novo genome sequencing, genome resequencing, transcriptome sequencing and genomic location analyses 
 
@@ -273,7 +273,8 @@ grep 'GENOME_TERRITORY' WgsMetrics.txt | tr '\t' '\n' | cat --number
 Since "WgsMetrics.txt" also contains histogram information, we will run commands on only the first few lines to extract information.
 
 
-> Question: Extract mean coverage information from "WgsMetrics.txt"
+- Question: Extract mean coverage information from "WgsMetrics.txt"
+
 <!---
 sed -n 7,8p WgsMetrics.txt | awk -F'\t' '{print $2}'
 -->
@@ -354,7 +355,7 @@ grep -v '#' Rush_KPC_266__aln_mpileup_raw.vcf | grep 'INDEL' | wc -l
 ```
 **2. Variant filtering and processed file generation using GATK and vcftools**
 
->i. Variant filtering using [GATK](https://www.broadinstitute.org/gatk/guide/tooldocs/org_broadinstitute_gatk_tools_walkers_filters_VariantFiltration.php "GATK Variant Filteration"):
+> ***i. Variant filtering using [GATK](https://www.broadinstitute.org/gatk/guide/tooldocs/org_broadinstitute_gatk_tools_walkers_filters_VariantFiltration.php "GATK Variant Filteration"):***
 
 There are various tools that can you can try for variant filteration such as vcftools, GATK, vcfutils etc. Here we will use GATK VariantFiltration utility to filter out low confidence variants.
 
@@ -380,9 +381,9 @@ grep 'pass_filter' Rush_KPC_266__filter_gatk.vcf | head
 
 ```
 
-Caveat: This filter criteria should be applied carefully after giving some thought to the type of library, coverage, average mapping quality, type of analysis and other such requirements.
+***Caveat: This filter criteria should be applied carefully after giving some thought to the type of library, coverage, average mapping quality, type of analysis and other such requirements.***
 
->ii. Remove indels and keep only SNPS that passed our filter criteria using [the vcftools manual](http://vcftools.sourceforge.net/man_latest.html):
+> ***ii. Remove indels and keep only SNPS that passed our filter criteria using [the vcftools manual](http://vcftools.sourceforge.net/man_latest.html):***
 
 vcftools is a program package that is especially written to work with vcf file formats. It thus saves your precious time by making available all the common operations that you would like to perform on the vcf file using a single command. One such operation is removing INDEL information from a vcf file.
 
@@ -412,7 +413,7 @@ sed -i 's/>.*/>Rush_KPC_266_/g' Rush_KPC_266__consensus.fa
 ```
 -->
 
-**3. Variant Annotation using snpEff**
+***3. Variant Annotation using snpEff***
 
 Variant annotation is one of the crucial steps in any variant calling pipeline. Most of the variant annotation tools create their own database or use an external one to assign function and predict the effect of variants on genes. We will try to touch base on some basic steps of annotating variants in our vcf file using snpEff. 
 
@@ -420,19 +421,19 @@ You can annotate these variants before performing any filtering steps that we di
 
 snpEff contains a database of about 20,000 reference genomes built from trusted and public sources. Lets check if snpEff contains a database of our reference genome.
 
->i. Check snpEff internal database for your reference genome:
+> ***i. Check snpEff internal database for your reference genome:***
 
 ```     
 java -jar /scratch/micro612w18_fluxod/shared/bin/snpEff/snpEff.jar databases | grep 'kpnih1'
 ```
 Note down the genome id for your reference genome KPNIH1. In this case: GCA_000281535.2.29
 
->ii. Change the chromosome name in the vcf file to ‘Chromosome’ for snpEff reference database compatibility. 
+> ***ii. Change the chromosome name in the vcf file to ‘Chromosome’ for snpEff reference database compatibility.***
 
 ```
 sed -i 's/gi.*|/Chromosome/g' Rush_KPC_266__filter_gatk.vcf
 ```
->iii. Run snpEff for variant annotation.
+> ***iii. Run snpEff for variant annotation.***
 
 ```
 
@@ -485,13 +486,14 @@ While these various statistical/text analyses are helpful, visualization of all 
 We will be using [Artemis](http://www.sanger.ac.uk/science/tools/artemis) here, developed by the Sanger Institute for viewing BAM and vcf files for manual inspection of some of the variants.
 
 
-> Required Input files: 
-* KPNIH1 reference fasta 
-* KPNIH1 genbank file
-* Rush_KPC_266__aln_marked.bam 
-* Rush_KPC_266__aln_marked.bam.bai
-* Rush_KPC_266__filter_gatk_ann.vcf.gz 
-* Rush_KPC_266__filter_gatk_ann.vcf.gz.tbi
+- ***Required Input files:***
+
+> KPNIH1 reference fasta 
+> KPNIH1 genbank file
+> Rush_KPC_266__aln_marked.bam 
+> Rush_KPC_266__aln_marked.bam.bai
+> Rush_KPC_266__filter_gatk_ann.vcf.gz 
+> Rush_KPC_266__filter_gatk_ann.vcf.gz.tbi
 
 Let's make a seperate folder (make sure you are in the Rush_KPC_266_varcall_result folder) for the files that we need for visualization and copy it to that folder
 
@@ -527,17 +529,17 @@ scp -r username@flux-xfer.arc-ts.umich.edu:/scratch/micro612w18_fluxod/username/
 
 Start Artemis.
 
-Set your working directory to Artemis_files (The Artemis_files folder that you copied to your local system) by clicking the browse button  and click OK.
+Set your working directory to Artemis_files (the Artemis_files folder that you copied to your local system) by clicking the browse button  and click OK.
 
 Now go to the top left File options and select Open File Manager. You should see the folder Artemis_files. Expand it and select KPNIH.gb file. A new window should open displaying your features stored in a genbank file.
 
-Now open BAM file by selecting File (Top left corner) -> Read BAM/VCF file -> Select -> Rush_KPC_266__aln_marked.bam -> OK
+Now open the BAM file by selecting File (Top left corner) -> Read BAM/VCF file -> Select -> Rush_KPC_266__aln_marked.bam -> OK
 
-Reads aligned to your reference are displayed as stacked at the top panel of Artemis. The reads are colour coded so that paired reads are blue and those with an inversion are red. Reads that do not have a mapped mate are black and are optionally shown in the inferred insert size view. In the stack view, duplicated reads that span the same region are collapsed into one green line.
+Reads aligned to your reference are displayed as stacked at the top panel of Artemis. The reads are color-coded so that paired reads are blue and those with an inversion are red. Reads that do not have a mapped mate are black and are optionally shown in the inferred insert size view. In the stack view, duplicated reads that span the same region are collapsed into one green line.
 
-Now right click on any of the stacked reads and Go to Graph and select Coverage(screenshot below). 
+Now right click on any of the stacked reads and Go to Graph and select Coverage (screenshot below). 
 
-Now right click on any of the stacked reads and Go to Show and select SNP marks to show SNP's in red marks. 
+Now right click on any of the stacked reads and Go to Show and select SNP marks to show SNPs in red marks. 
 
 ![alt tag](select_graph.png)
 
@@ -548,33 +550,33 @@ Follow the same procedure and select SNP graph. Adjust the gene features panel h
 Play around by moving the genbank panel cursor to look at coverage and SNP density across the genome. This will let you look at any regions where the coverage or SNP density is unusually high or low.
 
 If you click a read, its mate pair will also be selected. If the cursor hovers over a read for long enough details of that read will appear in a small box. For more details of the read, right-click and select 'Show details of: READ NAME' (last option in list) from the
-menu.(screenshot below) This will open up a new window giving you some useful details such as mapping quality, coordinates etc. 
+menu (screenshot below). This will open up a new window giving you some useful details such as mapping quality, coordinates etc. 
 
 ![alt tag](read_details.png)
 
-The snps are denoted by red marks as observed inside the reads. Go to one of the SNPs in VCF file(Position: 50195) by directly navigating to the position. For this, select Goto at the top -> select Navigator -> Type the position in Goto Base box
+The snps are denoted by red marks as observed inside the reads. Go to one of the SNPs in the VCF file (Position: 50195) by directly navigating to the position. For this, select Goto at the top -> select Navigator -> Type the position in Goto Base box
 
-You will Notice a spike in the middle of the SNP graph window. This is one of the SNPs that passed all our filter criteria. (Screenshot)
+You will notice a spike in the middle of the SNP graph window. This is one of the SNPs that passed all our filter criteria. (Screenshot)
 
 ![alt tag](spike_true.png)
 
-Lets try to see an example of HET variant. Variant positions where more than one allele(variants) with suffficiently high read depth are observed are considered as HET type variant. 
+Lets try to see an example of HET variant. Variant positions where more than one allele (variant) with sufficiently high read depth are observed are considered HET type variants. 
 
-For this, click on Goto option at the top and select navigator. Type 321818 in Goto Base box and click Goto.
+For this, click on tje Goto option at the top and select navigator. Type 321818 in Goto Base box and click Goto.
 
-You will see a thick spike in the SNP graph as well as thick red vertical line in BAM panel. Also notice the sudden spike in the coverage for this particular region compared to its flanking region(Region before and after a selected region). The coverage here is more than 300 which is unusually high compared to the entire genome coverage. This means that more than one allele with high quality and depth were observed at these positions so we cannot decide which one of these is a true variant. We removed these types of variants during our Variant Filteration step using the criteria FQ. (If the FQ is unusually high, it is suggestive of HET variant and negative FQ value is a suggestive of true variant as observed in the mapped reads) 
+You will see a thick spike in the SNP graph as well as thick red vertical line in BAM panel. Also notice the sudden spike in the coverage for this particular region compared to its flanking region (the region before and after a selected region). The coverage here is more than 300 which is unusually high compared to the entire genome coverage. This means that more than one allele with high quality and depth were observed at these positions so we cannot decide which one of these is a true variant. We removed these types of variants during our Variant Filteration step using the criteria FQ. (If the FQ is unusually high, it is suggestive of a HET variant and negative FQ value is a suggestive of true variant as observed in the mapped reads) 
 
 ![alt tag](HET_variant.png)
 
-Now select the gene right below this spiked region. Right click on this gene(KPNIH1_RS01560) and select Zoom to Selection.
+Now select the gene right below this spiked region. Right click on this gene (KPNIH1_RS01560) and select Zoom to Selection.
 
 ![alt tag](HET_variant_gene_selected.png)
 
 Check the details about gene by selecting View -> Selected Features
 
-You can inspect these type of HET variants later for any gene duplication or copy number analysis (by extracting variant positions with high FQ values). Addition of these details will give a better resolution while inferring Phylogenetic trees.
+You can inspect these type of HET variants later for any gene duplication or copy number analysis (by extracting variant positions with high FQ values). Addition of these details will give a better resolution while inferring phylogenetic trees.
 
-Play around with Artemis to look at what other kind of information you can find from these BAM and vcf files. Also refer to the manual at Artemis [Homepage](http://www.sanger.ac.uk/science/tools/artemis) for full information about its usage. 
+Play around with Artemis to look at what other kind of information you can find from these BAM and vcf files. Also refer to the manual at the [Artemis Homepage](http://www.sanger.ac.uk/science/tools/artemis) for full information about its usage. 
 
 [[back to top]](day1_afternoon.html)
 [[HOME]](index.html)
