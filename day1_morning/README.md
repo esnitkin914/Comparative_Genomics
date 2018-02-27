@@ -7,10 +7,10 @@ Installing and setting up Cyberduck for file transfer
 
 During workshop, we will transfer different output files from flux to your local system. Cyberduck makes it easier to drag and drop any remote file onto your local system and vice versa. Of course, you can use "scp" to transfer files but Cyberduck provides a graphical interface to manage file transfer and helps avoid typing long file paths and commands.
 
->1. Go to [this](https://cyberduck.io/) cyberduck website and download the executable for your respective operating system.
->2. Double-click on the downloaded zip file to unzip it and double click cyberduck icon.
->3. Type sftp://flux-xfer.arc-ts.umich.edu in quickconnect bar, press enter and enter your flux username and password.
->4. This will take you to your flux home directory /home/username. Select "Go" from tool bar at the top then select "Go to folder" and enter workshop home directory path: /scratch/micro612w18_fluxod/**
+> ***1. Go to [this](https://cyberduck.io/) cyberduck website and download the executable for your respective operating system.***
+> ***2. Double-click on the downloaded zip file to unzip it and double click cyberduck icon.***
+> ***3. Type sftp://flux-xfer.arc-ts.umich.edu in quickconnect bar, press enter and enter your flux username and password.***
+> ***4. This will take you to your flux home directory /home/username. Select "Go" from tool bar at the top then select "Go to folder" and enter workshop home directory path: /scratch/micro612w18_fluxod/***
 
 To transfer or upload a file, you can drag and drop it into the location you want. 
 
@@ -50,7 +50,7 @@ One way to set your environment variables would be to manually set up these vari
 
 All the softwares/tools that we need in this workshop are installed in a directory "/scratch/micro612w18_fluxod/shared/bin/" and we want the shell to look for these installed tools in this directory. For this, We will save the full path to these tools in an environment variable PATH.
 
->i. Make a backup copy of bashrc file in case something goes wrong. 
+> ***i. Make a backup copy of bashrc file in case something goes wrong.***
 	
 ```
 
@@ -60,7 +60,7 @@ cp ~/.bashrc ~/bashrc_backup
 
 ```
 	
->ii. Open ~/.bashrc file using any text editor and add the following lines to your .bashrc file. 
+> ***ii. Open ~/.bashrc file using any text editor and add the following lines to your .bashrc file.***
 
 
 <details>
@@ -129,7 +129,7 @@ You can also customize the alias name such as wd, d1m etc. catering to your own 
 
 The above environment settings will set various shortcuts such as "iflux" for entering interactive flux session, "wd" to navigate to your workshop directory, call necessary flux modules and perl libraries required by certain tools and finally sets the path for bioinformatics programs that we will run during the workshop.
 
->iii. Save the file and Source .bashrc file to make these changes permanent.
+> ***iii. Save the file and Source .bashrc file to make these changes permanent.***
 
 ```
 
@@ -137,7 +137,7 @@ source ~/.bashrc
 
 ```
 
->iv. Check if the $PATH environment variable is updated
+> ***iv. Check if the $PATH environment variable is updated***
 
 ```
 
@@ -287,8 +287,8 @@ fastq: used for storing biological sequence / sequencing reads (usually nucleoti
 
 - Question: Previously, you downloaded genome assembly fasta files and ran a shell script to count contigs. Now, lets say you want to find out the combined length of genome in each of these files. This can be achieved by running a short unix command piping together two unix programs: grep and wc. The key to crafting the command is understanding the  features of fasta files,
 
->1) each sequence in fasta file is preceded by a fasta header that starts with ">", 
->2) the types of bases that a nucleotide sequence represents (A,T,G,C,N) and 
+> ***1) each sequence in fasta file is preceded by a fasta header that starts with ">",***
+> ***2) the types of bases that a nucleotide sequence represents (A,T,G,C,N)***
 
 <!--->3) that each line is seperated by a new line character ("\n"). -->
 
@@ -440,7 +440,7 @@ ls /scratch/micro612w18_fluxod/shared/bin/fastq_screen_v0.5.2/data/
 
 Note: You will learn creating reference databases in our afternoon session.
 
->i. Get an interactive cluster node to start running programs. Use the shortcut that we created in .bashrc file for getting into interactive flux session.
+> ***i. Get an interactive cluster node to start running programs. Use the shortcut that we created in .bashrc file for getting into interactive flux session.***
 
 How do you know if you are in interactive session?: you should see "username@nyx" in your command prompt
 
@@ -459,7 +459,7 @@ cd /scratch/micro612w18_fluxod/username/day1_morn/
 
 ```
 
->ii. Lets run fastq_screen on fastq_screen.fastq.gz
+> ***ii. Lets run fastq_screen on fastq_screen.fastq.gz***
 
 ```
 
@@ -472,7 +472,7 @@ fastq_screen --subset 1000 --force --outdir ./ --aligner bowtie2 fastq_screen.fa
 
 The above run will generate two types of output file: a screen report in text format "fastq_screen_screen.txt" and a graphical output "fastq_screen_screen.png" showing percentage of reads mapped to each reference genomes.
 
->iii. Download the fastq_screen graphical report to your home computer for inspection. Use scp command as shown below or use cyberduck. If you dont the file in cyberduck window, try refreshing it using the refresh button at the top.
+> ***iii. Download the fastq_screen graphical report to your home computer for inspection. Use scp command as shown below or use cyberduck. If you dont the file in cyberduck window, try refreshing it using the refresh button at the top.***
 
 ```
 scp username@flux-xfer.arc-ts.umich.edu:/scratch/micro612w18_fluxod/username/day1_morn/fastq_screen_screen.png /path-to-local-directory/
@@ -490,14 +490,14 @@ Quality Control using [FastQC](http://www.bioinformatics.babraham.ac.uk/projects
 
 Now we will run FastQC on some sample raw data to assess its quality. FastQC is a quality control tool that reads in sequence data in a variety of formats(fastq, bam, sam) and can either provide an interactive application to review the results or create an HTML based report which can be integrated into any pipeline. It is generally the first step that you take upon receiving the sequence data from sequencing facility to get a quick sense of its quality and whether it exhibits any unusual properties (e.g. contamination or unexpected biological features)
 
->i. In your day1_morn directory, create a new directory for saving FastQC results.
+> ***i. In your day1_morn directory, create a new directory for saving FastQC results.***
 
 ```
 mkdir Rush_KPC_266_FastQC_results
 mkdir Rush_KPC_266_FastQC_results/before_trimmomatic
 ```
 
->ii. Verify that FastQC is in your path by invoking it from command line.
+> ***ii. Verify that FastQC is in your path by invoking it from command line.***
 
 ```
 fastqc -h
@@ -505,7 +505,7 @@ fastqc -h
 
 FastQC can be run in two modes: "command line" or as a GUI (graphical user interface). We will be using command line version of it.
 
->iii. Run FastQC to generate quality report of sequence reads.
+> ***iii. Run FastQC to generate quality report of sequence reads.***
 
 ```
 fastqc -o Rush_KPC_266_FastQC_results/before_trimmomatic/ Rush_KPC_266_1_combine.fastq.gz Rush_KPC_266_2_combine.fastq.gz --extract
@@ -517,9 +517,9 @@ The summary.txt file in these directories indicates if the data passed different
 
 You can visualize and assess the quality of data by opening html report in a local browser.
 
->iv. Exit your cluster node so you don’t waste cluster resources and $$$!
+> ***iv. Exit your cluster node so you don’t waste cluster resources and $$$!***
 
->v. Download the FastQC html report to your home computer to examine using scp or cyberduck
+> ***v. Download the FastQC html report to your home computer to examine using scp or cyberduck***
 
 ```
 scp username@flux-xfer.arc-ts.umich.edu:/scratch/micro612w18_fluxod/username/day1_morn/Rush_KPC_266_FastQC_results/before_trimmomatic/*.html /path-to-local-directory/
@@ -552,7 +552,7 @@ For more information on how Trimmomatic tries to achieve this, Please refer [thi
 
 Now we will run Trimmomatic on these raw data to remove low quality reads as well as adapters. 
 
->i. If the interactive session timed out, get an interactive cluster node again to start running programs and navigate to day1_morn directory.
+> ***i. If the interactive session timed out, get an interactive cluster node again to start running programs and navigate to day1_morn directory.***
 
 How to know if you are in interactive session: you should see "username@nyx" in your command prompt
 
@@ -566,19 +566,19 @@ cd /scratch/micro612w18_fluxod/username/day1_morn/
 d1m
 ```
 
->ii. Create these output directories in your day1_morn folder to save trimmomatic results
+> ***ii. Create these output directories in your day1_morn folder to save trimmomatic results***
 
 ```
 mkdir Rush_KPC_266_trimmomatic_results
 ```
 
->iii. Try to invoke trimmomatic from command line.
+> ***iii. Try to invoke trimmomatic from command line.***
 
 ```
 java -jar /scratch/micro612w18_fluxod/shared/bin/Trimmomatic/trimmomatic-0.33.jar –h
 ```
 
->iv. Run the below trimmomatic commands on raw reads.
+> ***iv. Run the below trimmomatic commands on raw reads.***
 
 ```
 java -jar /scratch/micro612w18_fluxod/shared/bin/Trimmomatic/trimmomatic-0.33.jar PE Rush_KPC_266_1_combine.fastq.gz Rush_KPC_266_2_combine.fastq.gz Rush_KPC_266_trimmomatic_results/forward_paired.fq.gz Rush_KPC_266_trimmomatic_results/forward_unpaired.fq.gz Rush_KPC_266_trimmomatic_results/reverse_paired.fq.gz Rush_KPC_266_trimmomatic_results/reverse_unpaired.fq.gz ILLUMINACLIP:/scratch/micro612w18_fluxod/shared/bin/Trimmomatic/adapters/TruSeq3-PE.fa:2:30:10:8:true SLIDINGWINDOW:4:15 MINLEN:40 HEADCROP:0
@@ -595,7 +595,7 @@ Quoting Trimmomatic:
 
 "'Palindrome' trimming is specifically designed for the case of 'reading through' a short fragment into the adapter sequence on the other end. In this approach, the appropriate adapter sequences are 'in silico ligated' onto the start of the reads, and the combined adapter+read sequences, forward and reverse are aligned. If they align in a manner which indicates 'read- through' i.e atleast 30 bp match, the forward read is clipped and the reverse read dropped (since it contains no new data)."
 
->v. Now create new directories in day1_morn folder and Run FastQC on these trimmomatic results.
+> ***v. Now create new directories in day1_morn folder and Run FastQC on these trimmomatic results.***
 
 ```
 mkdir Rush_KPC_266_FastQC_results/after_trimmomatic
@@ -620,7 +620,7 @@ Quoting FastQC:
 
 This doesn't look very bad but you can remove the red cross sign by trimming these imbalanced head bases using HEADCROP:9 flag in the above command.
 
->vi. Lets Run trimmomatic again with headcrop 9 and save it in a different directory called Rush_KPC_266_trimmomatic_results_with_headcrop/
+> ***vi. Lets Run trimmomatic again with headcrop 9 and save it in a different directory called Rush_KPC_266_trimmomatic_results_with_headcrop/***
 
 ```
 mkdir Rush_KPC_266_trimmomatic_results_with_headcrop/
@@ -630,7 +630,7 @@ time java -jar /scratch/micro612w18_fluxod/shared/bin/Trimmomatic/trimmomatic-0.
 
 Unix gem: time in above command shows how long a command takes to run?
 
->vii. Run FastQC 'one last time' on updated trimmomatic results with headcrop and check report on your local computer
+> ***vii. Run FastQC 'one last time' on updated trimmomatic results with headcrop and check report on your local computer***
 
 ```
 mkdir Rush_KPC_266_FastQC_results/after_trimmomatic_headcrop/
