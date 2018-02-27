@@ -46,7 +46,7 @@ Read Mapping is a time-consuming step that involves searching the reference and 
 
 Note: each read mapper has its own unique way of indexing a reference genome and therefore the reference index created by BWA cannot be used for Bowtie. (Most Bioinformatics tools nowadays require some kind of indexing or reference database creation)
 
-> **i. To create BWA index of Reference, you need to run following command.
+> **i. To create BWA index of Reference, you need to run following command.**
 
 Start a flux interactive session
 
@@ -80,7 +80,7 @@ Also go ahead and create fai index file using samtools required by GATK in later
 samtools faidx KPNIH1.fasta
 ```
 
->ii. Align reads to reference and redirect the output into SAM file
+> **ii. Align reads to reference and redirect the output into SAM file**
 
 Quoting BWA:
 "BWA consists of three algorithms: BWA-backtrack, BWA-SW and BWA-MEM. The first algorithm is designed for Illumina sequence reads up to 100bp, while the rest two for longer sequences ranged from 70bp to 1Mbp. BWA-MEM and BWA-SW share similar features such as long-read support and split alignment, but BWA-MEM, which is the latest, is generally recommended for high-quality queries as it is faster and more accurate. BWA-MEM also has better performance than BWA-backtrack for 70-100bp Illumina reads."
@@ -103,7 +103,7 @@ You can extract this information from fastq read header. (@M02127:96:000000000-A
 
 **3. SAM/BAM manipulation and variant calling using [Samtools](http://www.htslib.org/doc/samtools.html "Samtools Manual")**
 
->i. Change directory to results folder and look for BWA output:
+> **i. Change directory to results folder and look for BWA output:**
 
 ```
 cd Rush_KPC_266_varcall_result
@@ -148,7 +148,7 @@ MD tag tells you what positions in the read alignment are different from referen
 
 AS is an alignment score and XS:i:0 is an suboptimal alignment score.
 
->ii. Convert SAM to BAM using SAMTOOLS:
+> **ii. Convert SAM to BAM using SAMTOOLS:**
 
 BAM is the compressed binary equivalent of SAM but are usually quite smaller in size than SAM format. Since, parsing through a SAM format is slow, Most of the downstream tools require SAM file to be converted to BAM so that it can be easily sorted and indexed.
 
@@ -158,7 +158,7 @@ The below command will ask samtools to convert SAM format(-S) to BAM format(-b)
 samtools view -Sb Rush_KPC_266__aln.sam > Rush_KPC_266__aln.bam
 ```
 
->iii. Sort BAM file using SAMTOOLS:
+> **iii. Sort BAM file using SAMTOOLS:**
 
 Most of the downstream tools such as GATK requires your BAM file to be indexed and sorted by reference genome positions.
 
@@ -178,7 +178,7 @@ Picard identifies duplicates by searching reads that have same start position on
 
 ![alt tag](https://github.com/alipirani88/Comparative_Genomics/blob/master/_img/day1_after/picard.png)
 
->i. Create a dictionary for reference fasta file required by PICARD
+> **i. Create a dictionary for reference fasta file required by PICARD**
 
 Make sure you are in Rush_KPC_266_varcall_result directory and are giving proper reference genome path (day1_after directory).
 
@@ -188,7 +188,7 @@ java -jar /scratch/micro612w18_fluxod/shared/bin/picard-tools-1.130/picard.jar C
 
 ```
 
->ii. Run PICARD for removing duplicates.
+> **ii. Run PICARD for removing duplicates.**
 
 ```
 
@@ -200,7 +200,7 @@ The output of Picard remove duplicate step is a new bam file "Rush_KPC_266__aln_
 
 You will need to index this new marked.bam file for further processing.
 
->iii. Index these marked bam file again using SAMTOOLS(For input in Artemis later)
+> **iii. Index these marked bam file again using SAMTOOLS(For input in Artemis later)**
 
 ```
 samtools index Rush_KPC_266__aln_marked.bam
@@ -222,7 +222,7 @@ Generate Alignment Statistics
 
 Often, while analyzing sequencing data, we are required to make sure that our analysis steps are correct. Some statistics about our analysis will help us in making that decision. So Lets try to get some statistics about various outputs that were created using the above steps and check if everything makes sense.
 
->i. Collect Alignment statistics using Picard
+> **i. Collect Alignment statistics using Picard**
 
 Run the below command on your marked.bam file
 
@@ -251,7 +251,7 @@ grep -v '#' AlignmentSummaryMetrics.txt | cut -f7
 
 Try to explore other statistics and their definitions from Picard AlignmentSummaryMetrics [link](http://broadinstitute.github.io/picard/picard-metric-definitions.html#AlignmentSummaryMetrics)
 
->ii. Estimate read coverage/read depth using Picard
+> **ii. Estimate read coverage/read depth using Picard**
 
 Read coverage/depth describes the average number of reads that align to, or "cover," known reference bases. The sequencing depth is one of the most crucial issue in the design of next-generation sequencing experiments. This [paper](https://www.nature.com/articles/nrg3642) review current guidelines and precedents on the issue of coverage, as well as their underlying considerations, for four major study designs, which include de novo genome sequencing, genome resequencing, transcriptome sequencing and genomic location analyses 
 
@@ -355,7 +355,7 @@ grep -v '#' Rush_KPC_266__aln_mpileup_raw.vcf | grep 'INDEL' | wc -l
 ```
 **2. Variant filtering and processed file generation using GATK and vcftools**
 
->i. Variant filtering using [GATK](https://www.broadinstitute.org/gatk/guide/tooldocs/org_broadinstitute_gatk_tools_walkers_filters_VariantFiltration.php "GATK Variant Filteration"):
+> **i. Variant filtering using [GATK](https://www.broadinstitute.org/gatk/guide/tooldocs/org_broadinstitute_gatk_tools_walkers_filters_VariantFiltration.php "GATK Variant Filteration"):**
 
 There are various tools that can you can try for variant filteration such as vcftools, GATK, vcfutils etc. Here we will use GATK VariantFiltration utility to filter out low confidence variants.
 
@@ -381,9 +381,9 @@ grep 'pass_filter' Rush_KPC_266__filter_gatk.vcf | head
 
 ```
 
-Caveat: This filter criteria should be applied carefully after giving some thought to the type of library, coverage, average mapping quality, type of analysis and other such requirements.
+**Caveat: This filter criteria should be applied carefully after giving some thought to the type of library, coverage, average mapping quality, type of analysis and other such requirements.**
 
->ii. Remove indels and keep only SNPS that passed our filter criteria using [the vcftools manual](http://vcftools.sourceforge.net/man_latest.html):
+> **ii. Remove indels and keep only SNPS that passed our filter criteria using [the vcftools manual](http://vcftools.sourceforge.net/man_latest.html):**
 
 vcftools is a program package that is especially written to work with vcf file formats. It thus saves your precious time by making available all the common operations that you would like to perform on the vcf file using a single command. One such operation is removing INDEL information from a vcf file.
 
@@ -421,19 +421,19 @@ You can annotate these variants before performing any filtering steps that we di
 
 snpEff contains a database of about 20,000 reference genomes built from trusted and public sources. Lets check if snpEff contains a database of our reference genome.
 
->i. Check snpEff internal database for your reference genome:
+> **i. Check snpEff internal database for your reference genome:**
 
 ```     
 java -jar /scratch/micro612w18_fluxod/shared/bin/snpEff/snpEff.jar databases | grep 'kpnih1'
 ```
 Note down the genome id for your reference genome KPNIH1. In this case: GCA_000281535.2.29
 
->ii. Change the chromosome name in the vcf file to ‘Chromosome’ for snpEff reference database compatibility. 
+> **ii. Change the chromosome name in the vcf file to ‘Chromosome’ for snpEff reference database compatibility.**
 
 ```
 sed -i 's/gi.*|/Chromosome/g' Rush_KPC_266__filter_gatk.vcf
 ```
->iii. Run snpEff for variant annotation.
+> **iii. Run snpEff for variant annotation.**
 
 ```
 
@@ -486,7 +486,7 @@ While these various statistical/text analyses are helpful, visualization of all 
 We will be using [Artemis](http://www.sanger.ac.uk/science/tools/artemis) here, developed by the Sanger Institute for viewing BAM and vcf files for manual inspection of some of the variants.
 
 
-- Required Input files: 
+- **Required Input files:**
 
 > KPNIH1 reference fasta 
 > KPNIH1 genbank file
