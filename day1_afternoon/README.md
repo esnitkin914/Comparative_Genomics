@@ -46,7 +46,7 @@ Read Mapping is a time-consuming step that involves searching the reference and 
 
 Note: each read mapper has its own unique way of indexing a reference genome and therefore the reference index created by BWA cannot be used for Bowtie. (Most Bioinformatics tools nowadays require some kind of indexing or reference database creation)
 
->i. To create BWA index of Reference, you need to run following command.
+**>i. To create BWA index of Reference, you need to run following command.**
 
 Start a flux interactive session
 
