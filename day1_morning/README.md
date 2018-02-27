@@ -333,7 +333,7 @@ for i in *.fna; do grep -v '^>' $i | grep -v "N" | grep -v "n" | wc -m; done
 
 ```
 </details>
---
+
 
 - Exploring GFF files
 
