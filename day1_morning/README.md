@@ -7,7 +7,7 @@ Installing and setting up Cyberduck for file transfer
 
 During workshop, we will transfer different output files from flux to your local system. Cyberduck makes it easier to drag and drop any remote file onto your local system and vice versa. Of course, you can use "scp" to transfer files but Cyberduck provides a graphical interface to manage file transfer and helps avoid typing long file paths and commands.
 
-**>1. Go to [this](https://cyberduck.io/) cyberduck website and download the executable for your respective operating system.
+>1. Go to [this](https://cyberduck.io/) cyberduck website and download the executable for your respective operating system.
 >2. Double-click on the downloaded zip file to unzip it and double click cyberduck icon.
 >3. Type sftp://flux-xfer.arc-ts.umich.edu in quickconnect bar, press enter and enter your flux username and password.
 >4. This will take you to your flux home directory /home/username. Select "Go" from tool bar at the top then select "Go to folder" and enter workshop home directory path: /scratch/micro612w18_fluxod/**
@@ -167,9 +167,9 @@ There are a lot of reasons that is not ideal:
 
 To download sequence data in Unix you can use a variety of commands (e.g. sftp, wget, curl). Here, we will use the curl command to download some genome assemblies from NCBI ftp location:
 
-> Go to your class home directory (use your wd shortcut!)
+- Go to your class home directory (use your wd shortcut!)
 
-> Execute the following commands to copy files for this morning’s exercises to your home directory: 
+- Execute the following commands to copy files for this morning’s exercises to your home directory: 
 
 ```
 cp -r /scratch/micro612w18_fluxod/shared/data/day1_morn/ ./
@@ -184,7 +184,7 @@ ls
 
 ```
 
-> Now get three genome sequences with the following commands:
+- Now get three genome sequences with the following commands:
 
 ```
 curl ftp://ftp.ncbi.nlm.nih.gov/genomes/refseq/bacteria/Acinetobacter_baumannii/latest_assembly_versions/GCF_000018445.1_ASM1844v1/GCF_000018445.1_ASM1844v1_genomic.fna.gz > Acinetobacter_baumannii.fna.gz
@@ -195,7 +195,7 @@ curl ftp://ftp.ncbi.nlm.nih.gov/genomes/refseq/bacteria/Escherichia_coli/all_ass
 
 ```
 
-> Decompress the compressed fasta file using gzip
+- Decompress the compressed fasta file using gzip
 
 ```
 gzip -d Acinetobacter_baumannii.fna.gz
@@ -219,9 +219,9 @@ OK, so now that we have a useful command, wouldn’t it be great to turn it into
 
 <!--- Copy “/scratch/micro612w18_fluxod/shared/fasta_counter.sh” to your current directory (Hint – use the “cp” command)-->
 
-> Open “fasta_counter.sh” in pico or your favourite text editor and follow instructions for making edits so it will do what we want it to do
+- Open “fasta_counter.sh” in pico or your favourite text editor and follow instructions for making edits so it will do what we want it to do
 
-> Run this script in day1_morn directory and verify that you get the correct results 
+- Run this script in day1_morn directory and verify that you get the correct results 
 
 ```
 bash fasta_counter.sh .
@@ -285,7 +285,8 @@ gff: used for describing genes and other features of DNA, RNA and protein sequen
 fastq: used for storing biological sequence / sequencing reads (usually nucleotide sequence) and its corresponding quality scores
 
 
-> Question: Previously, you downloaded genome assembly fasta files and ran a shell script to count contigs. Now, lets say you want to find out the combined length of genome in each of these files. This can be achieved by running a short unix command piping together two unix programs: grep and wc. The key to crafting the command is understanding the  features of fasta files, 
+- Question: Previously, you downloaded genome assembly fasta files and ran a shell script to count contigs. Now, lets say you want to find out the combined length of genome in each of these files. This can be achieved by running a short unix command piping together two unix programs: grep and wc. The key to crafting the command is understanding the  features of fasta files,
+
 >1) each sequence in fasta file is preceded by a fasta header that starts with ">", 
 >2) the types of bases that a nucleotide sequence represents (A,T,G,C,N) and 
 
@@ -334,7 +335,7 @@ for i in *.fna; do grep -v '^>' $i | grep -v "N" | grep -v "n" | wc -m; done
 </details>
 --
 
-> Exploring GFF files
+- Exploring GFF files
 
 The GFF (General Feature Format) format is a tab-seperated file and consists of one line per feature, each containing 9 columns of data.
 
@@ -356,7 +357,7 @@ column 8: frame - One of '0', '1' or '2'. '0' indicates that the first base of t
 
 column 9: attribute - A semicolon-separated list of tag-value pairs, providing additional information about each feature such as gene name, product name etc.
 
-> Use less to explore first few lines of a gff file sample.gff
+- Use less to explore first few lines of a gff file sample.gff
 
 ```
 
@@ -369,7 +370,7 @@ You will notice that the GFF format follows version 3 specifications("##gff-vers
 
 You can press space bar on keyboard to read more lines and "q" key to exit less command.
 
-> Question: Suppose, you want to find out the number of annotated features in a gff file. how will you achieve this using grep and wc?
+- Question: Suppose, you want to find out the number of annotated features in a gff file. how will you achieve this using grep and wc?
 
 <details>
   <summary>Solution</summary>
@@ -379,7 +380,7 @@ grep -v '^#' sample.gff | wc -l
 ```
 </details>
 
-> Question: How about counting the number of rRNA features in a gff(third column) file using grep, cut and wc? You can check the usage for cut by typing "cut --help"
+- Question: How about counting the number of rRNA features in a gff(third column) file using grep, cut and wc? You can check the usage for cut by typing "cut --help"
 
 <details>
   <summary>Solution</summary>
@@ -398,7 +399,7 @@ cut -f 3 sample.gff | grep 'tRNA' | wc -l
 ```
 </details>
 
-> Question: Try counting the number of features on a "+" or "-" strand (column 7).
+- Question: Try counting the number of features on a "+" or "-" strand (column 7).
 
 Some more useful one-line unix commands for GFF files: [here](https://github.com/stephenturner/oneliners#gff3-annotations)
 
@@ -489,14 +490,14 @@ Quality Control using [FastQC](http://www.bioinformatics.babraham.ac.uk/projects
 
 Now we will run FastQC on some sample raw data to assess its quality. FastQC is a quality control tool that reads in sequence data in a variety of formats(fastq, bam, sam) and can either provide an interactive application to review the results or create an HTML based report which can be integrated into any pipeline. It is generally the first step that you take upon receiving the sequence data from sequencing facility to get a quick sense of its quality and whether it exhibits any unusual properties (e.g. contamination or unexpected biological features)
 
->ii. In your day1_morn directory, create a new directory for saving FastQC results.
+>i. In your day1_morn directory, create a new directory for saving FastQC results.
 
 ```
 mkdir Rush_KPC_266_FastQC_results
 mkdir Rush_KPC_266_FastQC_results/before_trimmomatic
 ```
 
->iii. Verify that FastQC is in your path by invoking it from command line.
+>ii. Verify that FastQC is in your path by invoking it from command line.
 
 ```
 fastqc -h
@@ -504,7 +505,7 @@ fastqc -h
 
 FastQC can be run in two modes: "command line" or as a GUI (graphical user interface). We will be using command line version of it.
 
->iv. Run FastQC to generate quality report of sequence reads.
+>iii. Run FastQC to generate quality report of sequence reads.
 
 ```
 fastqc -o Rush_KPC_266_FastQC_results/before_trimmomatic/ Rush_KPC_266_1_combine.fastq.gz Rush_KPC_266_2_combine.fastq.gz --extract
@@ -516,9 +517,9 @@ The summary.txt file in these directories indicates if the data passed different
 
 You can visualize and assess the quality of data by opening html report in a local browser.
 
->v. Exit your cluster node so you don’t waste cluster resources and $$$!
+>iv. Exit your cluster node so you don’t waste cluster resources and $$$!
 
->vi. Download the FastQC html report to your home computer to examine using scp or cyberduck
+>v. Download the FastQC html report to your home computer to examine using scp or cyberduck
 
 ```
 scp username@flux-xfer.arc-ts.umich.edu:/scratch/micro612w18_fluxod/username/day1_morn/Rush_KPC_266_FastQC_results/before_trimmomatic/*.html /path-to-local-directory/
@@ -536,7 +537,7 @@ Next, lets check the overrepresented sequences graph and the kind of adapters th
 
 Check out [this](https://sequencing.qcfail.com/articles/loss-of-base-call-accuracy-with-increasing-sequencing-cycles/) for more detailed explaination as to why quality drops with increasing sequencing cycles.
 
-> [A video FastQC walkthrough created by FastQC developers](https://www.youtube.com/watch?v=bz93ReOv87Y "FastQC video") 
+- [A video FastQC walkthrough created by FastQC developers](https://www.youtube.com/watch?v=bz93ReOv87Y "FastQC video") 
 
 Quality Trimming using [Trimmomatic](http://www.usadellab.org/cms/?page=trimmomatic "Trimmomatic Homepage")
 ------------------------------------
