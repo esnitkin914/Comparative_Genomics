@@ -34,7 +34,7 @@ Determine which genomes contain beta-lactamase genes
 
 Before comparing full genomic content, lets start by looking for the presence of particular genes of interest. A. baumannii harbors an arsenal of resistance genes, and it would be interesting to know how particular resistance families vary among our 4 genomes. To accomplish this we will use the antibiotic resistance database ([ARDB](http://ardb.cbcb.umd.edu/)) and particularly beta-lactamase genes extracted from ARDB. These extracted genes can be found in file ardb_beta_lactam_genes.pfasta, which we will use to generate a Blast database.
 
->i. Run makeblastdb on the file of beta-lactamases to create a BLAST database. 
+> ***i. Run makeblastdb on the file of beta-lactamases to create a BLAST database.***
 
 makeblastdb takes as input: 
 
@@ -51,7 +51,7 @@ makeblastdb -in ardb_beta_lactam_genes.pfasta -dbtype prot
 
 ```
 
->iii. BLAST A. baumannii protein sequences against our custom beta-lactamase database. 
+> ***ii. BLAST A. baumannii protein sequences against our custom beta-lactamase database.***
 
 Run BLAST! 
 
@@ -71,9 +71,7 @@ The input parameters are:
 
 
 ```
-
 blastp -query Abau_all.pfasta -db ardb_beta_lactam_genes.pfasta -out bl_blastp_results -outfmt 6 -evalue 1e-20 -max_target_seqs 1
-
 ```
 
 Use less to look at bl_blastp_results.
@@ -82,9 +80,9 @@ Use less to look at bl_blastp_results.
 less bl_blastp_results
 ```
 
-> Question: Experiment with the –outfmt parameter, which controls different output formats that BLAST can produce. 
+- Question: Experiment with the –outfmt parameter, which controls different output formats that BLAST can produce. 
 
-> Question: Determine which Enterococcus genomes contain vancomycin resistance genes. To do this you will need to: i) create a protein BLAST database for ardb_van.pfasta, ii) concetenate the genomes sequences in the .fasta files and iii) use blastx to BLAST nucleotide genomes against a protein database 
+- Question: Determine which Enterococcus genomes contain vancomycin resistance genes. To do this you will need to: i) create a protein BLAST database for ardb_van.pfasta, ii) concetenate the genomes sequences in the .fasta files and iii) use blastx to BLAST nucleotide genomes against a protein database 
 
 Identification of antibiotic resistance genes with [ARIBA](https://github.com/sanger-pathogens/ariba) directly from paired end reads
 ----------------------------------------------------------
@@ -107,7 +105,7 @@ Note: There is an issue with downloading the database. They are in a process to 
 ```
 -->
 
->i. Run ARIBA on input paired-end fastq reads for resistance gene identification. 
+> ***i. Run ARIBA on input paired-end fastq reads for resistance gene identification.***
 
 The fastq reads are placed in Abau_genomes_fastq directory. Enter interactive flux session, change directory to day2_after workshop directory and run the below four commands to start ARIBA jobs in background.
 
@@ -146,7 +144,7 @@ The "&" in the above commands(at the end) is a little unix trick to run commands
 jobs
 ```
 
->ii. Run ARIBA summary function to generate a summary report.
+> ***ii. Run ARIBA summary function to generate a summary report.***
 
 ARIBA has a summary function that summarises the results from one or more sample runs of ARIBA and generates an output report with various level of information determined by -preset parameter. The parameter "-preset minimal" will generate a minimal report showing only the presence/absence of resistance genes whereas "-preset all" will output all the extra information related to each database hit such as reads and reference sequence coverage, variants and their associated annotations(if the variant confers resistance to an Antibiotic) etc.
 
@@ -171,7 +169,7 @@ scp username\@flux-xfer.arc-ts.umich.edu:/scratch/micro612w18_fluxod/username/da
 
 Drag and drop these two files on [Phandango](http://jameshadfield.github.io/phandango/#/) website. What types of resistance genes do you see in these Acinetobacter genomes? This [review](http://aac.asm.org/content/55/3/947.full) may help interpret.
 
->iii. Explore full ARIBA matrix in R
+> ***iii. Explore full ARIBA matrix in R***
 
 - Now, Fire up R console or studio and read ariba full report "Abau_genomes_ariba_all_results.csv"
 
@@ -207,7 +205,7 @@ The way Roary does this is by:
 2) Then, using BLASTP and MCL, Roary will create gene clusters, and check for paralogs. and 
 3) Finally, Roary will take every isolate and order them by presence/absence of genes.
 
->i. Generate pan-genome matrix using Roary and GFF files
+> ***i. Generate pan-genome matrix using Roary and GFF files***
 
 Make sure you are on an interactive node, as this will be even more computationally intensive!
 
@@ -281,7 +279,7 @@ python /scratch/micro612w18_fluxod/shared/bin/roary/contrib/roary_plots/roary_pl
 ```
 -->
 
->ii. Explore pan-genome matrix gene_presence_absence.csv and gene_presence_absence.Rtab using R
+> ***ii. Explore pan-genome matrix gene_presence_absence.csv and gene_presence_absence.Rtab using R***
 
 <!---
 Note:plots generated by roary_plots.py doesn't seem to be very useful and is completely a waste of time. query_pan_genome script provided by roary doesn't work and generates an empty result which seems like a bug and the link to the issue raised for this bug can be found [here](https://github.com/sanger-pathogens/Roary/issues/298) 
@@ -316,7 +314,7 @@ less gene_presence_absence_wannot.Rtab
 
 Use scp or cyberduck to get gene_presence_absence_wannot.Rtab onto your laptop.
 
-i. Prepare and clean data
+> ***i. Prepare and clean data***
 
 - Fire up RStudio and read gene_presence_absence_wannot.Rtab into matrix.
 
@@ -332,7 +330,7 @@ colnames(pg_matrix) = c('ACICU', 'AbauA', 'AbauB', 'AbauC')
 
 - Use head, str, dim, etc. to explore the matrix.
 
-ii. Generate exploratory heatmaps.
+> ***ii. Generate exploratory heatmaps.***
 
 - Make a heatmap for the full matrix
 
@@ -349,7 +347,7 @@ heatmap(as.matrix(pg_matrix_subset), , scale = "none", distfun = function(x){dis
 
 ```
 
-iii. Query pan-genome
+> ***iii. Query pan-genome***
 
 -  Which genomes are most closely related based upon shared gene content?
 
@@ -411,6 +409,7 @@ Determine the fraction of “hypothetical” genes in unique vs. core.
 sum(grepl("hypothetical" , row.names(pg_matrix[rowSums(pg_matrix > 0) == 1,]))) / sum(rowSums(pg_matrix > 0) == 1)
 sum(grepl("hypothetical" , row.names(pg_matrix[rowSums(pg_matrix > 0) == 4,]))) / sum(rowSums(pg_matrix > 0) == 4)
 ```
+
 Why does this make sense?
 
 Perform genome comparisons with [ACT](http://www.sanger.ac.uk/science/tools/artemis-comparison-tool-act)
@@ -421,7 +420,7 @@ Perform genome comparisons with [ACT](http://www.sanger.ac.uk/science/tools/arte
 In the previous exercises we were focusing on gene content, but losing the context of the structural variation underlying gene content variation (e.g. large insertions and deletions). 
 Here we will use ACT to compare two of our genomes (note that you can use ACT to compare more than two genomes if desired). 
 
-i. Create ACT alignment file with BLAST
+> ***i. Create ACT alignment file with BLAST***
 
 As we saw this morning, to compare genomes in ACT we need to use BLAST to create the alignments. We will do this on flux.
 
@@ -432,7 +431,7 @@ blastall -p blastn -i ./Abau_genomes/AbauA_genome.fasta -d ./Abau_BLAST_DB/ACICU
 
 ```
 
->ii. Read in genomes, alignments and annotation files
+> ***ii. Read in genomes, alignments and annotation files***
 
 Use scp or cyberduck to transfer Abau_ACT_files folder onto your laptop
 
@@ -444,7 +443,7 @@ Use scp or cyberduck to transfer Abau_ACT_files folder onto your laptop
 5. Abau_ACT_files/ACICU_genome_gene.gff
 
 
->iii. Explore genome comparison and features of ACT
+> ***iii. Explore genome comparison and features of ACT***
 
 Read in genomes and alignment into ACT
 
@@ -468,7 +467,8 @@ Go to File -> AbauA_genome.fasta -> Read an entry file = AbauA_genome_gene.gff
 ```
 
 Play around in ACT to gain some insight into the sorts of genes present in large insertion/deletion regions. 
-See if you can find: 
+See if you can find:
+
 1) differences in phage content, 
 2) membrane biosynthetic gene cluster variation and 
 3) antibiotic resistance island variation.
