@@ -8,8 +8,11 @@ Installing and setting up Cyberduck for file transfer
 During workshop, we will transfer different output files from flux to your local system. Cyberduck makes it easier to drag and drop any remote file onto your local system and vice versa. Of course, you can use "scp" to transfer files but Cyberduck provides a graphical interface to manage file transfer and helps avoid typing long file paths and commands.
 
 > ***1. Go to [this](https://cyberduck.io/) cyberduck website and download the executable for your respective operating system.***
+
 > ***2. Double-click on the downloaded zip file to unzip it and double click cyberduck icon.***
+
 > ***3. Type sftp://flux-xfer.arc-ts.umich.edu in quickconnect bar, press enter and enter your flux username and password.***
+
 > ***4. This will take you to your flux home directory /home/username. Select "Go" from tool bar at the top then select "Go to folder" and enter workshop home directory path: /scratch/micro612w18_fluxod/***
 
 To transfer or upload a file, you can drag and drop it into the location you want. 
@@ -288,6 +291,7 @@ fastq: used for storing biological sequence / sequencing reads (usually nucleoti
 - Question: Previously, you downloaded genome assembly fasta files and ran a shell script to count contigs. Now, lets say you want to find out the combined length of genome in each of these files. This can be achieved by running a short unix command piping together two unix programs: grep and wc. The key to crafting the command is understanding the  features of fasta files,
 
 > ***1) each sequence in fasta file is preceded by a fasta header that starts with ">",***
+
 > ***2) the types of bases that a nucleotide sequence represents (A,T,G,C,N)***
 
 <!--->3) that each line is seperated by a new line character ("\n"). -->
@@ -472,7 +476,9 @@ fastq_screen --subset 1000 --force --outdir ./ --aligner bowtie2 fastq_screen.fa
 
 The above run will generate two types of output file: a screen report in text format "fastq_screen_screen.txt" and a graphical output "fastq_screen_screen.png" showing percentage of reads mapped to each reference genomes.
 
-> ***iii. Download the fastq_screen graphical report to your home computer for inspection. Use scp command as shown below or use cyberduck. If you dont the file in cyberduck window, try refreshing it using the refresh button at the top.***
+> ***iii. Download the fastq_screen graphical report to your home computer for inspection.***
+
+Use scp command as shown below or use cyberduck. If you dont the file in cyberduck window, try refreshing it using the refresh button at the top.
 
 ```
 scp username@flux-xfer.arc-ts.umich.edu:/scratch/micro612w18_fluxod/username/day1_morn/fastq_screen_screen.png /path-to-local-directory/

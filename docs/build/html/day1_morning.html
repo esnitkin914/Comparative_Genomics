@@ -117,10 +117,13 @@
 <span id="installing-and-setting-up-cyberduck-for-file-transfer"></span><h2>Installing and setting up Cyberduck for file transfer<a class="headerlink" href="#installing-and-setting-up-cyberduck-for-file-transfer" title="Permalink to this headline">¶</a></h2>
 <p>During workshop, we will transfer different output files from flux to your local system. Cyberduck makes it easier to drag and drop any remote file onto your local system and vice versa. Of course, you can use &#8220;scp&#8221; to transfer files but Cyberduck provides a graphical interface to manage file transfer and helps avoid typing long file paths and commands.</p>
 <blockquote>
-<div><strong><em>1. Go to <a class="reference external" href="https://cyberduck.io/">this</a> cyberduck website and download the executable for your respective operating system.</em></strong>
-<strong><em>2. Double-click on the downloaded zip file to unzip it and double click cyberduck icon.</em></strong>
-<strong><em>3. Type sftp://flux-xfer.arc-ts.umich.edu in quickconnect bar, press enter and enter your flux username and password.</em></strong>
-<strong><em>4. This will take you to your flux home directory /home/username. Select &#8220;Go&#8221; from tool bar at the top then select &#8220;Go to folder&#8221; and enter workshop home directory path: /scratch/micro612w18_fluxod/</em></strong></div></blockquote>
+<div><strong><em>1. Go to <a class="reference external" href="https://cyberduck.io/">this</a> cyberduck website and download the executable for your respective operating system.</em></strong></div></blockquote>
+<blockquote>
+<div><strong><em>2. Double-click on the downloaded zip file to unzip it and double click cyberduck icon.</em></strong></div></blockquote>
+<blockquote>
+<div><strong><em>3. Type sftp://flux-xfer.arc-ts.umich.edu in quickconnect bar, press enter and enter your flux username and password.</em></strong></div></blockquote>
+<blockquote>
+<div><strong><em>4. This will take you to your flux home directory /home/username. Select &#8220;Go&#8221; from tool bar at the top then select &#8220;Go to folder&#8221; and enter workshop home directory path: /scratch/micro612w18_fluxod/</em></strong></div></blockquote>
 <p>To transfer or upload a file, you can drag and drop it into the location you want.</p>
 </div>
 <div class="section" id="getting-your-data-onto-flux-and-setting-up-environment-variable">
@@ -339,8 +342,9 @@ plot.ts(x$Average_coverage, xlab=&quot;Genome Position(1000bp bins)&quot;, ylab=
 <li>Question: Previously, you downloaded genome assembly fasta files and ran a shell script to count contigs. Now, lets say you want to find out the combined length of genome in each of these files. This can be achieved by running a short unix command piping together two unix programs: grep and wc. The key to crafting the command is understanding the  features of fasta files,</li>
 </ul>
 <blockquote>
-<div><strong><em>1) each sequence in fasta file is preceded by a fasta header that starts with &#8220;&gt;&#8221;,</em></strong>
-<strong><em>2) the types of bases that a nucleotide sequence represents (A,T,G,C,N)</em></strong></div></blockquote>
+<div><strong><em>1) each sequence in fasta file is preceded by a fasta header that starts with &#8220;&gt;&#8221;,</em></strong></div></blockquote>
+<blockquote>
+<div><strong><em>2) the types of bases that a nucleotide sequence represents (A,T,G,C,N)</em></strong></div></blockquote>
 <!--->3) that each line is seperated by a new line character ("\n"). --><p>To determine the total length of our genome assemblies, we will use grep to match only those lines that doesn&#8217;t start with &#8220;&gt;&#8221; (remember grep -v option is used to ignore lines) and doesn&#8217;t contain character &#8220;N&#8221;. Then use wc command (stands for word count) to count the characters. We can use unix pipe &#8220;|&#8221; to pass the output of one command to another for further processing. Lets start by counting the number of bases in Acinetobacter_baumannii.fna file</p>
 <p><details>
 <summary>Solution</summary></p>
@@ -477,7 +481,8 @@ fastq_screen --subset 1000 --force --outdir ./ --aligner bowtie2 fastq_screen.fa
 </pre>
 <p>The above run will generate two types of output file: a screen report in text format &#8220;fastq_screen_screen.txt&#8221; and a graphical output &#8220;fastq_screen_screen.png&#8221; showing percentage of reads mapped to each reference genomes.</p>
 <blockquote>
-<div><strong><em>iii. Download the fastq_screen graphical report to your home computer for inspection. Use scp command as shown below or use cyberduck. If you dont the file in cyberduck window, try refreshing it using the refresh button at the top.</em></strong></div></blockquote>
+<div><strong><em>iii. Download the fastq_screen graphical report to your home computer for inspection.</em></strong></div></blockquote>
+<p>Use scp command as shown below or use cyberduck. If you dont the file in cyberduck window, try refreshing it using the refresh button at the top.</p>
 <pre class="literal-block">
 scp username&#64;flux-xfer.arc-ts.umich.edu:/scratch/micro612w18_fluxod/username/day1_morn/fastq_screen_screen.png /path-to-local-directory/
 
