@@ -45,7 +45,7 @@ Perform QC on fastq files
 On the first morning you ran FastQC to evaluate the quality of a single genome. However, a typical project will include many genomes and you will want to check the quality of all of your samples. From the bash workshop, I hope you can appreciate that you do not want to process 100 genomes by typing 100 commands – rather you want to write a short shell script to do the work for you!
 
 
->i. Edit the shell script fastqc.sh located in /scratch/micro612w18_fluxod/your username/day3_after to run FastQC on all fastq files.
+> ***i. Edit the shell script fastqc.sh located in /scratch/micro612w18_fluxod/your username/day3_after to run FastQC on all fastq files.***
 
 **Important info about this shell script** 
 - The shell script includes a for loop that loops over all of the genomes in the target directory
@@ -72,7 +72,7 @@ Your PBS script wil contain the following command after the PBS preamble stuff(M
 ```bash fastqc.sh /scratch/micro612w18_fluxod/shared/data/day3_after_fastq/ ```
 
 
->ii. Examine output of FastQC to verify that all samples are OK
+> ***ii. Examine output of FastQC to verify that all samples are OK***
 
 Check the multiqc report of your fastq files.
 
@@ -87,7 +87,7 @@ More information on SPANDx pipeline can be obtained from [this](https://sourcefo
 
 Because it takes a while to run, we have pre-run it for you. Your task will be to sort through the outputs of SPANDx. The detailed information about how to interpret the output is in SPANDx manual(section INTERPRETING THE OUTPUTS). 
 
->i. Look at overall statistics for variant calling in excel
+> ***i. Look at overall statistics for variant calling in excel***
 
 SPANDx produces an overall summary file of its run that includes:
 
@@ -104,7 +104,7 @@ Use less to look at this file and then apply unix commands to extract and sort i
 **HINTS**
 The following unix commands can be used to get sorted lists of coverage and numbers of SNPs/indels: tail, cut, sort
 
->ii. Look at filtered variants produced by SPANDx in excel
+> ***ii. Look at filtered variants produced by SPANDx in excel***
 
 SPANDx also produces a summary file of the variants/indels it identified in the core genome. 
 
@@ -123,7 +123,7 @@ Recombination detection and tree generation
 [[back to top]](day3_afternoon.html)
 [[HOME]](index.html)
 
->i. Plot the distribution of variants across the genome in R
+> ***i. Plot the distribution of variants across the genome in R***
 
 The positions of variants are embedded in the first column of Outputs/Comparative/All_SNPs_annotated.txt, but you have to do some work to isolate them! 
 
@@ -138,7 +138,7 @@ The positions of variants are embedded in the first column of Outputs/Comparativ
 - Finally, download this file, read it into R using ‘read.table’ and use ‘hist’ to plot a histogram of the positions
 - Do you observe clustering of variants that would be indicative of recombination?
 
->ii.  Create fasta file of variants from nexus file
+> ***ii.  Create fasta file of variants from nexus file***
 
 SPANDx creates a file of core SNPs in a slightly odd format (transposed nexus). 
 This file is called: 
@@ -152,7 +152,7 @@ perl transpose_nex_to_fasta.pl Ortho_SNP_matrix.nex
 
 This file Outputs/Comparative/Ortho_SNP_matrix.fasta should now exist
 
->iii. Create maximum likelihood tree in Seaview
+> ***iii. Create maximum likelihood tree in Seaview***
 
 ```
 
@@ -167,7 +167,7 @@ Phylogenetic tree annotation and visualization
 [[back to top]](day3_afternoon.html)
 [[HOME]](index.html)
 
->i. Load the maximum likelihood tree into iTOL
+> ***i. Load the maximum likelihood tree into iTOL***
 
 Note that because the out-group is so distantly related it is difficult to make out the structure of the rest of the tree. 
 
@@ -176,7 +176,7 @@ Note that because the out-group is so distantly related it is difficult to make 
 - Click on the KPNIH1 leaf, go to the “tree structure” menu and “delete leaf” 
 - Click on the extended branch leading to where KPNIH1 was, go to the “tree structure” menu and click “collapse branch”
 
->ii. Load the annotation file ‘Rush_KPC_facility_codes_iTOL.txt’ to view the facility of isolation, play with tree visualization properties to understand how isolates group by facility, Circular vs. normal tree layout, Bootstrap values, Ignoring branch lengths
+> ***ii. Load the annotation file ‘Rush_KPC_facility_codes_iTOL.txt’ to view the facility of isolation, play with tree visualization properties to understand how isolates group by facility, Circular vs. normal tree layout, Bootstrap values, Ignoring branch lengths***
 
 ```
 
@@ -190,7 +190,7 @@ Assessment of genomic deletions
 [[back to top]](day3_afternoon.html)
 [[HOME]](index.html)
 
->i. Download genome coverage bed file and load into R
+> ***i. Download genome coverage bed file and load into R***
 
 This file is located in: Outputs/Comparative/Bedcov_merge.txt
 This file contains information regarding locations in the reference genome that each sequenced genome does and does not map to.
@@ -212,14 +212,14 @@ After you download this file, read it into R
 **HINTS**
 - Use the read.table function with the relevant parameters being: header and sep
 
->ii. Plot heatmap of genome coverage bed file
+> ***ii. Plot heatmap of genome coverage bed file***
 
 **HINTS**
 
 - The first 3 columns of the bed file specify the name of the chromosome and the genome coordinates – therefore you want to subset your matrix to not include these columns 
 - Use the heatmap3 function to make your heatmap with the following parameters: scale = “none” (keeps original values), Rowv = NA (suppress clustering by rows – why might we not want to cluster by rows for this analysis?)
 
-> Note a large genomic deletion among a subset of isolates. Does this deletion fit with the phylogeny from above?
+- Note a large genomic deletion among a subset of isolates. Does this deletion fit with the phylogeny from above?
 
 iii. Explore genomic deletion in more detail with ACT
 

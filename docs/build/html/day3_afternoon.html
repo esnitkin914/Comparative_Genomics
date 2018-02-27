@@ -143,7 +143,7 @@ cp -r /scratch/micro612w18_fluxod/shared/data/day3_after ./
 <a class="reference external" href="index.html">[HOME]</a></p>
 <p>On the first morning you ran FastQC to evaluate the quality of a single genome. However, a typical project will include many genomes and you will want to check the quality of all of your samples. From the bash workshop, I hope you can appreciate that you do not want to process 100 genomes by typing 100 commands – rather you want to write a short shell script to do the work for you!</p>
 <blockquote>
-<div>i. Edit the shell script fastqc.sh located in /scratch/micro612w18_fluxod/your username/day3_after to run FastQC on all fastq files.</div></blockquote>
+<div><strong><em>i. Edit the shell script fastqc.sh located in /scratch/micro612w18_fluxod/your username/day3_after to run FastQC on all fastq files.</em></strong></div></blockquote>
 <p><strong>Important info about this shell script</strong></p>
 <ul class="simple">
 <li>The shell script includes a for loop that loops over all of the genomes in the target directory</li>
@@ -163,7 +163,7 @@ cp -r /scratch/micro612w18_fluxod/shared/data/day3_after ./
 <p>Your PBS script wil contain the following command after the PBS preamble stuff(Make sure your $PBS_O_WORKDIR is set inside the pbs script):</p>
 <p><code class="docutils literal"><span class="pre">bash</span> <span class="pre">fastqc.sh</span> <span class="pre">/scratch/micro612w18_fluxod/shared/data/day3_after_fastq/</span></code></p>
 <blockquote>
-<div>ii. Examine output of FastQC to verify that all samples are OK</div></blockquote>
+<div><strong><em>ii. Examine output of FastQC to verify that all samples are OK</em></strong></div></blockquote>
 <p>Check the multiqc report of your fastq files.</p>
 </div>
 <div class="section" id="examine-results-of-spandx-pipeline">
@@ -174,7 +174,7 @@ cp -r /scratch/micro612w18_fluxod/shared/data/day3_after ./
 <p>More information on SPANDx pipeline can be obtained from <a class="reference external" href="https://sourceforge.net/projects/spandx/files/SPANDx%20Manual_v3.1.pdf/download">this</a> manual.</p>
 <p>Because it takes a while to run, we have pre-run it for you. Your task will be to sort through the outputs of SPANDx. The detailed information about how to interpret the output is in SPANDx manual(section INTERPRETING THE OUTPUTS).</p>
 <blockquote>
-<div>i. Look at overall statistics for variant calling in excel</div></blockquote>
+<div><strong><em>i. Look at overall statistics for variant calling in excel</em></strong></div></blockquote>
 <p>SPANDx produces an overall summary file of its run that includes:</p>
 <ol class="simple">
 <li>numbers of SNPs/indels,</li>
@@ -186,7 +186,7 @@ cp -r /scratch/micro612w18_fluxod/shared/data/day3_after ./
 <p><strong>HINTS</strong>
 The following unix commands can be used to get sorted lists of coverage and numbers of SNPs/indels: tail, cut, sort</p>
 <blockquote>
-<div>ii. Look at filtered variants produced by SPANDx in excel</div></blockquote>
+<div><strong><em>ii. Look at filtered variants produced by SPANDx in excel</em></strong></div></blockquote>
 <p>SPANDx also produces a summary file of the variants/indels it identified in the core genome.</p>
 <p>This summary file is:
 <code class="docutils literal"><span class="pre">/scratch/micro612w18_fluxod/username/day3_after/SPANDx_output/Outputs/All_SNPs_annotated.txt</span></code></p>
@@ -203,7 +203,7 @@ The following unix commands can be used to get sorted lists of coverage and numb
 <p><a class="reference external" href="day3_afternoon.html">[back to top]</a>
 <a class="reference external" href="index.html">[HOME]</a></p>
 <blockquote>
-<div>i. Plot the distribution of variants across the genome in R</div></blockquote>
+<div><strong><em>i. Plot the distribution of variants across the genome in R</em></strong></div></blockquote>
 <p>The positions of variants are embedded in the first column of Outputs/Comparative/All_SNPs_annotated.txt, but you have to do some work to isolate them!</p>
 <p><strong>HINTS</strong></p>
 <ul class="simple">
@@ -219,7 +219,7 @@ The following unix commands can be used to get sorted lists of coverage and numb
 <li>Do you observe clustering of variants that would be indicative of recombination?</li>
 </ul>
 <blockquote>
-<div>ii.  Create fasta file of variants from nexus file</div></blockquote>
+<div><strong><em>ii.  Create fasta file of variants from nexus file</em></strong></div></blockquote>
 <p>SPANDx creates a file of core SNPs in a slightly odd format (transposed nexus).
 This file is called:
 <code class="docutils literal"><span class="pre">/scratch/micro612w18_fluxod/username/day3_after/SPANDx_output/Outputs/Comparative/Ortho_SNP_matrix.nex</span></code></p>
@@ -229,7 +229,7 @@ perl transpose_nex_to_fasta.pl Ortho_SNP_matrix.nex
 </pre>
 <p>This file Outputs/Comparative/Ortho_SNP_matrix.fasta should now exist</p>
 <blockquote>
-<div>iii. Create maximum likelihood tree in Seaview</div></blockquote>
+<div><strong><em>iii. Create maximum likelihood tree in Seaview</em></strong></div></blockquote>
 <pre class="literal-block">
 
 Download Ortho_SNP_matrix.fasta to your home computer
@@ -243,7 +243,7 @@ Save tree for later analysis
 <p><a class="reference external" href="day3_afternoon.html">[back to top]</a>
 <a class="reference external" href="index.html">[HOME]</a></p>
 <blockquote>
-<div>i. Load the maximum likelihood tree into iTOL</div></blockquote>
+<div><strong><em>i. Load the maximum likelihood tree into iTOL</em></strong></div></blockquote>
 <p>Note that because the out-group is so distantly related it is difficult to make out the structure of the rest of the tree.</p>
 <p><strong>To remedy this:</strong></p>
 <ul class="simple">
@@ -251,7 +251,7 @@ Save tree for later analysis
 <li>Click on the extended branch leading to where KPNIH1 was, go to the “tree structure” menu and click “collapse branch”</li>
 </ul>
 <blockquote>
-<div>ii. Load the annotation file ‘Rush_KPC_facility_codes_iTOL.txt’ to view the facility of isolation, play with tree visualization properties to understand how isolates group by facility, Circular vs. normal tree layout, Bootstrap values, Ignoring branch lengths</div></blockquote>
+<div><strong><em>ii. Load the annotation file ‘Rush_KPC_facility_codes_iTOL.txt’ to view the facility of isolation, play with tree visualization properties to understand how isolates group by facility, Circular vs. normal tree layout, Bootstrap values, Ignoring branch lengths</em></strong></div></blockquote>
 <pre class="literal-block">
 
 Which facilities appear to have a lot of intra-facility transmission based on grouping of isolates from the same facility? 
@@ -264,7 +264,7 @@ Which patient’s infections might have originated from the blue facility?
 <p><a class="reference external" href="day3_afternoon.html">[back to top]</a>
 <a class="reference external" href="index.html">[HOME]</a></p>
 <blockquote>
-<div>i. Download genome coverage bed file and load into R</div></blockquote>
+<div><strong><em>i. Download genome coverage bed file and load into R</em></strong></div></blockquote>
 <p>This file is located in: Outputs/Comparative/Bedcov_merge.txt
 This file contains information regarding locations in the reference genome that each sequenced genome does and does not map to.</p>
 <p>The first 3 columns of the file are:</p>
@@ -281,14 +281,13 @@ This file contains information regarding locations in the reference genome that 
 <li>Use the read.table function with the relevant parameters being: header and sep</li>
 </ul>
 <blockquote>
-<div>ii. Plot heatmap of genome coverage bed file</div></blockquote>
+<div><strong><em>ii. Plot heatmap of genome coverage bed file</em></strong></div></blockquote>
 <p><strong>HINTS</strong></p>
 <ul class="simple">
 <li>The first 3 columns of the bed file specify the name of the chromosome and the genome coordinates – therefore you want to subset your matrix to not include these columns</li>
 <li>Use the heatmap3 function to make your heatmap with the following parameters: scale = “none” (keeps original values), Rowv = NA (suppress clustering by rows – why might we not want to cluster by rows for this analysis?)</li>
+<li>Note a large genomic deletion among a subset of isolates. Does this deletion fit with the phylogeny from above?</li>
 </ul>
-<blockquote>
-<div>Note a large genomic deletion among a subset of isolates. Does this deletion fit with the phylogeny from above?</div></blockquote>
 <p>iii. Explore genomic deletion in more detail with ACT</p>
 <ul class="simple">
 <li>Use abacus to orient contigs from Rush_KPC_298 to KPNIH</li>
