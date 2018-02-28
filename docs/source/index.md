@@ -25,6 +25,14 @@ Link
 GOTO: http://comparative-genomics.readthedocs.io/en/latest/index.html#
 ***
 
+.. toctree::
+   :maxdepth: 2
+
+   day1_morning
+   day2_morning
+   day3_morning
+
+
 Workshop
 --------
 
