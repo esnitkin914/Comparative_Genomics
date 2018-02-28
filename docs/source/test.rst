@@ -1,5 +1,5 @@
 .. toctree::
-   :maxdepth: 2
+   :maxdepth: 5
 
    day1_morning
    day2_morning
