@@ -294,7 +294,6 @@ fastq: used for storing biological sequence / sequencing reads (usually nucleoti
 
 > ***2) the types of bases that a nucleotide sequence represents (A,T,G,C,N)***
 
-<!--->3) that each line is seperated by a new line character ("\n"). -->
 
 To determine the total length of our genome assemblies, we will use grep to match only those lines that doesn't start with ">" (remember grep -v option is used to ignore lines) and doesn't contain character "N". Then use wc command (stands for word count) to count the characters. We can use unix pipe "|" to pass the output of one command to another for further processing. Lets start by counting the number of bases in Acinetobacter_baumannii.fna file
 
