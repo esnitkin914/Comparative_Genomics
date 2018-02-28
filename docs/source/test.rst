@@ -4,6 +4,8 @@ Microbial Comparative Genomics Workshop
 
 **A 3 day microbial bioinformatics workshop conducted by `Dr. Evan Snitkin <http://thesnitkinlab.com/index.php>` at `University of Michigan <https://www.umich.edu/>`. This module covers the basics of microbial genomic analysis using publicly available tools that are commonly referenced in genomics literature. Students will learn the steps and associated tools that are required to process, annotate and compare microbial genomes.**
 
+`test <http://thesnitkinlab.com/index.php>`
+
 **Date: Feb 28 - 2 March 2018**
 
 Prerequisites
