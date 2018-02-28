@@ -1,6 +1,6 @@
 Day 1 Afternoon
 ===============
-[[HOME]](https://github.com/alipirani88/Comparative_Genomics/blob/master/README.md)
+[[HOME]](index.html)
 
 Earlier this morning, We performed some quality control steps on our sequencing data to make it clean and usable for various downstream analysis. Now we will perform our first sequence analysis, specifically variant calling, and map these reads to a reference genome and try to find out the differences between them.
 
@@ -16,10 +16,10 @@ In this session, we will be covering the important steps that are part of any Re
 
 Read Mapping
 ------------
-[[back to top]](https://github.com/alipirani88/Comparative_Genomics/blob/master/day1_afternoon/README.md)
-[[HOME]](https://github.com/alipirani88/Comparative_Genomics/blob/master/README.md)
+[[back to top]](day1_afternoon.html)
+[[HOME]](index.html)
 
-![alt tag](https://github.com/alipirani88/Comparative_Genomics/blob/master/_img/day1_after/1_1.png)
+![alt tag](1_1.png)
 
 **1. Navigate to your workshop home directory and copy day1_after directory from shared data directory.**
 
@@ -176,7 +176,7 @@ For an in-depth explanation about how PCR duplicates arise in sequencing, please
 
 Picard identifies duplicates by searching reads that have same start position on reference or in PE reads same start for both ends. It will choose a representative from each group of duplicate reads based on best base quality scores and other criteria and retain it while removing other duplicates. This step plays a significant role in removing false positive variant calls(such as sequencing error) during variant calling that are represented by PCR duplicate reads.
 
-![alt tag](https://github.com/alipirani88/Comparative_Genomics/blob/master/_img/day1_after/picard.png)
+![alt tag](picard.png)
 
 > ***i. Create a dictionary for reference fasta file required by PICARD***
 
@@ -310,8 +310,8 @@ scp username@flux-xfer.arc-ts.umich.edu:/scratch/micro612w18_fluxod/username/day
 
 Variant Calling and Filteration
 -------------------------------
-[[back to top]](https://github.com/alipirani88/Comparative_Genomics/blob/master/day1_afternoon/README.md)
-[[HOME]](https://github.com/alipirani88/Comparative_Genomics/blob/master/README.md)
+[[back to top]](day1_afternoon.html)
+[[HOME]](index.html)
 
 One of the downstream uses of read mapping is finding differences between our sequence data against a reference. This step is achieved by carrying out variant calling using any of the variant callers (samtools, gatk, freebayes etc). Each variant caller uses a different statistical framework to discover SNPs and other types of mutations. For those of you who are interested in finding out more about the statistics involved, please refer to [this]() samtools paper, one of most commonly used variant callers.
 
@@ -478,8 +478,8 @@ grep '^Chromosome.*pass_filter' Rush_KPC_266__filter_gatk_ann.vcf | grep 'INDEL'
 
 Visualize BAM and VCF files in [Artemis](http://www.sanger.ac.uk/science/tools/artemis)
 ----------------------------------------
-[[back to top]](https://github.com/alipirani88/Comparative_Genomics/blob/master/day1_afternoon/README.md)
-[[HOME]](https://github.com/alipirani88/Comparative_Genomics/blob/master/README.md)
+[[back to top]](day1_afternoon.html)
+[[HOME]](index.html)
 
 While these various statistical/text analyses are helpful, visualization of all of these various output files can help in making some significant decisions and inferences about your entire analysis. There are a wide variety of visualization tools out there that you can choose from for this purpose.
 
@@ -541,24 +541,24 @@ Now right click on any of the stacked reads and Go to Graph and select Coverage 
 
 Now right click on any of the stacked reads and Go to Show and select SNP marks to show SNPs in red marks. 
 
-![alt tag](https://github.com/alipirani88/Comparative_Genomics/blob/master/_img/day1_after/select_graph.png)
+![alt tag](select_graph.png)
 
 Follow the same procedure and select SNP graph. Adjust the gene features panel height to show all the graph in a window.
 
-![alt tag](https://github.com/alipirani88/Comparative_Genomics/blob/master/_img/day1_after/graphs.png)
+![alt tag](graphs.png)
 
 Play around by moving the genbank panel cursor to look at coverage and SNP density across the genome. This will let you look at any regions where the coverage or SNP density is unusually high or low.
 
 If you click a read, its mate pair will also be selected. If the cursor hovers over a read for long enough details of that read will appear in a small box. For more details of the read, right-click and select 'Show details of: READ NAME' (last option in list) from the
 menu (screenshot below). This will open up a new window giving you some useful details such as mapping quality, coordinates etc. 
 
-![alt tag](https://github.com/alipirani88/Comparative_Genomics/blob/master/_img/day1_after/read_details.png)
+![alt tag](read_details.png)
 
 The snps are denoted by red marks as observed inside the reads. Go to one of the SNPs in the VCF file (Position: 50195) by directly navigating to the position. For this, select Goto at the top -> select Navigator -> Type the position in Goto Base box
 
 You will notice a spike in the middle of the SNP graph window. This is one of the SNPs that passed all our filter criteria. (Screenshot)
 
-![alt tag](https://github.com/alipirani88/Comparative_Genomics/blob/master/_img/day1_after/spike_true.png)
+![alt tag](spike_true.png)
 
 Lets try to see an example of HET variant. Variant positions where more than one allele (variant) with sufficiently high read depth are observed are considered HET type variants. 
 
@@ -566,11 +566,11 @@ For this, click on tje Goto option at the top and select navigator. Type 321818 
 
 You will see a thick spike in the SNP graph as well as thick red vertical line in BAM panel. Also notice the sudden spike in the coverage for this particular region compared to its flanking region (the region before and after a selected region). The coverage here is more than 300 which is unusually high compared to the entire genome coverage. This means that more than one allele with high quality and depth were observed at these positions so we cannot decide which one of these is a true variant. We removed these types of variants during our Variant Filteration step using the criteria FQ. (If the FQ is unusually high, it is suggestive of a HET variant and negative FQ value is a suggestive of true variant as observed in the mapped reads) 
 
-![alt tag](https://github.com/alipirani88/Comparative_Genomics/blob/master/_img/day1_after/HET_variant.png)
+![alt tag](HET_variant.png)
 
 Now select the gene right below this spiked region. Right click on this gene (KPNIH1_RS01560) and select Zoom to Selection.
 
-![alt tag](https://github.com/alipirani88/Comparative_Genomics/blob/master/_img/day1_after/HET_variant_gene_selected.png)
+![alt tag](HET_variant_gene_selected.png)
 
 Check the details about gene by selecting View -> Selected Features
 
@@ -578,8 +578,8 @@ You can inspect these type of HET variants later for any gene duplication or cop
 
 Play around with Artemis to look at what other kind of information you can find from these BAM and vcf files. Also refer to the manual at the [Artemis Homepage](http://www.sanger.ac.uk/science/tools/artemis) for full information about its usage. 
 
-[[back to top]](https://github.com/alipirani88/Comparative_Genomics/blob/master/day1_afternoon/README.md)
-[[HOME]](https://github.com/alipirani88/Comparative_Genomics/blob/master/README.md)
+[[back to top]](day1_afternoon.html)
+[[HOME]](index.html)
 
 
 VRE variant calling analysis
