@@ -582,8 +582,8 @@ Play around with Artemis to look at what other kind of information you can find 
 [[HOME]](https://github.com/alipirani88/Comparative_Genomics/blob/master/README.md)
 
 
-VRE QC, variant calling and Artemis
------------------------------------
+VRE variant calling analysis
+----------------------------
 
 Today, we learned how to assess the quality, perform quality trimming and variant calling to find variants between the sample and reference genome. This exercise requires you to apply these tools and commands on a VRE resistant raw sample VRE_daptoR_R*.fastq.gz placed in VRE_dapto_resistance folder. At the end of this exercise, you should be able to explore the results in Artemis and find out the differences between them.
 
