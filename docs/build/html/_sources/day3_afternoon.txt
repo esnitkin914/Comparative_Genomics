@@ -85,6 +85,10 @@ On the afternoon of day 1 we saw how many steps are involved in calling variants
 
 More information on SPANDx pipeline can be obtained from [this](https://sourceforge.net/projects/spandx/files/SPANDx%20Manual_v3.1.pdf/download) manual.
 
+A snapshot of the pipeline is shown below:
+
+![alt tag](spandx.jpg)
+
 Because it takes a while to run, we have pre-run it for you. Your task will be to sort through the outputs of SPANDx. The detailed information about how to interpret the output is in SPANDx manual(section INTERPRETING THE OUTPUTS). 
 
 > ***i. Look at overall statistics for variant calling in excel***
