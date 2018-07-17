@@ -1,23 +1,36 @@
-# Bacterial Comparative Genomics Workshop
+Microbial Comparative Genomics Workshop
+=======================================
 
-#### A 3 day microbial bioinformatics workshop conducted by [Dr. Evan Snitkin](http://thesnitkinlab.com/index.php) at [University of Michigan](https://www.umich.edu/). This module covers the basics of microbial genomic analysis using publicly available tools that are commonly referenced in genomics literature. Students will learn the steps and associated tools that are required to process, annotate and compare microbial genomes.
+***A 3 day microbial bioinformatics workshop conducted by [Dr. Evan Snitkin](http://thesnitkinlab.com/index.php) at [University of Michigan](https://www.umich.edu/). This module covers the basics of microbial genomic analysis using publicly available tools that are commonly referenced in genomics literature. Students will learn the steps and associated tools that are required to process, annotate and compare microbial genomes.***
 
-#### Date: 15 - 17 March
-
+***Date: Feb 28 - 2 March 2018***
+***
+<!---
 Link to Software Carpentry Etherpad:
 http://pad.software-carpentry.org/micro612_bacterial_genomics_workshop
+-->
 
+Prerequisites
+-------------
+
+- Prior participation in a [Software Carpentry Workshop](https://umswc.github.io/2018-02-26-UMich/)
 ***
-#### Prerequisites:
-- Prior participation in a [Software Carpentry Workshop](https://umswc.github.io/2017-01-17-UMich/)
-- [Micro612 pre-course hw](https://github.com/alipirani88/Comparative_Genomics/blob/master/Micro612_pre-course_hw/Micro612_w17_pre-course_hw.pdf): A pre-course homework will help setting up Micro612 flux directories and bash profile, familiarize with basic unix/shell scripting and R commands.
+<!---
+- [Micro612 pre-course hw](https://github.com/alipirani88/Comparative_Genomics/blob/master/Micro612_pre-course_hw/Micro612_w18_pre-course_hw.pdf): A pre-course homework will help setting up Micro612 flux directories and bash profile.
+-->
 
+Link
+----
+
+GOTO: http://comparative-genomics.readthedocs.io/en/latest/index.html#
 ***
 
-#### Workshop:
+Workshop
+--------
 
 [Day 1 Morning](https://github.com/alipirani88/Comparative_Genomics/blob/master/day1_morning/README.md)
 ***
+- [Installing and setting up Cyberduck for file transfer](https://github.com/alipirani88/Comparative_Genomics/blob/master/day1_morning/README.md#installing-and-setting-up-cyberduck-for-file-transfer)
 - [Getting your data onto Flux and setting up Environment variable](https://github.com/alipirani88/Comparative_Genomics/blob/master/day1_morning/README.md#getting-your-data-onto-glux-and-setting-up-environment-variable)
 - [Unix is your friend](https://github.com/alipirani88/Comparative_Genomics/blob/master/day1_morning/README.md#unix-is-your-friend)
 - [Quality Control using FastQC](https://github.com/alipirani88/Comparative_Genomics/blob/master/day1_morning/README.md#quality-control-using-fastqc)
@@ -28,6 +41,7 @@ http://pad.software-carpentry.org/micro612_bacterial_genomics_workshop
 - [Read Mapping](https://github.com/alipirani88/Comparative_Genomics/blob/master/day1_afternoon/README.md#read-mapping)
 - [Variant Calling](https://github.com/alipirani88/Comparative_Genomics/blob/master/day1_afternoon/README.md#variant-calling-and-filteration)
 - [Visualize BAM/VCF files in Artemis](https://github.com/alipirani88/Comparative_Genomics/blob/master/day1_afternoon/README.md#visualize-bam-and-vcf-files-in-artemis)
+- [VRE variant calling analysis](https://github.com/alipirani88/Comparative_Genomics/blob/master/day1_afternoon/README.md#vre-variant-calling-analysis)
 
 [Day 2 Morning](https://github.com/alipirani88/Comparative_Genomics/blob/master/day2_morning/README.md#day-2-morning)
 ***
@@ -40,9 +54,8 @@ http://pad.software-carpentry.org/micro612_bacterial_genomics_workshop
 [Day 2 Afternoon](https://github.com/alipirani88/Comparative_Genomics/blob/master/day2_afternoon/README.md#day-2-afternoon)
 ***
 - [Determine which genomes contain beta-lactamase genes](https://github.com/alipirani88/Comparative_Genomics/blob/master/day2_afternoon/README.md#determine-which-genomes-contain-beta-lactamase-genes)
-- [Identification of antibiotic resistance genes with LS-BSR and the ARDB database](https://github.com/alipirani88/Comparative_Genomics/blob/master/day2_afternoon/README.md#identification-of-antibiotic-resistance-genes-with-ls-bsr-and-the-ardb-database)
-- [Perform pan-genome analysis with LS-BSR](https://github.com/alipirani88/Comparative_Genomics/blob/master/day2_afternoon/README.md#perform-pan-genome-analysis-with-ls-bsr)
-- [Perform genome comparisons with ACT](https://github.com/alipirani88/Comparative_Genomics/blob/master/day2_afternoon/README.md#perform-genome-comparisons-with-act)
+- [Identification of antibiotic resistance genes with ARIBA directly from paired-end reads](https://github.com/alipirani88/Comparative_Genomics/blob/master/day2_afternoon/README.md#identification-of-antibiotic-resistance-genes-with-ariba-directly-from-paired-end-reads)
+- [Perform pan-genome analysis with Roary](https://github.com/alipirani88/Comparative_Genomics/blob/master/day2_afternoon/README.md#perform-pan-genome-analysis-with-roary)
 
 [Day 3 Morning](https://github.com/alipirani88/Comparative_Genomics/blob/master/day3_morning/README.md#day-3-morning)
 ***
@@ -60,7 +73,7 @@ http://pad.software-carpentry.org/micro612_bacterial_genomics_workshop
 - [Phylogenetic tree annotation and visualization](https://github.com/alipirani88/Comparative_Genomics/blob/master/day3_afternoon/README.md#phylogenetic-tree-annotation-and-visualization)
 - [Assessment of genomic deletions](https://github.com/alipirani88/Comparative_Genomics/blob/master/day3_afternoon/README.md#assessment-of-genomic-deletions)
 
-- [Helpful resources for microbial genomics](https://github.com/alipirani88/Comparative_Genomics/blob/master/online_resources/README.md#helpful-resources-for-microbial-genomics)
-***
 
+
+[Helpful resources for microbial genomics](https://github.com/alipirani88/Comparative_Genomics/blob/master/online_resources/README.md#helpful-resources-for-microbial-genomics)
 ***

@@ -1,0 +1,626 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Day 2 Afternoon &mdash; Micro 612 genomics workshop 3.0 documentation</title>
+  
+
+  
+  
+
+  
+  <link href='https://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic|Roboto+Slab:400,700|Inconsolata:400,700&subset=latin,cyrillic' rel='stylesheet' type='text/css'>
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+    <link rel="top" title="Micro 612 genomics workshop 3.0 documentation" href="index.html"/>
+        <link rel="next" title="Day 3 Morning" href="day3_morning.html"/>
+        <link rel="prev" title="Day 2 Morning" href="day2_morning.html"/> 
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.6.2/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-nav-search">
+        
+          <a href="index.html" class="fa fa-home"> Micro 612 genomics workshop</a>
+        
+        
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+        
+          
+          
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="day1_morning.html">Day 1 Morning</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="day1_morning.html#installing-and-setting-up-cyberduck-for-file-transfer">Installing and setting up Cyberduck for file transfer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="day1_morning.html#getting-your-data-onto-flux-and-setting-up-environment-variable">Getting your data onto Flux and setting up environment variable</a></li>
+<li class="toctree-l2"><a class="reference internal" href="day1_morning.html#unix-is-your-friend">Unix is your friend</a></li>
+<li class="toctree-l2"><a class="reference internal" href="day1_morning.html#your-first-sequence-analysis-program">Your first sequence analysis program!!!</a></li>
+<li class="toctree-l2"><a class="reference internal" href="day1_morning.html#plotting-genomic-coverage-in-r">Plotting genomic coverage in R</a></li>
+<li class="toctree-l2"><a class="reference internal" href="day1_morning.html#power-of-unix-commands">Power of Unix commands</a></li>
+<li class="toctree-l2"><a class="reference internal" href="day1_morning.html#contamination-screening-using-fastq-screen">Contamination Screening using FastQ Screen</a></li>
+<li class="toctree-l2"><a class="reference internal" href="day1_morning.html#quality-control-using-fastqc">Quality Control using FastQC</a></li>
+<li class="toctree-l2"><a class="reference internal" href="day1_morning.html#quality-trimming-using-trimmomatic">Quality Trimming using Trimmomatic</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="day1_afternoon.html">Day 1 Afternoon</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="day1_afternoon.html#read-mapping">Read Mapping</a></li>
+<li class="toctree-l2"><a class="reference internal" href="day1_afternoon.html#generate-alignment-statistics">Generate Alignment Statistics</a></li>
+<li class="toctree-l2"><a class="reference internal" href="day1_afternoon.html#variant-calling-and-filteration">Variant Calling and Filteration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="day1_afternoon.html#visualize-bam-and-vcf-files-in-artemis">Visualize BAM and VCF files in Artemis</a></li>
+<li class="toctree-l2"><a class="reference internal" href="day1_afternoon.html#vre-variant-calling-analysis">VRE variant calling analysis</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="day2_morning.html">Day 2 Morning</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="day2_morning.html#genome-assembly-using-spades-pipeline">Genome Assembly using Spades Pipeline</a></li>
+<li class="toctree-l2"><a class="reference internal" href="day2_morning.html#assembly-evaluation-using-quast">Assembly evaluation using QUAST</a></li>
+<li class="toctree-l2"><a class="reference internal" href="day2_morning.html#generating-multiple-sample-reports-using-multiqc">Generating multiple sample reports using multiqc</a></li>
+<li class="toctree-l2"><a class="reference internal" href="day2_morning.html#compare-assembly-to-reference-genome-and-post-assembly-genome-improvement">Compare assembly to reference genome and post-assembly genome improvement</a></li>
+<li class="toctree-l2"><a class="reference internal" href="day2_morning.html#map-reads-to-the-final-ordered-assembly">Map reads to the final ordered assembly</a></li>
+<li class="toctree-l2"><a class="reference internal" href="day2_morning.html#using-abacas-and-act-to-compare-vre-vse-genome">Using abacas and ACT to compare VRE/VSE genome</a></li>
+<li class="toctree-l2"><a class="reference internal" href="day2_morning.html#genome-annotation">Genome Annotation</a></li>
+</ul>
+</li>
+<li class="toctree-l1 current"><a class="current reference internal" href="">Day 2 Afternoon</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#high-throughput-blast-and-pan-genome-analysis">High-throughput BLAST and pan-genome analysis</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#determine-which-genomes-contain-beta-lactamase-genes">Determine which genomes contain beta-lactamase genes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#identification-of-antibiotic-resistance-genes-with-ariba-directly-from-paired-end-reads">Identification of antibiotic resistance genes with ARIBA directly from paired end reads</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#perform-pan-genome-analysis-with-roary">Perform pan-genome analysis with Roary</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#perform-genome-comparisons-with-act">Perform genome comparisons with ACT</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="day3_morning.html">Day 3 Morning</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="day3_morning.html#perform-whole-genome-alignment-with-mauve-and-convert-alignment-to-other-useful-formats">Perform whole genome alignment with Mauve and convert alignment to other useful formats</a></li>
+<li class="toctree-l2"><a class="reference internal" href="day3_morning.html#perform-some-dna-sequence-comparisons-and-phylogenetic-analysis-in-ape-an-r-package">Perform some DNA sequence comparisons and phylogenetic analysis in APE, an R package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="day3_morning.html#perform-snp-density-analysis-to-discern-evidence-of-recombination">Perform SNP density analysis to discern evidence of recombination</a></li>
+<li class="toctree-l2"><a class="reference internal" href="day3_morning.html#perform-recombination-filtering-with-gubbins">Perform recombination filtering with Gubbins</a></li>
+<li class="toctree-l2"><a class="reference internal" href="day3_morning.html#create-annotated-publication-quality-trees-with-itol">Create annotated publication quality trees with iTOL</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="day3_afternoon.html">Day 3 Afternoon</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="day3_afternoon.html#klebsiella-pneumoniae-comparative-genomic-analysis">Klebsiella pneumoniae comparative genomic analysis</a></li>
+<li class="toctree-l2"><a class="reference internal" href="day3_afternoon.html#perform-qc-on-fastq-files">Perform QC on fastq files</a></li>
+<li class="toctree-l2"><a class="reference internal" href="day3_afternoon.html#examine-results-of-spandx-pipeline">Examine results of SPANDx pipeline</a></li>
+<li class="toctree-l2"><a class="reference internal" href="day3_afternoon.html#recombination-detection-and-tree-generation">Recombination detection and tree generation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="day3_afternoon.html#phylogenetic-tree-annotation-and-visualization">Phylogenetic tree annotation and visualization</a></li>
+<li class="toctree-l2"><a class="reference internal" href="day3_afternoon.html#assessment-of-genomic-deletions">Assessment of genomic deletions</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="online_resources.html">Helpful resources for microbial genomics</a></li>
+</ul>
+
+          
+        
+      </div>
+      &nbsp;
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="index.html">Micro 612 genomics workshop</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="index.html">Docs</a> &raquo;</li>
+      
+    <li>Day 2 Afternoon</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          <a href="_sources/day2_afternoon.txt" rel="nofollow"> View page source</a>
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document">
+            
+  <div class="section" id="day-2-afternoon">
+<span id="day-2-afternoon"></span><h1>Day 2 Afternoon<a class="headerlink" href="#day-2-afternoon" title="Permalink to this headline">¶</a></h1>
+<p><a class="reference external" href="index.html">[HOME]</a></p>
+<div class="section" id="high-throughput-blast-and-pan-genome-analysis">
+<span id="high-throughput-blast-and-pan-genome-analysis"></span><h2>High-throughput BLAST and pan-genome analysis<a class="headerlink" href="#high-throughput-blast-and-pan-genome-analysis" title="Permalink to this headline">¶</a></h2>
+<p>This morning we learned how to perform basic genome annotation and comparison using Prokka and ACT. Now we will up the ante and do some more sophisticated comparative genomics analyses!
+First, we will create custom BLAST databases to identify specific antibiotic resistance genes of interest in a set of genomes.
+Second, we will use the large-scale BLAST-based tool LS-BSR to identify the complete antibiotic resistome in our genomes.
+Third, we will move beyond antibiotic resistance, and look at the complete set of protein coding genes in our input genomes.
+Finally, we will go back to ACT to understand the sorts of genomic rearrangements underlying observed variation in gene content.</p>
+<p>For these exercises we will be looking at four closely related Acinetobacter baumannii strains. However, despite being closely related, these genomes have major differences in gene content, as A. baumannii has a notoriously flexible genome! In fact, in large part due to its genomic flexibility, A. baumannii has transitioned from a harmless environmental contaminant to a pan-resistant super-bug in a matter of a few decades. If you are interested in learning more, check out this nature <a class="reference external" href="http://www.nature.com/nrmicro/journal/v5/n12/abs/nrmicro1789.html">review</a> or <a class="reference external" href="http://www.pnas.org/content/108/33/13758.abstract">this</a> paper, I published a few years back analyzing the very same genomes you are working with.</p>
+<p>Execute the following command to copy files for this afternoon’s exercises to your scratch directory:</p>
+<div class="highlight-"><div class="highlight"><pre>cd /scratch/micro612w18_fluxod/username
+
+or
+
+wd
+
+cp -r /scratch/micro612w18_fluxod/shared/data/day2_after/ ./
+</pre></div>
+</div>
+</div>
+<div class="section" id="determine-which-genomes-contain-beta-lactamase-genes">
+<span id="determine-which-genomes-contain-beta-lactamase-genes"></span><h2>Determine which genomes contain beta-lactamase genes<a class="headerlink" href="#determine-which-genomes-contain-beta-lactamase-genes" title="Permalink to this headline">¶</a></h2>
+<p><a class="reference external" href="day2_afternoon.html">[back to top]</a>
+<a class="reference external" href="index.html">[HOME]</a></p>
+<p>Before comparing full genomic content, lets start by looking for the presence of particular genes of interest. A. baumannii harbors an arsenal of resistance genes, and it would be interesting to know how particular resistance families vary among our 4 genomes. To accomplish this we will use the antibiotic resistance database (<a class="reference external" href="http://ardb.cbcb.umd.edu/">ARDB</a>) and particularly beta-lactamase genes extracted from ARDB. These extracted genes can be found in file ardb_beta_lactam_genes.pfasta, which we will use to generate a Blast database.</p>
+<blockquote>
+<div><strong><em>i. Run makeblastdb on the file of beta-lactamases to create a BLAST database.</em></strong></div></blockquote>
+<p>makeblastdb takes as input:</p>
+<ol class="simple">
+<li>an input fasta file of protein or nucleotide sequences (ardb_beta_lactam_genes.pfasta) and</li>
+<li>a flag indicating whether to construct a protein or nucleotide database (in this case protein/ -dbtype prot).</li>
+</ol>
+<pre class="literal-block">
+#change directory to day2_after
+d2a
+
+
+makeblastdb -in ardb_beta_lactam_genes.pfasta -dbtype prot
+
+</pre>
+<blockquote>
+<div><strong><em>ii. BLAST A. baumannii protein sequences against our custom beta-lactamase database.</em></strong></div></blockquote>
+<p>Run BLAST!</p>
+<p>The input parameters are:</p>
+<ol class="simple">
+<li>query sequences (-query Abau_all.pfasta),</li>
+<li>the database to search against (-db ardb_beta_lactam_genes.pfasta),</li>
+<li>the name of a file to store your results (-out bl_blastp_results),</li>
+<li>output format (-outfmt 6),</li>
+<li>e-value cutoff (-evalue 1e-20),</li>
+<li>number of database sequences to return (-max_target_seqs 1)</li>
+</ol>
+<pre class="literal-block">
+blastp -query Abau_all.pfasta -db ardb_beta_lactam_genes.pfasta -out bl_blastp_results -outfmt 6 -evalue 1e-20 -max_target_seqs 1
+</pre>
+<p>Use less to look at bl_blastp_results.</p>
+<pre class="literal-block">
+less bl_blastp_results
+</pre>
+<ul class="simple">
+<li>Question: Experiment with the –outfmt parameter, which controls different output formats that BLAST can produce.</li>
+<li>Question: Determine which Enterococcus genomes contain vancomycin resistance genes. To do this you will need to: i) create a protein BLAST database for ardb_van.pfasta, ii) concetenate the genomes sequences in the .fasta files and iii) use blastx to BLAST nucleotide genomes against a protein database</li>
+</ul>
+</div>
+<div class="section" id="identification-of-antibiotic-resistance-genes-with-ariba-directly-from-paired-end-reads">
+<span id="identification-of-antibiotic-resistance-genes-with-ariba-directly-from-paired-end-reads"></span><h2>Identification of antibiotic resistance genes with <a class="reference external" href="https://github.com/sanger-pathogens/ariba">ARIBA</a> directly from paired end reads<a class="headerlink" href="#identification-of-antibiotic-resistance-genes-with-ariba-directly-from-paired-end-reads" title="Permalink to this headline">¶</a></h2>
+<p><a class="reference external" href="day2_afternoon.html">[back to top]</a>
+<a class="reference external" href="index.html">[HOME]</a></p>
+<p>ARIBA, Antimicrobial Resistance Identification By Assembly is a tool that identifies antibiotic resistance genes by running local assemblies. The input is a FASTA file of reference sequences (can be a mix of genes and noncoding sequences) and paired sequencing reads. ARIBA reports which of the reference sequences were found, plus detailed information on the quality of the assemblies and any variants between the sequencing reads and the reference sequences.</p>
+<p>ARIBA is compatible with various databases and also contains an utility to download different databases such as: argannot, card, megares, plasmidfinder, resfinder, srst2_argannot, vfdb_core. Today, we will be working with the <a class="reference external" href="https://card.mcmaster.ca/">card</a> database, which has been downloaded and placed in /scratch/micro612w18_fluxod/shared/out.card.prepareref/ directory.</p>
+<!---
+Note: There is an issue with downloading the database. They are in a process to fix the broken CARD database link issue. For now, I am using my own downloaded database.
+>i. Run this command to download CARD database
+```
+/nfs/esnitkin/bin_group/anaconda3/bin/ariba getref card out.card
+```
+>ii. Prepare this downloaded card database for ARIBA
+```
+/nfs/esnitkin/bin_group/anaconda3/bin/ariba prepareref -f out.card.fa -m out.card.tsv out.card.prepareref
+```
+--><blockquote>
+<div><strong><em>i. Run ARIBA on input paired-end fastq reads for resistance gene identification.</em></strong></div></blockquote>
+<p>The fastq reads are placed in Abau_genomes_fastq directory. Enter interactive flux session, change directory to day2_after workshop directory and run the below four commands to start ARIBA jobs in background.</p>
+<!---
+module load python-anaconda3/latest
+--><pre class="literal-block">
+iflux
+
+cd /scratch/micro612w18_fluxod/username/day2_after
+
+or 
+
+d2a
+
+#Load dependency
+
+module load cd-hit
+
+#ARIBA commands
+
+/nfs/esnitkin/bin_group/anaconda3/bin/ariba run --force /scratch/micro612w18_fluxod/shared/out.card.prepareref/ Abau_genomes_fastq/AbauA_genome.1.fastq.gz Abau_genomes_fastq/AbauA_genome.2.fastq.gz AbauA_genome &amp;
+
+/nfs/esnitkin/bin_group/anaconda3/bin/ariba run --force /scratch/micro612w18_fluxod/shared/out.card.prepareref/ Abau_genomes_fastq/AbauB_genome.1.fastq.gz Abau_genomes_fastq/AbauB_genome.2.fastq.gz AbauB_genome &amp;
+
+/nfs/esnitkin/bin_group/anaconda3/bin/ariba run --force /scratch/micro612w18_fluxod/shared/out.card.prepareref/ Abau_genomes_fastq/AbauC_genome.1.fastq.gz Abau_genomes_fastq/AbauC_genome.2.fastq.gz AbauC_genome &amp;
+
+/nfs/esnitkin/bin_group/anaconda3/bin/ariba run --force /scratch/micro612w18_fluxod/shared/out.card.prepareref/ Abau_genomes_fastq/ACICU_genome.1.fastq.gz Abau_genomes_fastq/ACICU_genome.2.fastq.gz ACICU_genome &amp;
+
+</pre>
+<p>The &#8220;&amp;&#8221; in the above commands(at the end) is a little unix trick to run commands in background. You can run multiple commands in background and make full use of parallel processing. You can check the status of these background jobs by typing:</p>
+<pre class="literal-block">
+jobs
+</pre>
+<blockquote>
+<div><strong><em>ii. Run ARIBA summary function to generate a summary report.</em></strong></div></blockquote>
+<p>ARIBA has a summary function that summarises the results from one or more sample runs of ARIBA and generates an output report with various level of information determined by -preset parameter. The parameter &#8220;-preset minimal&#8221; will generate a minimal report showing only the presence/absence of resistance genes whereas &#8220;-preset all&#8221; will output all the extra information related to each database hit such as reads and reference sequence coverage, variants and their associated annotations(if the variant confers resistance to an Antibiotic) etc.</p>
+<pre class="literal-block">
+
+/nfs/esnitkin/bin_group/anaconda3/bin/ariba summary --preset minimal Abau_genomes_ariba_minimal_results *_genome/report.tsv
+
+/nfs/esnitkin/bin_group/anaconda3/bin/ariba summary --preset all Abau_genomes_ariba_all_results *_genome/report.tsv
+
+</pre>
+<p>ARIBA summary generates three output:</p>
+<ol class="simple">
+<li>Abau_genomes_ariba*.csv file that can be viewed in your favourite spreadsheet program.</li>
+<li>Abau_genomes_ariba*.phandango.{csv,tre} that allow you to view the results in <a class="reference external" href="http://jameshadfield.github.io/phandango/#/">Phandango</a>. They can be drag-and-dropped straight into Phandango.</li>
+</ol>
+<p>Lets copy this phandango files Abau_genomes_ariba_minimal_results.phandango.csv and Abau_genomes_ariba_minimal_results.phandango.tre to the local system using cyberduck or scp</p>
+<pre class="literal-block">
+scp username\&#64;flux-xfer.arc-ts.umich.edu:/scratch/micro612w18_fluxod/username/day2_after/*minimal_results.phandango* ~/Desktop/
+</pre>
+<p>Drag and drop these two files on <a class="reference external" href="http://jameshadfield.github.io/phandango/#/">Phandango</a> website. What types of resistance genes do you see in these Acinetobacter genomes? This <a class="reference external" href="http://aac.asm.org/content/55/3/947.full">review</a> may help interpret.</p>
+<blockquote>
+<div><strong><em>iii. Explore full ARIBA matrix in R</em></strong></div></blockquote>
+<ul class="simple">
+<li>Now, Fire up R console or studio and read ariba full report &#8220;Abau_genomes_ariba_all_results.csv&#8221;</li>
+</ul>
+<pre class="literal-block">
+ariba_full  = read.csv(file = 'Abau_genomes_ariba_all_results.csv', row.names = 1)
+</pre>
+<ul class="simple">
+<li>Subset to get description for each gene</li>
+</ul>
+<pre class="literal-block">
+ariba_full_asm = ariba_full[, grep('assembled',colnames(ariba_full))]
+</pre>
+<ul class="simple">
+<li>Make binary for plotting purposes</li>
+</ul>
+<pre class="literal-block">
+ariba_full_asm[,] = as.numeric(ariba_full_asm != 'no')
+</pre>
+<ul class="simple">
+<li>Make a heatmap!</li>
+</ul>
+<pre class="literal-block">
+heatmap(as.matrix(ariba_full_asm), scale = &quot;none&quot;, col= c('black', 'red'), margins = c(10,5), cexRow = 0.75)
+</pre>
+</div>
+<div class="section" id="perform-pan-genome-analysis-with-roary">
+<span id="perform-pan-genome-analysis-with-roary"></span><h2>Perform pan-genome analysis with <a class="reference external" href="https://sanger-pathogens.github.io/Roary/">Roary</a><a class="headerlink" href="#perform-pan-genome-analysis-with-roary" title="Permalink to this headline">¶</a></h2>
+<p>Roary is a pan genome pipeline, which takes annotated assemblies in GFF3 format and calculates the pan genome. The pan-genome is just a fancy term for the full complement of genes in a set of genomes.</p>
+<p>The way Roary does this is by:</p>
+<ol class="simple">
+<li>Roary gets all the coding sequences from GFF files, convert them into protein, and create pre-clusters of all the genes,</li>
+<li>Then, using BLASTP and MCL, Roary will create gene clusters, and check for paralogs. and</li>
+<li>Finally, Roary will take every isolate and order them by presence/absence of genes.</li>
+</ol>
+<blockquote>
+<div><strong><em>i. Generate pan-genome matrix using Roary and GFF files</em></strong></div></blockquote>
+<p>Make sure you are on an interactive node, as this will be even more computationally intensive!</p>
+<pre class="literal-block">
+iflux
+</pre>
+<p>Change your directory to day2_after</p>
+<pre class="literal-block">
+
+&gt; Make sure to change username with your uniqname
+
+cd /scratch/micro612w18_fluxod/username/day2_after/
+
+or 
+
+d2a
+
+</pre>
+<p>Load all the required dependencies and run roary on GFF files placed in Abau_genomes_gff folder.</p>
+<pre class="literal-block">
+module load samtools
+module load bedtools2
+module load cd-hit
+module load ncbi-blast
+module load mcl
+module load parallel
+module load mafft
+module load fasttree
+module load perl-modules
+module load R
+module load roary
+
+#Run roary
+roary -p 4 -f Abau_genomes_roary_output -r -n -v Abau_genomes_gff/*.gff 
+</pre>
+<p>The above roary command will run pan-genome pipeline on gff files placed in Abau_genomes_gff(-v) using 4 threads(-p), save the results in an output directory Abau_genomes_roary_output(-f), generate R plots using .Rtab output files and align core genes(-n)</p>
+<p>Change directory to Abau_genomes_roary_output to explore the results.</p>
+<pre class="literal-block">
+cd Abau_genomes_roary_output
+
+ls
+</pre>
+<p>Output files:</p>
+<ol class="simple">
+<li>summary_statistics.txt: This file is an overview of your pan genome analysis showing the number of core genes(present in all isolates) and accessory genes(genes absent from one or more isolates or unique to a given isolate).</li>
+<li>gene_presence_absence.csv: This file contain detailed information about each gene including their annotations which can be opened in any spreadsheet software to manually explore the results. It contains plethora of information such as gene name and their functional annotation, whether a gene is present in a genome or not, minimum/maximum/Average sequence length etc.</li>
+<li>gene_presence_absence.Rtab: This file is similar to the gene_presence_absence.csv file, however it just contains a simple tab delimited binary matrix with the presence and absence of each gene in each sample. It can be easily loaded into R using the read.table function for further analysis and plotting. The first row is the header containing the name of each sample, and the first column contains the gene name. A 1 indicates the gene is present in the sample, a 0 indicates it is absent.</li>
+<li>core_gene_alignment.aln: a multi-FASTA alignment of all of the core genes that can be used to generate a phylogenetic tree.</li>
+</ol>
+<!--
+#Plots are not very useful. Seems like a waste of time.
+>ii. Generate a phylogenetic tree and plot pan-genome matrix.
+we will use core_gene_alignment.aln multi-fasta core gene alignment as an input to generate a phylogenetic tree using FastTree tool. 
+This tree along with the pan-genome matrix can then be used to plot some nice plots. Roary comes with a python script called roary_plots.py that can be used for visualizing pan-genome analysis results. 
+```
+module load fasttree
+FastTree core_gene_alignment.aln > core_gene_alignment.tree
+module load python-anaconda3/latest
+python /scratch/micro612w18_fluxod/shared/bin/roary/contrib/roary_plots/roary_plots.py core_gene_alignment.tree gene_presence_absence.csv
+```
+--><blockquote>
+<div><strong><em>ii. Explore pan-genome matrix gene_presence_absence.csv and gene_presence_absence.Rtab using R</em></strong></div></blockquote>
+<!---
+Note:plots generated by roary_plots.py doesn't seem to be very useful and is completely a waste of time. query_pan_genome script provided by roary doesn't work and generates an empty result which seems like a bug and the link to the issue raised for this bug can be found [here](https://github.com/sanger-pathogens/Roary/issues/298) 
+--><p><strong>Modify gene_presence_absence.Rtab file to include annotations</strong></p>
+<ul class="simple">
+<li>Get column names from gene_presence_absence.csv file</li>
+</ul>
+<pre class="literal-block">
+head -n1 gene_presence_absence.csv | tr ',' '\n' | cat --number
+</pre>
+<ul class="simple">
+<li>Pull columns of interest</li>
+</ul>
+<pre class="literal-block">
+cut -d &quot;,&quot; -f 3 gene_presence_absence.csv | tr '&quot;' '_' &gt; gene_presence_absence_annot.csv
+</pre>
+<ul class="simple">
+<li>Paste it into pan-genome matrix</li>
+</ul>
+<pre class="literal-block">
+paste -d &quot;&quot; gene_presence_absence_annot.csv gene_presence_absence.Rtab &gt; gene_presence_absence_wannot.Rtab
+</pre>
+<ul class="simple">
+<li>Check gene_presence_absence_wannot.Rtab file</li>
+</ul>
+<pre class="literal-block">
+less gene_presence_absence_wannot.Rtab
+</pre>
+<p><strong>Read matrix into R, generate exploratory plots and query pan-genome</strong></p>
+<p>Use scp or cyberduck to get gene_presence_absence_wannot.Rtab onto your laptop.</p>
+<blockquote>
+<div><strong><em>i. Prepare and clean data</em></strong></div></blockquote>
+<ul class="simple">
+<li>Fire up RStudio and read gene_presence_absence_wannot.Rtab into matrix.</li>
+</ul>
+<pre class="literal-block">
+pg_matrix = read.table('gene_presence_absence_wannot.Rtab', sep = &quot;\t&quot;, quote = &quot;&quot;, row.names = 1, skip = 1)
+</pre>
+<ul class="simple">
+<li>Add column names back</li>
+</ul>
+<pre class="literal-block">
+colnames(pg_matrix) = c('ACICU', 'AbauA', 'AbauB', 'AbauC')
+</pre>
+<ul class="simple">
+<li>Use head, str, dim, etc. to explore the matrix.</li>
+</ul>
+<blockquote>
+<div><strong><em>ii. Generate exploratory heatmaps.</em></strong></div></blockquote>
+<ul class="simple">
+<li>Make a heatmap for the full matrix</li>
+</ul>
+<pre class="literal-block">
+heatmap(as.matrix(pg_matrix), , scale = &quot;none&quot;, distfun = function(x){dist(x, method = &quot;manhattan&quot;)}, margin = c(10,10), cexCol = 0.85, cexRow = 0.5, col= c('black', 'red'))
+</pre>
+<ul class="simple">
+<li>Make a heatmap for variable genes (present in at least one, but not all of the genomes)</li>
+</ul>
+<pre class="literal-block">
+
+pg_matrix_subset = pg_matrix[rowSums(pg_matrix &gt; 0) &gt; 0 &amp; rowSums(pg_matrix &gt; 0) &lt; 4 ,] 
+heatmap(as.matrix(pg_matrix_subset), , scale = &quot;none&quot;, distfun = function(x){dist(x, method = &quot;manhattan&quot;)}, margin = c(10,10), cexCol = 0.85, cexRow = 0.5, col= c('black', 'red'))
+
+</pre>
+<blockquote>
+<div><strong><em>iii. Query pan-genome</em></strong></div></blockquote>
+<ul class="simple">
+<li>Which genomes are most closely related based upon shared gene content?</li>
+</ul>
+<p>We will use the outer function to determine the number of genes shared by each pair of genomes.</p>
+<!--
+Here we are arbitrarily deciding that a gene is present if the BSR is greater than 0.4. 
+--><p>Look at the help page for outer to gain additional insight into how this is working.</p>
+<pre class="literal-block">
+help(outer)
+</pre>
+<pre class="literal-block">
+outer(1:4,1:4, FUN = Vectorize(function(x,y){sum(pg_matrix_subset[,x] &gt; 0 &amp; pg_matrix_subset[,y] &gt; 0)}))
+</pre>
+<ul class="simple">
+<li>What is the size of the core genome?</li>
+</ul>
+<p>Lets first get an overview of how many genes are present in different numbers of genomes (0, 1, 2, 3 or 4) by plotting a histogram. Here, we combine hist with rowSums to accomplish this.</p>
+<pre class="literal-block">
+hist(rowSums(pg_matrix &gt; 0), col=&quot;red&quot;)
+</pre>
+<p>Next, lets figure out how big the core genome is (e.g. how many genes are common to all of our genomes)?</p>
+<pre class="literal-block">
+sum(rowSums(pg_matrix &gt; 0) == 4)
+</pre>
+<ul class="simple">
+<li>What is the size of the accessory genome?</li>
+</ul>
+<p>Lets use a similar approach to determine the size of the accessory genome (e.g. those genes present in only a subset of our genomes).</p>
+<pre class="literal-block">
+sum(rowSums(pg_matrix &gt; 0) &lt; 4 &amp; rowSums(pg_matrix &gt; 0) &gt; 0)
+</pre>
+<ul class="simple">
+<li>What types of genes are unique to a given genome?</li>
+</ul>
+<p>So far we have quantified the core and accessory genome, now lets see if we can get an idea of what types of genes are core vs. accessory. Lets start by looking at those genes present in only a single genome.</p>
+<pre class="literal-block">
+row.names(pg_matrix[rowSums(pg_matrix &gt; 0) == 1,])
+</pre>
+<p>What do you notice about these genes?</p>
+<ul class="simple">
+<li>What is the number of hypothetical genes in core vs. accessory genome?</li>
+</ul>
+<p>Looking at unique genes we see that many are annotated as “hypothetical”, indicating that the sequence looks like a gene, but has no detectable homology with a functionally characterized gene.</p>
+<p>Determine the fraction of “hypothetical” genes in unique vs. core.</p>
+<pre class="literal-block">
+sum(grepl(&quot;hypothetical&quot; , row.names(pg_matrix[rowSums(pg_matrix &gt; 0) == 1,]))) / sum(rowSums(pg_matrix &gt; 0) == 1)
+sum(grepl(&quot;hypothetical&quot; , row.names(pg_matrix[rowSums(pg_matrix &gt; 0) == 4,]))) / sum(rowSums(pg_matrix &gt; 0) == 4)
+</pre>
+<p>Why does this make sense?</p>
+</div>
+<div class="section" id="perform-genome-comparisons-with-act">
+<span id="perform-genome-comparisons-with-act"></span><h2>Perform genome comparisons with <a class="reference external" href="http://www.sanger.ac.uk/science/tools/artemis-comparison-tool-act">ACT</a><a class="headerlink" href="#perform-genome-comparisons-with-act" title="Permalink to this headline">¶</a></h2>
+<p><a class="reference external" href="day2_afternoon.html">[back to top]</a>
+<a class="reference external" href="index.html">[HOME]</a></p>
+<p>In the previous exercises we were focusing on gene content, but losing the context of the structural variation underlying gene content variation (e.g. large insertions and deletions).
+Here we will use ACT to compare two of our genomes (note that you can use ACT to compare more than two genomes if desired).</p>
+<blockquote>
+<div><strong><em>i. Create ACT alignment file with BLAST</em></strong></div></blockquote>
+<p>As we saw this morning, to compare genomes in ACT we need to use BLAST to create the alignments. We will do this on flux.</p>
+<pre class="literal-block">
+
+cd scratch/micro612w18_fluxod/username/day2_after
+blastall -p blastn -i ./Abau_genomes/AbauA_genome.fasta -d ./Abau_BLAST_DB/ACICU_genome.fasta -m 8 -e 1e-20 -o AbauA_vs_ACICU.blast
+
+</pre>
+<blockquote>
+<div><strong><em>ii. Read in genomes, alignments and annotation files</em></strong></div></blockquote>
+<p>Use scp or cyberduck to transfer Abau_ACT_files folder onto your laptop</p>
+<ol class="simple">
+<li>Abau_genomes/AbauA_genome.fasta</li>
+<li>Abau_genomes/ACICU_genome.fasta</li>
+<li>AbauA_vs_ACICU.blast</li>
+<li>Abau_ACT_files/AbauA_genome_gene.gff</li>
+<li>Abau_ACT_files/ACICU_genome_gene.gff</li>
+</ol>
+<blockquote>
+<div><strong><em>iii. Explore genome comparison and features of ACT</em></strong></div></blockquote>
+<p>Read in genomes and alignment into ACT</p>
+<pre class="literal-block">
+
+Go to File -&gt; open 
+Sequence file 1  = ACICU_genome.fasta 
+Comparison file 1  = AbauA_vs_ACICU.blast
+Sequence file 2  = AbauA_genome.fasta
+
+</pre>
+<p>Before we use annotation present in genbank files. Here we will use ACT specific annotation files so we get some prettier display (resistance genes = red, transposable elements = bright green)</p>
+<pre class="literal-block">
+
+Go to File -&gt; ACICU_genome.fasta -&gt; Read an entry file = ACICU_genome_gene.gff
+
+Go to File -&gt; AbauA_genome.fasta -&gt; Read an entry file = AbauA_genome_gene.gff
+
+</pre>
+<p>Play around in ACT to gain some insight into the sorts of genes present in large insertion/deletion regions.
+See if you can find:</p>
+<ol class="simple">
+<li>differences in phage content,</li>
+<li>membrane biosynthetic gene cluster variation and</li>
+<li>antibiotic resistance island variation.</li>
+</ol>
+</div>
+</div>
+
+
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="day3_morning.html" class="btn btn-neutral float-right" title="Day 3 Morning">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="day2_morning.html" class="btn btn-neutral" title="Day 2 Morning"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2018, Evan Snitkin, Ali Pirani.
+    </p>
+  </div>
+
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+  
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'./',
+            VERSION:'3.0',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="_static/jquery.js"></script>
+      <script type="text/javascript" src="_static/underscore.js"></script>
+      <script type="text/javascript" src="_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>
