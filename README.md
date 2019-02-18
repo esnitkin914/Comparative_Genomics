@@ -33,11 +33,11 @@ Workshop
 - [Installing and setting up Cyberduck for file transfer](https://github.com/alipirani88/Comparative_Genomics/blob/master/day1_morning/README.md#installing-and-setting-up-cyberduck-for-file-transfer)
 - [Getting your data onto Flux and setting up Environment variable](https://github.com/alipirani88/Comparative_Genomics/blob/master/day1_morning/README.md#getting-your-data-onto-glux-and-setting-up-environment-variable)
 - [Unix is your friend](https://github.com/alipirani88/Comparative_Genomics/blob/master/day1_morning/README.md#unix-is-your-friend)
-- [Quality Control using FastQC](https://github.com/alipirani88/Comparative_Genomics/blob/master/day1_morning/README.md#quality-control-using-fastqc)
-- [Quality Trimming using Trimmomatic](https://github.com/alipirani88/Comparative_Genomics/blob/master/day1_morning/README.md#quality-trimming-using-trimmomatic)
 
 [Day 1 Afternoon](https://github.com/alipirani88/Comparative_Genomics/blob/master/day1_afternoon/README.md#day-1-afternoon)
 ***
+- [Quality Control using FastQC](https://github.com/alipirani88/Comparative_Genomics/blob/master/day1_afternoon/README.md#quality-control-using-fastqc)
+- [Quality Trimming using Trimmomatic](https://github.com/alipirani88/Comparative_Genomics/blob/master/day1_afternoon/README.md#quality-trimming-using-trimmomatic)
 - [Read Mapping](https://github.com/alipirani88/Comparative_Genomics/blob/master/day1_afternoon/README.md#read-mapping)
 - [Variant Calling](https://github.com/alipirani88/Comparative_Genomics/blob/master/day1_afternoon/README.md#variant-calling-and-filteration)
 - [Visualize BAM/VCF files in Artemis](https://github.com/alipirani88/Comparative_Genomics/blob/master/day1_afternoon/README.md#visualize-bam-and-vcf-files-in-artemis)
