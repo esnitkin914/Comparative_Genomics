@@ -7,11 +7,13 @@ High-throughput BLAST and pan-genome analysis
 
 This morning we learned how to perform basic genome annotation and comparison using Prokka and ACT. Now we will up the ante and do some more sophisticated comparative genomics analyses! 
 First, we will create custom BLAST databases to identify specific antibiotic resistance genes of interest in a set of genomes. 
-Second, we will use the large-scale BLAST-based tool LS-BSR to identify the complete antibiotic resistome in our genomes. 
+Second, we will use the tool [ARIBA](https://github.com/sanger-pathogens/ariba/wiki) to identify the complete antibiotic resistome in our genomes. 
 Third, we will move beyond antibiotic resistance, and look at the complete set of protein coding genes in our input genomes. 
-Finally, we will go back to ACT to understand the sorts of genomic rearrangements underlying observed variation in gene content.  
+Finally, we will go back to ACT to understand the sorts of genomic rearrangements underlying observed variation in gene content.
 
-For these exercises we will be looking at four closely related Acinetobacter baumannii strains. However, despite being closely related, these genomes have major differences in gene content, as A. baumannii has a notoriously flexible genome! In fact, in large part due to its genomic flexibility, A. baumannii has transitioned from a harmless environmental contaminant to a pan-resistant super-bug in a matter of a few decades. If you are interested in learning more, check out this nature [review](http://www.nature.com/nrmicro/journal/v5/n12/abs/nrmicro1789.html) or [this](http://www.pnas.org/content/108/33/13758.abstract) paper, I published a few years back analyzing the very same genomes you are working with.
+For BLAST and ARIBA, we will be looking at 8 *Klebsiella pneumoniae* genomes from human and environmental sources. Six of these genomes are from [this paper](https://www.pnas.org/content/112/27/E3574), and the other two are sequences from our lab. We are interested in learning more about potential differences in the resistomes of human and environmental isolates.
+
+For the pan-genome analysis, we will be looking at four closely related *Acinetobacter baumannii* strains. However, despite being closely related, these genomes have major differences in gene content, as *A. baumannii* has a notoriously flexible genome! In fact, in large part due to its genomic flexibility, *A. baumannii* has transitioned from a harmless environmental contaminant to a pan-resistant super-bug in a matter of a few decades. If you are interested in learning more, check out this nature [review](http://www.nature.com/nrmicro/journal/v5/n12/abs/nrmicro1789.html) or [this](http://www.pnas.org/content/108/33/13758.abstract) paper I published a few years back analyzing the very same genomes you will be working with.
 
 Execute the following command to copy files for this afternoon’s exercises to your scratch directory:
 
@@ -27,64 +29,64 @@ cp -r /scratch/micro612w18_fluxod/shared/data/day2_after/ ./
 
 ```
 
-Determine which genomes contain beta-lactamase genes
+Determine which genomes contain KPC genes using [BLAST](https://blast.ncbi.nlm.nih.gov/Blast.cgi)
 ----------------------------------------------------
 [[back to top]](day2_afternoon.html)
 [[HOME]](index.html)
 
-Before comparing full genomic content, lets start by looking for the presence of particular genes of interest. A. baumannii harbors an arsenal of resistance genes, and it would be interesting to know how particular resistance families vary among our 4 genomes. To accomplish this we will use the antibiotic resistance database ([ARDB](http://ardb.cbcb.umd.edu/)) and particularly beta-lactamase genes extracted from ARDB. These extracted genes can be found in file ardb_beta_lactam_genes.pfasta, which we will use to generate a Blast database.
+Before comparing full genomic content, lets start by looking for the presence of particular genes of interest. Some *K. pneumoniae* harbor a KPC gene that confers resistance to carbapenems, a class of antibiotics of last resort. We will see if any of our samples have a KPC gene, by comparing the genes in our genomes to KPC genes extracted from the antibiotic resistance database ([ARDB](http://ardb.cbcb.umd.edu/)). These extracted genes can be found in the file `ardb_KPC_genes.pfasta`, which we will use to generate a BLAST database.
 
-> ***i. Run makeblastdb on the file of beta-lactamases to create a BLAST database.***
+> ***i. Run makeblastdb on the file of KPC genes to create a BLAST database.***
 
 makeblastdb takes as input: 
 
-1) an input fasta file of protein or nucleotide sequences (ardb_beta_lactam_genes.pfasta) and 
+1) an input fasta file of protein or nucleotide sequences (`ardb_KPC_genes.pfasta`) and 
 
-2) a flag indicating whether to construct a protein or nucleotide database (in this case protein/ -dbtype prot).
+2) a flag indicating whether to construct a protein or nucleotide database (in this case protein: `-dbtype prot`).
 
 ```
 #change directory to day2_after
 d2a
 
 
-makeblastdb -in ardb_beta_lactam_genes.pfasta -dbtype prot
+makeblastdb -in ardb_KPC_genes.pfasta -dbtype prot
 
 ```
 
-> ***ii. BLAST A. baumannii protein sequences against our custom beta-lactamase database.***
+> ***ii. BLAST K. pneumoniae protein sequences against our custom KPC database.***
 
 Run BLAST! 
 
 The input parameters are: 
 
-1) query sequences (-query Abau_all.pfasta), 
+1) query sequences (`-query Kpneumo_all.pfasta`), 
 
-2) the database to search against (-db ardb_beta_lactam_genes.pfasta), 
+2) the database to search against (`-db ardb_KPC_genes.pfasta`), 
 
-3) the name of a file to store your results (-out bl_blastp_results), 
+3) the name of a file to store your results (`-out KPC_blastp_results`), 
 
-4) output format (-outfmt 6), 
+4) output format (`-outfmt 6`), 
 
-5) e-value cutoff (-evalue 1e-20), 
+5) e-value cutoff (`-evalue 1e-20`), 
 
-6) number of database sequences to return (-max_target_seqs 1)
+6) number of database sequences to return (`-max_target_seqs 1`)
 
-
-```
-blastp -query Abau_all.pfasta -db ardb_beta_lactam_genes.pfasta -out bl_blastp_results -outfmt 6 -evalue 1e-20 -max_target_seqs 1
-```
-
-Use less to look at bl_blastp_results.
 
 ```
-less bl_blastp_results
+blastp -query Kpneumo_all.pfasta -db ardb_KPC_genes.pfasta -out KPC_blastp_results -outfmt 6 -evalue 1e-20 -max_target_seqs 1
 ```
 
-- Question: Experiment with the –outfmt parameter, which controls different output formats that BLAST can produce. 
+Use `less` to look at `KPC_blastp_results`.
 
-- Question: Determine which Enterococcus genomes contain vancomycin resistance genes. To do this you will need to: i) create a protein BLAST database for ardb_van.pfasta, ii) concetenate the genomes sequences in the .fasta files and iii) use blastx to BLAST nucleotide genomes against a protein database 
+```
+less KPC_blastp_results
+```
 
-Identification of antibiotic resistance genes with [ARIBA](https://github.com/sanger-pathogens/ariba) directly from paired end reads
+- **Exercise:** Experiment with the `–outfmt` parameter, which controls different output formats that BLAST can produce. 
+
+- **Exercise:** Determine which *Enterococcus* genomes contain vancomycin resistance genes. To do this you will need to: i) create a protein BLAST database for `ardb_van.pfasta`, ii) concetenate the genomes sequences in the `.fasta` files and iii) use `blastx` to BLAST nucleotide genomes against a protein database. 
+
+Identify antibiotic resistance genes with [ARIBA](https://github.com/sanger-pathogens/ariba) directly from paired end reads
 ----------------------------------------------------------
 [[back to top]](day2_afternoon.html)
 [[HOME]](index.html)
