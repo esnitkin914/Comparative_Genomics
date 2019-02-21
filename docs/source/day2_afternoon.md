@@ -91,9 +91,11 @@ Identify antibiotic resistance genes with [ARIBA](https://github.com/sanger-path
 [[back to top]](day2_afternoon.html)
 [[HOME]](index.html)
 
-ARIBA, Antimicrobial Resistance Identification By Assembly is a tool that identifies antibiotic resistance genes by running local assemblies. The input is a FASTA file of reference sequences (can be a mix of genes and noncoding sequences) and paired sequencing reads. ARIBA reports which of the reference sequences were found, plus detailed information on the quality of the assemblies and any variants between the sequencing reads and the reference sequences.
+Now let's look at the full spectrum of antibiotic resistance genes in our *Klebsiella* genomes!
 
-ARIBA is compatible with various databases and also contains an utility to download different databases such as: argannot, card, megares, plasmidfinder, resfinder, srst2_argannot, vfdb_core. Today, we will be working with the [card](https://card.mcmaster.ca/) database, which has been downloaded and placed in /scratch/micro612w18_fluxod/shared/out.card.prepareref/ directory.
+ARIBA (Antimicrobial Resistance Identification By Assembly) is a tool that identifies antibiotic resistance genes by running local assemblies. The input is a FASTA file of reference sequences (can be a mix of genes and noncoding sequences) and paired sequencing reads. ARIBA reports which of the reference sequences were found, plus detailed information on the quality of the assemblies and any variants between the sequencing reads and the reference sequences.
+
+ARIBA is compatible with various databases and also contains a utility to download different databases such as: argannot, card, megares, plasmidfinder, resfinder, srst2_argannot, vfdb_core. Today, we will be working with the [card](https://card.mcmaster.ca/) database, which has been downloaded and placed in the `/scratch/micro612w18_fluxod/shared/out.card.prepareref/` directory.
 
 <!---
 Note: There is an issue with downloading the database. They are in a process to fix the broken CARD database link issue. For now, I am using my own downloaded database.
@@ -109,7 +111,7 @@ Note: There is an issue with downloading the database. They are in a process to 
 
 > ***i. Run ARIBA on input paired-end fastq reads for resistance gene identification.***
 
-The fastq reads are placed in Abau_genomes_fastq directory. Enter interactive flux session, change directory to day2_after workshop directory and run the below four commands to start ARIBA jobs in background.
+The fastq reads are placed in the `kpneumo_fastq` directory. Enter an interactive flux session, change directories to `day2_after` and run the four commands below to start ARIBA jobs in the background.
 
 <!---
 module load python-anaconda3/latest
@@ -120,7 +122,7 @@ iflux
 
 cd /scratch/micro612w18_fluxod/username/day2_after
 
-or 
+#or 
 
 d2a
 
@@ -130,14 +132,13 @@ module load cd-hit
 
 #ARIBA commands
 
-/nfs/esnitkin/bin_group/anaconda3/bin/ariba run --force /scratch/micro612w18_fluxod/shared/out.card.prepareref/ Abau_genomes_fastq/AbauA_genome.1.fastq.gz Abau_genomes_fastq/AbauA_genome.2.fastq.gz AbauA_genome &
-
-/nfs/esnitkin/bin_group/anaconda3/bin/ariba run --force /scratch/micro612w18_fluxod/shared/out.card.prepareref/ Abau_genomes_fastq/AbauB_genome.1.fastq.gz Abau_genomes_fastq/AbauB_genome.2.fastq.gz AbauB_genome &
-
-/nfs/esnitkin/bin_group/anaconda3/bin/ariba run --force /scratch/micro612w18_fluxod/shared/out.card.prepareref/ Abau_genomes_fastq/AbauC_genome.1.fastq.gz Abau_genomes_fastq/AbauC_genome.2.fastq.gz AbauC_genome &
-
-/nfs/esnitkin/bin_group/anaconda3/bin/ariba run --force /scratch/micro612w18_fluxod/shared/out.card.prepareref/ Abau_genomes_fastq/ACICU_genome.1.fastq.gz Abau_genomes_fastq/ACICU_genome.2.fastq.gz ACICU_genome &
-
+samples=$(ls kpneumo_fastq/*1.fastq.gz) #forward reads
+for samp in $samples; do
+  db_dir=/scratch/micro612w18_fluxod/shared/out.card.prepareref/ #reference database
+  samp2=${samp//1/2} #reverse reads
+  outdir=$(echo ${samp//.fastq.gz/} | cut -d/ -f2) #output directory
+  /nfs/esnitkin/bin_group/anaconda3/bin/ariba run --force $db_dir $samp $samp2 $outdir & #ariba command
+done
 ```
 
 The "&" in the above commands(at the end) is a little unix trick to run commands in background. You can run multiple commands in background and make full use of parallel processing. You can check the status of these background jobs by typing:
@@ -148,35 +149,35 @@ jobs
 
 > ***ii. Run ARIBA summary function to generate a summary report.***
 
-ARIBA has a summary function that summarises the results from one or more sample runs of ARIBA and generates an output report with various level of information determined by -preset parameter. The parameter "-preset minimal" will generate a minimal report showing only the presence/absence of resistance genes whereas "-preset all" will output all the extra information related to each database hit such as reads and reference sequence coverage, variants and their associated annotations(if the variant confers resistance to an Antibiotic) etc.
+ARIBA has a summary function that summarises the results from one or more sample runs of ARIBA and generates an output report with various level of information determined by the `-preset` parameter. The parameter `-preset minimal` will generate a minimal report showing only the presence/absence of resistance genes whereas `-preset all` will output all the extra information related to each database hit such as reads and reference sequence coverage, variants and their associated annotations (if the variant confers resistance to an antibiotic) etc.
 
 ```
 
-/nfs/esnitkin/bin_group/anaconda3/bin/ariba summary --preset minimal Abau_genomes_ariba_minimal_results *_genome/report.tsv
+/nfs/esnitkin/bin_group/anaconda3/bin/ariba summary --preset minimal kpneumo_ariba_minimal_results */report.tsv
 
-/nfs/esnitkin/bin_group/anaconda3/bin/ariba summary --preset all Abau_genomes_ariba_all_results *_genome/report.tsv
+/nfs/esnitkin/bin_group/anaconda3/bin/ariba summary --preset all kpneumo_ariba_all_results */report.tsv
 
 ```
 
-ARIBA summary generates three output:
+The ARIBA summary generates three output:
 
-1. Abau_genomes_ariba*.csv file that can be viewed in your favourite spreadsheet program.
-2. Abau_genomes_ariba*.phandango.{csv,tre} that allow you to view the results in [Phandango](http://jameshadfield.github.io/phandango/#/). They can be drag-and-dropped straight into Phandango.
+1. kpneumo_ariba*.csv file that can be viewed in your favourite spreadsheet program.
+2. kpneumo_ariba*.phandango.{csv,tre} that allow you to view the results in [Phandango](http://jameshadfield.github.io/phandango/#/). You can drag-and-drop these files straight into Phandango.
 
-Lets copy this phandango files Abau_genomes_ariba_minimal_results.phandango.csv and Abau_genomes_ariba_minimal_results.phandango.tre to the local system using cyberduck or scp
+Lets copy these phandango files kpneumo_ariba_minimal_results.phandango.csv and kpneumo_ariba_minimal_results.phandango.tre to the local system using cyberduck or scp.
 
 ```
 scp username\@flux-xfer.arc-ts.umich.edu:/scratch/micro612w18_fluxod/username/day2_after/*minimal_results.phandango* ~/Desktop/
 ```
 
-Drag and drop these two files on [Phandango](http://jameshadfield.github.io/phandango/#/) website. What types of resistance genes do you see in these Acinetobacter genomes? This [review](http://aac.asm.org/content/55/3/947.full) may help interpret.
+Drag and drop these two files onto the [Phandango](http://jameshadfield.github.io/phandango/#/) website. What types of resistance genes do you see in these *Klebsiella* genomes? This [review]() may help interpret.
 
 > ***iii. Explore full ARIBA matrix in R***
 
-- Now, Fire up R console or studio and read ariba full report "Abau_genomes_ariba_all_results.csv"
+- Now, fire up RStudio and read in the ARIBA full report "kpneumo_ariba_all_results.csv"
 
 ```
-ariba_full  = read.csv(file = 'Abau_genomes_ariba_all_results.csv', row.names = 1)
+ariba_full  = read.csv(file = 'kpneumo_ariba_all_results.csv', row.names = 1)
 ```
 
 - Subset to get description for each gene
