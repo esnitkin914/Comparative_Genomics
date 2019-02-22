@@ -266,52 +266,6 @@ bash fasta_counter.sh .
 
 The "." sign tells the script to use current directory as its first command line argument($1) 
 
-Plotting genomic coverage in R
-------------------------------
-
-Data visualization plays an important role in organizing, analyzing and interpreting large amount of omics data. R is one of the most basic and powerful tool for manipulating and visualizing these types of data. The following task will brush up some basic R plotting commands and help you visualize some complex omics data for interpretation.
-
-One of the most common types of genomic analysis involves comparing the newly sequenced read data of an organism to your choice of reference organism genome. Mapping millions of reads generated in a sequencing experiment to the reference genome fasta file and interpreting various parameters can achieve this analysis. 
-One such parameter is validating how well your sequencing experiment performed and assessing the “uniformity” of coverage from whole-genome sequencing. Visualizing Sequencing coverage across the reference genome help us answer this question. Sequencing coverage describes the average number of reads that align to, or "cover," known reference bases.
-
-The input for this task is a comma-separated file, which contains average sequencing coverage information i.e average number of reads mapped to each 1000 base pairs in reference genome. You can find this input file in your day1_morn directory by the name, Ecoli_coverage_average_bed.csv
-
-<!---
-Let’s copy Ecoli_coverage_average_bed.csv file from flux shared directory to your desktop using ‘scp’. ‘scp’ stands for secure copy and is used for securely transferring files between remote host/server(flux) and your local computer system. (Both directions)
-scp username@flux-xfer.arc-ts.umich.edu:/scratch/micro612w18_fluxod/shared/Ecoli_coverage_average_bed.csv ~/Desktop/
-Note: You can use your choice of folder/path to copy the file instead of  “~/Desktop/”
--->
-
-Drag and drop this Ecoli_coverage_average_bed.csv to your local system using cyberduck.
-
-Now, Fire up R console or studio and import the file (Ecoli_coverage_average_bed.csv) using any type of data import functions in R (read.table, read.csv etc.) 
-
-Hint: The file is comma-separated and contains header line (“bin,Average_coverage”) so use appropriate parameters while importing the file
-
-Once the data in file is imported into R object, you can plot the column Average_coverage as a time series plot to assess the coverage of your mapped reads across genome.
-
-Note: A time series plot is a graph that you can use to evaluate patterns and behavior in data over time. Here, we can employ the same plot to see the pattern i.e read depth/coverage at each 1000 bases (represented by bins columns where each bin represents Average number of reads mapped to each 1000 bases in reference genome) using the simplest R function for time series such as [plot.ts]( http://stat.ethz.ch/R-manual/R-devel/library/stats/html/plot.ts.html )
-
-An example plot.ts plot for Ecoli_coverage_average_bed.csv is shown below for your reference.
-
-![alt tag](https://github.com/alipirani88/Comparative_Genomics/blob/master/_img/day1_morning/plot_1.png)
-
-For advance and more beautiful visualization, ggplot2 can be employed to display the same plot. An example ggplot2 plot for Ecoli_coverage_average_bed.csv is shown below for your reference.
-
-![alt tag](https://github.com/alipirani88/Comparative_Genomics/blob/master/_img/day1_morning/plot_2.png)
-
-<details>
-  <summary>Solution</summary>
-	
-```
-
-x <- read.table("Ecoli_coverage_average_bed.csv", sep=",", header=TRUE)
-plot.ts(x$Average_coverage, xlab="Genome Position(1000bp bins)", ylab="Average Read Depth", main="Ecoli Bed Coverage", col="blue")
-
-```
-</details>
-
-
 Power of Unix commands
 ----------------------
 
@@ -692,3 +646,52 @@ Lets have a look at one of the Bad Illumina data example [here](http://www.bioin
 [[HOME]](https://github.com/alipirani88/Comparative_Genomics/blob/master/README.md)
 
 -->
+
+
+Plotting genomic coverage in R
+------------------------------
+
+Data visualization plays an important role in organizing, analyzing and interpreting large amount of omics data. R is one of the most basic and powerful tool for manipulating and visualizing these types of data. The following task will brush up some basic R plotting commands and help you visualize some complex omics data for interpretation.
+
+One of the most common types of genomic analysis involves comparing the newly sequenced read data of an organism to your choice of reference organism genome. Mapping millions of reads generated in a sequencing experiment to the reference genome fasta file and interpreting various parameters can achieve this analysis. 
+One such parameter is validating how well your sequencing experiment performed and assessing the “uniformity” of coverage from whole-genome sequencing. Visualizing Sequencing coverage across the reference genome help us answer this question. Sequencing coverage describes the average number of reads that align to, or "cover," known reference bases.
+
+The input for this task is a comma-separated file, which contains average sequencing coverage information i.e average number of reads mapped to each 1000 base pairs in reference genome. You can find this input file in your day1_morn directory by the name, Ecoli_coverage_average_bed.csv
+
+<!---
+Let’s copy Ecoli_coverage_average_bed.csv file from flux shared directory to your desktop using ‘scp’. ‘scp’ stands for secure copy and is used for securely transferring files between remote host/server(flux) and your local computer system. (Both directions)
+scp username@flux-xfer.arc-ts.umich.edu:/scratch/micro612w18_fluxod/shared/Ecoli_coverage_average_bed.csv ~/Desktop/
+Note: You can use your choice of folder/path to copy the file instead of  “~/Desktop/”
+-->
+
+Drag and drop this Ecoli_coverage_average_bed.csv to your local system using cyberduck.
+
+Now, Fire up R console or studio and import the file (Ecoli_coverage_average_bed.csv) using any type of data import functions in R (read.table, read.csv etc.) 
+
+Hint: The file is comma-separated and contains header line (“bin,Average_coverage”) so use appropriate parameters while importing the file
+
+Once the data in file is imported into R object, you can plot the column Average_coverage as a time series plot to assess the coverage of your mapped reads across genome.
+
+Note: A time series plot is a graph that you can use to evaluate patterns and behavior in data over time. Here, we can employ the same plot to see the pattern i.e read depth/coverage at each 1000 bases (represented by bins columns where each bin represents Average number of reads mapped to each 1000 bases in reference genome) using the simplest R function for time series such as [plot.ts]( http://stat.ethz.ch/R-manual/R-devel/library/stats/html/plot.ts.html )
+
+An example plot.ts plot for Ecoli_coverage_average_bed.csv is shown below for your reference.
+
+![alt tag](https://github.com/alipirani88/Comparative_Genomics/blob/master/_img/day1_morning/plot_1.png)
+
+For advance and more beautiful visualization, ggplot2 can be employed to display the same plot. An example ggplot2 plot for Ecoli_coverage_average_bed.csv is shown below for your reference.
+
+![alt tag](https://github.com/alipirani88/Comparative_Genomics/blob/master/_img/day1_morning/plot_2.png)
+
+<details>
+  <summary>Solution</summary>
+	
+```
+
+x <- read.table("Ecoli_coverage_average_bed.csv", sep=",", header=TRUE)
+plot.ts(x$Average_coverage, xlab="Genome Position(1000bp bins)", ylab="Average Read Depth", main="Ecoli Bed Coverage", col="blue")
+
+```
+</details>
+
+
+
