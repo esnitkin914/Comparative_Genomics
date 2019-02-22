@@ -34,7 +34,7 @@ Determine which genomes contain KPC genes using [BLAST](https://blast.ncbi.nlm.n
 [[back to top]](day2_afternoon.html)
 [[HOME]](index.html)
 
-Before comparing full genomic content, lets start by looking for the presence of particular genes of interest. Some *K. pneumoniae* harbor a KPC gene that confers resistance to carbapenems, a class of antibiotics of last resort. We will see if any of our samples have a KPC gene, by comparing the genes in our genomes to KPC genes extracted from the antibiotic resistance database ([ARDB](http://ardb.cbcb.umd.edu/)). These extracted genes can be found in the file `ardb_KPC_genes.pfasta`, which we will use to generate a BLAST database.
+Before comparing full genomic content, lets start by looking for the presence of particular genes of interest. Some *K. pneumoniae* harbor a KPC gene that confers resistance to carbapenems, a class of antibiotics of last resort (more information [here](https://www.sciencedirect.com/science/article/pii/S1473309913701907?via%3Dihub) and [here](https://academic.oup.com/jid/article/215/suppl_1/S28/3092084)). We will see if any of our samples have a KPC gene, by comparing the genes in our genomes to KPC genes extracted from the antibiotic resistance database ([ARDB](http://ardb.cbcb.umd.edu/)). These extracted genes can be found in the file `ardb_KPC_genes.pfasta`, which we will use to generate a BLAST database.
 
 > ***i. Run makeblastdb on the file of KPC genes to create a BLAST database.***
 
@@ -59,7 +59,7 @@ Run BLAST!
 
 The input parameters are: 
 
-1) query sequences (`-query Kpneumo_all.pfasta`), 
+1) query sequences (`-query kpneumo_all.pfasta`), 
 
 2) the database to search against (`-db ardb_KPC_genes.pfasta`), 
 
@@ -67,19 +67,19 @@ The input parameters are:
 
 4) output format (`-outfmt 6`), 
 
-5) e-value cutoff (`-evalue 1e-20`), 
+5) e-value cutoff (`-evalue 1e-100`), 
 
 6) number of database sequences to return (`-max_target_seqs 1`)
 
 
 ```
-blastp -query Kpneumo_all.pfasta -db ardb_KPC_genes.pfasta -out KPC_blastp_results -outfmt 6 -evalue 1e-20 -max_target_seqs 1
+blastp -query kpneumo_all.pfasta -db ardb_KPC_genes.pfasta -out KPC_blastp_results.tsv -outfmt 6 -evalue 1e-100 -max_target_seqs 1
 ```
 
-Use `less` to look at `KPC_blastp_results`.
+Use `less` to look at `KPC_blastp_results.tsv`.
 
 ```
-less KPC_blastp_results
+less KPC_blastp_results.tsv
 ```
 
 - **Exercise:** Experiment with the `–outfmt` parameter, which controls different output formats that BLAST can produce. 
@@ -101,11 +101,11 @@ ARIBA is compatible with various databases and also contains a utility to downlo
 Note: There is an issue with downloading the database. They are in a process to fix the broken CARD database link issue. For now, I am using my own downloaded database.
 >i. Run this command to download CARD database
 ```
-/nfs/esnitkin/bin_group/anaconda3/bin/ariba getref card out.card
+/nfs/esnitkin/bin_group/anaconda3/bin/python /nfs/esnitkin/bin_group/ariba/scripts/ariba getref card out.card
 ```
 >ii. Prepare this downloaded card database for ARIBA
 ```
-/nfs/esnitkin/bin_group/anaconda3/bin/ariba prepareref -f out.card.fa -m out.card.tsv out.card.prepareref
+/nfs/esnitkin/bin_group/anaconda3/bin/python /nfs/esnitkin/bin_group/ariba/scripts/ariba prepareref -f out.card.fa -m out.card.tsv out.card.prepareref
 ```
 -->
 
@@ -137,7 +137,7 @@ for samp in $samples; do
   db_dir=/scratch/micro612w18_fluxod/shared/out.card.prepareref/ #reference database
   samp2=${samp//1/2} #reverse reads
   outdir=$(echo ${samp//.fastq.gz/} | cut -d/ -f2) #output directory
-  /nfs/esnitkin/bin_group/anaconda3/bin/ariba run --force $db_dir $samp $samp2 $outdir & #ariba command
+  /nfs/esnitkin/bin_group/anaconda3/bin/python /nfs/esnitkin/bin_group/ariba/scripts/ariba run --force $db_dir $samp $samp2 $outdir & #ariba command
 done
 ```
 
@@ -164,10 +164,11 @@ The ARIBA summary generates three output:
 1. kpneumo_ariba*.csv file that can be viewed in your favourite spreadsheet program.
 2. kpneumo_ariba*.phandango.{csv,tre} that allow you to view the results in [Phandango](http://jameshadfield.github.io/phandango/#/). You can drag-and-drop these files straight into Phandango.
 
-Lets copy these phandango files kpneumo_ariba_minimal_results.phandango.csv and kpneumo_ariba_minimal_results.phandango.tre to the local system using cyberduck or scp.
+Lets copy these  files, along with a metadata file, to the local system using cyberduck or scp.
 
 ```
-scp username\@flux-xfer.arc-ts.umich.edu:/scratch/micro612w18_fluxod/username/day2_after/*minimal_results.phandango* ~/Desktop/
+scp username\@flux-xfer.arc-ts.umich.edu:/scratch/micro612w18_fluxod/username/day2_after/kpneumo_ariba* ~/Desktop/
+scp username\@flux-xfer.arc-ts.umich.edu:/scratch/micro612w18_fluxod/username/day2_after/kpneumo_source.tsv ~/Desktop/
 ```
 
 Drag and drop these two files onto the [Phandango](http://jameshadfield.github.io/phandango/#/) website. What types of resistance genes do you see in these *Klebsiella* genomes? This [review]() may help interpret.
@@ -177,26 +178,40 @@ Drag and drop these two files onto the [Phandango](http://jameshadfield.github.i
 - Now, fire up RStudio and read in the ARIBA full report "kpneumo_ariba_all_results.csv"
 
 ```
-ariba_full  = read.csv(file = 'kpneumo_ariba_all_results.csv', row.names = 1)
+ariba_full  = read.csv(file = '~/Desktop/kpneumo_ariba_all_results.csv', row.names = 1)
+rownames(ariba_full) = gsub('/report.tsv','',rownames(ariba_full))a
 ```
 
 - Subset to get description for each gene
 
 ```
-ariba_full_asm = ariba_full[, grep('assembled',colnames(ariba_full))]
+ariba_full_match = ariba_full[, grep('match',colnames(ariba_full))]
 ```
 
 - Make binary for plotting purposes
 
 ```
-ariba_full_asm[,] = as.numeric(ariba_full_asm != 'no')
+ariba_full_match[,] = as.numeric(ariba_full_match != 'no')
 ```
 
 - Make a heatmap!
 
 ```
-heatmap(as.matrix(ariba_full_asm), scale = "none", col= c('black', 'red'), margins = c(10,5), cexRow = 0.75)
+# install pheatmap
+install.packages('pheatmap')
+
+# load pheatmap
+library(pheatmap)
+
+# load metadata about sample source
+annots = read.table('~/Desktop/kpneumo_source.tsv',row.names=1)
+colnames(annots) = 'Source'
+
+# plot heatmap
+pheatmap(ariba_full_match,annotation_rows = annots)
 ```
+
+- **Exercise:** Bacteria of the same species can be classified into different sequence types (STs) based on the sequence identity of certain housekeeping genes using a technique called [multilocus sequence typing (MLST)](https://en.wikipedia.org/wiki/Multilocus_sequence_typing). Sometimes, different sequence types are associated with different environments or different antibiotic resistance genes. We want to know what sequence type(s) our genomes come from, and if there are certain ones that are associated with certain sources or certain antibiotic resistance genes. Using the [ARIBA MLST manual](https://github.com/sanger-pathogens/ariba/wiki/MLST-calling-with-ARIBA), write and run a script to perform MLST calling with ARIBA on all 8 of our *K. pneumonia* genomes. Then, use this information to add a second annotation column to the heatmap we created above to visualize the results. Did you find anything interesting?
 
 Perform pan-genome analysis with [Roary](https://sanger-pathogens.github.io/Roary/)
 ----------------------------------------
