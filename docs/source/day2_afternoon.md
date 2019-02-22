@@ -69,7 +69,7 @@ The input parameters are:
 
 5) e-value cutoff (`-evalue 1e-100`), 
 
-6) number of database sequences to return (`-max_target_seqs 1`)
+6) number of database sequences to return (`-max_target_seqs 1`) (Note that when using large databases, this might not give you the best hit. See [here](https://academic.oup.com/bioinformatics/advance-article/doi/10.1093/bioinformatics/bty833/5106166) for more details.)
 
 
 ```
