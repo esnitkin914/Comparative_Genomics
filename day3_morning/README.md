@@ -366,50 +366,50 @@ write.dna(mrsa_msa[, mrsa_var_pos], file = '2016-3-9_KP_BSI_USA300_var_pos.fa', 
 
 ```
 
-> ***iv. Read alignment into Seaview and construct Neighbor Joining tree***
+<!--> ***iv. Read alignment into Seaview and construct Neighbor Joining tree***-->
 
-In the previous exercise, we used Seaview to look at a pre-existing tree, here we will use Seaview to create a tree from a
-multiple sequence alignment 
+<!--In the previous exercise, we used Seaview to look at a pre-existing tree, here we will use Seaview to create a tree from a
+multiple sequence alignment -->
 
-Read in multiple alignment of variable positions
+<!--Read in multiple alignment of variable positions-->
 
-```
-Go to File -> open ('2016-3-9_KP_BSI_USA300_var_pos.fa)
-```
+<!--```-->
+<!--<!--Go to File -> open ('2016-3-9_KP_BSI_USA300_var_pos.fa)-->
+<!--```-->
 
-Construct Neighbor Joining phylogenetic tree with default parameters (note, this will take a few minutes)
+<!--Construct Neighbor Joining phylogenetic tree with default parameters (note, this will take a few minutes)-->
 
-```
-Go to Trees -> select Distance Methods -> BioNJ -> (Select Bootstrap with 20 replicates) -> Go
-```
+<!--```-->
+<!--Go to Trees -> select Distance Methods -> BioNJ -> (Select Bootstrap with 20 replicates) -> Go-->
+<!--```-->
 
-Save your tree
+<!--Save your tree-->
 
-```
-File -> Save rooted tree
-```
+<!--```-->
+<!--File -> Save rooted tree-->
+<!--```-->
 
-Note that in your research it is not a good idea to use these phylogenetic tools completely blind and I strongly encourage embarking on deeper learning yourself, or consulting with an expert before doing an analysis for a publication
+<!--Note that in your research it is not a good idea to use these phylogenetic tools completely blind and I strongly encourage embarking on deeper learning yourself, or consulting with an expert before doing an analysis for a publication-->
 
-> ***v. Read tree into iTOL***
+<!-- > ***v. Read tree into iTOL*** -->
 
-```
+<!--```-->
 
-To make a prettier tree and add annotations we will use iTOL (http://itol.embl.de/). 
+<!--To make a prettier tree and add annotations we will use iTOL (http://itol.embl.de/). 
 
-Go to http://itol.embl.de/
+<!--Go to http://itol.embl.de/-->
 
-To load your tree, click on upload, and select the rooted tree you just created in Seaview
+<!--To load your tree, click on upload, and select the rooted tree you just created in Seaview-->
 
-```
+<!--```-->
 
-Explore different visualization options for your tree (e.g. make it circular, show bootstrap values, try collapsing nodes/branches)
+<!--Explore different visualization options for your tree (e.g. make it circular, show bootstrap values, try collapsing nodes/branches)-->
 
-Note that you can always reset your tree if you are unhappy with the changes you’ve made
+<!--Note that you can always reset your tree if you are unhappy with the changes you’ve made-->
 
-> ***vi. Add annotations to tree***
+> ***vi. Add annotations to tree in R ***
 
-One of the most powerful features of iTOL is its ability to overlay diverse types of descriptive meta-data on your tree (http://itol.embl.de/help.cgi#datasets). Here, we will overlay our data on whether an isolate was from a community or hospital infection. To do this simply drag-and-drop the annotation file (2016-3-9_KP_BSI_USA300_iTOL_HA_vs_CA.txt) on your tree and voila! 
+<!--One of the most powerful features of iTOL is its ability to overlay diverse types of descriptive meta-data on your tree (http://itol.embl.de/help.cgi#datasets). Here, we will overlay our data on whether an isolate was from a community or hospital infection. To do this simply drag-and-drop the annotation file (2016-3-9_KP_BSI_USA300_iTOL_HA_vs_CA.txt) on your tree and voila! -->
 
 - Do community and hospital isolates cluster together, or are they inter-mixed?
 
