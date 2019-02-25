@@ -400,8 +400,6 @@ Some more useful one-line unix commands for GFF files: [here](https://github.com
 
 As soon as you receive your sample data from sequencing centre, the first thing you do is check its quality using a quality control tool such as FastQC and make sure that it contain sequences from organism that you are working on (Free from any contamination). But before carrying out extensive QC, you can run a bash "one-liner" to get some basic statistics about the raw reads. These one-liners are great examples for how a set of simple (relatively) Unix commands can be piped together to do really useful things.
 
-Run the following command to print total number of reads in each file, total number of unique reads, percentage of unique reads, most abundant sequence(useful to find adapter sequences or contamination), its frequency, and frequency of that sequence as a proportion of the total reads, average read length.
-
 ```
 
 for i in Rush_KPC_266_*.gz; do zcat $i | awk 'BEGIN{OFS="\t"};((NR-2)%4==0){read=$1;total++;len+=length(read)};END{print total,len/total}'; done
@@ -416,6 +414,7 @@ Now try running above command using fastq_screen.fastq.gz as input.
 
 To see the true power of Awk unix proggraming and understand how you can employ it to extract complex information, take a look at below command. 
 
+The following command will print total number of reads in each file, total number of unique reads, percentage of unique reads, most abundant sequence(useful to find adapter sequences or contamination), its frequency, and frequency of that sequence as a proportion of the total reads, average read length.
 
 ```
 
