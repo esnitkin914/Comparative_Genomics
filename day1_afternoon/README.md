@@ -245,6 +245,67 @@ These alignment has a vast number of uses, including:
 
 In this session, we will be covering the important steps that are part of any Read mapping/Variant calling bioinformatics pipleine.
 
+
+Variant Calling for Collistin resistant Klebsiella pneumoniae
+-------------------------------------------------------------
+
+Before going through each individual variant calling steps, we will run a variant calling shell scripts that will run all those steps and organize final results in different variant calling steps folder. 
+
+The goal for this exercise is to learn what each of these variant calling steps are, how to combine and run them in an automated fashion and explore results that are generated at each step.
+
+Change directory to day1_after and list all the files to search variant_call.sh script.
+
+```
+cd /scratch/micro612w18_fluxod/username/day1_after/
+
+#or
+
+d1a
+
+ls variant_call.sh
+```
+Try running the script with help menu and check all the inputs that the scripts requires to run variant calling.
+
+```
+
+./variant_call.sh -h
+
+```
+
+USAGE:
+variant_call.sh forward_paired reverse_paired reference_genome output_directory basename [-h] -- A simple shell script to run Variant Calling steps on a pair of fastq reads.
+
+The script requires following positional arguments as input to call variants:
+1. Forward Paired end reads
+2. Reverse Paired end reads
+3. Reference Genome Name
+4. Output Directory Path
+5. Analysis Base name to store result files with this prefix.
+
+The day1_after directory also contains a pbs script that will run variant_call.sh on flux cluster. Edit this pbs script to customize email address and output directory to reflect your username specific paths.
+
+Change the EMAIL_ADDRESS section of the pbs script to your email_address.
+
+Change the output directory path in these line to reflect your outout path.
+
+```
+
+bash ./variant_call.sh PCMP_H326_R1.fastq.gz PCMP_H326_R2.fastq.gz /nfs/esnitkin/micro612w19_fluxod/shared/data/day1_afte /KPNIH1.fasta /nfs/esnitkin/micro612w19_fluxod/shared/data/day1_after/ PCMP_H326_
+
+```
+
+Once you are done editing the pbs script, you can go ahead and submit the job.
+
+```
+
+qsub variant_call.pbs 
+
+```
+
+
+Restart Here!!!
+
+
 Read Mapping
 ------------
 [[back to top]](https://github.com/alipirani88/Comparative_Genomics/blob/master/day1_afternoon/README.md)
