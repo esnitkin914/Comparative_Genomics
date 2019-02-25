@@ -472,6 +472,7 @@ isolate_colors = structure(c('red', 'blue'), names = sort(unique(isolate_legend)
 
 ```
 
+Finally, we can use the function tiplabels() to add annotations to our tree and the function legend() to put a legend on our tree.  
 ```
 plot(NJ_tree, type = 'fan', no.margin = TRUE, 
      cex = 0.5, label.offset = 3, align.tip.label = FALSE)
