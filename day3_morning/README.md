@@ -318,7 +318,8 @@ How does the structure look different than the unfiltered tree?
 
 - Note that turning back to the backstory of these isolates, Abau_B and Abau_C were both isolated first from the same patient. So this analysis supports that patient having imported both strains, which likely diverged at a prior hospital at which they resided.
 
-Create annotated publication quality trees with [iTOL](http://itol.embl.de/)
+<!--Create annotated publication quality trees with [iTOL](http://itol.embl.de/)-->
+Overlay metadata on your tree using R 
 ------------------------------------------------------
 [[back to top]](https://github.com/alipirani88/Comparative_Genomics/blob/master/day3_morning/README.md)
 [[HOME]](https://github.com/alipirani88/Comparative_Genomics/blob/master/README.md)
@@ -335,8 +336,8 @@ cd ~/Desktop (or wherever your desktop is)
 mkdir MRSA_genomes 
 cd MRSA_genomes
 
-scp username@flux-xfer.arc-ts.umich.edu:/scratch/micro612w18_fluxod/username/day3_morn/2016-3-9_KP_BSI_USA300.fa  ./
-scp username@flux-xfer.arc-ts.umich.edu:/scratch/micro612w18_fluxod/username/day3_morn/2016-3-9_KP_BSI_USA300_iTOL_HA_vs_CA.txt  ./
+scp username@flux-xfer.arc-ts.umich.edu:/scratch/micro612w18_fluxod/username/day3_morn/2016-03-09_KP_BSI_USA300.fa  ./
+scp username@flux-xfer.arc-ts.umich.edu:/scratch/micro612w18_fluxod/username/day3_morn/HA_vs_CA  ./
 
 
 ```
@@ -347,7 +348,7 @@ Before we embark on our phylogenetic analysis, lets look at the SNP density to v
 
 ```
 
-mrsa_msa = read.dna('2016-3-9_KP_BSI_USA300.fa', format = 'fasta') 
+mrsa_msa = read.dna('2016-03-09_KP_BSI_USA300.fa', format = 'fasta') 
 mrsa_msa_bin = apply(mrsa_msa, 2, FUN = function(x){x == x[1]}) 
 mrsa_var_pos = colSums(mrsa_msa_bin) < nrow(mrsa_msa_bin) 
 hist(which(mrsa_var_pos), 10000)
@@ -356,15 +357,58 @@ hist(which(mrsa_var_pos), 10000)
 
 Does it look like there is evidence of recombination?
 
-> ***iii. Create fasta alignment with only variable positions***
+<!-- > ***iii. Create fasta alignment with only variable positions*** -->
 
-Next, lets create a new fasta alignment file containing only the variant positions, as this will be easier to deal with in Seaview
+<!--Next, lets create a new fasta alignment file containing only the variant positions, as this will be easier to deal with in Seaview-->
+
+<!--```-->
+
+<!--write.dna(mrsa_msa[, mrsa_var_pos], file = '2016-3-9_KP_BSI_USA300_var_pos.fa', format = 'fasta')-->
+
+<!--```-->
+
+> ***iii. Create neighbor joining tree in R ***
+
+We will be using R to construct a neighbor-joining tree. Neighbor joining trees fall under the category of "distance-based" tree building. There are more sophisticated algorithms for tree building, including maximum likelihood and bayesian methods. 
+
+There are a number of bioinformatics tools to create trees. Note that in your research it is not a good idea to use these phylogenetic tools completely blind and I strongly encourage embarking on deeper learning yourself, or consulting with an expert before doing an analysis for a publication. 
+
+One resource here at University of Michigan is the Phylogenetic Methods course, EEB 491. 
+
+First, we will need to install and load in some packages to work with tree objects in R. 
+```
+
+install.packages('phangorn')
+install.packages('phytools')
+
+library(ape) #installed previously, load in if not already in your environment 
+library(phagron)
+library(phytools)
+```
+
+Next, we will create a pairwise SNV distance matrix of the MRSA samples to create a neighbor joining tree. 
+```
+dna_dist = dist.dna(mrsa_msa_var, model = 'N', as.matrix = TRUE)
+```
+
+Finally, we can use the distance matrix to construct a neighbor joining tree using the function NJ()
+```
+NJ_tree = NJ(dna_dist) 
+```
+
+We can look at our tree using plot()
+```
+plot(NJ_tree)
+```
+
+We can explore other representations of our tree in R using the flag "type" in the plot function 
+```
+plot(NJ_tree, type = 'fan')
+plot(NJ_tree, type = 'cladogram')
+plot(NJ_tree, type = 'phylogram') #default
 
 ```
 
-write.dna(mrsa_msa[, mrsa_var_pos], file = '2016-3-9_KP_BSI_USA300_var_pos.fa', format = 'fasta')
-
-```
 
 <!-- ***iv. Read alignment into Seaview and construct Neighbor Joining tree***-->
 
@@ -407,9 +451,43 @@ multiple sequence alignment -->
 
 <!--Note that you can always reset your tree if you are unhappy with the changes you’ve made-->
 
-> ***vi. Add annotations to tree in R ***
+> ***iv. Add annotations to tree in R ***
+
+Now, we will overlay our data on whether an isolate was from a community or hospital infection onto the tree. 
+
+Here is a great example of some of the different ways to annotate your trees in R: https://rdrr.io/cran/ape/man/nodelabels.html
+
+First, we will read in our metadata. 
+
+```
+metadata = read.table('HA_vs_CA', header = TRUE, stringsAsFactors = FALSE)
+
+```
+
+Next, we will create our isolate legend and assign colors to the legend. 
+
+```
+isolate_legend = structure(metadata[,2], names = metadata[,1])
+isolate_colors = structure(c('red', 'blue'), names = sort(unique(isolate_legend)))
+
+```
+
+```
+plot(NJ_tree, type = 'fan', no.margin = TRUE, 
+     cex = 0.5, label.offset = 3, align.tip.label = FALSE)
+tiplabels(pie = to.matrix(isolate_legend,names(isolate_colors)), 
+          piecol = isolate_colors, cex = 0.3, adj = 1.4)
+legend('bottomleft', legend = names(isolate_colors), 
+       col = "black", pt.bg = isolate_colors, pch = 21, cex = 1)
+
+```
+
+
+
 
 <!--One of the most powerful features of iTOL is its ability to overlay diverse types of descriptive meta-data on your tree (http://itol.embl.de/help.cgi#datasets). Here, we will overlay our data on whether an isolate was from a community or hospital infection. To do this simply drag-and-drop the annotation file (2016-3-9_KP_BSI_USA300_iTOL_HA_vs_CA.txt) on your tree and voila! -->
 
 - Do community and hospital isolates cluster together, or are they inter-mixed?
 
+
+Note, there are also web tools out there to overlay metadata onto your tree and to manipulate the tree in other ways. One such tool is iTOL. 
