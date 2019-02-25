@@ -366,7 +366,7 @@ write.dna(mrsa_msa[, mrsa_var_pos], file = '2016-3-9_KP_BSI_USA300_var_pos.fa', 
 
 ```
 
-<!--> ***iv. Read alignment into Seaview and construct Neighbor Joining tree***-->
+<!-- ***iv. Read alignment into Seaview and construct Neighbor Joining tree***-->
 
 <!--In the previous exercise, we used Seaview to look at a pre-existing tree, here we will use Seaview to create a tree from a
 multiple sequence alignment -->
