@@ -31,7 +31,7 @@ How do you know if you are in interactive session?: you should see "username@nyx
 iflux
 ```
 
-Whenever you start an interactive job, the path resets to your home directory. So, navigate to day1_morn directory again.
+Whenever you start an interactive job, the path resets to your home directory. So, navigate to day1_after directory again.
 
 ```
 d1a
@@ -60,7 +60,7 @@ The above run will generate two types of output file: a screen report in text fo
 Use scp command as shown below or use cyberduck. If you dont the file in cyberduck window, try refreshing it using the refresh button at the top.
 
 ```
-scp username@flux-xfer.arc-ts.umich.edu:/scratch/micro612w18_fluxod/username/day1_morn/fastq_screen_screen.png /path-to-local-directory/
+scp username@flux-xfer.arc-ts.umich.edu:/scratch/micro612w18_fluxod/username/day1_after/fastq_screen_screen.png /path-to-local-directory/
 
 #You can use ~/Desktop/ as your local directory path
 
@@ -75,7 +75,7 @@ Quality Control using [FastQC](http://www.bioinformatics.babraham.ac.uk/projects
 
 Now we will run FastQC on some sample raw data to assess its quality. FastQC is a quality control tool that reads in sequence data in a variety of formats(fastq, bam, sam) and can either provide an interactive application to review the results or create an HTML based report which can be integrated into any pipeline. It is generally the first step that you take upon receiving the sequence data from sequencing facility to get a quick sense of its quality and whether it exhibits any unusual properties (e.g. contamination or unexpected biological features)
 
-> ***i. In your day1_morn directory, create a new directory for saving FastQC results.***
+> ***i. In your day1_after directory, create a new directory for saving FastQC results.***
 
 ```
 mkdir Rush_KPC_266_FastQC_results
@@ -107,7 +107,7 @@ You can visualize and assess the quality of data by opening html report in a loc
 > ***v. Download the FastQC html report to your home computer to examine using scp or cyberduck***
 
 ```
-scp username@flux-xfer.arc-ts.umich.edu:/scratch/micro612w18_fluxod/username/day1_morn/Rush_KPC_266_FastQC_results/before_trimmomatic/*.html /path-to-local-directory/
+scp username@flux-xfer.arc-ts.umich.edu:/scratch/micro612w18_fluxod/username/day1_after/Rush_KPC_266_FastQC_results/before_trimmomatic/*.html /path-to-local-directory/
 ```
 
 The analysis in FastQC is broken down into a series of analysis modules. The left hand side of the main interactive display or the top of the HTML report show a summary of the modules which were run, and a quick evaluation of whether the results of the module seem entirely normal (green tick), slightly abnormal (orange triangle) or very unusual (red cross). 
@@ -137,7 +137,7 @@ For more information on how Trimmomatic tries to achieve this, Please refer [thi
 
 Now we will run Trimmomatic on these raw data to remove low quality reads as well as adapters. 
 
-> ***i. If the interactive session timed out, get an interactive cluster node again to start running programs and navigate to day1_morn directory.***
+> ***i. If the interactive session timed out, get an interactive cluster node again to start running programs and navigate to day1_after directory.***
 
 How to know if you are in interactive session: you should see "username@nyx" in your command prompt
 
@@ -151,7 +151,7 @@ cd /scratch/micro612w18_fluxod/username/day1_after/
 d1a
 ```
 
-> ***ii. Create these output directories in your day1_morn folder to save trimmomatic results***
+> ***ii. Create these output directories in your day1_after folder to save trimmomatic results***
 
 ```
 mkdir Rush_KPC_266_trimmomatic_results
@@ -180,7 +180,7 @@ Quoting Trimmomatic:
 
 "'Palindrome' trimming is specifically designed for the case of 'reading through' a short fragment into the adapter sequence on the other end. In this approach, the appropriate adapter sequences are 'in silico ligated' onto the start of the reads, and the combined adapter+read sequences, forward and reverse are aligned. If they align in a manner which indicates 'read- through' i.e atleast 30 bp match, the forward read is clipped and the reverse read dropped (since it contains no new data)."
 
-> ***v. Now create new directories in day1_morn folder and Run FastQC on these trimmomatic results.***
+> ***v. Now create new directories in day1_after folder and Run FastQC on these trimmomatic results.***
 
 ```
 mkdir Rush_KPC_266_FastQC_results/after_trimmomatic
@@ -191,7 +191,7 @@ fastqc -o Rush_KPC_266_FastQC_results/after_trimmomatic/ Rush_KPC_266_trimmomati
 Get these html reports to your local system.
 
 ```
-scp username@flux-xfer.arc-ts.umich.edu:/scratch/micro612w18_fluxod/username/day1_morn/Rush_KPC_266_FastQC_results/after_trimmomatic/*.html /path-to-local-directory/
+scp username@flux-xfer.arc-ts.umich.edu:/scratch/micro612w18_fluxod/username/day1_after/Rush_KPC_266_FastQC_results/after_trimmomatic/*.html /path-to-local-directory/
 ```
 
 ![alt tag](https://github.com/alipirani88/Comparative_Genomics/blob/master/_img/day1_morning/3.png)
@@ -223,7 +223,7 @@ fastqc -o Rush_KPC_266_FastQC_results/after_trimmomatic_headcrop/ --extract -f f
 ```
 Download the reports again and see the difference.
 ```
-scp username@flux-xfer.arc-ts.umich.edu:/scratch/micro612w18_fluxod/username/day1_morn/Rush_KPC_266_FastQC_results/after_trimmomatic_headcrop/*.html /path-to-local-directory/
+scp username@flux-xfer.arc-ts.umich.edu:/scratch/micro612w18_fluxod/username/day1_after/Rush_KPC_266_FastQC_results/after_trimmomatic_headcrop/*.html /path-to-local-directory/
 ```
 
 The red cross sign disappeared!
