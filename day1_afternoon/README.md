@@ -34,11 +34,11 @@ iflux
 Whenever you start an interactive job, the path resets to your home directory. So, navigate to day1_morn directory again.
 
 ```
-d1m
+d1a
 
 #or
 
-cd /scratch/micro612w18_fluxod/username/day1_morn/
+cd /scratch/micro612w18_fluxod/username/day1_after/
 
 ```
 
@@ -144,11 +144,11 @@ How to know if you are in interactive session: you should see "username@nyx" in 
 ```
 iflux
 
-cd /scratch/micro612w18_fluxod/username/day1_morn/
+cd /scratch/micro612w18_fluxod/username/day1_after/
 
 #or
 
-d1m
+d1a
 ```
 
 > ***ii. Create these output directories in your day1_morn folder to save trimmomatic results***
