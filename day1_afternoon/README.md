@@ -277,20 +277,26 @@ If you remember, we ran the shell script in following fashion.
 
 ```
 
-bash ./variant_call.sh PCMP_H326_R1.fastq.gz PCMP_H326_R2.fastq.gz /nfs/esnitkin/micro612w19_fluxod/shared/data/day1_afte /KPNIH1.fasta /nfs/esnitkin/micro612w19_fluxod/shared/data/day1_after/ PCMP_H326_
+bash ./variant_call.sh PCMP_H326_R1.fastq.gz PCMP_H326_R2.fastq.gz /nfs/esnitkin/micro612w19_fluxod/shared/data/day1_after/KPNIH1.fasta /nfs/esnitkin/micro612w19_fluxod/shared/data/day1_after/PCMP_H326_
 
 ```
 
 The script generates PCMP_H326__varcall_result folder in your day1_after folder and the results for each step of variant calling will be organized in 6 different steps folder. Each of these steps represents a particular step involved in variant calling starting from cleaning the reads to calling variants.
 
-These 6 folders are:
+**These 6 folders are:**
 
-1. Step1_cleaning
-2. Step2_mapping
-3. Step3_samtobamconversion
-4. Step4_removeduplicates
-5. Step5_variantcalling
-6. Step6_variantfilteraion
+**1. Step1_cleaning**
+
+**2. Step2_mapping**
+
+**3. Step3_samtobamconversion**
+
+**4. Step4_removeduplicates**
+
+**5. Step5_variantcalling**
+
+**6. Step6_variantfilteraion**
+
 
 Step1_cleaning
 --------------
