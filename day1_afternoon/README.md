@@ -249,10 +249,12 @@ In this session, we will be covering the important steps that are part of any Re
 Variant Calling for Collistin resistant Klebsiella pneumoniae
 -------------------------------------------------------------
 
-Before going through each individual variant calling steps, we will run a variant calling shell scripts that will run all those steps and organize final results in different variant calling steps folder. 
+Before we go through each individual variant calling steps, we will run a variant calling shell script that will run these steps and organize final results in different variant calling steps folder in an automated fashion. 
 
-The goal for this exercise is to learn what each of these variant calling steps are, how to combine and run them in an automated fashion and explore results that are generated at each step.
+The goal of this exercise is to learn what standard variant calling steps are involved, how to combine and run these steps in an automated fashion and explore results that will be generated at each step.
 
+ We will be using PCMP_H326_\* sample as an input for these exercise. (Details about this particular colistin resistant Penn Sample...) 
+ 
 Change directory to day1_after and list all the files to search variant_call.sh script.
 
 ```
@@ -264,7 +266,8 @@ d1a
 
 ls variant_call.sh
 ```
-Try running the script with help menu and check all the inputs that the scripts requires to run variant calling.
+
+Try running the script with help menu and check all the inputs that is required by the script to run variant calling.
 
 ```
 
@@ -278,7 +281,7 @@ variant_call.sh forward_paired reverse_paired reference_genome output_directory 
 The script requires following positional arguments as input to call variants:
 1. Forward Paired end reads
 2. Reverse Paired end reads
-3. Reference Genome Name
+3. Path to Reference Genome Fasta file
 4. Output Directory Path
 5. Analysis Base name to store result files with this prefix.
 
@@ -286,7 +289,7 @@ The day1_after directory also contains a pbs script that will run variant_call.s
 
 Change the EMAIL_ADDRESS section of the pbs script to your email_address.
 
-Change the output directory path in these line to reflect your outout path.
+Change the output directory path in these line to reflect your outout path. You can find this line at the end of the PBS script.
 
 ```
 
@@ -294,16 +297,13 @@ bash ./variant_call.sh PCMP_H326_R1.fastq.gz PCMP_H326_R2.fastq.gz /nfs/esnitkin
 
 ```
 
-Once you are done editing the pbs script, you can go ahead and submit the job.
+Once you are done editing the pbs script, you can go ahead and submit the job. While the job runs we can go over each individual steps to learn what variant calling process looks like.
 
 ```
 
 qsub variant_call.pbs 
 
 ```
-
-
-Restart Here!!!
 
 
 Read Mapping
