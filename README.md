@@ -48,7 +48,9 @@ Workshop
 - [Genome Assembly](https://github.com/alipirani88/Comparative_Genomics/blob/master/day2_morning/README.md#genome-assembly)
 - [Assembly evaluation](https://github.com/alipirani88/Comparative_Genomics/blob/master/day2_morning/README.md#assembly-evaluation-using-quast)
 - [Compare assembly to reference genome and Post-assembly genome improvement](https://github.com/alipirani88/Comparative_Genomics/blob/master/day2_morning/README.md#compare-assembly-to-reference-genome-and-post-assembly-genome-improvement)
+<!-- 
 - [Map reads to the final ordered assembly](https://github.com/alipirani88/Comparative_Genomics/blob/master/day2_morning/README.md#map-reads-to-the-final-ordered-assembly)
+-->
 - [Genome Annotation](https://github.com/alipirani88/Comparative_Genomics/blob/master/day2_morning/README.md#genome-annotation)
 
 [Day 2 Afternoon](https://github.com/alipirani88/Comparative_Genomics/blob/master/day2_afternoon/README.md#day-2-afternoon)
