@@ -729,7 +729,8 @@ sed -i 's/gi.*|/Chromosome/g' Rush_KPC_266__filter_gatk.vcf
 
 ```
 
-java -jar /scratch/micro612w18_fluxod/shared/bin/snpEff/snpEff.jar -onlyProtein -no-upstream -no-downstream  -no-intergenic -v GCA_000281535.2.29 Rush_KPC_266__filter_gatk.vcf > Rush_KPC_266__filter_gatk_ann.vcf -csvStats Rush_KPC_266__filter_gatk_stats
+java -jar /scratch/micro612w18_fluxod/shared/bin/snpEff/snpEff.jar -onlyProtein -no-upstream -no-downstream  -no-intergenic -v GCA_000281535.2.29 PCMP_H326__filter_gatk.vcf > PCMP_H326__filter_gatk_ann.vcf -csvStats PCMP_H326__filter_gatk_stats
+
 
 ```
 
@@ -738,11 +739,11 @@ The STDOUT  will print out some useful details such as genome name and version b
 snpEff will add an extra field named 'ANN' at the end of INFO field. Lets go through the ANN field added after annotation step.
 
 ```
-grep 'ANN=' Rush_KPC_266__filter_gatk_ann.vcf | head -n1
+grep 'ANN=' PCMP_H326__filter_gatk_ann.vcf | head -n1
 
 or to print on seperate lines
 
-grep -o 'ANN=.*GT:PL' Rush_KPC_266__filter_gatk_ann.vcf | head -n1 | tr '|' '\n' | cat --number
+grep -o 'ANN=.*GT:PL' PCMP_H326__filter_gatk_ann.vcf | head -n1 | tr '|' '\n' | cat --number
 ```
 
 The ANN field will provide information such as the impact of variants (HIGH/LOW/MODERATE/MODIFIER) on genes and transcripts along with other useful annotations.
@@ -754,19 +755,40 @@ Let's see how many SNPs and Indels passed the filter using grep and wc.
 ```
 
 No. of Variants:
-grep '^Chromosome' Rush_KPC_266__filter_gatk_ann.vcf | wc -l
+grep '^Chromosome' PCMP_H326__filter_gatk_ann.vcf | wc -l
 
 No. of Variants that passed the filter:
-grep '^Chromosome.*pass_filter' Rush_KPC_266__filter_gatk_ann.vcf | wc -l
+grep '^Chromosome.*pass_filter' PCMP_H326__filter_gatk_ann.vcf | wc -l
 
 No. of SNPs that passed the filter:
-grep '^Chromosome.*pass_filter' Rush_KPC_266__filter_gatk_ann.vcf | grep -v 'INDEL' | wc -l
+grep '^Chromosome.*pass_filter' PCMP_H326__filter_gatk_ann.vcf | grep -v 'INDEL' | wc -l
 
 No. of Indels that passed the filter:
-grep '^Chromosome.*pass_filter' Rush_KPC_266__filter_gatk_ann.vcf | grep 'INDEL' | wc -l
+grep '^Chromosome.*pass_filter' PCMP_H326__filter_gatk_ann.vcf | grep 'INDEL' | wc -l
 
 
 ```
+
+We wrote a small shell script parser to parse the annotated vcf file and print out some important annotation related fields in a table format. 
+
+Run the below parser on your final annotated file PCMP_H326__filter_gatk_ann.vcf as shown below
+
+```
+
+./snpEff_parse.sh PCMP_H326__filter_gatk_ann.vcf
+
+```
+
+This script will generate a new csv file called PCMP_H326__parsed.txt with extracted annotated information printed in a table format. 
+
+```
+
+less PCMP_H326__parsed.txt
+
+```
+
+**unix commands to explore annotated variants.
+
 
 Visualize BAM and VCF files in [Artemis](http://www.sanger.ac.uk/science/tools/artemis)
 ----------------------------------------
