@@ -429,7 +429,7 @@ samtools sort PCMP_H326__aln.bam PCMP_H326__aln_sort
 Step4_removeduplicates
 ----------------------
 
-This step will aark duplicates(PCR optical duplicates) and remove them using [PICARD](http://broadinstitute.github.io/picard/command-line-overview.html#MarkDuplicates "Picard MarkDuplicates")
+This step will mark duplicates(PCR optical duplicates) and remove them using [PICARD](http://broadinstitute.github.io/picard/command-line-overview.html#MarkDuplicates "Picard MarkDuplicates")
 
 Illumina sequencing involves PCR amplification of adapter ligated DNA fragments so that we have enough starting material for sequencing. Therefore, some amount of duplicates are inevitable. Ideally, you amplify upto ~65 fold(4% reads) but higher rates of PCR duplicates e.g. 30% arise when people have too little starting material such that greater amplification of the library is needed or some smaller fragments which are easier to PCR amplify, end up over-represented.
 
@@ -465,6 +465,7 @@ This bam file should be indexed before we can use it for variant calling.
 samtools index PCMP_H326__aln_marked.bam
 ```
 
+<!--
 Open the markduplicates metrics file and glance through the number and percentage of PCR duplicates removed. 
 For more details about each metrics in a metrics file, please refer to [this](https://broadinstitute.github.io/picard/picard-metric-definitions.html#DuplicationMetrics)
 
@@ -475,6 +476,7 @@ nano Rush_KPC_266__markduplicates_metrics
 
 less Rush_KPC_266__markduplicates_metrics
 ```
+-->
 
 Step5_variantcalling
 --------------------
@@ -502,8 +504,16 @@ samtools mpileup -ug -f KPNIH1.fasta PCMP_H326__aln_marked.bam | bcftools call -
 
 Let's go through the VCF file and try to understand a few important VCF specifications and criteria that we can use for filtering low confidence SNPs. 
 
+Go to Step5_variantcalling folder under PCMP_H326__varcall_result folder.
+
 ```
+
+d1a
+
+cd PCMP_H326__varcall_result/Step5_variantcalling
+
 less PCMP_H326__aln_mpileup_raw.vcf
+
 ```
 
 1. CHROM, POS: 1st and 2nd column represent the reference genome name and reference base position where a variant was called
@@ -527,8 +537,6 @@ Step6_variantfilteraion
 This step will filter variants and process file generation using [GATK](https://www.broadinstitute.org/gatk/guide/tooldocs/org_broadinstitute_gatk_tools_walkers_filters_VariantFiltration.php "GATK Variant Filteration"):
 
 There are various tools that can you can try for variant filteration such as vcftools, GATK, vcfutils etc. Here we will use GATK VariantFiltration utility to filter out low confidence variants.
-
-Run this command on raw vcf file PCMP_H326__aln_mpileup_raw.vcf
 
 ```
 
@@ -598,7 +606,7 @@ snpEff contains a database of about 20,000 reference genomes built from trusted 
 java -jar /scratch/micro612w18_fluxod/shared/bin/snpEff/snpEff.jar databases | grep 'kpnih1'
 ```
 
-The existing KPNIH1 reference database doesn't contain mgrB annotation in it so we build a custom database out of a custom KPNIH1 genbank file. The procedure to configure a custom database can be found [here](http://snpeff.sourceforge.net/SnpEff_manual.html#databases). 
+The existing KPNIH1 reference database doesn't contain mgrB annotation in it so we built a custom database out of a custom KPNIH1 genbank file. The procedure to configure a custom database can be found [here](http://snpeff.sourceforge.net/SnpEff_manual.html#databases). 
 
 
 
@@ -625,6 +633,15 @@ java -Xmx4g -jar /scratch/micro612w18_fluxod/shared/bin/snpEff/snpEff.jar -csvSt
 The STDOUT  will print out some useful details such as genome name and version being used, no. of genes, protein-coding genes and transcripts, chromosome and plasmid names etc.
 
 snpEff will add an extra field named 'ANN' at the end of INFO field. Lets go through the ANN field added after annotation step.
+
+Now go to Step6_variantfilteraion folder under PCMP_H326__varcall_result. 
+
+```
+d1a 
+
+cd PCMP_H326__varcall_result/Step6_variantfilteraion
+```
+
 
 ```
 grep 'ANN=' PCMP_H326__filter_gatk_ann.vcf | head -n1
@@ -658,6 +675,12 @@ grep '^gi|.*pass_filter' PCMP_H326__filter_gatk_ann.vcf | grep 'INDEL' | wc -l
 ```
 
 We wrote a small shell script parser to parse the annotated vcf file and print out some important annotation related fields in a table format. 
+
+copy this parser from bin directory to your Step6_variantfilteraion folder.
+
+```
+cp /nfs/esnitkin/micro612w19_fluxod/shared/bin/snpEff_parse.sh ./
+```
 
 Run the below parser on your final annotated file PCMP_H326__filter_gatk_ann.vcf as shown below
 
