@@ -591,6 +591,12 @@ snpEff contains a database of about 20,000 reference genomes built from trusted 
 ```     
 java -jar /scratch/micro612w18_fluxod/shared/bin/snpEff/snpEff.jar databases | grep 'kpnih1'
 ```
+
+The existing KPNIH1 reference database doesn't contain mgrB annotation in it so we build a custom database out of a custom KPNIH1 genbank file. The procedure to configure a custom database can be found [here](http://snpeff.sourceforge.net/SnpEff_manual.html#databases). 
+
+
+
+<!--
 Note down the genome id for your reference genome KPNIH1. In this case: GCA_000281535.2.29
 
 > ***ii. Change the chromosome name in the vcf file to ‘Chromosome’ for snpEff reference database compatibility.***
@@ -598,12 +604,15 @@ Note down the genome id for your reference genome KPNIH1. In this case: GCA_0002
 ```
 sed -i 's/gi.*|/Chromosome/g' Rush_KPC_266__filter_gatk.vcf
 ```
-> ***iii. Run snpEff for variant annotation.***
+-->
+
+
+
+> ***ii. Run snpEff for variant annotation.***
 
 ```
 
-java -jar /scratch/micro612w18_fluxod/shared/bin/snpEff/snpEff.jar -onlyProtein -no-upstream -no-downstream  -no-intergenic -v GCA_000281535.2.29 PCMP_H326__filter_gatk.vcf > PCMP_H326__filter_gatk_ann.vcf -csvStats PCMP_H326__filter_gatk_stats
-
+java -Xmx4g -jar /scratch/micro612w18_fluxod/shared/bin/snpEff/snpEff.jar -csvStats PCMP_H326__filter_gatk_stats -dataDir /scratch/micro612w18_fluxod/shared/bin/snpEff/data/ -d -no-downstream -no-upstream -c /scratch/micro612w18_fluxod/shared/bin/snpEff/snpEff.config KPNIH1 PCMP_H326__filter_gatk.vcf > PCMP_H326__filter_gatk_ann.vcf
 
 ```
 
@@ -628,16 +637,16 @@ Let's see how many SNPs and Indels passed the filter using grep and wc.
 ```
 
 No. of Variants:
-grep '^Chromosome' PCMP_H326__filter_gatk_ann.vcf | wc -l
+grep '^gi|' PCMP_H326__filter_gatk_ann.vcf | wc -l
 
 No. of Variants that passed the filter:
-grep '^Chromosome.*pass_filter' PCMP_H326__filter_gatk_ann.vcf | wc -l
+grep '^gi|.*pass_filter' PCMP_H326__filter_gatk_ann.vcf | wc -l
 
 No. of SNPs that passed the filter:
-grep '^Chromosome.*pass_filter' PCMP_H326__filter_gatk_ann.vcf | grep -v 'INDEL' | wc -l
+grep '^gi|.*pass_filter' PCMP_H326__filter_gatk_ann.vcf | grep -v 'INDEL' | wc -l
 
 No. of Indels that passed the filter:
-grep '^Chromosome.*pass_filter' PCMP_H326__filter_gatk_ann.vcf | grep 'INDEL' | wc -l
+grep '^gi|.*pass_filter' PCMP_H326__filter_gatk_ann.vcf | grep 'INDEL' | wc -l
 
 
 ```
@@ -660,7 +669,7 @@ less PCMP_H326__parsed.txt
 
 ```
 
-**unix commands to explore annotated variants.
+**unix commands to explore annotated variants and extract High impact variant. Zena?.
 
 Generate Alignment Statistics
 -----------------------------
