@@ -33,6 +33,7 @@ Workshop
 - [Installing and setting up Cyberduck for file transfer](https://github.com/alipirani88/Comparative_Genomics/blob/master/day1_morning/README.md#installing-and-setting-up-cyberduck-for-file-transfer)
 - [Getting your data onto Flux and setting up Environment variable](https://github.com/alipirani88/Comparative_Genomics/blob/master/day1_morning/README.md#getting-your-data-onto-glux-and-setting-up-environment-variable)
 - [Unix is your friend](https://github.com/alipirani88/Comparative_Genomics/blob/master/day1_morning/README.md#unix-is-your-friend)
+- [Submit Variant Calling Job](https://github.com/alipirani88/Comparative_Genomics/blob/master/day1_morning/README.md#submit-variant-calling-job)
 
 [Day 1 Afternoon](https://github.com/alipirani88/Comparative_Genomics/blob/master/day1_afternoon/README.md#day-1-afternoon)
 ***
