@@ -13,15 +13,15 @@ wd
 
 #or 
 
-cd /scratch/micro612w18_fluxod/username
+cd /scratch/micro612w19_fluxod/username
 
-> Note: Check if you are in your home directory(/scratch/micro612w18_fluxod/username) by executing 'pwd' in terminal. 'pwd' stands for present working directory and it will display the directory you are in.
+> Note: Check if you are in your home directory(/scratch/micro612w19_fluxod/username) by executing 'pwd' in terminal. 'pwd' stands for present working directory and it will display the directory you are in.
 
 pwd
 
 > Note: Copy files for this morning's exercise in your home directory.
 
-cp -r /scratch/micro612w18_fluxod/shared/data/day2_morn ./
+cp -r /scratch/micro612w19_fluxod/shared/data/day2_morn ./
 ```
 
 Genome Assembly using [Spades](http://bioinf.spbau.ru/spades) Pipeline
@@ -46,11 +46,13 @@ d2m
 
 #or
 
-cd /scratch/micro612w18_fluxod/username/day2_morn
+cd /scratch/micro612w19_fluxod/username/day2_morn
 
 > We will create a new directory in day2_morn to save genome assembly results:
 
-mkdir Rush_KPC_266_assembly_result
+<!--- mkdir Rush_KPC_266_assembly_result --> 
+
+mkdir MSSA_SRR5244781_assembly_result 
 
 ```
 
@@ -82,7 +84,7 @@ nano spades.pbs
 
 > Copy and paste the below command to the bottom of spades.pbs file.
 
-spades.py --pe1-1 forward_paired.fq.gz --pe1-2 reverse_paired.fq.gz --pe1-s forward_unpaired.fq.gz --pe1-s reverse_unpaired.fq.gz -o Rush_KPC_266_assembly_result/ --careful
+spades.py --pe1-1 forward_paired.fq.gz --pe1-2 reverse_paired.fq.gz --pe1-s forward_unpaired.fq.gz --pe1-s reverse_unpaired.fq.gz -o MSSA_SRR5244781_assembly_result/ --careful
 
 ```
 
@@ -112,10 +114,11 @@ To evaluate some example assemblies we will use the tool quast. Quast produces a
 Now to check the example assemblies residing in your day2_morn folder, run the below quast command. Make sure you are in day2_morn folder in your home directory using 'pwd'
 
 ```
-quast.py -o quast sample_264_contigs.fasta sample_266_contigs.fasta
+<!--- quast.py -o quast sample_264_contigs.fasta sample_266_contigs.fasta--->
+quast.py -o quast SRR5244781_contigs.fasta SRR5244821_contigs.fasta
 ```
 
-The command above will generate a report file in /scratch/micro612w18_fluxod/username/day2_morn/quast
+The command above will generate a report file in /scratch/micro612w19_fluxod/username/day2_morn/quast
 
 > ***ii. Explore quast output***
 
@@ -147,7 +150,7 @@ Download the html report Cdiff_multiqc_report.html from your day2_morn folder.
 ```
 #Note: Make sure you change 'username' in the below command to your 'uniqname'.
 
-scp username@flux-xfer.arc-ts.umich.edu:/scratch/micro612w18_fluxod/username/day2_morn/Cdiff_multiqc_report.html /path-to-local-directory/
+scp username@flux-xfer.arc-ts.umich.edu:/scratch/micro612w19_fluxod/username/day2_morn/Cdiff_multiqc_report.html /path-to-local-directory/
 
 ```
 
@@ -166,7 +169,7 @@ d2m
 
 #or
 
-cd /scratch/micro612w18_fluxod/username/day2_morn/
+cd /scratch/micro612w19_fluxod/username/day2_morn/
 
 cd multiqc_analysis
 
@@ -186,7 +189,7 @@ ls
 
 #transfer this report to your local system and open it in a browser for visual inspection
 
-scp username@flux-xfer.arc-ts.umich.edu:/scratch/micro612w18_fluxod/username/day2_morn/workshop_multiqc.html /path-to-local-directory/
+scp username@flux-xfer.arc-ts.umich.edu:/scratch/micro612w19_fluxod/username/day2_morn/workshop_multiqc.html /path-to-local-directory/
 
 ```
 
@@ -206,7 +209,7 @@ Compare assembly to reference genome and post-assembly genome improvement
 [[back to top]](https://github.com/alipirani88/Comparative_Genomics/blob/master/day2_morning/README.md)
 [[HOME]](https://github.com/alipirani88/Comparative_Genomics/blob/master/README.md)
 
-Now that we feel confident in our assembly, let's compare it to our reference to see if we can identify any large insertions/deletions using a graphical user interface called Artemis Comparison Tool (ACT) for visualization. 
+Once we feel confident in our assembly by using quast or multiQC, let's compare it to our reference to see if we can identify any large insertions/deletions using a graphical user interface called Artemis Comparison Tool (ACT) for visualization. 
 
 <!---
 changed on 23 feb 2018
@@ -272,14 +275,14 @@ d2m
 
 #or
 
-cd /scratch/micro612w18_fluxod/username/day2_morn/
+cd /scratch/micro612w19_fluxod/username/day2_morn/
 ```
 
 Now, we will run abacas using these input parameters: 
 
-1) your reference sequence (-r KPNIH.fasta), 
+1) your reference sequence (-r FPR3757.fasta), 
 
-2) your contig file (-q sample_266_contigs.fasta), 
+2) your contig file (-q SRR5244781_contigs.fasta), 
 
 3) the program to use to align contigs to reference (-p nucmer), 
 
@@ -289,7 +292,7 @@ Now, we will run abacas using these input parameters:
 
 6) append contigs into pseudo-chromosome (-a), 
 
-7) the prefix for your output files (–o sample_266_contigs_ordered) 
+7) the prefix for your output files (–o SRR5244781_contigs_ordered) 
 
 Check if abacas can be properly invoked:
 
@@ -300,7 +303,7 @@ abacas.1.3.1.pl -h
 Run abacas on assembly:
 
 ```
-abacas.1.3.1.pl -r KPNIH1.fasta -q sample_266_contigs.fasta -p nucmer -b -d -a -o sample_266_contigs_ordered
+abacas.1.3.1.pl -r FPR3757.fasta -q SRR5244781_contigs.fasta -p nucmer -b -d -a -o SRR5244781_contigs_ordered
 ```
 
 > ***ii. Use ACT to view contig alignment to reference genome***
@@ -310,7 +313,7 @@ abacas.1.3.1.pl -r KPNIH1.fasta -q sample_266_contigs.fasta -p nucmer -b -d -a -
 ```
 > Dont forget to change username and /path-to-local-ACT_contig_comparison-directory/ in the below command
 
-scp username@flux-xfer.arc-ts.umich.edu:/scratch/micro612w18_fluxod/username/day2_morn/sample_266_contigs_ordered* /path-to-previously-created-local-ACT_contig_comparison-directory/
+scp username@flux-xfer.arc-ts.umich.edu:/scratch/micro612w19_fluxod/username/day2_morn/SRR5244781_contigs_ordered* /path-to-previously-created-local-ACT_contig_comparison-directory/
 
 ```
 
@@ -318,9 +321,9 @@ scp username@flux-xfer.arc-ts.umich.edu:/scratch/micro612w18_fluxod/username/day
 
 ```
 Go to File on top left corner of ACT window -> open 
-Sequence file 1 = KPNIH.gb 
-Comparison file 1  = sample_266_contigs_ordered.crunch 
-Sequence file 2  = sample_266_contigs_ordered.fasta
+Sequence file 1 = FPR3757.gb 
+Comparison file 1  = SRR5244781_contigs_ordered.crunch 
+Sequence file 2  = SRR5244781_contigs_ordered.fasta
 
 Click Apply button
 
@@ -328,6 +331,8 @@ Dont close the ACT window
 ```
 
 - Notice that the alignment is totally beautiful now!!! Scan through the alignment and play with ACT features to look at genes present in reference but not in assembly. Keep the ACT window open for further visualizations.
+
+NOTE: INSERT NEW PIC HERE 
 
 ![alt tag](https://github.com/alipirani88/Comparative_Genomics/blob/master/_img/day2_morning/beautiful.png)
 
@@ -348,7 +353,7 @@ d2m
 
 #or
 
-cd /scratch/micro612w18_fluxod/username/day2_morn/
+cd /scratch/micro612w19_fluxod/username/day2_morn/
 
 bwa index sample_266_contigs_ordered.fasta
 samtools faidx sample_266_contigs_ordered.fasta
@@ -421,13 +426,13 @@ d2m
 
 cd /scratch/micro612w18_fluxod/username/day2_morn/
 
-mkdir sample_266_prokka 
+mkdir SRR5244781_prokka 
 
-prokka -kingdom Bacteria -outdir sample_266_prokka -force -prefix sample_266 sample_266_contigs_ordered.fasta
+prokka -kingdom Bacteria -outdir SRR5244781_prokka -force -prefix SRR5244781 SRR5244781_contigs_ordered.fasta
 
 > Use scp or cyberduck to get Prokka annotated genome on your laptop. Dont forget to change username in the below command
 
-scp -r username@flux-xfer.arc-ts.umich.edu:/scratch/micro612w18_fluxod/username/day2_morn/sample_266_prokka/ /path-to-local-ACT_contig_comparison-directory/
+scp -r username@flux-xfer.arc-ts.umich.edu:/scratch/micro612w16_fluxod/username/day2_morn/SRR5244781_prokka/ /path-to-local-ACT_contig_comparison-directory/
 
 ```
 
@@ -437,9 +442,13 @@ Read files into ACT
 
 ```
 Go to File on top left corner of ACT window -> open 
-Sequence file 1  = KPNIH.gb 
-Comparison file 1  = sample_266_contigs_ordered.crunch 
-Sequence file 2  = sample_266_contigs_ordered.gbf
+Sequence file 1 = FPR3757.gb 
+Comparison file 1  = SRR5244781_contigs_ordered.crunch 
+Sequence file 2  = SRR5244781_contigs_ordered.gbf
 ```
 
-- Play around with ACT to see what types of genes are unique to sample 266!!! 
+- Play around with ACT to see what types of genes are unique to the MSSA genome SRR5244781 compared to the MRSA genome!!! 
+
+Hint: USA300 MRSA acquired the SCCmec cassette (which contains a penicillin binding protein and mecR1) and the element ACME (which contains gene arcA) 
+
+INSERT IMAGE
