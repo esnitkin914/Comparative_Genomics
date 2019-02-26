@@ -331,6 +331,7 @@ Dont close the ACT window
 
 ![alt tag](https://github.com/alipirani88/Comparative_Genomics/blob/master/_img/day2_morning/beautiful.png)
 
+<!--
 Map reads to the final ordered assembly
 ---------------------------------------
 [[back to top]](https://github.com/alipirani88/Comparative_Genomics/blob/master/day2_morning/README.md)
@@ -387,6 +388,8 @@ Select File -> sample_266_contigs_ordered.fasta -> Read BAM/VCF > select sorted 
 
 ![alt tag](https://github.com/alipirani88/Comparative_Genomics/blob/master/_img/day2_morning/aligned_reads_deletion.png)
 
+-->
+ 
 Using abacas and ACT to compare VRE/VSE genome 
 ----------------------------------------------
 
