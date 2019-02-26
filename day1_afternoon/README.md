@@ -676,13 +676,21 @@ Generate Alignment Statistics
 
 Often, while analyzing sequencing data, we are required to make sure that our analysis steps are correct. Some statistics about our analysis will help us in making that decision. So Lets try to get some statistics about various outputs that were created using the above steps and check if everything makes sense.
 
+Go to your day1_after directory.
+
+```
+
+d1a
+
+```
+
 > ***i. Collect Alignment statistics using Picard***
 
 Run the below command on your marked.bam file
 
 ```
 
-java -jar /scratch/micro612w18_fluxod/shared/bin/picard-tools-1.130/picard.jar CollectAlignmentSummaryMetrics R=../KPNIH1.fasta I=Rush_KPC_266__aln_marked.bam O=AlignmentSummaryMetrics.txt
+java -jar /scratch/micro612w18_fluxod/shared/bin/picard-tools-1.130/picard.jar CollectAlignmentSummaryMetrics R=KPNIH1.fasta I=PCMP_H326__varcall_result/Step5_variantcalling/PCMP_H326__aln_marked.bam O=AlignmentSummaryMetrics.txt
 
 ```
 Open the file AlignmentSummaryMetrics.txt and explore various statistics. It will generate various statistics and the definition for each can be found [here](http://broadinstitute.github.io/picard/picard-metric-definitions.html#AlignmentSummaryMetrics)
@@ -712,7 +720,7 @@ Read coverage/depth describes the average number of reads that align to, or "cov
 After read mapping, it is important to make sure that the reference bases are represented by enough read depth before making any inferences such as variant calling.
 
 ```
-java -jar /scratch/micro612w18_fluxod/shared/bin/picard-tools-1.130/picard.jar CollectWgsMetrics R=../KPNIH1.fasta I=Rush_KPC_266__aln_marked.bam O=WgsMetrics.txt
+java -jar /scratch/micro612w18_fluxod/shared/bin/picard-tools-1.130/picard.jar CollectWgsMetrics R=KPNIH1.fasta I=PCMP_H326__varcall_result/Step5_variantcalling/PCMP_H326__aln_marked.bam O=WgsMetrics.txt
 
 ```
 
