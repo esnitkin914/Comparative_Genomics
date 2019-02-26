@@ -710,7 +710,7 @@ plot.ts(x$Average_coverage, xlab="Genome Position(1000bp bins)", ylab="Average R
 Submit Variant Calling Job
 --------------------------
 
-Before we go on a break, we will run a variant calling job that will run all the standard variant calling commands on a sample that we will explore in today's afternoon session. The script will run all the necessary commands associated with variant calling in an automated fashion. This will let us give ample time to explore the commands that are involved in each of the steps and explore the results that the script generates. 
+Before we go on a break, we will run a variant calling job that will run all the standard variant calling commands on a sample that we will explore in today's afternoon session. The script will run all necessary commands associated with variant calling in an automated fashion. This will let us give ample time to explore the commands that are involved in each of the steps and explore the results that the script generates. 
 
 We will come back later to the script to understand some of the basics of shell scripting and how different commands can be tied together to run a standard process on a bunch of samples.
 
@@ -724,7 +724,7 @@ cp -r /scratch/micro612w18_fluxod/shared/data/day1_after/ ./
 
 ```
 
-We will be using PCMP_H326_\* sample as an input for these exercise. (Details about this particular colistin resistant Penn Sample...) 
+We will be using PCMP_H326_\* sample as an input for these exercise. (Show them Details about this particular colistin resistant Penn Sample...) 
  
 Change directory to day1_after and list all the files to search variant_call.sh script.
 
@@ -769,8 +769,10 @@ bash ./variant_call.sh PCMP_H326_R1.fastq.gz PCMP_H326_R2.fastq.gz /nfs/esnitkin
 ```
 
 Once you are done editing the pbs script, you can go ahead and submit the job. We will go through each of the variant calling result steps folder and explore the results in afternoon session. 
+
 ```
 
 qsub variant_call.pbs 
 
 ```
+
