@@ -707,5 +707,70 @@ plot.ts(x$Average_coverage, xlab="Genome Position(1000bp bins)", ylab="Average R
 ```
 </details>
 
+Submit Variant Calling Job
+--------------------------
+
+Before we go on a break, we will run a variant calling job that will run all the standard variant calling commands on a sample that we will explore in today's afternoon session. The script will run all the necessary commands associated with variant calling in an automated fashion. This will let us give ample time to explore the commands that are involved in each of the steps and explore the results that the script generates. 
+
+We will come back later to the script to understand some of the basics of shell scripting and how different commands can be tied together to run a standard process on a bunch of samples.
 
 
+- Go to your class home directory (use your wd shortcut!)
+- Execute the following commands to copy files for this afternoon’s exercises to your home directory:
+
+```
+
+cp -r /scratch/micro612w18_fluxod/shared/data/day1_after/ ./
+
+```
+
+We will be using PCMP_H326_\* sample as an input for these exercise. (Details about this particular colistin resistant Penn Sample...) 
+ 
+Change directory to day1_after and list all the files to search variant_call.sh script.
+
+```
+cd /scratch/micro612w19_fluxod/username/day1_after/
+
+#or
+
+d1a
+
+ls variant_call.sh
+```
+
+Try running the script with help menu and check all the inputs that is required by the script to run variant calling.
+
+```
+
+./variant_call.sh -h
+
+```
+
+USAGE:
+variant_call.sh forward_paired reverse_paired reference_genome output_directory basename [-h] -- A simple shell script to run Variant Calling steps on a pair of fastq reads.
+
+The script requires following positional arguments as input to call variants:
+1. Forward Paired end reads
+2. Reverse Paired end reads
+3. Path to Reference Genome Fasta file
+4. Output Directory Path
+5. Analysis Base name to store result files with this prefix.
+
+The day1_after directory also contains a pbs script that will run variant_call.sh on flux cluster. Edit this pbs script to customize email address and output directory to reflect your username specific paths.
+
+Change the EMAIL_ADDRESS section of the pbs script to your email_address.
+
+Change the output directory path in these line to reflect your outout path. You can find this line at the end of the PBS script.
+
+```
+
+bash ./variant_call.sh PCMP_H326_R1.fastq.gz PCMP_H326_R2.fastq.gz /nfs/esnitkin/micro612w19_fluxod/shared/data/day1_afte /KPNIH1.fasta /nfs/esnitkin/micro612w19_fluxod/shared/data/day1_after/ PCMP_H326_
+
+```
+
+Once you are done editing the pbs script, you can go ahead and submit the job. We will go through each of the variant calling result steps folder and explore the results in afternoon session. 
+```
+
+qsub variant_call.pbs 
+
+```
