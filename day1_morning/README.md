@@ -328,7 +328,71 @@ for i in *.fna; do grep -v '^>' $i | grep -v "N" | grep -v "n" | wc -m; done
 </details>
 
 
-- Exploring GFF files
+
+**Unix one-liners**
+
+As soon as you receive your sample data from sequencing centre, the first thing you do is check its quality using a quality control tool such as FastQC and make sure that it contain sequences from organism that you are working on (Free from any contamination). But before carrying out extensive QC, you can run a bash "one-liner" to get some basic statistics about the raw reads. These one-liners are great examples for how a set of simple (relatively) Unix commands can be piped together to do really useful things.
+
+One such unix utility is Awk commands. Awk is a powerful unix utility that can be used to write tiny but effective programs in the form of statements that define text patterns that are to be searched for in each line of a file and the action that is to be taken when a match is found within a line. It is mostly used for pattern scanning and processing. It searches one or more files to see if they contain lines that matches with the specified patterns and then performs the associated actions.
+
+A simple awk syntax is divided into three parts:
+
+```
+awk ' condition { action }'
+```
+
+If the line that awk reads satisfies the condition, it runs the action on it.
+
+```
+
+for i in Rush_KPC_266_*.gz; do zcat $i | awk 'BEGIN{OFS="\t"};((NR-2)%4==0){read=$1;total++;len+=length(read)};END{print total,len/total}'; done
+
+#The above awk command reads every fourth record and calculates some basic fastq statistics.
+
+```
+
+The above awk command reads every fourth record and calculates the number of reads and average read length.
+
+
+Now try running above command using fastq_screen.fastq.gz as input.
+
+To see the true power of Awk unix proggraming and understand how you can employ it to extract complex information, take a look at below command. 
+
+The following command will print total number of reads in each file, total number of unique reads, percentage of unique reads, most abundant sequence(useful to find adapter sequences or contamination), its frequency, and frequency of that sequence as a proportion of the total reads, average read length.
+
+```
+
+for i in Rush_KPC_266_*.gz; do zcat $i | awk 'BEGIN{OFS="\t"};((NR-2)%4==0){read=$1;total++;count[read]++;len+=length(read)}END{for(read in count){if(!max||count[read]>max) {max=count[read];maxRead=read};if(count[read]==1){unique++}};print total,unique,unique*100/total,maxRead,count[maxRead],count[maxRead]*100/total,len/total}'; done
+
+```
+
+This command will parse a fastq file and calculate different statistics on the fly in a time efficient manner. Awk lets you perform and explore complex data files without the need for using a programming language or an individual tool.
+
+You can find more of such super useful bash one-liners at Stephen Turner's github [page](https://github.com/stephenturner/oneliners). You can also use some pre-written unix utilities and tools such as [seqtk](https://github.com/lh3/seqtk), [bioawk](https://github.com/lh3/bioawk) and [fastx](http://hannonlab.cshl.edu/fastx_toolkit/) which comes in handy while extracting complex information from fasta/fastq/sam/bam files and are optimized to be insanely fast.
+
+Pairing fastq Files with for loop
+---------------------------------
+
+Oftentimes, bioinformatics analyses involves pairing a bunch of files that can then be used as an input for a command or a tool. The most common type of file that are used as pairs is fastq forward and reverse reads. In this exercise, we will go through a simple shell script that searches fastq files having a particular extension and generate a filename string for reverse paired end file.
+
+The script fastq_pair.sh takes a path to directory as a command line argument and searches files with extension \*_1_combine.fastq.gz and generates a filename with an extension \*_2_combine.fastq.gz in it. 
+
+You can change the parameter suffix inside the script to look for a different entension.
+
+```
+less fastq_pair.sh 
+```
+
+Try running the script in the following fashion where . represents current directory:
+
+```
+./fastq_pair.sh .
+```
+
+How about running the awk command that we recently used inside a shell script and ask awk to print some statistics for both forward and reverse reads? Follow instructions in the script and Insert Awk command  in such a way that you use fwd_fastq_file and rev_fastq_file string accordingly.
+
+Exploring GFF files
+-------------------
 
 The GFF (General Feature Format) format is a tab-seperated file and consists of one line per feature, each containing 9 columns of data.
 
@@ -395,68 +459,6 @@ cut -f 3 sample.gff | grep 'tRNA' | wc -l
 - Question: Try counting the number of features on a "+" or "-" strand (column 7).
 
 Some more useful one-line unix commands for GFF files: [here](https://github.com/stephenturner/oneliners#gff3-annotations)
-
-**Unix one-liners**
-
-As soon as you receive your sample data from sequencing centre, the first thing you do is check its quality using a quality control tool such as FastQC and make sure that it contain sequences from organism that you are working on (Free from any contamination). But before carrying out extensive QC, you can run a bash "one-liner" to get some basic statistics about the raw reads. These one-liners are great examples for how a set of simple (relatively) Unix commands can be piped together to do really useful things.
-
-One such unix utility is Awk commands. Awk is a powerful unix utility that can be used to write tiny but effective programs in the form of statements that define text patterns that are to be searched for in each line of a file and the action that is to be taken when a match is found within a line. It is mostly used for pattern scanning and processing. It searches one or more files to see if they contain lines that matches with the specified patterns and then performs the associated actions.
-
-A simple awk syntax is divided into three parts:
-
-```
-awk ' condition { action }'
-```
-
-If the line that awk reads satisfies the condition, it runs the action on it.
-
-```
-
-for i in Rush_KPC_266_*.gz; do zcat $i | awk 'BEGIN{OFS="\t"};((NR-2)%4==0){read=$1;total++;len+=length(read)};END{print total,len/total}'; done
-
-#The above awk command reads every fourth record and calculates some basic fastq statistics.
-
-```
-
-The above awk command reads every fourth record and calculates the number of reads and average read length.
-
-
-Now try running above command using fastq_screen.fastq.gz as input.
-
-To see the true power of Awk unix proggraming and understand how you can employ it to extract complex information, take a look at below command. 
-
-The following command will print total number of reads in each file, total number of unique reads, percentage of unique reads, most abundant sequence(useful to find adapter sequences or contamination), its frequency, and frequency of that sequence as a proportion of the total reads, average read length.
-
-```
-
-for i in Rush_KPC_266_*.gz; do zcat $i | awk 'BEGIN{OFS="\t"};((NR-2)%4==0){read=$1;total++;count[read]++;len+=length(read)}END{for(read in count){if(!max||count[read]>max) {max=count[read];maxRead=read};if(count[read]==1){unique++}};print total,unique,unique*100/total,maxRead,count[maxRead],count[maxRead]*100/total,len/total}'; done
-
-```
-
-This command will parse a fastq file and calculate different statistics on the fly in a time efficient manner. Awk lets you perform and explore complex data files without the need for using a programming language or an individual tool.
-
-You can find more of such super useful bash one-liners at Stephen Turner's github [page](https://github.com/stephenturner/oneliners). You can also use some pre-written unix utilities and tools such as [seqtk](https://github.com/lh3/seqtk), [bioawk](https://github.com/lh3/bioawk) and [fastx](http://hannonlab.cshl.edu/fastx_toolkit/) which comes in handy while extracting complex information from fasta/fastq/sam/bam files and are optimized to be insanely fast.
-
-Pairing fastq Files with for loop
----------------------------------
-
-Oftentimes, bioinformatics analyses involves pairing a bunch of files that can then be used as an input for a command or a tool. The most common type of file that are used as pairs is fastq forward and reverse reads. In this exercise, we will go through a simple shell script that searches fastq files having a particular extension and generate a filename string for reverse paired end file.
-
-The script fastq_pair.sh takes a path to directory as a command line argument and searches files with extension \*_1_combine.fastq.gz and generates a filename with an extension \*_2_combine.fastq.gz in it. 
-
-You can change the parameter suffix inside the script to look for a different entension.
-
-```
-less fastq_pair.sh 
-```
-
-Try running the script in the following fashion where . represents current directory:
-
-```
-./fastq_pair.sh .
-```
-
-How about running the awk command that we recently used inside a shell script and ask awk to print some statistics for both forward and reverse reads? Follow instructions in the script and Insert Awk command  in such a way that you use fwd_fastq_file and rev_fastq_file string accordingly.
 
 
 Plotting genomic coverage in R
