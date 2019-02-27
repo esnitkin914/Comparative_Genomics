@@ -815,100 +815,100 @@ Visualize BAM and VCF files in [Artemis](http://www.sanger.ac.uk/science/tools/a
 
 While these various statistical/text analyses are helpful, visualization of all of these various output files can help in making some significant decisions and inferences about your entire analysis. There are a wide variety of visualization tools out there that you can choose from for this purpose.
 
-We will be using [Artemis](http://www.sanger.ac.uk/science/tools/artemis) here, developed by the Sanger Institute for viewing BAM and vcf files for manual inspection of some of the variants.
+We will be using [IGV](http://software.broadinstitute.org/software/igv/) (Integrative Genome Viewer) here, developed by the Broad Institute for viewing BAM and VCF files for manual inspection of some of the variants.
 
 
 - ***Required Input files:***
 
 > KPNIH1 reference fasta 
 > KPNIH1 genbank file
-> Rush_KPC_266__aln_marked.bam 
-> Rush_KPC_266__aln_marked.bam.bai
-> Rush_KPC_266__filter_gatk_ann.vcf.gz 
-> Rush_KPC_266__filter_gatk_ann.vcf.gz.tbi
+> PCMP_H326__aln_sort.bam 
+> PCMP_H326__aln_sort.bam.bai
+> PCMP_H326__aln_sort__filter_gatk_ann.vcf.gz 
+> PCMP_H326__aln_sort__filter_gatk_ann.vcf.gz.tbi
 
-Let's make a seperate folder (make sure you are in the Rush_KPC_266_varcall_result folder) for the files that we need for visualization and copy it to that folder
-
-```
-
-mkdir Artemis_files
-
-cp ../KPNIH1.fasta ../KPNIH.gb Rush_KPC_266__aln_marked.bam Rush_KPC_266__aln_marked.bam.bai Rush_KPC_266__filter_gatk_ann.vcf Artemis_files/
+Let's make a seperate folder (make sure you are in the `day1_after` folder) for the files that we need for visualization and copy it to that folder:
 
 ```
 
-We need to replace the genome name that we changed earlier for snpEff. (Make sure you are in Artemis_files folder)
+mkdir IGV_files
+
+cp KPNIH1.fasta KPNIH1.gb PCMP_H326__varcall_result/*/PCMP_H326__aln_sort.bam* PCMP_H326__varcall_result/*/PCMP_H326__filter_gatk_ann.vcf.gz* IGV_files/
 
 ```
 
-cd Artemis_files
-
-sed -i 's/Chromosome/gi|661922017|gb|CP008827.1|/g' Rush_KPC_266__filter_gatk_ann.vcf 
-
-bgzip Rush_KPC_266__filter_gatk_ann.vcf
-
-tabix Rush_KPC_266__filter_gatk_ann.vcf.gz
-```
-
-Open a new terminal and run the scp command or cyberduck to get these files to your local system.
+Open a new terminal and run the scp command or cyberduck to get these files to your local system:
 
 ```
 
-scp -r username@flux-xfer.arc-ts.umich.edu:/scratch/micro612w18_fluxod/username/day1_after/Rush_KPC_266_varcall_result/Artemis_files/ /path-to-local-directory/
+scp -r username@flux-xfer.arc-ts.umich.edu:/scratch/micro612w19_fluxod/username/day1_after/PCMP_H326__varcall_result/IGV_files/ /path-to-local-directory/
 
 #You can use ~/Desktop/ as your local directory path
 ```
 
-Start Artemis.
+Start IGV.
 
-Set your working directory to Artemis_files (the Artemis_files folder that you copied to your local system) by clicking the browse button  and click OK.
+Load the following files (each is a separate panel or 'track'):
+- `Genomes` &rarr; `Load Genome from File` &rarr; navigate to `IGV_files` &rarr; `KPNIH1.fasta`
+  - Shows where in the genome you are at the top
+- `File` &rarr; `Load from File` &rarr; navigate to `IGV_files` &rarr; `KPNIH1.gb`
+  - Shows what genes are present (looks like a blue bar when zoomed out)
+- `File` &rarr; `Load from File` &rarr; navigate to `IGV_files` &rarr; `PCMP_H326__aln_sort__filter_gatk_ann.vcf.gz`
+  - Shows variants found in the sample (when you zoom in)
+- `File` &rarr; `Load from File` &rarr; navigate to `IGV_files` &rarr; `PCMP_H326__aln_sort.bam`
+  - Shows coverage and reads aligned to the reference (when you zoom in)
+  
+By default, the whole genome is shown:
 
-Now go to the top left File options and select Open File Manager. You should see the folder Artemis_files. Expand it and select KPNIH.gb file. A new window should open displaying your features stored in a genbank file.
+![alt tag](https://github.com/alipirani88/Comparative_Genomics/blob/master/_img/day1_after/igv_zoomed_out.png)
+  
+Using the plus sign in the top right corner of the window, zoom in by clicking 3 times
+- You should see grey bars in the vcf track and blue bars in the fastq track, both showing variant positions
+- You can hover over the bars to get more information about the variant
+- Light grey and light blue indicate homozygous variants, while dark grey and dark blue indicate heterozygous variants
+- You can navigate to different sections of the genome by moving the red bar at the top
+  
+![alt tag](https://github.com/alipirani88/Comparative_Genomics/blob/master/_img/day1_after/igv_zoomed_in1.png)
 
-Now open the BAM file by selecting File (Top left corner) -> Read BAM/VCF file -> Select -> Rush_KPC_266__aln_marked.bam -> OK
+Zoom in ~5 more times until you see reads appear in the bottom part of the window
+  - You should see coverage and reads mapped in bottom half of the window
+  - Different colors indicate different variants
+  - In the Coverage track, the y-axis indicates read coverage
+  - You can now also see distinct genes in the genbank annotation track
+  - You can hover over a read to get more information about it
+  
+![alt tag](https://github.com/alipirani88/Comparative_Genomics/blob/master/_img/day1_after/igv_zoomed_in2.png)
+  
+To see all of the reads, you can click the square with the arrows pointing to each corner, found in the top-middle-right of the window:
 
-Reads aligned to your reference are displayed as stacked at the top panel of Artemis. The reads are color-coded so that paired reads are blue and those with an inversion are red. Reads that do not have a mapped mate are black and are optionally shown in the inferred insert size view. In the stack view, duplicated reads that span the same region are collapsed into one green line.
+![alt tag](https://github.com/alipirani88/Comparative_Genomics/blob/master/_img/day1_after/igv_zoomed_in3.png)
 
-Now right click on any of the stacked reads and Go to Graph and select Coverage (screenshot below). 
+If you zoom in all the way, you can see the nucleotide sequence at the bottom of the screen as well as nucleotide variants in the reads:
 
-Now right click on any of the stacked reads and Go to Show and select SNP marks to show SNPs in red marks. 
+![alt tag](https://github.com/alipirani88/Comparative_Genomics/blob/master/_img/day1_after/igv_zoomed_in4.png)
 
-![alt tag](https://github.com/alipirani88/Comparative_Genomics/blob/master/_img/day1_after/select_graph.png)
+Now that you know the basics of how to use IGV, let's navigate to the mgrB gene to look at mutations that might make this sample resistant to colistin. 
+- In the top middle bar of the window, type in gi|661922017|gb|CP008827.1|:3,359,811-3,360,323
+- Look at the gene annotation by hovering over the blue bar to see what gene it is
+- What is the nucleotide of the SNP in the sample? The amino acid change? 
+- Do you think this variant might be the cause of colistin resistance? Why or why not?
 
-Follow the same procedure and select SNP graph. Adjust the gene features panel height to show all the graph in a window.
+![alt tag](https://github.com/alipirani88/Comparative_Genomics/blob/master/_img/day1_after/igv_mgrb.png)
 
-![alt tag](https://github.com/alipirani88/Comparative_Genomics/blob/master/_img/day1_after/graphs.png)
 
-Play around by moving the genbank panel cursor to look at coverage and SNP density across the genome. This will let you look at any regions where the coverage or SNP density is unusually high or low.
+Now let's look an example of a heterozygous variant - variant positions where more than one allele (variant) with sufficiently high read depth are observed. 
+- Navigate to gi|661922017|gb|CP008827.1|:2,265,249-2,273,465
+- You can see that there are a lot of heterozygous variants in one region. 
+  - We removed these types of variants during our Variant Filteration step using the FQ value. (If the FQ is unusually high, it is suggestive of a heterozygous variant and negative FQ value is a suggestive of true variant as observed in the mapped reads) 
+- In the region with lots of heterozygous variants, the read coverage is much higher than in the flanking regions (the regions on either side), and much higher than the rest of the genome coverage. 
+- Why do you think this region contains many heterozygous variants and a higher read coverage than the rest of the genome?
+- You can also see that there are some places with no reads and no coverage. What does this mean?
 
-If you click a read, its mate pair will also be selected. If the cursor hovers over a read for long enough details of that read will appear in a small box. For more details of the read, right-click and select 'Show details of: READ NAME' (last option in list) from the
-menu (screenshot below). This will open up a new window giving you some useful details such as mapping quality, coordinates etc. 
-
-![alt tag](https://github.com/alipirani88/Comparative_Genomics/blob/master/_img/day1_after/read_details.png)
-
-The snps are denoted by red marks as observed inside the reads. Go to one of the SNPs in the VCF file (Position: 50195) by directly navigating to the position. For this, select Goto at the top -> select Navigator -> Type the position in Goto Base box
-
-You will notice a spike in the middle of the SNP graph window. This is one of the SNPs that passed all our filter criteria. (Screenshot)
-
-![alt tag](https://github.com/alipirani88/Comparative_Genomics/blob/master/_img/day1_after/spike_true.png)
-
-Lets try to see an example of HET variant. Variant positions where more than one allele (variant) with sufficiently high read depth are observed are considered HET type variants. 
-
-For this, click on tje Goto option at the top and select navigator. Type 321818 in Goto Base box and click Goto.
-
-You will see a thick spike in the SNP graph as well as thick red vertical line in BAM panel. Also notice the sudden spike in the coverage for this particular region compared to its flanking region (the region before and after a selected region). The coverage here is more than 300 which is unusually high compared to the entire genome coverage. This means that more than one allele with high quality and depth were observed at these positions so we cannot decide which one of these is a true variant. We removed these types of variants during our Variant Filteration step using the criteria FQ. (If the FQ is unusually high, it is suggestive of a HET variant and negative FQ value is a suggestive of true variant as observed in the mapped reads) 
-
-![alt tag](https://github.com/alipirani88/Comparative_Genomics/blob/master/_img/day1_after/HET_variant.png)
-
-Now select the gene right below this spiked region. Right click on this gene (KPNIH1_RS01560) and select Zoom to Selection.
-
-![alt tag](https://github.com/alipirani88/Comparative_Genomics/blob/master/_img/day1_after/HET_variant_gene_selected.png)
-
-Check the details about gene by selecting View -> Selected Features
+![alt tag](https://github.com/alipirani88/Comparative_Genomics/blob/master/_img/day1_after/igv_het.png)
 
 You can inspect these type of HET variants later for any gene duplication or copy number analysis (by extracting variant positions with high FQ values). Addition of these details will give a better resolution while inferring phylogenetic trees.
 
-Play around with Artemis to look at what other kind of information you can find from these BAM and vcf files. Also refer to the manual at the [Artemis Homepage](http://www.sanger.ac.uk/science/tools/artemis) for full information about its usage. 
+You can refer to the [IGV User Guide](http://software.broadinstitute.org/software/igv/userguide) for more information about how to use IGV. 
 
 [[back to top]](https://github.com/alipirani88/Comparative_Genomics/blob/master/day1_afternoon/README.md)
 [[HOME]](https://github.com/alipirani88/Comparative_Genomics/blob/master/README.md)
