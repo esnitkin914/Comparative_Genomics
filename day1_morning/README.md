@@ -724,7 +724,7 @@ cp -r /scratch/micro612w18_fluxod/shared/data/day1_after/ ./
 
 ```
 
-We will be using PCMP_H326_\* sample as an input for these exercise. (Show them Details about this particular colistin resistant Penn Sample...) 
+We will be using sequencing reads from an Illumina-sequenced *Klebsiella pneumoniae* genome (sample PCMP_H326) as an input for these exercises. This sample, isolated from a hospitalized patient, is resistant to colistin, an antibiotic of last resort. We are interested in seeing if we can identify any mutations in the PCMP_H326 genome that could explain why this sample is resistant to colistin. Colistin resistance can arise through various mutations (see [this review](https://www.frontiersin.org/articles/10.3389/fmicb.2014.00643/full)). To narrow our initial search, we will specifically look for mutations that inactivate the [mgrB gene](https://aac.asm.org/content/58/10/5696), a negative regulator of the PhoPQ two-component signalling system. 
  
 Change directory to day1_after and list all the files to search variant_call.sh script.
 
