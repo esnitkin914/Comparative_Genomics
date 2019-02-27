@@ -426,6 +426,26 @@ This command will parse a fastq file and calculate different statistics on the f
 
 You can find more of such super useful bash one-liners at Stephen Turner's github [page](https://github.com/stephenturner/oneliners). You can also use some pre-written unix utilities and tools such as [seqtk](https://github.com/lh3/seqtk), [bioawk](https://github.com/lh3/bioawk) and [fastx](http://hannonlab.cshl.edu/fastx_toolkit/) which comes in handy while extracting complex information from fasta/fastq/sam/bam files and are optimized to be insanely fast.
 
+Pairing fastq Files with for loop
+---------------------------------
+
+Oftentimes, bioinformatics analyses involves pairing a bunch of files that can then be used as an input for a command or a tool. The most common type of file that are used as pairs is fastq forward and reverse reads. In this exercise, we will go through a simple shell script that searches fastq files having a particular extension and generate a filename string for reverse paired end file.
+
+The script fastq_pair.sh takes a path to directory as a command line argument and searches files with extension \*_1_combine.fastq.gz and generates a filename with an extension \*_2_combine.fastq.gz in it. 
+
+You can change the parameter suffix inside the script to look for a different entension.
+
+```
+less fastq_pair.sh 
+```
+
+Try running the script in the following fashion where . represents current directory:
+
+```
+./fastq_pair.sh .
+```
+
+How about running the awk command that we recently used inside a shell script and ask awk to print some statistics for both forward and reverse reads? Follow instructions in the script and Insert Awk command  in such a way that you use fwd_fastq_file and rev_fastq_file string accordingly.
 
 <!---
 Contamination Screening using [FastQ Screen](http://www.bioinformatics.babraham.ac.uk/projects/fastq_screen/)
