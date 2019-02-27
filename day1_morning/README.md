@@ -285,7 +285,7 @@ fastq: used for storing biological sequence / sequencing reads (usually nucleoti
 > ***2) the types of bases that a nucleotide sequence represents (A,T,G,C,N)***
 
 
-To determine the total length of our genome assemblies, we will use grep to match only those lines that doesn't start with ">" (remember grep -v option is used to ignore lines) and doesn't contain character "N". Then use wc command (stands for word count) to count the characters. We can use unix pipe "|" to pass the output of one command to another for further processing. Lets start by counting the number of bases in Acinetobacter_baumannii.fna file
+To determine the total length of our genome assemblies, we will use grep to match only those lines that doesn't start with ">" (remember grep -v option is used to ignore lines). Then use wc command (stands for word count) to count the characters. We can use unix pipe "|" to pass the output of one command to another for further processing. Lets start by counting the number of bases in Acinetobacter_baumannii.fna file
 
 <details>
   <summary>Solution</summary>
@@ -301,7 +301,7 @@ grep -v '^#' sample.gff | awk -F '\t' '{print $3}' | grep 'tRNA' | wc -l
 
 ```
 
-grep -v '^>' Acinetobacter_baumannii.fna | grep -v "N" | grep -v "n" | wc -m
+grep -v '^>' Acinetobacter_baumannii.fna | wc -m
 
 #Note:
 
@@ -322,7 +322,7 @@ Now run the same command on other fasta files in day1_morn directory. Try using 
 
 ```
 
-for i in *.fna; do grep -v '^>' $i | grep -v "N" | grep -v "n" | wc -m; done
+for i in *.fna; do grep -v '^>' $i | wc -m; done
 
 ```
 </details>
