@@ -298,6 +298,14 @@ The script generates PCMP_H326__varcall_result folder in your day1_after folder 
 **6. Step6_variantfilteraion**
 
 
+Try listing the folders in PCMP_H326__varcall_result:
+
+```
+
+ls -1ad PCMP_H326__varcall_result/*
+
+```
+
 Step1_cleaning
 --------------
 
@@ -365,7 +373,8 @@ You can extract this information from fastq read header. (@D00728:16:hf2mtbcxx:2
 
 The output of BWA and most of the short-reads aligners is a SAM file. SAM format is considered as the standard output for most read aligners and stands for Sequence Alignment/Map format. It is a TAB-delimited format that describes how each reads were aligned to the reference sequence. 
 
-Lets explore first few lines of .sam file. Go to day1_after directory and then change directory to 
+Lets explore first few lines of .sam file. Go to day1_after directory and then change directory to PCMP_H326__varcall_result/Step2_mapping/
+
 
 ```
 d1a
