@@ -244,7 +244,7 @@ Lets take an example to understand what those parameters stands for:
 
 
 ```
-some_program.sh Argument1 Argument2 Argument3
+./some_program.sh Argument1 Argument2 Argument3
 ```
 
 In the above command, we provide three command line Arguments that acts like an input to some_program.sh 
@@ -258,10 +258,10 @@ Lets try to incorporate a for loop inside the fasta_counter.sh script that uses 
 
 - Run this script in day1_morn directory and verify that you get the correct results. Basic usage of the script will be:
 
-bash fasta_counter.sh <directory containing files>
+./fasta_counter.sh <directory containing files>
 
 ```
-bash fasta_counter.sh .
+./fasta_counter.sh .
 ```
 
 The "." sign tells the script to use current directory as its first command line argument($1) 
@@ -601,7 +601,7 @@ Change the output directory path in these line to reflect your outout path. You 
 
 ```
 
-bash ./variant_call.sh PCMP_H326_R1.fastq.gz PCMP_H326_R2.fastq.gz /nfs/esnitkin/micro612w19_fluxod/shared/data/day1_afte /KPNIH1.fasta /nfs/esnitkin/micro612w19_fluxod/shared/data/day1_after/ PCMP_H326_
+./variant_call.sh PCMP_H326_R1.fastq.gz PCMP_H326_R2.fastq.gz /nfs/esnitkin/micro612w19_fluxod/shared/data/day1_afte /KPNIH1.fasta /nfs/esnitkin/micro612w19_fluxod/shared/data/day1_after/ PCMP_H326_
 
 ```
 
