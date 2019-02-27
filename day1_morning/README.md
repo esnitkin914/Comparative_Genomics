@@ -460,6 +460,42 @@ cut -f 3 sample.gff | grep 'tRNA' | wc -l
 
 Some more useful one-line unix commands for GFF files: [here](https://github.com/stephenturner/oneliners#gff3-annotations)
 
+Now we're going to play around with the GFF in R. Specifically, we're interested in looking at the distribution of gene length for all of the genes in the gff file.
+
+Copy the sample.gff file to your computer using scp or cyberduck:
+
+```
+scp username@flux-xfer.arc-ts.umich.edu:/nfs/esnitkin/micro612w19_fluxod/shared/data/day1_morn/sample.gff ~/Desktop/
+Note: You can use your choice of folder/path to copy the file instead of  “~/Desktop/”
+```
+
+Open a text file in RStudio and run the following commands:
+```
+# Plot histogram of gene lengths
+
+# Read in gff file
+gff = read.delim('~/Desktop/sample.gff',
+                 comment.char = '#', # ignore lines that start with '#'
+                 header=F) #  no header
+
+# Rename columns
+colnames(gff) = c('seqname','source','feature','start','end','score','strand','frame','attribute')
+
+# Look at the head of the gff file
+head(gff)
+
+# Get the gene lengths
+gene_lengths = gff$end - gff$start
+
+# Plot a histogram of the gene lengths
+hist(gene_lengths,
+     breaks = 100, # 100 cells
+     xlab = 'Gene Length (bp)', # change x label
+     main = '') # no title
+```
+
+What information do you learn about gene lengths in this genome?
+
 
 Plotting genomic coverage in R
 ------------------------------
@@ -472,7 +508,9 @@ One such parameter is validating how well your sequencing experiment performed a
 The input for this task is a comma-separated file, which contains average sequencing coverage information i.e average number of reads mapped to each 1000 base pairs in reference genome. You can find this input file in your day1_morn directory by the name, Ecoli_coverage_average_bed.csv
 
 <!---
-Let’s copy Ecoli_coverage_average_bed.csv file from flux shared directory to your desktop using ‘scp’. ‘scp’ stands for secure copy and is used for securely transferring files between remote host/server(flux) and your local computer system. (Both directions)
+Let’s copy Ecoli_coverage_average_bed.csv file from flux shared directory to your desktop using ‘
+’. ‘
+’ stands for secure copy and is used for securely transferring files between remote host/server(flux) and your local computer system. (Both directions)
 scp username@flux-xfer.arc-ts.umich.edu:/scratch/micro612w18_fluxod/shared/Ecoli_coverage_average_bed.csv ~/Desktop/
 Note: You can use your choice of folder/path to copy the file instead of  “~/Desktop/”
 -->
