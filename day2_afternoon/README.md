@@ -7,11 +7,13 @@ High-throughput BLAST and pan-genome analysis
 
 This morning we learned how to perform basic genome annotation and comparison using Prokka and ACT. Now we will up the ante and do some more sophisticated comparative genomics analyses! 
 First, we will create custom BLAST databases to identify specific antibiotic resistance genes of interest in a set of genomes. 
-Second, we will use the large-scale BLAST-based tool LS-BSR to identify the complete antibiotic resistome in our genomes. 
+Second, we will use the tool [ARIBA](https://github.com/sanger-pathogens/ariba/wiki) to identify the complete antibiotic resistome in our genomes. 
 Third, we will move beyond antibiotic resistance, and look at the complete set of protein coding genes in our input genomes. 
-Finally, we will go back to ACT to understand the sorts of genomic rearrangements underlying observed variation in gene content.  
+Finally, we will go back to ACT to understand the sorts of genomic rearrangements underlying observed variation in gene content.
 
-For these exercises we will be looking at four closely related Acinetobacter baumannii strains. However, despite being closely related, these genomes have major differences in gene content, as A. baumannii has a notoriously flexible genome! In fact, in large part due to its genomic flexibility, A. baumannii has transitioned from a harmless environmental contaminant to a pan-resistant super-bug in a matter of a few decades. If you are interested in learning more, check out this nature [review](http://www.nature.com/nrmicro/journal/v5/n12/abs/nrmicro1789.html) or [this](http://www.pnas.org/content/108/33/13758.abstract) paper, I published a few years back analyzing the very same genomes you are working with.
+For BLAST and ARIBA, we will be looking at 8 *Klebsiella pneumoniae* genomes from human and environmental sources. Six of these genomes are from [this paper](https://www.pnas.org/content/112/27/E3574), and the other two are sequences from our lab. We are interested in learning more about potential differences in the resistomes of human and environmental isolates.
+
+For the pan-genome analysis, we will be looking at four closely related *Acinetobacter baumannii* strains. However, despite being closely related, these genomes have major differences in gene content, as *A. baumannii* has a notoriously flexible genome! In fact, in large part due to its genomic flexibility, *A. baumannii* has transitioned from a harmless environmental contaminant to a pan-resistant super-bug in a matter of a few decades. If you are interested in learning more, check out this nature [review](http://www.nature.com/nrmicro/journal/v5/n12/abs/nrmicro1789.html) or [this](http://www.pnas.org/content/108/33/13758.abstract) paper I published a few years back analyzing the very same genomes you will be working with.
 
 Execute the following command to copy files for this afternoon’s exercises to your scratch directory:
 
@@ -27,87 +29,89 @@ cp -r /scratch/micro612w19_fluxod/shared/data/day2_after/ ./
 
 ```
 
-Determine which genomes contain beta-lactamase genes
+Determine which genomes contain KPC genes using [BLAST](https://blast.ncbi.nlm.nih.gov/Blast.cgi)
 ----------------------------------------------------
-[[back to top]](https://github.com/alipirani88/Comparative_Genomics/blob/master/day2_afternoon/README.md)
-[[HOME]](https://github.com/alipirani88/Comparative_Genomics/blob/master/README.md)
+[[back to top]](day2_afternoon.html)
+[[HOME]](index.html)
 
-Before comparing full genomic content, lets start by looking for the presence of particular genes of interest. A. baumannii harbors an arsenal of resistance genes, and it would be interesting to know how particular resistance families vary among our 4 genomes. To accomplish this we will use the antibiotic resistance database ([ARDB](http://ardb.cbcb.umd.edu/)) and particularly beta-lactamase genes extracted from ARDB. These extracted genes can be found in file ardb_beta_lactam_genes.pfasta, which we will use to generate a Blast database.
+Before comparing full genomic content, lets start by looking for the presence of particular genes of interest. Some *K. pneumoniae* harbor a KPC gene that confers resistance to carbapenems, a class of antibiotics of last resort (more information [here](https://www.sciencedirect.com/science/article/pii/S1473309913701907?via%3Dihub) and [here](https://academic.oup.com/jid/article/215/suppl_1/S28/3092084)). We will see if any of our samples have a KPC gene, by comparing the genes in our genomes to KPC genes extracted from the antibiotic resistance database ([ARDB](http://ardb.cbcb.umd.edu/)). These extracted genes can be found in the file `ardb_KPC_genes.pfasta`, which we will use to generate a BLAST database.
 
-> ***i. Run makeblastdb on the file of beta-lactamases to create a BLAST database.***
+> ***i. Run makeblastdb on the file of KPC genes to create a BLAST database.***
 
 makeblastdb takes as input: 
 
-1) an input fasta file of protein or nucleotide sequences (ardb_beta_lactam_genes.pfasta) and 
+1) an input fasta file of protein or nucleotide sequences (`ardb_KPC_genes.pfasta`) and 
 
-2) a flag indicating whether to construct a protein or nucleotide database (in this case protein/ -dbtype prot).
+2) a flag indicating whether to construct a protein or nucleotide database (in this case protein: `-dbtype prot`).
 
 ```
 #change directory to day2_after
 d2a
 
 
-makeblastdb -in ardb_beta_lactam_genes.pfasta -dbtype prot
+makeblastdb -in ardb_KPC_genes.pfasta -dbtype prot
 
 ```
 
-> ***ii. BLAST A. baumannii protein sequences against our custom beta-lactamase database.***
+> ***ii. BLAST K. pneumoniae protein sequences against our custom KPC database.***
 
 Run BLAST! 
 
 The input parameters are: 
 
-1) query sequences (-query Abau_all.pfasta), 
+1) query sequences (`-query kpneumo_all.pfasta`), 
 
-2) the database to search against (-db ardb_beta_lactam_genes.pfasta), 
+2) the database to search against (`-db ardb_KPC_genes.pfasta`), 
 
-3) the name of a file to store your results (-out bl_blastp_results), 
+3) the name of a file to store your results (`-out KPC_blastp_results`), 
 
-4) output format (-outfmt 6), 
+4) output format (`-outfmt 6`), 
 
-5) e-value cutoff (-evalue 1e-20), 
+5) e-value cutoff (`-evalue 1e-100`), 
 
-6) number of database sequences to return (-max_target_seqs 1)
+6) number of database sequences to return (`-max_target_seqs 1`) (Note that when using large databases, this might not give you the best hit. See [here](https://academic.oup.com/bioinformatics/advance-article/doi/10.1093/bioinformatics/bty833/5106166) for more details.)
 
-
-```
-blastp -query Abau_all.pfasta -db ardb_beta_lactam_genes.pfasta -out bl_blastp_results -outfmt 6 -evalue 1e-20 -max_target_seqs 1
-```
-
-Use less to look at bl_blastp_results.
 
 ```
-less bl_blastp_results
+blastp -query kpneumo_all.pfasta -db ardb_KPC_genes.pfasta -out KPC_blastp_results.tsv -outfmt 6 -evalue 1e-100 -max_target_seqs 1
 ```
 
-- Question: Experiment with the –outfmt parameter, which controls different output formats that BLAST can produce. 
+Use `less` to look at `KPC_blastp_results.tsv`.
 
-- Question: Determine which Enterococcus genomes contain vancomycin resistance genes. To do this you will need to: i) create a protein BLAST database for ardb_van.pfasta, ii) concetenate the genomes sequences in the .fasta files and iii) use blastx to BLAST nucleotide genomes against a protein database 
+```
+less KPC_blastp_results.tsv
+```
 
-Identification of antibiotic resistance genes with [ARIBA](https://github.com/sanger-pathogens/ariba) directly from paired end reads
+- **Exercise:** Experiment with the `–outfmt` parameter, which controls different output formats that BLAST can produce. 
+
+- **Exercise:** Determine which *Enterococcus* genomes contain vancomycin resistance genes. To do this you will need to: i) create a protein BLAST database for `ardb_van.pfasta`, ii) concetenate the genomes sequences in the `.fasta` files and iii) use `blastx` to BLAST nucleotide genomes against a protein database. 
+
+Identify antibiotic resistance genes with [ARIBA](https://github.com/sanger-pathogens/ariba) directly from paired end reads
 ----------------------------------------------------------
-[[back to top]](https://github.com/alipirani88/Comparative_Genomics/blob/master/day2_afternoon/README.md)
-[[HOME]](https://github.com/alipirani88/Comparative_Genomics/blob/master/README.md)
+[[back to top]](day2_afternoon.html)
+[[HOME]](index.html)
 
-ARIBA, Antimicrobial Resistance Identification By Assembly is a tool that identifies antibiotic resistance genes by running local assemblies. The input is a FASTA file of reference sequences (can be a mix of genes and noncoding sequences) and paired sequencing reads. ARIBA reports which of the reference sequences were found, plus detailed information on the quality of the assemblies and any variants between the sequencing reads and the reference sequences.
+Now let's look at the full spectrum of antibiotic resistance genes in our *Klebsiella* genomes!
 
-ARIBA is compatible with various databases and also contains an utility to download different databases such as: argannot, card, megares, plasmidfinder, resfinder, srst2_argannot, vfdb_core. Today, we will be working with the [card](https://card.mcmaster.ca/) database, which has been downloaded and placed in /scratch/micro612w19_fluxod/shared/out.card.prepareref/ directory.
+ARIBA (Antimicrobial Resistance Identification By Assembly) is a tool that identifies antibiotic resistance genes by running local assemblies. The input is a FASTA file of reference sequences (can be a mix of genes and noncoding sequences) and paired sequencing reads. ARIBA reports which of the reference sequences were found, plus detailed information on the quality of the assemblies and any variants between the sequencing reads and the reference sequences.
+
+ARIBA is compatible with various databases and also contains a utility to download different databases such as: argannot, card, megares, plasmidfinder, resfinder, srst2_argannot, vfdb_core. Today, we will be working with the [card](https://card.mcmaster.ca/) database, which has been downloaded and placed in the `/scratch/micro612w19_fluxod/shared/out.card.prepareref/` directory.
 
 <!---
 Note: There is an issue with downloading the database. They are in a process to fix the broken CARD database link issue. For now, I am using my own downloaded database.
 >i. Run this command to download CARD database
 ```
-/nfs/esnitkin/bin_group/anaconda3/bin/ariba getref card out.card
+/nfs/esnitkin/bin_group/anaconda3/bin/python /nfs/esnitkin/bin_group/ariba/scripts/ariba getref card out.card
 ```
 >ii. Prepare this downloaded card database for ARIBA
 ```
-/nfs/esnitkin/bin_group/anaconda3/bin/ariba prepareref -f out.card.fa -m out.card.tsv out.card.prepareref
+/nfs/esnitkin/bin_group/anaconda3/bin/python /nfs/esnitkin/bin_group/ariba/scripts/ariba prepareref -f out.card.fa -m out.card.tsv out.card.prepareref
 ```
 -->
 
 > ***i. Run ARIBA on input paired-end fastq reads for resistance gene identification.***
 
-The fastq reads are placed in Abau_genomes_fastq directory. Enter interactive flux session, change directory to day2_after workshop directory and run the below four commands to start ARIBA jobs in background.
+The fastq reads are placed in the `kpneumo_fastq` directory. Enter an interactive flux session, change directories to `day2_after` and run the four commands below to start ARIBA jobs in the background.
 
 <!---
 module load python-anaconda3/latest
@@ -118,7 +122,7 @@ iflux
 
 cd /scratch/micro612w19_fluxod/username/day2_after
 
-or 
+#or 
 
 d2a
 
@@ -128,14 +132,13 @@ module load cd-hit
 
 #ARIBA commands
 
-/nfs/esnitkin/bin_group/anaconda3/bin/ariba run --force /scratch/micro612w19_fluxod/shared/out.card.prepareref/ Abau_genomes_fastq/AbauA_genome.1.fastq.gz Abau_genomes_fastq/AbauA_genome.2.fastq.gz AbauA_genome &
-
-/nfs/esnitkin/bin_group/anaconda3/bin/ariba run --force /scratch/micro612w19_fluxod/shared/out.card.prepareref/ Abau_genomes_fastq/AbauB_genome.1.fastq.gz Abau_genomes_fastq/AbauB_genome.2.fastq.gz AbauB_genome &
-
-/nfs/esnitkin/bin_group/anaconda3/bin/ariba run --force /scratch/micro612w19_fluxod/shared/out.card.prepareref/ Abau_genomes_fastq/AbauC_genome.1.fastq.gz Abau_genomes_fastq/AbauC_genome.2.fastq.gz AbauC_genome &
-
-/nfs/esnitkin/bin_group/anaconda3/bin/ariba run --force /scratch/micro612w19_fluxod/shared/out.card.prepareref/ Abau_genomes_fastq/ACICU_genome.1.fastq.gz Abau_genomes_fastq/ACICU_genome.2.fastq.gz ACICU_genome &
-
+samples=$(ls kpneumo_fastq/*1.fastq.gz) #forward reads
+for samp in $samples; do
+  db_dir=/scratch/micro612w19_fluxod/shared/out.card.prepareref/ #reference database
+  samp2=${samp//1/2} #reverse reads
+  outdir=$(echo ${samp//.fastq.gz/} | cut -d/ -f2) #output directory
+  /nfs/esnitkin/bin_group/anaconda3/bin/python /nfs/esnitkin/bin_group/ariba/scripts/ariba run --force $db_dir $samp $samp2 $outdir & #ariba command
+done
 ```
 
 The "&" in the above commands(at the end) is a little unix trick to run commands in background. You can run multiple commands in background and make full use of parallel processing. You can check the status of these background jobs by typing:
@@ -146,54 +149,69 @@ jobs
 
 > ***ii. Run ARIBA summary function to generate a summary report.***
 
-ARIBA has a summary function that summarises the results from one or more sample runs of ARIBA and generates an output report with various level of information determined by -preset parameter. The parameter "-preset minimal" will generate a minimal report showing only the presence/absence of resistance genes whereas "-preset all" will output all the extra information related to each database hit such as reads and reference sequence coverage, variants and their associated annotations(if the variant confers resistance to an Antibiotic) etc.
+ARIBA has a summary function that summarises the results from one or more sample runs of ARIBA and generates an output report with various level of information determined by the `-preset` parameter. The parameter `-preset minimal` will generate a minimal report showing only the presence/absence of resistance genes whereas `-preset all` will output all the extra information related to each database hit such as reads and reference sequence coverage, variants and their associated annotations (if the variant confers resistance to an antibiotic) etc.
 
 ```
 
-/nfs/esnitkin/bin_group/anaconda3/bin/ariba summary --preset minimal Abau_genomes_ariba_minimal_results *_genome/report.tsv
+/nfs/esnitkin/bin_group/anaconda3/bin/ariba summary --preset minimal kpneumo_ariba_minimal_results */report.tsv
 
-/nfs/esnitkin/bin_group/anaconda3/bin/ariba summary --preset all Abau_genomes_ariba_all_results *_genome/report.tsv
-
-```
-
-ARIBA summary generates three output:
-
-1. Abau_genomes_ariba*.csv file that can be viewed in your favourite spreadsheet program.
-2. Abau_genomes_ariba*.phandango.{csv,tre} that allow you to view the results in [Phandango](http://jameshadfield.github.io/phandango/#/). They can be drag-and-dropped straight into Phandango.
-
-Lets copy this phandango files Abau_genomes_ariba_minimal_results.phandango.csv and Abau_genomes_ariba_minimal_results.phandango.tre to the local system using cyberduck or scp
+/nfs/esnitkin/bin_group/anaconda3/bin/ariba summary --preset all kpneumo_ariba_all_results */report.tsv
 
 ```
-scp username\@flux-xfer.arc-ts.umich.edu:/scratch/micro612w19_fluxod/username/day2_after/*minimal_results.phandango* ~/Desktop/
+
+The ARIBA summary generates three output:
+
+1. kpneumo_ariba*.csv file that can be viewed in your favourite spreadsheet program.
+2. kpneumo_ariba*.phandango.{csv,tre} that allow you to view the results in [Phandango](http://jameshadfield.github.io/phandango/#/). You can drag-and-drop these files straight into Phandango.
+
+Lets copy these  files, along with a metadata file, to the local system using cyberduck or scp.
+
+```
+scp username\@flux-xfer.arc-ts.umich.edu:/scratch/micro612w19_fluxod/username/day2_after/kpneumo_ariba* ~/Desktop/
+scp username\@flux-xfer.arc-ts.umich.edu:/scratch/micro612w19_fluxod/username/day2_after/kpneumo_source.tsv ~/Desktop/
 ```
 
-Drag and drop these two files on [Phandango](http://jameshadfield.github.io/phandango/#/) website. What types of resistance genes do you see in these Acinetobacter genomes? This [review](http://aac.asm.org/content/55/3/947.full) may help interpret.
+Drag and drop these two files onto the [Phandango](http://jameshadfield.github.io/phandango/#/) website. What types of resistance genes do you see in these *Klebsiella* genomes? This [review]() may help interpret.
 
 > ***iii. Explore full ARIBA matrix in R***
 
-- Now, Fire up R console or studio and read ariba full report "Abau_genomes_ariba_all_results.csv"
+- Now, fire up RStudio and read in the ARIBA full report "kpneumo_ariba_all_results.csv"
 
 ```
-ariba_full  = read.csv(file = 'Abau_genomes_ariba_all_results.csv', row.names = 1)
+ariba_full  = read.csv(file = '~/Desktop/kpneumo_ariba_all_results.csv', row.names = 1)
+rownames(ariba_full) = gsub('/report.tsv','',rownames(ariba_full))a
 ```
 
 - Subset to get description for each gene
 
 ```
-ariba_full_asm = ariba_full[, grep('assembled',colnames(ariba_full))]
+ariba_full_match = ariba_full[, grep('match',colnames(ariba_full))]
 ```
 
 - Make binary for plotting purposes
 
 ```
-ariba_full_asm[,] = as.numeric(ariba_full_asm != 'no')
+ariba_full_match[,] = as.numeric(ariba_full_match != 'no')
 ```
 
 - Make a heatmap!
 
 ```
-heatmap(as.matrix(ariba_full_asm), scale = "none", col= c('black', 'red'), margins = c(10,5), cexRow = 0.75)
+# install pheatmap
+install.packages('pheatmap')
+
+# load pheatmap
+library(pheatmap)
+
+# load metadata about sample source
+annots = read.table('~/Desktop/kpneumo_source.tsv',row.names=1)
+colnames(annots) = 'Source'
+
+# plot heatmap
+pheatmap(ariba_full_match,annotation_rows = annots)
 ```
+
+- **Exercise:** Bacteria of the same species can be classified into different sequence types (STs) based on the sequence identity of certain housekeeping genes using a technique called [multilocus sequence typing (MLST)](https://en.wikipedia.org/wiki/Multilocus_sequence_typing). Sometimes, different sequence types are associated with different environments or different antibiotic resistance genes. We want to know what sequence type(s) our genomes come from, and if there are certain ones that are associated with certain sources or certain antibiotic resistance genes. Using the [ARIBA MLST manual](https://github.com/sanger-pathogens/ariba/wiki/MLST-calling-with-ARIBA), write and run a script to perform MLST calling with ARIBA on all 8 of our *K. pneumonia* genomes. Then, use this information to add a second annotation column to the heatmap we created above to visualize the results. Did you find anything interesting?
 
 Perform pan-genome analysis with [Roary](https://sanger-pathogens.github.io/Roary/)
 ----------------------------------------
