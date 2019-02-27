@@ -23,9 +23,9 @@ wd
 
 #or
 
-cd /scratch/micro612w18_fluxod/username
+cd /scratch/micro612w19_fluxod/username
 
-cp -r /scratch/micro612w18_fluxod/shared/data/day3_morn ./
+cp -r /scratch/micro612w19_fluxod/shared/data/day3_morn ./
 
 ```
 
@@ -51,7 +51,7 @@ cd Abau_mauve
 
 - Now copy Abau_genomes folder residing in your day3_morn folder using scp or cyberduck:
 
-scp -r username@flux-xfer.arc-ts.umich.edu:/scratch/micro612w18_fluxod/username/day3_morn/Abau_genomes ./
+scp -r username@flux-xfer.arc-ts.umich.edu:/scratch/micro612w19_fluxod/username/day3_morn/Abau_genomes ./
 
 ```
 
@@ -72,7 +72,7 @@ Use cyberduck or scp to transfer your alignment back to flux for some processing
 
 ```
 
-scp ~/Desktop/Abau_mauve/mauve_ECII_outgroup username@flux-xfer.arc-ts.umich.edu:/scratch/micro612w18_fluxod/username/day3_morn 
+scp ~/Desktop/Abau_mauve/mauve_ECII_outgroup username@flux-xfer.arc-ts.umich.edu:/scratch/micro612w19_fluxod/username/day3_morn 
 
 ```
  
@@ -106,7 +106,7 @@ Note that ape has a ton of useful functions for more sophisticated phylogenetic 
 cd ~/Desktop/Abau_mauve
 
 
-scp username@flux-xfer.arc-ts.umich.edu:/scratch/micro612w18_fluxod/username/day3_morn/mauve_ECII_outgroup.fasta ./
+scp username@flux-xfer.arc-ts.umich.edu:/scratch/micro612w19_fluxod/username/day3_morn/mauve_ECII_outgroup.fasta ./
 
 ```
 
@@ -256,7 +256,7 @@ d3m
 
 #or
 
-cd /scratch/micro612w18_fluxod/username/day3_morn
+cd /scratch/micro612w19_fluxod/username/day3_morn
 
 run_gubbins.py -v -f 50 -o Abau_AB0057_genome mauve_ECII_outgroup.fasta
 
@@ -287,8 +287,8 @@ Use cyberduck or scp to get gubbins output files into Abau_mauve on your local s
 
 cd ~/Desktop/Abau_mauve
 
-scp username@flux-xfer.arc-ts.umich.edu:/scratch/micro612w18_fluxod/username/day3_morn/mauve_ECII_outgroup.recombination.pdf  ./
-scp username@flux-xfer.arc-ts.umich.edu:/scratch/micro612w18_fluxod/username/day3_morn/mauve_ECII_outgroup.final_tree.tre  ./
+scp username@flux-xfer.arc-ts.umich.edu:/scratch/micro612w19_fluxod/username/day3_morn/mauve_ECII_outgroup.recombination.pdf  ./
+scp username@flux-xfer.arc-ts.umich.edu:/scratch/micro612w19_fluxod/username/day3_morn/mauve_ECII_outgroup.final_tree.tre  ./
 
 ```
 
@@ -336,8 +336,8 @@ cd ~/Desktop (or wherever your desktop is)
 mkdir MRSA_genomes 
 cd MRSA_genomes
 
-scp username@flux-xfer.arc-ts.umich.edu:/scratch/micro612w18_fluxod/username/day3_morn/2016-03-09_KP_BSI_USA300.fa  ./
-scp username@flux-xfer.arc-ts.umich.edu:/scratch/micro612w18_fluxod/username/day3_morn/HA_vs_CA  ./
+scp username@flux-xfer.arc-ts.umich.edu:/scratch/micro612w19_fluxod/username/day3_morn/2016-03-09_KP_BSI_USA300.fa  ./
+scp username@flux-xfer.arc-ts.umich.edu:/scratch/micro612w19_fluxod/username/day3_morn/HA_vs_CA  ./
 
 
 ```

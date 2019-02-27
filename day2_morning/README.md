@@ -217,10 +217,10 @@ To do this we need to first align our genome assembly to our reference. We will 
 >i. Align unordered contigs to reference
 Create a BLAST database from your reference genome using the makeblastdb command.
 ```
-> Make sure you are in /scratch/micro612w18_fluxod/username/day2_morn directory
+> Make sure you are in /scratch/micro612w19_fluxod/username/day2_morn directory
 d2m
 #or
-cd /scratch/micro612w18_fluxod/username/day2_morn
+cd /scratch/micro612w19_fluxod/username/day2_morn
 makeblastdb -in KPNIH1.fasta -dbtype nucl -out KPNIH1.fasta
 ```
 >ii. Stitch together your contigs into a single sequence
@@ -247,7 +247,7 @@ cp KPNIH.gb KPNIH1.fasta concat_comp.blast sample_266_contigs_concat.fasta ACT_c
 Use scp to get sequences and BLAST alignments onto your laptop 
 ```
 > Note: Make sure you change 'username' in the below command with your 'uniqname'.
-scp -r username@flux-xfer.arc-ts.umich.edu:/scratch/micro612w18_fluxod/username/day2_morn/ACT_contig_comparison/ /path-to-local-directory/
+scp -r username@flux-xfer.arc-ts.umich.edu:/scratch/micro612w19_fluxod/username/day2_morn/ACT_contig_comparison/ /path-to-local-directory/
 ```
 >iii. Read these Input files in ACT_contig_comparison folder into ACT
 ```
@@ -381,7 +381,7 @@ Copy this sorted and indexed BAM files to local ACT_contig_comparison directory.
 ```
 > Dont forget to change username and /path-to-local-ACT_contig_comparison-directory/ in the below command
 
-scp username@flux-xfer.arc-ts.umich.edu:/scratch/micro612w18_fluxod/username/day2_morn/sample_266_contigs_ordered_sort* /path-to-previously-created-local-ACT_contig_comparison-directory/
+scp username@flux-xfer.arc-ts.umich.edu:/scratch/micro612w19_fluxod/username/day2_morn/sample_266_contigs_ordered_sort* /path-to-previously-created-local-ACT_contig_comparison-directory/
 
 ```
 
@@ -424,7 +424,7 @@ d2m
 
 #or
 
-cd /scratch/micro612w18_fluxod/username/day2_morn/
+cd /scratch/micro612w19_fluxod/username/day2_morn/
 
 mkdir SRR5244781_prokka 
 

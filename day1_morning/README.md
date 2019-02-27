@@ -13,7 +13,7 @@ During workshop, we will transfer different output files from flux to your local
 
 > ***3. Type sftp://flux-xfer.arc-ts.umich.edu in quickconnect bar, press enter and enter your flux username and password.***
 
-> ***4. This will take you to your flux home directory /home/username. Select "Go" from tool bar at the top then select "Go to folder" and enter workshop home directory path: /scratch/micro612w18_fluxod/***
+> ***4. This will take you to your flux home directory /home/username. Select "Go" from tool bar at the top then select "Go to folder" and enter workshop home directory path: /scratch/micro612w19_fluxod/***
 
 To transfer or upload a file, you can drag and drop it into the location you want. 
 
@@ -51,7 +51,7 @@ Some examples of ways that we will use environment variables in the class are:
 
 One way to set your environment variables would be to manually set up these variables everytime you log in, but this would be extremely tedious and inefficient. So, Unix has setup a way around this, which is to put your environment variable assignments in special files called .bashrc or .bash_profile. Every user has one or both of these files in their home directory, and what's special about them is that the commands in them are executed every time you login. So, if you simply set your environmental variable assignments in one of these files, your environment will be setup just the way you want it each time you login!
 
-All the softwares/tools that we need in this workshop are installed in a directory "/scratch/micro612w18_fluxod/shared/bin/" and we want the shell to look for these installed tools in this directory. For this, We will save the full path to these tools in an environment variable PATH.
+All the softwares/tools that we need in this workshop are installed in a directory "/scratch/micro612w19_fluxod/shared/bin/" and we want the shell to look for these installed tools in this directory. For this, We will save the full path to these tools in an environment variable PATH.
 
 > ***i. Make a backup copy of bashrc file in case something goes wrong.***
 	
@@ -73,50 +73,50 @@ cp ~/.bashrc ~/bashrc_backup
 ##Micro612 Workshop ENV
 
 #Aliases
-alias iflux='qsub -I -V -l nodes=1:ppn=4,pmem=4000mb,walltime=1:00:00:00 -q fluxod -l qos=flux -A micro612w18_fluxod'
-alias wd='cd /scratch/micro612w18_fluxod/username/'
-alias d1m='cd /scratch/micro612w18_fluxod/username/day1_morn'
-alias d1a='cd /scratch/micro612w18_fluxod/username/day1_after'
-alias d2m='cd /scratch/micro612w18_fluxod/username/day2_morn'
-alias d2a='cd /scratch/micro612w18_fluxod/username/day2_after'
-alias d3m='cd /scratch/micro612w18_fluxod/username/day3_morn'
-alias d3a='cd /scratch/micro612w18_fluxod/username/day3_after'
+alias iflux='qsub -I -V -l nodes=1:ppn=4,pmem=4000mb,walltime=1:00:00:00 -q fluxod -l qos=flux -A micro612w19_fluxod'
+alias wd='cd /scratch/micro612w19_fluxod/username/'
+alias d1m='cd /scratch/micro612w19_fluxod/username/day1_morn'
+alias d1a='cd /scratch/micro612w19_fluxod/username/day1_after'
+alias d2m='cd /scratch/micro612w19_fluxod/username/day2_morn'
+alias d2a='cd /scratch/micro612w19_fluxod/username/day2_after'
+alias d3m='cd /scratch/micro612w19_fluxod/username/day3_morn'
+alias d3a='cd /scratch/micro612w19_fluxod/username/day3_after'
 
 
 #Flux Modules
 module load perl-modules
 
 #Perl Libraries
-export PERL5LIB=/scratch/micro612w18_fluxod/shared/bin/PAGIT/lib:/scratch/micro612w18_fluxod/shared/bin/vcftools_0.1.12b/perl:$PERL5LIB
-export PERL5LIB=/scratch/micro612w18_fluxod/shared/perl_libs:$PERL5LIB
+export PERL5LIB=/scratch/micro612w19_fluxod/shared/bin/PAGIT/lib:/scratch/micro612w19_fluxod/shared/bin/vcftools_0.1.12b/perl:$PERL5LIB
+export PERL5LIB=/scratch/micro612w19_fluxod/shared/perl_libs:$PERL5LIB
 
 #Bioinformatics Tools
-export PATH=$PATH:/scratch/micro612w18_fluxod/shared/bin/ncbi-blast-2.7.1+/bin/
-export PATH=$PATH:/scratch/micro612w18_fluxod/shared/bin/MultiQC/build/scripts-2.7/
-export PATH=$PATH:/scratch/micro612w18_fluxod/shared/bin/mauve_snapshot_2015-02-13/linux-x64/
-export PATH=$PATH:/scratch/micro612w18_fluxod/shared/bin/vcftools_0.1.12b/perl/
-export PATH=$PATH:/scratch/micro612w18_fluxod/shared/bin/tabix-0.2.6/
-export PATH=$PATH:/scratch/micro612w18_fluxod/shared/bin/bwa-0.7.12/
-export PATH=$PATH:/scratch/micro612w18_fluxod/shared/bin/Trimmomatic/
-export PATH=$PATH:/scratch/micro612w18_fluxod/shared/bin/bcftools-1.2/
-export PATH=$PATH:/scratch/micro612w18_fluxod/shared/bin/samtools-1.2/
-export PATH=$PATH:/scratch/micro612w18_fluxod/shared/bin/sratoolkit/bin/
-export PATH=$PATH:/scratch/micro612w18_fluxod/shared/bin/Spades/bin/
-export PATH=$PATH:/scratch/micro612w18_fluxod/shared/bin/FastQC/
-export PATH=$PATH:/scratch/micro612w18_fluxod/shared/bin/GenomeAnalysisTK-3.3-0/
-export PATH=$PATH:/scratch/micro612w18_fluxod/shared/bin/picard-tools-1.130/
-export PATH=$PATH:/scratch/micro612w18_fluxod/shared/bin/qualimap_v2.1/
-export PATH=$PATH:/scratch/micro612w18_fluxod/shared/bin/vcftools_0.1.12b/bin/
-export PATH=$PATH:/scratch/micro612w18_fluxod/shared/bin/snpEff/
-export PATH=$PATH:/scratch/micro612w18_fluxod/shared/bin/PAGIT/ABACAS/
-export PATH=$PATH:/scratch/micro612w18_fluxod/shared/bin/blast-2.2.26/bin/
-export PATH=$PATH:/scratch/micro612w18_fluxod/shared/bin/quast/
-export PATH=$PATH:/scratch/micro612w18_fluxod/shared/bin/MUMmer3.23/
-export PATH=$PATH:/scratch/micro612w18_fluxod/shared/bin/fastq_screen_v0.5.2/
-export PATH=$PATH:/scratch/micro612w18_fluxod/shared/bin/prokka-1.11/bin/
-export PATH=$PATH:/scratch/micro612w18_fluxod/shared/bin/LS-BSR-master/
-export PATH=$PATH:/scratch/micro612w18_fluxod/shared/bin/bowtie2-2.2.6/
-export PATH=$PATH:/scratch/micro612w18_fluxod/shared/bin/mcl-14-137/src/alien/oxygen/src/
+export PATH=$PATH:/scratch/micro612w19_fluxod/shared/bin/ncbi-blast-2.7.1+/bin/
+export PATH=$PATH:/scratch/micro612w19_fluxod/shared/bin/MultiQC/build/scripts-2.7/
+export PATH=$PATH:/scratch/micro612w19_fluxod/shared/bin/mauve_snapshot_2015-02-13/linux-x64/
+export PATH=$PATH:/scratch/micro612w19_fluxod/shared/bin/vcftools_0.1.12b/perl/
+export PATH=$PATH:/scratch/micro612w19_fluxod/shared/bin/tabix-0.2.6/
+export PATH=$PATH:/scratch/micro612w19_fluxod/shared/bin/bwa-0.7.12/
+export PATH=$PATH:/scratch/micro612w19_fluxod/shared/bin/Trimmomatic/
+export PATH=$PATH:/scratch/micro612w19_fluxod/shared/bin/bcftools-1.2/
+export PATH=$PATH:/scratch/micro612w19_fluxod/shared/bin/samtools-1.2/
+export PATH=$PATH:/scratch/micro612w19_fluxod/shared/bin/sratoolkit/bin/
+export PATH=$PATH:/scratch/micro612w19_fluxod/shared/bin/Spades/bin/
+export PATH=$PATH:/scratch/micro612w19_fluxod/shared/bin/FastQC/
+export PATH=$PATH:/scratch/micro612w19_fluxod/shared/bin/GenomeAnalysisTK-3.3-0/
+export PATH=$PATH:/scratch/micro612w19_fluxod/shared/bin/picard-tools-1.130/
+export PATH=$PATH:/scratch/micro612w19_fluxod/shared/bin/qualimap_v2.1/
+export PATH=$PATH:/scratch/micro612w19_fluxod/shared/bin/vcftools_0.1.12b/bin/
+export PATH=$PATH:/scratch/micro612w19_fluxod/shared/bin/snpEff/
+export PATH=$PATH:/scratch/micro612w19_fluxod/shared/bin/PAGIT/ABACAS/
+export PATH=$PATH:/scratch/micro612w19_fluxod/shared/bin/blast-2.2.26/bin/
+export PATH=$PATH:/scratch/micro612w19_fluxod/shared/bin/quast/
+export PATH=$PATH:/scratch/micro612w19_fluxod/shared/bin/MUMmer3.23/
+export PATH=$PATH:/scratch/micro612w19_fluxod/shared/bin/fastq_screen_v0.5.2/
+export PATH=$PATH:/scratch/micro612w19_fluxod/shared/bin/prokka-1.11/bin/
+export PATH=$PATH:/scratch/micro612w19_fluxod/shared/bin/LS-BSR-master/
+export PATH=$PATH:/scratch/micro612w19_fluxod/shared/bin/bowtie2-2.2.6/
+export PATH=$PATH:/scratch/micro612w19_fluxod/shared/bin/mcl-14-137/src/alien/oxygen/src/
 
 ```
 </details>
@@ -152,7 +152,7 @@ wd
 
 ```
 
-You should be in your workshop working directory that is /scratch/micro612w18_fluxod/username 
+You should be in your workshop working directory that is /scratch/micro612w19_fluxod/username 
 
 <!-- Check the dependencies Pending tree file system Pending-->
 
@@ -175,7 +175,7 @@ To download sequence data in Unix you can use a variety of commands (e.g. sftp, 
 - Execute the following commands to copy files for this morning’s exercises to your home directory: 
 
 ```
-cp -r /scratch/micro612w18_fluxod/shared/data/day1_morn/ ./
+cp -r /scratch/micro612w19_fluxod/shared/data/day1_morn/ ./
 
 cd day1_morn/
 
@@ -220,7 +220,7 @@ Your first sequence analysis program!!!
 
 OK, so now that we have a useful command, wouldn’t it be great to turn it into a program that you can easily apply to a large number of genome assemblies? Of course it would! So, now we are going to take out cool contig counting command, and put it in a shell script that applies it to all files in the desired directory.
 
-<!--- Copy “/scratch/micro612w18_fluxod/shared/fasta_counter.sh” to your current directory (Hint – use the “cp” command)-->
+<!--- Copy “/scratch/micro612w19_fluxod/shared/fasta_counter.sh” to your current directory (Hint – use the “cp” command)-->
 
 There will be times when you have multiple sets of files in a folder in which case it becomes cumbersome to run individual commands on each file. To simplify this task, most programming language have a concept of loops that can be employed to repeat a task/command on a bunch of files repeatedly. Here we have three fasta files for which we want to know the number of contigs in each file. We can either run the above mentioned grep command seperately on each file or use it in a "for" loop that iterates through a set of values/files until that list is exhausted. 
 
@@ -511,7 +511,7 @@ The input for this task is a comma-separated file, which contains average sequen
 Let’s copy Ecoli_coverage_average_bed.csv file from flux shared directory to your desktop using ‘
 ’. ‘
 ’ stands for secure copy and is used for securely transferring files between remote host/server(flux) and your local computer system. (Both directions)
-scp username@flux-xfer.arc-ts.umich.edu:/scratch/micro612w18_fluxod/shared/Ecoli_coverage_average_bed.csv ~/Desktop/
+scp username@flux-xfer.arc-ts.umich.edu:/scratch/micro612w19_fluxod/shared/Ecoli_coverage_average_bed.csv ~/Desktop/
 Note: You can use your choice of folder/path to copy the file instead of  “~/Desktop/”
 -->
 
@@ -557,7 +557,7 @@ We will come back later to the script to understand some of the basics of shell 
 
 ```
 
-cp -r /scratch/micro612w18_fluxod/shared/data/day1_after/ ./
+cp -r /scratch/micro612w19_fluxod/shared/data/day1_after/ ./
 
 ```
 

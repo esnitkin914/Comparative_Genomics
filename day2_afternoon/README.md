@@ -17,13 +17,13 @@ Execute the following command to copy files for this afternoon’s exercises to 
 
 ```  
 
-cd /scratch/micro612w18_fluxod/username
+cd /scratch/micro612w19_fluxod/username
 
 or
 
 wd
 
-cp -r /scratch/micro612w18_fluxod/shared/data/day2_after/ ./
+cp -r /scratch/micro612w19_fluxod/shared/data/day2_after/ ./
 
 ```
 
@@ -91,7 +91,7 @@ Identification of antibiotic resistance genes with [ARIBA](https://github.com/sa
 
 ARIBA, Antimicrobial Resistance Identification By Assembly is a tool that identifies antibiotic resistance genes by running local assemblies. The input is a FASTA file of reference sequences (can be a mix of genes and noncoding sequences) and paired sequencing reads. ARIBA reports which of the reference sequences were found, plus detailed information on the quality of the assemblies and any variants between the sequencing reads and the reference sequences.
 
-ARIBA is compatible with various databases and also contains an utility to download different databases such as: argannot, card, megares, plasmidfinder, resfinder, srst2_argannot, vfdb_core. Today, we will be working with the [card](https://card.mcmaster.ca/) database, which has been downloaded and placed in /scratch/micro612w18_fluxod/shared/out.card.prepareref/ directory.
+ARIBA is compatible with various databases and also contains an utility to download different databases such as: argannot, card, megares, plasmidfinder, resfinder, srst2_argannot, vfdb_core. Today, we will be working with the [card](https://card.mcmaster.ca/) database, which has been downloaded and placed in /scratch/micro612w19_fluxod/shared/out.card.prepareref/ directory.
 
 <!---
 Note: There is an issue with downloading the database. They are in a process to fix the broken CARD database link issue. For now, I am using my own downloaded database.
@@ -116,7 +116,7 @@ module load python-anaconda3/latest
 ```
 iflux
 
-cd /scratch/micro612w18_fluxod/username/day2_after
+cd /scratch/micro612w19_fluxod/username/day2_after
 
 or 
 
@@ -128,13 +128,13 @@ module load cd-hit
 
 #ARIBA commands
 
-/nfs/esnitkin/bin_group/anaconda3/bin/ariba run --force /scratch/micro612w18_fluxod/shared/out.card.prepareref/ Abau_genomes_fastq/AbauA_genome.1.fastq.gz Abau_genomes_fastq/AbauA_genome.2.fastq.gz AbauA_genome &
+/nfs/esnitkin/bin_group/anaconda3/bin/ariba run --force /scratch/micro612w19_fluxod/shared/out.card.prepareref/ Abau_genomes_fastq/AbauA_genome.1.fastq.gz Abau_genomes_fastq/AbauA_genome.2.fastq.gz AbauA_genome &
 
-/nfs/esnitkin/bin_group/anaconda3/bin/ariba run --force /scratch/micro612w18_fluxod/shared/out.card.prepareref/ Abau_genomes_fastq/AbauB_genome.1.fastq.gz Abau_genomes_fastq/AbauB_genome.2.fastq.gz AbauB_genome &
+/nfs/esnitkin/bin_group/anaconda3/bin/ariba run --force /scratch/micro612w19_fluxod/shared/out.card.prepareref/ Abau_genomes_fastq/AbauB_genome.1.fastq.gz Abau_genomes_fastq/AbauB_genome.2.fastq.gz AbauB_genome &
 
-/nfs/esnitkin/bin_group/anaconda3/bin/ariba run --force /scratch/micro612w18_fluxod/shared/out.card.prepareref/ Abau_genomes_fastq/AbauC_genome.1.fastq.gz Abau_genomes_fastq/AbauC_genome.2.fastq.gz AbauC_genome &
+/nfs/esnitkin/bin_group/anaconda3/bin/ariba run --force /scratch/micro612w19_fluxod/shared/out.card.prepareref/ Abau_genomes_fastq/AbauC_genome.1.fastq.gz Abau_genomes_fastq/AbauC_genome.2.fastq.gz AbauC_genome &
 
-/nfs/esnitkin/bin_group/anaconda3/bin/ariba run --force /scratch/micro612w18_fluxod/shared/out.card.prepareref/ Abau_genomes_fastq/ACICU_genome.1.fastq.gz Abau_genomes_fastq/ACICU_genome.2.fastq.gz ACICU_genome &
+/nfs/esnitkin/bin_group/anaconda3/bin/ariba run --force /scratch/micro612w19_fluxod/shared/out.card.prepareref/ Abau_genomes_fastq/ACICU_genome.1.fastq.gz Abau_genomes_fastq/ACICU_genome.2.fastq.gz ACICU_genome &
 
 ```
 
@@ -164,7 +164,7 @@ ARIBA summary generates three output:
 Lets copy this phandango files Abau_genomes_ariba_minimal_results.phandango.csv and Abau_genomes_ariba_minimal_results.phandango.tre to the local system using cyberduck or scp
 
 ```
-scp username\@flux-xfer.arc-ts.umich.edu:/scratch/micro612w18_fluxod/username/day2_after/*minimal_results.phandango* ~/Desktop/
+scp username\@flux-xfer.arc-ts.umich.edu:/scratch/micro612w19_fluxod/username/day2_after/*minimal_results.phandango* ~/Desktop/
 ```
 
 Drag and drop these two files on [Phandango](http://jameshadfield.github.io/phandango/#/) website. What types of resistance genes do you see in these Acinetobacter genomes? This [review](http://aac.asm.org/content/55/3/947.full) may help interpret.
@@ -219,7 +219,7 @@ Change your directory to day2_after
 
 > Make sure to change username with your uniqname
 
-cd /scratch/micro612w18_fluxod/username/day2_after/
+cd /scratch/micro612w19_fluxod/username/day2_after/
 
 or 
 
@@ -275,7 +275,7 @@ This tree along with the pan-genome matrix can then be used to plot some nice pl
 module load fasttree
 FastTree core_gene_alignment.aln > core_gene_alignment.tree
 module load python-anaconda3/latest
-python /scratch/micro612w18_fluxod/shared/bin/roary/contrib/roary_plots/roary_plots.py core_gene_alignment.tree gene_presence_absence.csv
+python /scratch/micro612w19_fluxod/shared/bin/roary/contrib/roary_plots/roary_plots.py core_gene_alignment.tree gene_presence_absence.csv
 ```
 -->
 
@@ -426,7 +426,7 @@ As we saw this morning, to compare genomes in ACT we need to use BLAST to create
 
 ```
 
-cd scratch/micro612w18_fluxod/username/day2_after
+cd scratch/micro612w19_fluxod/username/day2_after
 blastall -p blastn -i ./Abau_genomes/AbauA_genome.fasta -d ./Abau_BLAST_DB/ACICU_genome.fasta -m 8 -e 1e-20 -o AbauA_vs_ACICU.blast
 
 ```
