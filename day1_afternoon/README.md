@@ -808,8 +808,9 @@ scp username@flux-xfer.arc-ts.umich.edu:/scratch/micro612w19_fluxod/username/day
 ```
 -->
 
-Visualize BAM and VCF files in [Artemis](http://www.sanger.ac.uk/science/tools/artemis)
-----------------------------------------
+Visualize BAM and VCF files in [IGV](http://software.broadinstitute.org/software/igv/) (Integrative Genome Viewer)
+------------------------------------------------------------------------------------------------------------------
+
 [[back to top]](https://github.com/alipirani88/Comparative_Genomics/blob/master/day1_afternoon/README.md)
 [[HOME]](https://github.com/alipirani88/Comparative_Genomics/blob/master/README.md)
 
