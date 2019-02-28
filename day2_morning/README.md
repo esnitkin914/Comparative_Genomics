@@ -50,8 +50,6 @@ cd /scratch/micro612w19_fluxod/username/day2_morn
 
 > We will create a new directory in day2_morn to save genome assembly results:
 
-<!--- mkdir Rush_KPC_266_assembly_result --> 
-
 mkdir MSSA_SRR5244781_assembly_result 
 
 ```
@@ -114,7 +112,6 @@ To evaluate some example assemblies we will use the tool quast. Quast produces a
 Now to check the example assemblies residing in your day2_morn folder, run the below quast command. Make sure you are in day2_morn folder in your home directory using 'pwd'
 
 ```
-<!--- quast.py -o quast sample_264_contigs.fasta sample_266_contigs.fasta--->
 quast.py -o quast SRR5244781_contigs.fasta SRR5244821_contigs.fasta
 ```
 
