@@ -305,12 +305,21 @@ abacas.1.3.1.pl -r FPR3757.fasta -q SRR5244781_contigs.fasta -p nucmer -b -d -a 
 
 > ***ii. Use ACT to view contig alignment to reference genome***
 
+- Make a new directory by the name ACT_contig_comparison in your day2_morn folder and copy relevant abacas/ACT comparison files to it. 
+
+
+```
+mkdir ACT_contig_comparison
+
+cp FPR3757.gb SRR5244781_contigs_ordered* ACT_contig_comparison/
+```
+
 - Use scp to get ordered fasta sequence and .cruch file onto your laptop 
 
 ```
 > Dont forget to change username and /path-to-local-ACT_contig_comparison-directory/ in the below command
 
-scp username@flux-xfer.arc-ts.umich.edu:/scratch/micro612w19_fluxod/username/day2_morn/SRR5244781_contigs_ordered* /path-to-previously-created-local-ACT_contig_comparison-directory/
+scp -r username@flux-xfer.arc-ts.umich.edu:/scratch/micro612w19_fluxod/username/day2_morn/ACT_contig_comparison/ /path-to-local-directory/
 
 ```
 
