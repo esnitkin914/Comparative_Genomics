@@ -694,15 +694,52 @@ python /scratch/micro612w19_fluxod/shared/bin/snpEff_parse.py -genbank /path-to/
 
 ```
 
-This script will generate a new csv file called PCMP_H326__parsed.csv with extracted annotated information printed in a table format. 
+This script will generate a new csv file called PCMP_H326__parsed.csv with extracted annotated information printed in a table format. Let's take a look at these parsed annotated features from variant filtering.
 
+First, make sure you're in the directory where `PCMP_H326__parsed.csv` is stored:
+```
+ls PCMP_H326__parsed.csv
 ```
 
-less PCMP_H326__parsed.csv
-
+Let's look at what the different columns contain:
+```
+head -n 1 PCMP_H326__parsed.csv
 ```
 
-**unix commands to explore annotated variants and extract High impact variant. Zena?.
+Now that we know what the different columns are, let's look at the whole file using less (can you figure out what the `-S` flag does?):
+```
+less -S PCMP_H326__parsed.csv
+```
+
+How many high-impact variants are there based on the snpEff annotation?
+```
+ grep HIGH PCMP_H326__parsed.csv | wc -l
+```
+
+What proteins are these high-impact variants in?
+```
+grep HIGH PCMP_H326__parsed.csv | cut -d$'\t' -f4
+```
+
+What types of high-impact variants are there?
+```
+grep HIGH PCMP_H326__parsed.csv | cut -d$'\t' -f5  | sort | uniq
+```
+
+What are the actual variant changes?
+```
+ grep HIGH PCMP_H326__parsed.csv | cut -d$'\t' -f10
+```
+
+Let's get the protein and variant change together:
+```
+grep HIGH PCMP_H326__parsed.csv | cut -d$'\t' -f4,10
+```
+
+What if we want to look specifically for mutations in mgrB? (what does the `-i` flag do?)
+```
+ grep -i mgrb PCMP_H326__parsed.csv
+```
 
 Generate Alignment Statistics
 -----------------------------
