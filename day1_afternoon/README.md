@@ -685,13 +685,6 @@ grep '^gi|.*pass_filter' PCMP_H326__filter_gatk_ann.vcf | grep 'INDEL' | wc -l
 
 We wrote a small python script parser to parse the annotated vcf file and print out some important annotation related fields in a table format. 
 
-copy this parser from bin directory to your Step6_variantfilteraion folder.
-
-```
-cp /scratch/micro612w19_fluxod/shared/bin/snpEff_parse.py ./
-
-```
-
 Run the below parser on your final annotated file PCMP_H326__filter_gatk_ann.vcf as shown below
 
 ```
