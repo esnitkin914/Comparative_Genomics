@@ -683,27 +683,29 @@ grep '^gi|.*pass_filter' PCMP_H326__filter_gatk_ann.vcf | grep 'INDEL' | wc -l
 
 ```
 
-We wrote a small shell script parser to parse the annotated vcf file and print out some important annotation related fields in a table format. 
+We wrote a small python script parser to parse the annotated vcf file and print out some important annotation related fields in a table format. 
 
 copy this parser from bin directory to your Step6_variantfilteraion folder.
 
 ```
-cp /nfs/esnitkin/micro612w19_fluxod/shared/bin/snpEff_parse.sh ./
+cp /scratch/micro612w19_fluxod/shared/bin/snpEff_parse.py ./
+
 ```
 
 Run the below parser on your final annotated file PCMP_H326__filter_gatk_ann.vcf as shown below
 
 ```
+module load python-anaconda2/latest 
 
-./snpEff_parse.sh PCMP_H326__filter_gatk_ann.vcf
-
-```
-
-This script will generate a new csv file called PCMP_H326__parsed.txt with extracted annotated information printed in a table format. 
+python /scratch/micro612w19_fluxod/shared/bin/snpEff_parse.py -genbank /path-to/day1_after/KPNIH1.gbf -vcf PCMP_H326__filter_gatk_ann.vcf
 
 ```
 
-less PCMP_H326__parsed.txt
+This script will generate a new csv file called PCMP_H326__parsed.csv with extracted annotated information printed in a table format. 
+
+```
+
+less PCMP_H326__parsed.csv
 
 ```
 
