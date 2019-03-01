@@ -279,7 +279,7 @@ module load parallel
 module load mafft
 module load fasttree
 module load perl-modules
-module load R
+module load R/3.3.0
 module load roary
 
 #Run roary
@@ -352,14 +352,14 @@ less gene_presence_absence_wannot.Rtab
 
 **Read matrix into R, generate exploratory plots and query pan-genome**
 
-Use scp or cyberduck to get gene_presence_absence_wannot.Rtab onto your laptop.
+Use scp or cyberduck to get gene_presence_absence_wannot.Rtab onto your laptop desktop folder.
 
 > ***i. Prepare and clean data***
 
 - Fire up RStudio and read gene_presence_absence_wannot.Rtab into matrix.
 
 ```
-pg_matrix = read.table('gene_presence_absence_wannot.Rtab', sep = "\t", quote = "", row.names = 1, skip = 1)
+pg_matrix = read.table('~/Desktop/gene_presence_absence_wannot.Rtab', sep = "\t", quote = "", row.names = 1, skip = 1)
 ```
 
 - Add column names back
