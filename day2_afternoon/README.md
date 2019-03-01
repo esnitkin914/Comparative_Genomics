@@ -153,9 +153,9 @@ ARIBA has a summary function that summarises the results from one or more sample
 
 ```
 
-/nfs/esnitkin/bin_group/anaconda3/bin/ariba summary --preset minimal kpneumo_ariba_minimal_results */report.tsv
+/nfs/esnitkin/bin_group/anaconda3/bin/python /nfs/esnitkin/bin_group/ariba/scripts/ariba summary --preset minimal kpneumo_ariba_minimal_results */report.tsv
 
-/nfs/esnitkin/bin_group/anaconda3/bin/ariba summary --preset all kpneumo_ariba_all_results */report.tsv
+/nfs/esnitkin/bin_group/anaconda3/bin/python /nfs/esnitkin/bin_group/ariba/scripts/ariba summary --preset all kpneumo_ariba_all_results */report.tsv
 
 ```
 
