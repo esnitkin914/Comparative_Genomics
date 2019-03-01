@@ -95,7 +95,7 @@ Now let's look at the full spectrum of antibiotic resistance genes in our *Klebs
 
 ARIBA (Antimicrobial Resistance Identification By Assembly) is a tool that identifies antibiotic resistance genes by running local assemblies. The input is a FASTA file of reference sequences (can be a mix of genes and noncoding sequences) and paired sequencing reads. ARIBA reports which of the reference sequences were found, plus detailed information on the quality of the assemblies and any variants between the sequencing reads and the reference sequences.
 
-ARIBA is compatible with various databases and also contains a utility to download different databases such as: argannot, card, megares, plasmidfinder, resfinder, srst2_argannot, vfdb_core. Today, we will be working with the [card](https://card.mcmaster.ca/) database, which has been downloaded and placed in the `/scratch/micro612w19_fluxod/shared/out.card.prepareref/` directory.
+ARIBA is compatible with various databases and also contains a utility to download different databases such as: argannot, card, megares, plasmidfinder, resfinder, srst2_argannot, vfdb_core. Today, we will be working with the [card](https://card.mcmaster.ca/) database, which has been downloaded and placed in the `/scratch/micro612w19_fluxod/shared/bin/ariba/database/CARD/` directory.
 
 <!---
 Note: There is an issue with downloading the database. They are in a process to fix the broken CARD database link issue. For now, I am using my own downloaded database.
@@ -134,7 +134,7 @@ module load cd-hit
 
 samples=$(ls kpneumo_fastq/*1.fastq.gz) #forward reads
 for samp in $samples; do
-  db_dir=/scratch/micro612w19_fluxod/shared/out.card.prepareref/ #reference database
+  db_dir=/scratch/micro612w19_fluxod/shared/bin/ariba/database/CARD/out.card.proteus.prepareref/ #reference database
   samp2=${samp//1.fastq/2.fastq} #reverse reads
   outdir=$(echo ${samp//.fastq.gz/} | cut -d/ -f2) #output directory
   /nfs/esnitkin/bin_group/anaconda3/bin/python /nfs/esnitkin/bin_group/ariba/scripts/ariba run --force $db_dir $samp $samp2 $outdir & #ariba command
