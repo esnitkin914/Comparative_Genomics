@@ -86,6 +86,14 @@ less KPC_blastp_results.tsv
 
 - **Exercise:** Determine which *Enterococcus* genomes contain vancomycin resistance genes. To do this you will need to: i) create a protein BLAST database for `ardb_van.pfasta`, ii) concetenate the genomes sequences in the `.fasta` files and iii) use `blastx` to BLAST nucleotide genomes against a protein database. 
 
+<details>
+  <summary>Solution</summary>
+  
+```
+Generate results and Get the solution here
+```
+</details>
+
 Identify antibiotic resistance genes with [ARIBA](https://github.com/sanger-pathogens/ariba) directly from paired end reads
 ----------------------------------------------------------
 [[back to top]](day2_afternoon.html)
@@ -216,6 +224,16 @@ pheatmap(ariba_full_match,annotation_rows = annots)
 Using the [ARIBA MLST manual](https://github.com/sanger-pathogens/ariba/wiki/MLST-calling-with-ARIBA), write and run a script (similar to the one above) to perform MLST calling with ARIBA on all 8 of our *K. pneumonia* genomes. Then, use this information to add a second annotation column to the heatmap we created above to visualize the results. 
 
 Did you find anything interesting?
+
+
+<details>
+  <summary>Solution</summary>
+  
+```
+Generate results and Get the solution here
+```
+</details>
+
 
 Perform pan-genome analysis with [Roary](https://sanger-pathogens.github.io/Roary/)
 ----------------------------------------
