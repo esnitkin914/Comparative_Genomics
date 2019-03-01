@@ -135,7 +135,7 @@ module load cd-hit
 samples=$(ls kpneumo_fastq/*1.fastq.gz) #forward reads
 for samp in $samples; do
   db_dir=/scratch/micro612w19_fluxod/shared/out.card.prepareref/ #reference database
-  samp2=${samp//1/2} #reverse reads
+  samp2=${samp//1.fastq/2.fastq} #reverse reads
   outdir=$(echo ${samp//.fastq.gz/} | cut -d/ -f2) #output directory
   /nfs/esnitkin/bin_group/anaconda3/bin/python /nfs/esnitkin/bin_group/ariba/scripts/ariba run --force $db_dir $samp $samp2 $outdir & #ariba command
 done
