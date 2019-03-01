@@ -597,11 +597,11 @@ The day1_after directory also contains a pbs script that will run variant_call.s
 
 Change the EMAIL_ADDRESS section of the pbs script to your email_address.
 
-Change the output directory path in these line to reflect your outout path. You can find this line at the end of the PBS script.
+Change the output directory path in these line to reflect your output path which should be your day1_after directory. Also remember to change the path of reference genome to your day1_after directory. You can find this line at the end of the PBS script.
 
 ```
 
-./variant_call.sh PCMP_H326_R1.fastq.gz PCMP_H326_R2.fastq.gz /nfs/esnitkin/micro612w19_fluxod/shared/data/day1_after/KPNIH1.fasta /nfs/esnitkin/micro612w19_fluxod/shared/data/day1_after/ PCMP_H326_
+./variant_call.sh PCMP_H326_R1.fastq.gz PCMP_H326_R2.fastq.gz /Path-to-your-day1_after/KPNIH1.fasta /Path-to-your-day1_after/ PCMP_H326_
 
 ```
 
