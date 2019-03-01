@@ -601,7 +601,7 @@ Change the output directory path in these line to reflect your outout path. You 
 
 ```
 
-./variant_call.sh PCMP_H326_R1.fastq.gz PCMP_H326_R2.fastq.gz /nfs/esnitkin/micro612w19_fluxod/shared/data/day1_afte /KPNIH1.fasta /nfs/esnitkin/micro612w19_fluxod/shared/data/day1_after/ PCMP_H326_
+./variant_call.sh PCMP_H326_R1.fastq.gz PCMP_H326_R2.fastq.gz /nfs/esnitkin/micro612w19_fluxod/shared/data/day1_after/KPNIH1.fasta /nfs/esnitkin/micro612w19_fluxod/shared/data/day1_after/ PCMP_H326_
 
 ```
 
