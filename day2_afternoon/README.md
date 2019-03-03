@@ -134,18 +134,19 @@ cd /scratch/micro612w19_fluxod/username/day2_after
 
 d2a
 
-#Load dependency
+#Load dependencies
 
-module load cd-hit
+module load python-anaconda3/latest-3.6   bowtie2/2.1.0   cd-hit/4.6.4   mummer/3.23  ariba/2.13.3
+
 
 #ARIBA commands
 
 samples=$(ls kpneumo_fastq/*1.fastq.gz) #forward reads
-for samp in $samples; do
-  db_dir=/scratch/micro612w19_fluxod/shared/bin/ariba/database/CARD/out.card.proteus.prepareref/ #reference database
-  samp2=${samp//1.fastq/2.fastq} #reverse reads
-  outdir=$(echo ${samp//.fastq.gz/} | cut -d/ -f2) #output directory
-  /nfs/esnitkin/bin_group/anaconda3/bin/python /nfs/esnitkin/bin_group/ariba/scripts/ariba run --force $db_dir $samp $samp2 $outdir & #ariba command
+db_dir=/scratch/micro612w19_fluxod/shared/bin/ariba/database/CARD/out.card.proteus.prepareref/ #reference database
+for samp in $samples; do   
+samp2=${samp//1.fastq/2.fastq} #reverse reads   
+outdir=$(echo ${samp//.fastq.gz/} | cut -d/ -f2) #output directory 
+ariba run --force $db_dir $samp $samp2 $outdir & #ariba command 
 done
 ```
 
