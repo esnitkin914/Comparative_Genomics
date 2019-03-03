@@ -703,7 +703,7 @@ ls PCMP_H326__parsed.csv
 
 Let's look at what the different columns contain:
 ```
-head -n 1 PCMP_H326__parsed.csv
+head -n 1 PCMP_H326__parsed.csv | tr ',' '\n' | cat -n
 ```
 
 Now that we know what the different columns are, let's look at the whole file using less (can you figure out what the `-S` flag does?):
@@ -853,12 +853,12 @@ We will be using [IGV](http://software.broadinstitute.org/software/igv/) (Integr
 
 - ***Required Input files:***
 
-> KPNIH1 reference fasta 
-> KPNIH1 genbank file
-> PCMP_H326__aln_sort.bam 
-> PCMP_H326__aln_sort.bam.bai
-> PCMP_H326__aln_sort__filter_gatk_ann.vcf.gz 
-> PCMP_H326__aln_sort__filter_gatk_ann.vcf.gz.tbi
+> - KPNIH1 reference fasta 
+> - KPNIH1 genbank file
+> - PCMP_H326__aln_sort.bam 
+> - PCMP_H326__aln_sort.bam.bai
+> - PCMP_H326__aln_sort__filter_gatk_ann.vcf.gz 
+> - PCMP_H326__aln_sort__filter_gatk_ann.vcf.gz.tbi
 
 Let's make a seperate folder (make sure you are in the `day1_after` folder) for the files that we need for visualization and copy it to that folder:
 
