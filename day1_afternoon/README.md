@@ -690,7 +690,7 @@ Run the below parser on your final annotated file PCMP_H326__filter_gatk_ann.vcf
 ```
 module load python-anaconda2/latest 
 
-python /scratch/micro612w19_fluxod/shared/bin/snpEff_parse.py -genbank /path-to/day1_after/KPNIH1.gbf -vcf PCMP_H326__filter_gatk_ann.vcf
+python /scratch/micro612w19_fluxod/shared/bin/snpEff_parse.py -genbank /path-to/day1_after/KPNIH1.gb -vcf PCMP_H326__filter_gatk_ann.vcf
 
 ```
 
@@ -721,9 +721,9 @@ What proteins are these high-impact variants in?
 grep HIGH PCMP_H326__parsed.csv | cut -d$'\t' -f4
 ```
 
-What types of high-impact variants are there?
+How many of each type of high-impact variants are there?
 ```
-grep HIGH PCMP_H326__parsed.csv | cut -d$'\t' -f5  | sort | uniq
+grep HIGH PCMP_H326__parsed.csv | cut -d$'\t' -f5  | sort | uniq -c
 ```
 
 What are the actual variant changes?
