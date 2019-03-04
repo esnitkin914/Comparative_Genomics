@@ -663,8 +663,14 @@ Now go to Step6_variantfilteraion folder under PCMP_H326__varcall_result.
 d1a 
 
 cd PCMP_H326__varcall_result/Step6_variantfilteraion
+
+bgzip PCMP_H326__filter_gatk_ann.vcf
+
+tabix PCMP_H326__filter_gatk_ann.vcf.gz
+
 ```
 
+We compressed this final annotated vcf file and tabix indexd it so that it can be used for IGV visualization
 
 ```
 grep 'ANN=' PCMP_H326__filter_gatk_ann.vcf | head -n1
@@ -869,20 +875,21 @@ We will be using [IGV](http://software.broadinstitute.org/software/igv/) (Integr
 
 > - KPNIH1 reference fasta 
 > - KPNIH1 genbank file
-> - PCMP_H326__aln_sort.bam 
-> - PCMP_H326__aln_sort.bam.bai
-> - PCMP_H326__aln_sort__filter_gatk_ann.vcf.gz 
-> - PCMP_H326__aln_sort__filter_gatk_ann.vcf.gz.tbi
+> - PCMP_H326__aln_marked.bam
+> - PCMP_H326__aln_marked.bam.bai
+> - PCMP_H326__filter_gatk_ann.vcf.gz
+> - PCMP_H326__filter_gatk_ann.vcf.gz.tbi
 
 Note: This IGV exercise requires an annotated vcf file, so make sure you have completed snpeff exercise successfully.
 
 Let's make a seperate folder (make sure you are in the `day1_after` folder) for the files that we need for visualization and copy it to that folder:
 
 ```
+d1a 
 
 mkdir IGV_files
 
-cp KPNIH1.fasta KPNIH1.gb PCMP_H326__varcall_result/*/PCMP_H326__aln_sort.bam* PCMP_H326__varcall_result/*/PCMP_H326__filter_gatk_ann.vcf.gz* IGV_files/
+cp KPNIH1.fasta KPNIH1.gb PCMP_H326__varcall_result/*/PCMP_H326__aln_marked.bam* PCMP_H326__varcall_result/*/PCMP_H326__filter_gatk_ann.vcf.gz* IGV_files/
 
 ```
 
@@ -904,7 +911,7 @@ Load the following files (each is a separate panel or 'track'):
   - Shows what genes are present (looks like a blue bar when zoomed out)
 - `File` &rarr; `Load from File` &rarr; navigate to `IGV_files` &rarr; `PCMP_H326__aln_sort__filter_gatk_ann.vcf.gz`
   - Shows variants found in the sample (when you zoom in)
-- `File` &rarr; `Load from File` &rarr; navigate to `IGV_files` &rarr; `PCMP_H326__aln_sort.bam`
+- `File` &rarr; `Load from File` &rarr; navigate to `IGV_files` &rarr; `PCMP_H326__aln_marked.bam`
   - Shows coverage and reads aligned to the reference (when you zoom in)
   
 By default, the whole genome is shown:
