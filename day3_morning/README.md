@@ -262,6 +262,8 @@ d3m
 
 cd /scratch/micro612w19_fluxod/username/day3_morn
 
+sed -i 's/\/1-.*//g' mauve_ECII_outgroup.fasta
+
 run_gubbins.py -v -f 50 -o Abau_AB0057_genome mauve_ECII_outgroup.fasta
 
 ```
@@ -351,7 +353,7 @@ scp username@flux-xfer.arc-ts.umich.edu:/scratch/micro612w19_fluxod/username/day
 Before we embark on our phylogenetic analysis, lets look at the SNP density to verify that there is no recombination
 
 ```
-
+library(ape)
 mrsa_msa = read.dna('2016-03-09_KP_BSI_USA300.fa', format = 'fasta') 
 mrsa_msa_bin = apply(mrsa_msa, 2, FUN = function(x){x == x[1]}) 
 mrsa_var_pos = colSums(mrsa_msa_bin) < nrow(mrsa_msa_bin) 
@@ -386,12 +388,14 @@ install.packages('phangorn')
 install.packages('phytools')
 
 library(ape) #installed previously, load in if not already in your environment 
-library(phagron)
+library(phangorn)
 library(phytools)
 ```
 
 Next, we will create a pairwise SNV distance matrix of the MRSA samples to create a neighbor joining tree. 
+
 ```
+mrsa_msa_var = mrsa_msa[, mrsa_var_pos]
 dna_dist = dist.dna(mrsa_msa_var, model = 'N', as.matrix = TRUE)
 ```
 
@@ -401,6 +405,7 @@ NJ_tree = NJ(dna_dist)
 ```
 
 We can look at our tree using plot()
+
 ```
 plot(NJ_tree)
 ```
@@ -477,6 +482,7 @@ isolate_colors = structure(c('red', 'blue'), names = sort(unique(isolate_legend)
 ```
 
 Finally, we can use the function tiplabels() to add annotations to our tree and the function legend() to put a legend on our tree.  
+
 ```
 plot(NJ_tree, type = 'fan', no.margin = TRUE, 
      cex = 0.5, label.offset = 3, align.tip.label = FALSE)
