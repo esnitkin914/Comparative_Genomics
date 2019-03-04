@@ -547,9 +547,15 @@ This step will filter variants and process file generation using [GATK](https://
 
 There are various tools that can you can try for variant filteration such as vcftools, GATK, vcfutils etc. Here we will use GATK VariantFiltration utility to filter out low confidence variants.
 
+Make sure you change the directory to Step6_variantfilteraion
+
 ```
+d1a
+
+cd PCMP_H326__varcall_result/Step6_variantfilteraion
 
 java -jar /scratch/micro612w19_fluxod/shared/bin/GenomeAnalysisTK-3.3-0/GenomeAnalysisTK.jar -T VariantFiltration -R KPNIH1.fasta -o PCMP_H326__filter_gatk.vcf --variant PCMP_H326__aln_mpileup_raw.vcf --filterExpression "FQ < 0.025 && MQ > 50 && QUAL > 100 && DP > 15" --filterName pass_filter
+
 
 ```
 
@@ -608,6 +614,14 @@ Variant annotation is one of the crucial steps in any variant calling pipeline. 
 You can annotate these variants before performing any filtering steps that we did earlier or you can decide to annotate just the final filtered variants. 
 
 snpEff contains a database of about 20,000 reference genomes built from trusted and public sources. Lets check if snpEff contains a database of our reference genome.
+
+Make sure you change the directory to Step6_variantfilteraion
+
+```
+d1a
+
+cd PCMP_H326__varcall_result/Step6_variantfilteraion
+```
 
 > ***i. Check snpEff internal database for your reference genome:***
 
@@ -859,6 +873,8 @@ We will be using [IGV](http://software.broadinstitute.org/software/igv/) (Integr
 > - PCMP_H326__aln_sort.bam.bai
 > - PCMP_H326__aln_sort__filter_gatk_ann.vcf.gz 
 > - PCMP_H326__aln_sort__filter_gatk_ann.vcf.gz.tbi
+
+Note: This IGV exercise requires an annotated vcf file, so make sure you have completed snpeff exercise successfully.
 
 Let's make a seperate folder (make sure you are in the `day1_after` folder) for the files that we need for visualization and copy it to that folder:
 
