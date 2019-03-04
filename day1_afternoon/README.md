@@ -664,7 +664,7 @@ d1a
 
 cd PCMP_H326__varcall_result/Step6_variantfilteraion
 
-bgzip PCMP_H326__filter_gatk_ann.vcf
+bgzip -fc PCMP_H326__filter_gatk_ann.vcf > PCMP_H326__filter_gatk_ann.vcf.gz
 
 tabix PCMP_H326__filter_gatk_ann.vcf.gz
 
