@@ -291,7 +291,7 @@ module load R/3.3.0
 module load roary
 
 #Run roary
-roary -p 4 -f Abau_genomes_roary_output -r -n -v Abau_genomes_gff/*.gff 
+roary -p 4 -f Abau_genomes_roary_output -r -n -e -v Abau_genomes_gff/*.gff 
 ```
 
 The above roary command will run pan-genome pipeline on gff files placed in Abau_genomes_gff(-v) using 4 threads(-p), save the results in an output directory Abau_genomes_roary_output(-f), generate R plots using .Rtab output files and align core genes(-n)
