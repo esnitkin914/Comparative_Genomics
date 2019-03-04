@@ -273,7 +273,7 @@ The script requires following positional arguments as input to call variants:
 4. Output Directory Path. A new directory will be created at this path by the name that you will provide for Analysis Base name. for example: if the output path is /dir_1/dir_2/ and Analysis Base name is sample_name , a new directory by the name sample_name_varcall_result will be created in /dir_1/dir_2/
 5. Analysis Base name to store result files with this prefix.
 
-If you remember, we ran the shell script in following fashion.
+If you remember, we ran the shell script in following fashion inside day1_after directory.
 
 ```
 
