@@ -195,6 +195,10 @@ For this analysis we want to exclude the out-group, because we are interested in
 
 abau_msa_no_outgroup = abau_msa[c('ACICU_genome','AbauA_genome','AbauC_genome','AbauB_genome'),]
 
+or 
+
+abau_msa_no_outgroup = abau_msa[c('ACICU_genome.fa/1-3996847','AbauA_genome.fa/1-3953855','AbauB_genome.fa/1-4014916','AbauC_genome.fa/1-4200364', 'Abau_AB0057_genome.fa/1-4050513'),]
+
 ```
 
 > ***ii. Get variable positions***
