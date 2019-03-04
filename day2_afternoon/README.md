@@ -119,7 +119,7 @@ Note: There is an issue with downloading the database. They are in a process to 
 
 > ***i. Run ARIBA on input paired-end fastq reads for resistance gene identification.***
 
-The fastq reads are placed in the `kpneumo_fastq` directory. Enter an interactive flux session, change directories to `day2_after` and run the four commands below to start ARIBA jobs in the background.
+The fastq reads are placed in the `kpneumo_fastq` directory. Since ARIBA is a memory intensive, we will enter an interactive flux session to run this exercise. Start the interactive session and change directories to `day2_after` and run the short for loop that will  commands below to start ARIBA jobs in the background.
 
 <!---
 module load python-anaconda3/latest
@@ -141,13 +141,20 @@ module load python-anaconda3/latest-3.6   bowtie2/2.1.0   cd-hit/4.6.4   mummer/
 
 #ARIBA commands
 
+# List forward end fastq files in the directory and save the filenames into the variable samples. 
 samples=$(ls kpneumo_fastq/*1.fastq.gz) #forward reads
+
+# Set ARIBA dabase directory to the CARD database that we downloaded in the below folder
 db_dir=/scratch/micro612w19_fluxod/shared/bin/ariba/database/CARD/out.card.proteus.prepareref/ #reference database
+
+# Run for loop, where it generates ARIBA command for each of the forward end files.
 for samp in $samples; do   
 samp2=${samp//1.fastq/2.fastq} #reverse reads   
 outdir=$(echo ${samp//.fastq.gz/} | cut -d/ -f2) #output directory 
 ariba run --force $db_dir $samp $samp2 $outdir & #ariba command 
 done
+
+
 ```
 
 The "&" in the above commands(at the end) is a little unix trick to run commands in background. You can run multiple commands in background and make full use of parallel processing. You can check the status of these background jobs by typing:
