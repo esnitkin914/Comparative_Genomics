@@ -1,6 +1,6 @@
 Day 1 Afternoon
 ===============
-[[HOME]]((index.html)
+[[HOME]](index.html)
 
 Contamination Screening using [FastQ Screen](http://www.bioinformatics.babraham.ac.uk/projects/fastq_screen/)
 --------------------------------------------
