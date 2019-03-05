@@ -461,7 +461,7 @@ Sequence file 2  = SRR5244781_contigs_ordered.gbf
 
 Hint: USA300 MRSA acquired the SCCmec cassette (which contains a penicillin binding protein and mecR1) and the element ACME (which contains gene arcA). 
 
-INSERT IMAGE
+![alt tag](https://github.com/alipirani88/Comparative_Genomics/blob/master/_img/day2_morning/day2_morn_mecA.png)
 
 Image from David & Daum Clin Microbiol Rev. 2010 Jul;23(3):616-87. doi: 10.1128/CMR.00081-09.
 
