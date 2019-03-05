@@ -447,9 +447,21 @@ Comparison file 1  = SRR5244781_contigs_ordered.crunch
 Sequence file 2  = SRR5244781_contigs_ordered.gbf
 ```
 
-- Play around with ACT to see what types of genes are unique to the MSSA genome SRR5244781 compared to the MRSA genome!!! 
+- Play around with ACT to see what types of genes are unique to the MSSA genome SRR5244781 compared to the MRSA genome!
 
-Hint: USA300 MRSA acquired the SCCmec cassette (which contains a penicillin binding protein and mecR1) and the element ACME (which contains gene arcA). 
+The MRSA reference genome is on the top and the MSSA assembly is on the bottom of you screen. 
+
+What genes (in general) do you expect to be in the MRSA genome but not the MSSA genome? Some sort of resistance genes, right? Indeed USA300 MRSA acquired the SCCmec cassette (which contains a penicillin binding protein and mecR1) which confers resistance to methicillin and other beta-lactam antibiotics. 
+
+Click on GoTo->FPR3757.gb->Navigator-> GoTo and search by gene name. Search for mecR1. Is it in the MSSA genome? 
+
+It also acquired the element ACME. One gene on ACME is arcA. 
+
+Click on GoTo->FPR3757.gb->Navigator-> GoTo and search by gene name. Search for arcA. Is it in the MSSA genome? Do you see other arc genes that may be in an operon with arcA? 
+
+Scroll through the length of the genome. Are there any genes in the MSSA genome that are not in the MRSA genome? 
+
+See this diagram and paper for more information on the features of USA300 MRSA: 
 
 ![alt tag](https://github.com/alipirani88/Comparative_Genomics/blob/master/_img/day2_morning/day2_morn_mecA.png)
 
