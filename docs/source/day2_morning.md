@@ -1,468 +1,505 @@
-Day 2 Morning
+Day 3 Morning
 =============
 [[HOME]](index.html)
 
-On day 1 we worked through a pipeline to map short-read data to a pre-existing assembly and identify single-nucleotide variants (SNVs) and small insertions/deletions. However, what this sort of analysis misses is the existence of sequence that is not present in your reference. Today we will tackle this issue by assembling our short reads into larger sequences, which we will then analyze to characterize the functions unique to our sequenced genome.   
+On day 1, we ran through a pipeline to map reads against a reference genome and call variants, but didn’t do much with the variants we identified. Among the most common analyses to perform on a set of variants is to construct phylogenetic trees. Here we will explore different tools for generating and visualizing phylogenetic trees, and also see how recombination can distort phylogenetic signal.
 
-Execute the following command to copy files for this morning’s exercises to your workshop home directory: 
+For the first several exercises, we will use the A. baumannii genomes that we worked with yesterday afternoon. 
+The backstory on these genomes is that Abau_A, Abau_B and Abau_C are representatives of three clones (as defined by pulsed-field gel electrophoresis - a low-resolution typing method) that were circulating in our hospital. 
+
+One of the goals of our published study was to understand the relationship among these clones to discern whether: 
+
+1) the three clones represent three independent introductions into the hospital or 
+
+2) the three clones originated from a single introduction into the hospital, with subsequent genomic rearrangement leading to the appearance of unique clones. 
+
+The types of phylogenetic analyses you will be performing here are the same types that we used to decipher this mystery.
+The other two genomes you will be using are ACICU and AB0057. ACICU is an isolate from a hospital in France, and its close relationship to our isolates makes it a good reference for comparison. AB0057 is a more distantly related isolate that we will utilize as an out-group in our phylogenetic analysis. The utility of an out-group is to help us root our phylogenetic tree, and gain a more nuanced understanding of the relationship among strains.
+
+Execute the following command to copy files for this afternoon’s exercises to your scratch directory:
 
 ```
-> Note: Make sure you change 'username' in the commands below to your 'uniqname'. 
-
 wd
 
-#or 
+#or
 
 cd /scratch/micro612w19_fluxod/username
 
-> Note: Check if you are in your home directory(/scratch/micro612w19_fluxod/username) by executing 'pwd' in terminal. 'pwd' stands for present working directory and it will display the directory you are in.
+cp -r /scratch/micro612w19_fluxod/shared/data/day3_morn ./
 
-pwd
-
-> Note: Copy files for this morning's exercise in your home directory.
-
-cp -r /scratch/micro612w19_fluxod/shared/data/day2_morn ./
 ```
 
-Genome Assembly using [Spades](http://bioinf.spbau.ru/spades) Pipeline
-------------------------------
-[[back to top]](day2_morning.html)
+Perform whole genome alignment with [Mauve](http://darlinglab.org/mauve/mauve.html) and convert alignment to other useful formats
+-------------------------------------------
+[[back to top]](day3_morning.html)
 [[HOME]](index.html)
 
-![alt tag](intro.png)
+An alternative approach for identification of variants among genomes is to perform whole genome alignments of assemblies. If the original short read data is unavailable, this might be the only approach available to you. Typically, these programs don’t scale well to large numbers of genomes (e.g. > 100), but they are worth being familiar with. We will use the tool mauve for constructing whole genome alignments of our five A. baumannii genomes.
 
-There are a wide range of tools available for assembly of microbial genomes. These assemblers fall in to two general algorithmic categories, which you can learn more about [here](?). In the end, most assemblers will perform well on microbial genomes, unless there is unusually high GC-content or an over-abundance of repetitive sequences, both of which make accurate assembly difficult. 
+> ***i. Perform mauve alignment and transfer xmfa back to flux***
 
-Here we will use the Spades assembler with default parameters. Because genome assembly is a computationally intensive process, we will submit our assembly jobs to the cluster, and move ahead with some pre-assembled genomes, while your assemblies are running. 
-
-> ***i. Create directory to hold your assembly output.***
-
-Create a new directory for the spades output in your day2_morn folder
+Use cyberduck/scp to get genomes folder Abau_genomes onto your laptop
 
 ```
-> Note: Make sure you change 'username' in the below command with your 'uniqname'. 
+Run these commands on your local system/terminal:
 
-d2m
+cd ~/Desktop (or wherever your desktop is) 
 
-#or
+mkdir Abau_mauve
 
-cd /scratch/micro612w19_fluxod/username/day2_morn
+cd Abau_mauve 
 
-> We will create a new directory in day2_morn to save genome assembly results:
+- Now copy Abau_genomes folder residing in your day3_morn folder using scp or cyberduck:
 
-mkdir MSSA_SRR5244781_assembly_result 
+scp -r username@flux-xfer.arc-ts.umich.edu:/scratch/micro612w19_fluxod/username/day3_morn/Abau_genomes ./
 
 ```
 
-Now, we will use a genome assembly tool called Spades for assembling the reads.
-
-> ***ii. Test out Spades to make sure it's in your path***
-
-To make sure that your paths are set up correctly, try running Spades with the –h (help) flag, which should produce usage instruction.
-
-```
-> check if spades is working. 
-
-spades.py -h     
+Run mauve to create multiple alignment
 
 ```
 
-> ***iii. Submit a cluster job to assemble***
-
-Since it takes a huge amount of memory and time to assemble genomes using spades, we will run a pbs script on the cluster for this step.
-
-Now, open the spades.pbs file residing in the day2_morning folder with nano and add the following spades command to the bottom of the file. Replace the EMAIL_ADDRESS in spades.pbs file with your actual email-address. This will make sure that whenever the job starts, aborts or ends, you will get an email notification.
-
-```
-> Open the spades.pbs file using nano:
-
-nano spades.pbs
-
-> Now replace the EMAIL_ADDRESS in spades.pbs file with your actual email-address. This will make sure that whenever the job starts, aborts or ends, you will get an email notification.
-
-> Copy and paste the below command to the bottom of spades.pbs file.
-
-spades.py --pe1-1 forward_paired.fq.gz --pe1-2 reverse_paired.fq.gz --pe1-s forward_unpaired.fq.gz --pe1-s reverse_unpaired.fq.gz -o MSSA_SRR5244781_assembly_result/ --careful
+i. Open mauve 
+ii. File -> align with progressiveMauve 
+iii. Click on “Add Sequnce” and add each of the 5 genomes you just downloaded
+iv. Name the output file “mauve_ECII_outgroup” and make sure it is in the directory you created for this exercise 
+v. Click Align! 
+vi. Wait for Mauve to finish and explore the graphical interface
 
 ```
 
-> ***iv. Submit your job to the cluster with qsub***
+Use cyberduck or scp to transfer your alignment back to flux for some processing
 
 ```
-qsub -V spades.pbs
-```
 
-> ***v. Verify that your job is in the queue with the qstat command***
+scp ~/Desktop/Abau_mauve/mauve_ECII_outgroup username@flux-xfer.arc-ts.umich.edu:/scratch/micro612w19_fluxod/username/day3_morn 
 
 ```
-qstat –u username 
+ 
+> ***ii. Convert alignment to fasta format***
+
+Mauve produces alignments in .xmfa format (use less to see what this looks like), which is not compatible with other programs we want to use. We will use a custom script convert_msa_format.pl to change the alignment format to fasta format
+
+
+```
+Now run these command in day3_morn folder on flux:
+
+module load bioperl
+
+perl convert_msa_format.pl -i mauve_ECII_outgroup -o mauve_ECII_outgroup.fasta -f fasta -c
+
 ```
 
-Assembly evaluation using [QUAST](http://bioinf.spbau.ru/quast)
----------------------------------
-[[back to top]](day2_morning.html)
+Perform some DNA sequence comparisons and phylogenetic analysis in [APE](http://ape-package.ird.fr/), an R package
+------------------------------------------------------------------------
+[[back to top]](day3_morning.html)
 [[HOME]](index.html)
 
-The output of an assembler is a set of contigs (contiguous sequences), that are composed of the short reads that we fed in. Once we have an assembly we want to evaluate how good it is. This is somewhat qualitative, but there are some standard metrics that people use to quantify the quality of their assembly. Useful metrics include: i) number of contigs (the fewer the better), ii) N50 (the minimum contig size that at least 50% of your assembly belongs, the bigger the better). In general you want your assembly to be less than 200 contigs and have an N50 greater than 50 Kb, although these numbers are highly dependent on the properties of the assembled genome. 
+There are lots of options for phylogenetic analysis. Here, we will use the ape package in R to look at our multiple alignments and construct a tree using the Neighbor Joining method. 
 
-To evaluate some example assemblies we will use the tool quast. Quast produces a series of metrics describing the quality of your genome assemblies. 
+Note that ape has a ton of useful functions for more sophisticated phylogenetic analyses!
 
-> ***i. Run quast on a set of previously generated assemblies***
-
-Now to check the example assemblies residing in your day2_morn folder, run the below quast command. Make sure you are in day2_morn folder in your home directory using 'pwd'
-
-```
-quast.py -o quast SRR5244781_contigs.fasta SRR5244821_contigs.fasta
-```
-
-The command above will generate a report file in /scratch/micro612w19_fluxod/username/day2_morn/quast
-
-> ***ii. Explore quast output***
-
-QUAST creates output in different formats such as html, pdf and text. Now lets check the report.txt file residing in quast folder for assembly statistics. Open report.txt using nano.
-
-```
-less quast/report.txt
-```
-
-Check the difference between the different assembly statistics. Also check the different types of report it generated.
-
-Generating multiple sample reports using [multiqc](http://multiqc.info/)
---------------------------------------------------
-
-![alt tag](multiqc.jpeg)
-
-Let's imagine a real-life scenario where you are working on a project which requires you to analyze and process hundreds of samples. Having a few samples with extremely bad quality is very commonplace. Including these bad samples into your analysis without adjusting their quality threshold can have a profound effect on downstream analysis and interpretations. 
-
-- Question: How will you find those bad apples?  
-
-Yesterday, we learned how to assess and control the quality of samples as well as screen for contaminants. But the problem with such tools or any other tools is, they work on per-sample basis and produce only single report/logs per sample. Therefore, it becomes cumbersome to dig through each sample's reports and make appropriate quality control calls.  
-
-Thankfully, there is a tool called multiqc which parses the results directory containing output from various tools, reads the log report created by those tools (ex: FastQC, FastqScreen, Quast), aggregates them and creates a single report summarizing all of these results so that you have everything in one place. This helps greatly in identifying the outliers and removing or reanalysizing it individually.
-
-Lets take a look at one such mutiqc report that was generated using FastQC results on *C. difficile* samples.
-
-Download the html report Cdiff_multiqc_report.html from your day2_morn folder.
-
-```
-#Note: Make sure you change 'username' in the below command to your 'uniqname'.
-
-scp username@flux-xfer.arc-ts.umich.edu:/scratch/micro612w19_fluxod/username/day2_morn/Cdiff_multiqc_report.html /path-to-local-directory/
+> ***i. Get fasta alignment you just converted to your own computer using cyberduck or scp***
 
 ```
 
-- Question: Open this report in a browser and try to find the outlier sample/s
+cd ~/Desktop/Abau_mauve
 
-- Question: What is the most important parameter to look for while identifying contamination or bad samples?
 
-- Question: What is the overall quality of data? 
-
-Lets run multiqc on one such directory where we ran and stored FastQC, FastQ Screen and Quast reports.
-
-if you are not in day2_morn folder, navigate to it and change directory to multiqc_analysis
-
-```
-d2m 
-
-#or
-
-cd /scratch/micro612w19_fluxod/username/day2_morn/
-
-cd multiqc_analysis
-
-#Load python and Try invoking multiqc 
-
-module load python-anaconda2/latest
-
-multiqc -h
-
-#Run multiqc on sample reports
-
-multiqc ./ --force --filename workshop_multiqc
-
-#Check if workshop_multiqc.html report was generated
-
-ls
-
-#transfer this report to your local system and open it in a browser for visual inspection
-
-scp username@flux-xfer.arc-ts.umich.edu:/scratch/micro612w19_fluxod/username/day2_morn/workshop_multiqc.html /path-to-local-directory/
+scp username@flux-xfer.arc-ts.umich.edu:/scratch/micro612w19_fluxod/username/day3_morn/mauve_ECII_outgroup.fasta ./
 
 ```
 
-The report contains the Assembly, Fastq Screen and FastQC report for a mixture of 51 organisms' sequence data. Sample names for Assembly statistics ends with "l500_contigs".
+> ***ii. Read alignment into R***
 
-- Question: Play around with the General statistics table by sorting different columns. (click on a column header). To view just the assembly statistics, click on the N50 column header. Which sample has the worst N50 value? What do you think must be the reason?
+Fire up RStudio, set your working directory to ~/Desktop/Abau_mauve/ or wherever you have downloaded mauve_ECII_outgroup.fasta file and install/load ape
 
-- Question: Which two sample's genome length i.e column Length (Mbp) stand out from all the other genome lengths? What is their GC %? What about their FastQ Screen result?
+Use the read.dna function in ape to read in you multiple alignments. 
+Print out the variable to get a summary.
 
-- Question: What about Number of Contigs section? Are you getting reasonable number of contigs or is there any bad assembly?
+```
+setwd("~/Desktop/Abau_mauve/")
+install.packages("ape")
+library(ape)
+abau_msa = read.dna('mauve_ECII_outgroup.fasta', format = "fasta") 
+```
 
-- Question: Any sample's quality stand out from the rest of the bunch?
+> ***iii. Get variable positions***
 
+The DNA object created by read.dna can also be addressed as a matrix, where the columns are positions in the alignment and rows are your sequences. We will next treat our alignment as a matrix, and use apply and colSums to get positions in the alignment that vary among our sequences. Examine these commands in detail to understand how they are working together to give you a logical vector indicating which positions vary in your alignment.
 
-Compare assembly to reference genome and post-assembly genome improvement
--------------------------------------------------------------------------
-[[back to top]](day2_morning.html)
+```
+
+abau_msa_bin = apply(abau_msa, 2, FUN = function(x){x == x[1]}) 
+
+abau_var_pos = colSums(abau_msa_bin) < 5
+```
+
+> ***iv. Get non-gap positions***
+
+For our phylogenetic analysis we want to focus on the core genome, so we will next identify positions in the alignment where all our genomes have sequence.
+
+```
+non_gap_pos = colSums(as.character(abau_msa) == '-') == 0
+```
+
+> ***v. Count number of variants between sequences***
+
+Now that we know which positions in the alignment are core and variable, we can extract these positions and count how many variants there are among our genomes. Do count pairwise variants we will use the dist.dna function in ape. The model parameter indicates that we want to compare sequences by counting differences. Print out the resulting matrix to see how different our genomes are.
+
+```
+
+abau_msa_var = abau_msa[,abau_var_pos & non_gap_pos ]
+var_count_matrix = dist.dna(abau_msa_var, model = "N")
+
+```
+
+> ***vi. Construct phylogenetic tree***
+
+Now we are ready to construct our first phylogenetic tree! 
+
+We are going to use the Neighbor Joining algorithm, which takes a matrix of pairwise distances among the input sequences and produces the tree with the minimal total distance. In essence, you can think of this as a distance-based maximum parsimony algorithm, with the advantage being that it runs way faster than if you were to apply a standard maximum parsimony phylogenetic reconstruction.
+
+As a first step we are going to build a more accurate distance matrix, where instead of counting variants, we will measure nucleotide distance using the Jukes-Cantor model of sequence evolution. This is the simplest model of sequence evolution, with a single mutation rate assumed for all types of nucleotide changes.
+
+```
+dna_dist_JC = dist.dna(abau_msa, model = "JC")
+```
+
+Next, we will use the ape function nj to build our tree from the distance matrix
+
+```
+abau_nj_tree = nj(dna_dist_JC)
+```
+
+Finally, plot your tree to see how the genomes group.
+
+```
+plot(abau_nj_tree)
+```
+
+Perform SNP density analysis to discern evidence of recombination
+-----------------------------------------------------------------
+[[back to top]](day3_morning.html)
 [[HOME]](index.html)
 
-Once we feel confident in our assembly by using quast or multiQC, let's compare it to our reference to see if we can identify any large insertions/deletions using a graphical user interface called Artemis Comparison Tool (ACT) for visualization. 
+An often-overlooked aspect of a proper phylogenetic analysis is to exclude recombinant sequences. Homologous recombination in bacterial genomes is a mode of horizontal transfer, wherein genomic DNA is taken up and swapped in for a homologous sequence. The reason it is critical to account for these recombinant regions is that these horizontally acquired sequences do not represent the phylogenetic history of the strain of interest, but rather in contains information regarding the strain in which the sequence was acquired from. One simple approach for detecting the presence of recombination is to look at the density of variants across a genome. The existence of unusually high or low densities of variants is suggestive that these regions of aberrant density were horizontally acquired. Here we will look at our closely related A. baumannii genomes to see if there is evidence of aberrant variant densities.
+
+> ***i. Subset sequences to exclude the out-group***
+
+For this analysis we want to exclude the out-group, because we are interested in determining whether recombination would hamper our ability to reconstruct the phylogenetic relationship among our closely related set of genomes.  
+
+- Note that the names of the sequences might be different for you, so check that if the command doesn’t work.
+
+```
+
+abau_msa_no_outgroup = abau_msa[c('ACICU_genome','AbauA_genome','AbauC_genome','AbauB_genome'),]
+
+or 
+
+abau_msa_no_outgroup = abau_msa[c('ACICU_genome.fa/1-3996847','AbauA_genome.fa/1-3953855','AbauB_genome.fa/1-4014916','AbauC_genome.fa/1-4200364', 'Abau_AB0057_genome.fa/1-4050513'),]
+
+```
+
+> ***ii. Get variable positions***
+
+Next, we will get the variable positions, as before
+
+```
+
+abau_msa_no_outgroup_bin = apply(abau_msa_no_outgroup, 2, FUN = function(x){x == x[1]}) 
+
+abau_no_outgroup_var_pos = colSums(abau_msa_no_outgroup_bin) < 4
+
+```
+
+> ***iii. Get non-gap positions***
+
+Next, we will get the core positions, as before
+
+```
+
+abau_no_outgroup_non_gap_pos = colSums(as.character(abau_msa_no_outgroup) == '-') == 0
+
+```
+
+> ***iv. Create overall histogram of SNP density***
+
+Finally, create a histogram of SNP density across the genome. Does the density look even, or do you think there might be just a touch of recombination?
+
+```
+hist(which(abau_no_outgroup_var_pos & abau_no_outgroup_non_gap_pos), 10000)
+```
+
+Perform recombination filtering with [Gubbins](https://www.google.com/search?q=gubbins+sanger&ie=utf-8&oe=utf-8)
+----------------------------------------------
+[[back to top]](day3_morning.html)
+[[HOME]](index.html)
+
+Now that we know there is recombination, we know that we need to filter out the recombinant regions to discern the true phylogenetic relationship among our strains. In fact, this is such an extreme case (~99% of variants of recombinant), that we could be totally misled without filtering recombinant regions. To accomplish this we will use the tool gubbins, which essentially relies on elevated regions of variant density to perform recombination filtering.
+
+> ***i. Run gubbins on your fasta alignment***
+
+Go back on flux and load modules required by gubbins
 
 <!---
-changed on 23 feb 2018
-To do this we need to first align our genome assembly to our reference. We will accomplish this using command-line BLAST.
->i. Align unordered contigs to reference
-Create a BLAST database from your reference genome using the makeblastdb command.
-```
-> Make sure you are in /scratch/micro612w19_fluxod/username/day2_morn directory
-d2m
-#or
-cd /scratch/micro612w19_fluxod/username/day2_morn
-makeblastdb -in KPNIH1.fasta -dbtype nucl -out KPNIH1.fasta
-```
->ii. Stitch together your contigs into a single sequence
-```
-echo ">sample_266_contigs_concat" > sample_266_contigs_concat.fasta 
-grep -v ">" sample_266_contigs.fasta >> sample_266_contigs_concat.fasta 
-```
-BLAST your stitched together contigs against your reference. 
-The input parameters are: 
-1) query sequences (-query sample_266_contigs_concat.fasta), 
-2) the database to search against (-db KPNIH1.fasta), 
-3) the name of a file to store your results (-out blastn_results), 
-4) output format (-outfmt 6), 
-5) e-value cutoff (-evalue 1e-20)
-```
-blastn -outfmt 6 -evalue 1e-20 -db KPNIH1.fasta -query sample_266_contigs_concat.fasta -out concat_comp.blast
-```
->ii. Use ACT(Installed in your local system) to compare stitched together contigs to reference.
-For these, first we will create a seperate directory called ACT_contig_comparison in day2_morn folder and copy all the necessary ACT input to this directory.
-```
-mkdir ACT_contig_comparison 
-cp KPNIH.gb KPNIH1.fasta concat_comp.blast sample_266_contigs_concat.fasta ACT_contig_comparison/
-```
-Use scp to get sequences and BLAST alignments onto your laptop 
-```
-> Note: Make sure you change 'username' in the below command with your 'uniqname'.
-scp -r username@flux-xfer.arc-ts.umich.edu:/scratch/micro612w19_fluxod/username/day2_morn/ACT_contig_comparison/ /path-to-local-directory/
-```
->iii. Read these Input files in ACT_contig_comparison folder into ACT
-```
-Start ACT and set your working directory to ACT_contig_comparison(wherever it is stored on your local system)
-Go to File on top left corner of ACT window -> open 
-Sequence file 1 = KPNIH.gb
-Comparison file 1  = concat_comp_blast 
-Sequence file 2  = sample_266_contigs_concat.fasta
-Click Apply button
-```
-> Notice that it is a complete mess!!!! The reason is that the contigs are in random order, so it is very difficult to visually compare to the reference. 
-![alt tag](mess.png)
+Older version:
+module load python/2.7.3 biopython dendropy reportlab fasttree RAxML fastml/gub gubbins
 -->
 
-In order to simplify the comparison between assembly and reference, we first need to orient the order of the contigs to reference. 
+```
 
-> ***i. Run abacas to orient contigs to the reference***
-
-To orient our contigs relative to the reference we will use a tool called abacas. [ABACAS](http://www.sanger.ac.uk/science/tools/pagit) aligns contigs to a reference genome and then stitches them together to form a “pseudo-chromosome”. 
-
-Go back to flux and into the directory where the assembly is located.
+module load bioperl python-anaconda2/201607 biopython dendropy reportlab fasttree RAxML fastml/gub gubbins
 
 ```
-d2m
+
+Run gubbins on your fasta formatted alignment
+
+```
+d3m
 
 #or
 
-cd /scratch/micro612w19_fluxod/username/day2_morn/
-```
+cd /scratch/micro612w19_fluxod/username/day3_morn
 
-Now, we will run abacas using these input parameters: 
+sed -i 's/\/1-.*//g' mauve_ECII_outgroup.fasta
 
-1) your reference sequence (-r FPR3757.fasta), 
-
-2) your contig file (-q SRR5244781_contigs.fasta), 
-
-3) the program to use to align contigs to reference (-p nucmer), 
-
-4) append unmapped contigs to end of file (-b), 
-
-5) use default nucmer parameters (-d), 
-
-6) append contigs into pseudo-chromosome (-a), 
-
-7) the prefix for your output files (–o SRR5244781_contigs_ordered) 
-
-Check if abacas can be properly invoked:
-
-```
-abacas.1.3.1.pl -h
-```
-
-Run abacas on assembly:
-
-```
-abacas.1.3.1.pl -r FPR3757.fasta -q SRR5244781_contigs.fasta -p nucmer -b -d -a -o SRR5244781_contigs_ordered
-```
-
-> ***ii. Use ACT to view contig alignment to reference genome***
-
-- Make a new directory by the name ACT_contig_comparison in your day2_morn folder and copy relevant abacas/ACT comparison files to it. 
-
-
-```
-mkdir ACT_contig_comparison
-
-cp FPR3757.gb SRR5244781_contigs_ordered* ACT_contig_comparison/
-```
-
-- Use scp to get ordered fasta sequence and .cruch file onto your laptop 
-
-```
-> Dont forget to change username and /path-to-local-ACT_contig_comparison-directory/ in the below command
-
-scp -r username@flux-xfer.arc-ts.umich.edu:/scratch/micro612w19_fluxod/username/day2_morn/ACT_contig_comparison/ /path-to-local-directory/
+run_gubbins.py -v -f 50 -o Abau_AB0057_genome mauve_ECII_outgroup.fasta
 
 ```
 
-- Read files into ACT
+> ***ii. Create gubbins output figure***
+
+Gubbins produces a series of output files, some of which can be run through another program to produce a visual display of filtered recombinant regions. Run the gubbins_drawer.py script to create a pdf visualization of recombinant regions. 
+
+The inputs are: 
+
+1) the recombination filtered tree created by gubbins (mauve_ECII_outgroup.final_tree.tre),
+
+2) the pdf file to create (mauve_ECII_outgroup.recombination.pdf) and 
+
+3) a .embl representation of recombinant regions (mauve_ECII_outgroup.recombination_predictions.embl).
 
 ```
-Go to File on top left corner of ACT window -> open 
-Sequence file 1 = FPR3757.gb 
-Comparison file 1  = SRR5244781_contigs_ordered.crunch 
-Sequence file 2  = SRR5244781_contigs_ordered.fasta
 
-Click Apply button
+gubbins_drawer.py -t mauve_ECII_outgroup.final_tree.tre -o mauve_ECII_outgroup.recombination.pdf mauve_ECII_outgroup.recombination_predictions.embl
 
-Dont close the ACT window
+```
+> ***iii. Download and view gubbins figure and filtered tree***
+
+Use cyberduck or scp to get gubbins output files into Abau_mauve on your local system
+
 ```
 
-- Notice that the alignment is totally beautiful now!!! Scan through the alignment and play with ACT features to look at genes present in reference but not in assembly. Keep the ACT window open for further visualizations.
+cd ~/Desktop/Abau_mauve
+
+scp username@flux-xfer.arc-ts.umich.edu:/scratch/micro612w19_fluxod/username/day3_morn/mauve_ECII_outgroup.recombination.pdf  ./
+scp username@flux-xfer.arc-ts.umich.edu:/scratch/micro612w19_fluxod/username/day3_morn/mauve_ECII_outgroup.final_tree.tre  ./
+
+```
+
+Open up the pdf and observe the recombinant regions filtered out by gubbins. Does it roughly match your expectations based upon your SNP density plots?
+
+Finally, lets look at the recombination-filtered tree to see if this alters our conclusions. 
+
+To view the tree we will use [Seaview](http://doua.prabi.fr/software/seaview), which is a multi-purpose tool for: 
+
+1) visualization/construction of multiple alignments and 
+
+2) phylogenetic tree construction. 
+
+Here, we will just use Seaview to view our gubbins tree.
+
+```
+
+In seaview: 
+
+Go to Trees -> import tree (mauve_ECII_outgroup.final_tree.tre) 
+To view sub-tree of interest click on “sub-tree” and select the sub-tree excluding the out-group
+
+```
 
 
-![alt tag](beautiful.png)
+How does the structure look different than the unfiltered tree?
 
-<!--
-Map reads to the final ordered assembly
----------------------------------------
-[[back to top]](day2_morning.html)
+- Note that turning back to the backstory of these isolates, Abau_B and Abau_C were both isolated first from the same patient. So this analysis supports that patient having imported both strains, which likely diverged at a prior hospital at which they resided.
+
+<!--Create annotated publication quality trees with [iTOL](http://itol.embl.de/)-->
+
+Overlay metadata on your tree using R 
+------------------------------------------------------
+[[back to top]](day3_morning.html)
 [[HOME]](index.html)
 
-You already know the drill/steps involved in reads mapping. Here, we will map the reads to the final ordered assembly genome instead of KPNIH1.fasta.
+For the final exercise we will use a different dataset, composed of USA300 methicillin-resistant Staphylococcus aureus genomes. USA300 is a strain of growing concern, as it has been observed to cause infections in both hospitals and in otherwise healthy individuals in the community. An open question is whether there are sub-clades of USA300 in the hospital and the community, or if they are all the same. Here you will create an annotated phylogenetic tree of strains from the community and the hospital, to discern if these form distinct clusters.
 
-- First create a bwa index of the ordered fasta file.
+> ***i. Download MRSA genome alignment from flux***
 
-```
-> Only proceed further if everything worked uptil now. Make sure you are in day2_morn directory.
-
-d2m
-
-#or
-
-cd /scratch/micro612w19_fluxod/username/day2_morn/
-
-bwa index sample_266_contigs_ordered.fasta
-samtools faidx sample_266_contigs_ordered.fasta
+Use cyberduck or scp to get genomes onto your laptop
 
 ```
 
-- Align the trimmed reads which we used for genome assembly to this ordered assembly using BWA mem. Convert SAM to BAM. Sort and index it.
+cd ~/Desktop (or wherever your desktop is) 
+mkdir MRSA_genomes 
+cd MRSA_genomes
+
+scp username@flux-xfer.arc-ts.umich.edu:/scratch/micro612w19_fluxod/username/day3_morn/2016-03-09_KP_BSI_USA300.fa  ./
+scp username@flux-xfer.arc-ts.umich.edu:/scratch/micro612w19_fluxod/username/day3_morn/HA_vs_CA  ./
+
 
 ```
 
-bwa mem -M -R "@RG\tID:96\tSM:Rush_KPC_266_1_combine.fastq.gz\tLB:1\tPL:Illumina" -t 8 sample_266_contigs_ordered.fasta forward_paired.fq.gz reverse_paired.fq.gz > sample_266_contigs_ordered.sam
+> ***ii. Look at SNP density for MRSA alignment in R***
 
-samtools view -Sb sample_266_contigs_ordered.sam > sample_266_contigs_ordered.bam
+Before we embark on our phylogenetic analysis, lets look at the SNP density to verify that there is no recombination
 
-samtools sort sample_266_contigs_ordered.bam sample_266_contigs_ordered_sort
-
-samtools index sample_266_contigs_ordered_sort.bam
+```
+library(ape)
+mrsa_msa = read.dna('2016-03-09_KP_BSI_USA300.fa', format = 'fasta') 
+mrsa_msa_bin = apply(mrsa_msa, 2, FUN = function(x){x == x[1]}) 
+mrsa_var_pos = colSums(mrsa_msa_bin) < nrow(mrsa_msa_bin) 
+hist(which(mrsa_var_pos), 10000)
 
 ```
 
-- Lets visualize the alignments against our ordered assembly.
+Does it look like there is evidence of recombination?
 
-Copy this sorted and indexed BAM files to local ACT_contig_comparison directory.
+<!-- > ***iii. Create fasta alignment with only variable positions*** -->
 
-```
-> Dont forget to change username and /path-to-local-ACT_contig_comparison-directory/ in the below command
+<!--Next, lets create a new fasta alignment file containing only the variant positions, as this will be easier to deal with in Seaview-->
 
-scp username@flux-xfer.arc-ts.umich.edu:/scratch/micro612w19_fluxod/username/day2_morn/sample_266_contigs_ordered_sort* /path-to-previously-created-local-ACT_contig_comparison-directory/
+<!--```-->
 
-```
+<!--write.dna(mrsa_msa[, mrsa_var_pos], file = '2016-3-9_KP_BSI_USA300_var_pos.fa', format = 'fasta')-->
 
-```
-Go back to ACT where your ordered contigs are still open in the window.
+<!--```-->
 
-Select File -> sample_266_contigs_ordered.fasta -> Read BAM/VCF > select sorted bam file(sample_266_contigs_ordered_sort.bam) you just copied from flux.
-```
+> ***iii. Create neighbor joining tree in R ***
 
-![alt tag](aligned_reads_deletion.png)
+We will be using R to construct a neighbor-joining tree. Neighbor joining trees fall under the category of "distance-based" tree building. There are more sophisticated algorithms for tree building, including maximum likelihood and bayesian methods. 
 
--->
- 
-Using abacas and ACT to compare VRE/VSE genome 
-----------------------------------------------
+There are a number of bioinformatics tools to create trees. Note that in your research it is not a good idea to use these phylogenetic tools completely blind and I strongly encourage embarking on deeper learning yourself, or consulting with an expert before doing an analysis for a publication. 
 
-Now that we learned how ACT can be used to explore and compare genome organization and differences, try comparing VSE_ERR374928_contigs.fasta, a Vancomycin-susceptible Enterococcus against a Vancomycin-resistant Enterococcus reference genome Efaecium_Aus0085.fasta that are placed in VRE_vanB_comparison folder under day2_morn directory. 
+One resource here at University of Michigan is the Phylogenetic Methods course, EEB 491. 
 
-The relevant reference genbank file that can be used in ACT is Efaecium_Aus0085.gbf.
-
-Fo this exercise, you will use abacas to order VSE_ERR374928_contigs.fasta against the reference genome Efaecium_Aus0085.fasta and then use the relevant ordered.crunch and ordered.fasta files along with Efaecium_Aus0085.gbf for ACT visualization.
-
-
-Genome Annotation
------------------
-[[back to top]](day2_morning.html)
-[[HOME]](index.html)
-
-**Identify protein-coding genes with [Prokka](http://www.vicbioinformatics.com/software.prokka.shtml)**
-
-From our ACT comparison of our assembly and the reference we can clearly see that there is unique sequence in our assembly. However, we still don’t know what that sequence encodes! To try to get some insight into the sorts of genes unique to our assembly we will run a genome annotation pipeline called Prokka. Prokka works by first running *de novo* gene prediction algorithms to identify protein coding genes and tRNA genes. Next, for protein coding genes Prokka runs a series of comparisons against databases of annotated genes to generate putative annotations for your genome. 
-
-> ***i. Run Prokka on assembly***
-
-```
-prokka –setupdb
+First, we will need to install and load in some packages to work with tree objects in R. 
 ```
 
-Execute Prokka on your ordered assembly 
+install.packages('phangorn')
+install.packages('phytools')
+
+library(ape) #installed previously, load in if not already in your environment 
+library(phangorn)
+library(phytools)
+```
+
+Next, we will create a pairwise SNV distance matrix of the MRSA samples to create a neighbor joining tree. 
 
 ```
-> Make sure you are in day2_morn directory.
+mrsa_msa_var = mrsa_msa[, mrsa_var_pos]
+dna_dist = dist.dna(mrsa_msa_var, model = 'N', as.matrix = TRUE)
+```
 
-d2m
+Finally, we can use the distance matrix to construct a neighbor joining tree using the function NJ()
+```
+NJ_tree = NJ(dna_dist) 
+```
 
-#or
+We can look at our tree using plot()
 
-cd /scratch/micro612w19_fluxod/username/day2_morn/
+```
+plot(NJ_tree)
+```
 
-mkdir SRR5244781_prokka 
-
-prokka -kingdom Bacteria -outdir SRR5244781_prokka -force -prefix SRR5244781 SRR5244781_contigs_ordered.fasta
-
-> Use scp or cyberduck to get Prokka annotated genome on your laptop. Dont forget to change username in the below command
-
-scp -r username@flux-xfer.arc-ts.umich.edu:/scratch/micro612w16_fluxod/username/day2_morn/SRR5244781_prokka/ /path-to-local-ACT_contig_comparison-directory/
+We can explore other representations of our tree in R using the flag "type" in the plot function 
+```
+plot(NJ_tree, type = 'fan')
+plot(NJ_tree, type = 'cladogram')
+plot(NJ_tree, type = 'phylogram') #default
 
 ```
 
-> ***ii. Reload comparison into ACT now that we’ve annotated the un-annotated!***
 
-Read files into ACT
+<!-- ***iv. Read alignment into Seaview and construct Neighbor Joining tree***-->
+
+<!--In the previous exercise, we used Seaview to look at a pre-existing tree, here we will use Seaview to create a tree from a
+multiple sequence alignment -->
+
+<!--Read in multiple alignment of variable positions-->
+
+<!--```-->
+<!--<!--Go to File -> open ('2016-3-9_KP_BSI_USA300_var_pos.fa)-->
+<!--```-->
+
+<!--Construct Neighbor Joining phylogenetic tree with default parameters (note, this will take a few minutes)-->
+
+<!--```-->
+<!--Go to Trees -> select Distance Methods -> BioNJ -> (Select Bootstrap with 20 replicates) -> Go-->
+<!--```-->
+
+<!--Save your tree-->
+
+<!--```-->
+<!--File -> Save rooted tree-->
+<!--```-->
+
+<!--Note that in your research it is not a good idea to use these phylogenetic tools completely blind and I strongly encourage embarking on deeper learning yourself, or consulting with an expert before doing an analysis for a publication-->
+
+<!-- > ***v. Read tree into iTOL*** -->
+
+<!--```-->
+
+<!--To make a prettier tree and add annotations we will use iTOL (http://itol.embl.de/). 
+
+<!--Go to http://itol.embl.de/-->
+
+<!--To load your tree, click on upload, and select the rooted tree you just created in Seaview-->
+
+<!--```-->
+
+<!--Explore different visualization options for your tree (e.g. make it circular, show bootstrap values, try collapsing nodes/branches)-->
+
+<!--Note that you can always reset your tree if you are unhappy with the changes you’ve made-->
+
+> ***iv. Add annotations to tree in R ***
+
+Now, we will overlay our data on whether an isolate was from a community or hospital infection onto the tree. 
+
+Here is a great example of some of the different ways to annotate your trees in R: https://rdrr.io/cran/ape/man/nodelabels.html
+
+First, we will read in our metadata. 
 
 ```
-Go to File on top left corner of ACT window -> open 
-Sequence file 1 = FPR3757.gb 
-Comparison file 1  = SRR5244781_contigs_ordered.crunch 
-Sequence file 2  = SRR5244781_contigs_ordered.gbf
+metadata = read.table('HA_vs_CA', header = TRUE, stringsAsFactors = FALSE)
+
 ```
 
-- Play around with ACT to see what types of genes are unique to the MSSA genome SRR5244781 compared to the MRSA genome!!! 
+Next, we will create our isolate legend and assign colors to the legend. 
 
-Hint: USA300 MRSA acquired the SCCmec cassette (which contains a penicillin binding protein and mecR1) and the element ACME (which contains gene arcA). 
+```
+isolate_legend = structure(metadata[,2], names = metadata[,1])
+isolate_colors = structure(c('red', 'blue'), names = sort(unique(isolate_legend)))
 
-INSERT IMAGE
+```
 
-Image from David & Daum Clin Microbiol Rev. 2010 Jul;23(3):616-87. doi: 10.1128/CMR.00081-09.
+Finally, we can use the function tiplabels() to add annotations to our tree and the function legend() to put a legend on our tree.  
+
+```
+plot(NJ_tree, type = 'fan', no.margin = TRUE, 
+     cex = 0.5, label.offset = 3, align.tip.label = FALSE)
+tiplabels(pie = to.matrix(isolate_legend,names(isolate_colors)), 
+          piecol = isolate_colors, cex = 0.3, adj = 1.4)
+legend('bottomleft', legend = names(isolate_colors), 
+       col = "black", pt.bg = isolate_colors, pch = 21, cex = 1)
+
+```
 
 
+
+
+<!--One of the most powerful features of iTOL is its ability to overlay diverse types of descriptive meta-data on your tree (http://itol.embl.de/help.cgi#datasets). Here, we will overlay our data on whether an isolate was from a community or hospital infection. To do this simply drag-and-drop the annotation file (2016-3-9_KP_BSI_USA300_iTOL_HA_vs_CA.txt) on your tree and voila! -->
+
+- Do community and hospital isolates cluster together, or are they inter-mixed?
+
+
+Note, there are also web tools out there to overlay metadata onto your tree and to manipulate the tree in other ways. One such tool is [iTOL](https://itol.embl.de/). 

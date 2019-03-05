@@ -325,6 +325,7 @@ How does the structure look different than the unfiltered tree?
 - Note that turning back to the backstory of these isolates, Abau_B and Abau_C were both isolated first from the same patient. So this analysis supports that patient having imported both strains, which likely diverged at a prior hospital at which they resided.
 
 <!--Create annotated publication quality trees with [iTOL](http://itol.embl.de/)-->
+
 Overlay metadata on your tree using R 
 ------------------------------------------------------
 [[back to top]](day3_morning.html)
@@ -501,4 +502,4 @@ legend('bottomleft', legend = names(isolate_colors),
 - Do community and hospital isolates cluster together, or are they inter-mixed?
 
 
-Note, there are also web tools out there to overlay metadata onto your tree and to manipulate the tree in other ways. One such tool is iTOL. 
+Note, there are also web tools out there to overlay metadata onto your tree and to manipulate the tree in other ways. One such tool is [iTOL](https://itol.embl.de/). 

@@ -84,7 +84,17 @@ less KPC_blastp_results.tsv
 
 - **Exercise:** Experiment with the `–outfmt` parameter, which controls different output formats that BLAST can produce. 
 
-- **Exercise:** Determine which *Enterococcus* genomes contain vancomycin resistance genes. To do this you will need to: i) create a protein BLAST database for `ardb_van.pfasta`, ii) concetenate the genomes sequences in the `.fasta` files and iii) use `blastx` to BLAST nucleotide genomes against a protein database. 
+- **Exercise:** In this exercise you will try a different type of blasting – blastx. Blastx compares a nucleotide sequence to a protein database by translating the nucleotide sequence in all six frames and running blastp. Your task is to determine which Enterococcus  genomes are vancomycin resistant by blasting against a database of van genes. The required files are located in VRE_van_blast folder under day2_after directory.
+
+Your steps should be:
+
+1) Concatenate .fasta files (VRE/VSE genomes) into a single file (your blast query file)
+2) Create a blastp database from ardb_van.pfasta
+3) Run blastx
+4) Verify that only the VRE genomes hit the database
+5) For extra credit, determine which van genes were hit by using grep to search for the hit gene ID in ardb_van.pfasta
+
+
 
 <details>
   <summary>Solution</summary>
@@ -195,7 +205,7 @@ Drag and drop these two files onto the [Phandango](http://jameshadfield.github.i
 
 ```
 ariba_full  = read.csv(file = '~/Desktop/kpneumo_ariba_all_results.csv', row.names = 1)
-rownames(ariba_full) = gsub('/report.tsv','',rownames(ariba_full))
+rownames(ariba_full) = gsub('_1|_R1|/report.tsv','',rownames(ariba_full))
 ```
 
 - Subset to get description for each gene
@@ -224,12 +234,12 @@ annots = read.table('~/Desktop/kpneumo_source.tsv',row.names=1)
 colnames(annots) = 'Source'
 
 # plot heatmap
-pheatmap(ariba_full_match,annotation_rows = annots)
+pheatmap(ariba_full_match,annotation_row = annots)
 ```
 
 - **Exercise:** Bacteria of the same species can be classified into different sequence types (STs) based on the sequence identity of certain housekeeping genes using a technique called [multilocus sequence typing (MLST)](https://en.wikipedia.org/wiki/Multilocus_sequence_typing). The different combination of these house keeping sequences present within a bacterial species are assigned as distinct alleles and, for each isolate, the alleles at each of the seven genes define the allelic profile or sequence type (ST). Sometimes, different sequence types are associated with different environments or different antibiotic resistance genes. We want to know what sequence type(s) our genomes come from, and if there are certain ones that are associated with certain sources or certain antibiotic resistance genes. 
 
-Using the [ARIBA MLST manual](https://github.com/sanger-pathogens/ariba/wiki/MLST-calling-with-ARIBA), write and run a script (similar to the one above) to perform MLST calling with ARIBA on all 8 of our *K. pneumonia* genomes. Then, use this information to add a second annotation column to the heatmap we created above to visualize the results. 
+Using the [ARIBA MLST manual](https://github.com/sanger-pathogens/ariba/wiki/MLST-calling-with-ARIBA), write and run a script (similar to the one above) to perform MLST calling with ARIBA on all 8 of our *K. pneumonia* genomes. Then, use this information to add a second annotation column to the heatmap we created above to visualize the results. Running ARIBA mlst requires a MLST species database, so dont forget to download "Klebsiella pneumoniae" databsae and give the path to these database while running ARIBA MLST detection.
 
 Did you find anything interesting?
 
@@ -239,6 +249,12 @@ Did you find anything interesting?
   
 ```
 Generate results and Get the solution here
+
+module load python-anaconda3/latest-3.6   bowtie2/2.1.0   cd-hit/4.6.4   mummer/3.23  ariba/2.13.3
+
+ariba pubmlstspecies
+
+
 ```
 </details>
 
