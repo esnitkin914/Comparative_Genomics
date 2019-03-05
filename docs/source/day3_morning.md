@@ -1,6 +1,6 @@
 Day 3 Morning
 =============
-[[HOME]](index.html)
+[[HOME]](https://github.com/alipirani88/Comparative_Genomics/blob/master/README.md)
 
 On day 1, we ran through a pipeline to map reads against a reference genome and call variants, but didn’t do much with the variants we identified. Among the most common analyses to perform on a set of variants is to construct phylogenetic trees. Here we will explore different tools for generating and visualizing phylogenetic trees, and also see how recombination can distort phylogenetic signal.
 
@@ -23,16 +23,16 @@ wd
 
 #or
 
-cd /scratch/micro612w18_fluxod/username
+cd /scratch/micro612w19_fluxod/username
 
-cp -r /scratch/micro612w18_fluxod/shared/data/day3_morn ./
+cp -r /scratch/micro612w19_fluxod/shared/data/day3_morn ./
 
 ```
 
 Perform whole genome alignment with [Mauve](http://darlinglab.org/mauve/mauve.html) and convert alignment to other useful formats
 -------------------------------------------
-[[back to top]](day3_morning.html)
-[[HOME]](index.html)
+[[back to top]](https://github.com/alipirani88/Comparative_Genomics/blob/master/day3_morning/README.md)
+[[HOME]](https://github.com/alipirani88/Comparative_Genomics/blob/master/README.md)
 
 An alternative approach for identification of variants among genomes is to perform whole genome alignments of assemblies. If the original short read data is unavailable, this might be the only approach available to you. Typically, these programs don’t scale well to large numbers of genomes (e.g. > 100), but they are worth being familiar with. We will use the tool mauve for constructing whole genome alignments of our five A. baumannii genomes.
 
@@ -51,7 +51,7 @@ cd Abau_mauve
 
 - Now copy Abau_genomes folder residing in your day3_morn folder using scp or cyberduck:
 
-scp -r username@flux-xfer.arc-ts.umich.edu:/scratch/micro612w18_fluxod/username/day3_morn/Abau_genomes ./
+scp -r username@flux-xfer.arc-ts.umich.edu:/scratch/micro612w19_fluxod/username/day3_morn/Abau_genomes ./
 
 ```
 
@@ -72,7 +72,7 @@ Use cyberduck or scp to transfer your alignment back to flux for some processing
 
 ```
 
-scp ~/Desktop/Abau_mauve/mauve_ECII_outgroup username@flux-xfer.arc-ts.umich.edu:/scratch/micro612w18_fluxod/username/day3_morn 
+scp ~/Desktop/Abau_mauve/mauve_ECII_outgroup username@flux-xfer.arc-ts.umich.edu:/scratch/micro612w19_fluxod/username/day3_morn 
 
 ```
  
@@ -92,8 +92,8 @@ perl convert_msa_format.pl -i mauve_ECII_outgroup -o mauve_ECII_outgroup.fasta -
 
 Perform some DNA sequence comparisons and phylogenetic analysis in [APE](http://ape-package.ird.fr/), an R package
 ------------------------------------------------------------------------
-[[back to top]](day3_morning.html)
-[[HOME]](index.html)
+[[back to top]](https://github.com/alipirani88/Comparative_Genomics/blob/master/day3_morning/README.md)
+[[HOME]](https://github.com/alipirani88/Comparative_Genomics/blob/master/README.md)
 
 There are lots of options for phylogenetic analysis. Here, we will use the ape package in R to look at our multiple alignments and construct a tree using the Neighbor Joining method. 
 
@@ -106,7 +106,7 @@ Note that ape has a ton of useful functions for more sophisticated phylogenetic 
 cd ~/Desktop/Abau_mauve
 
 
-scp username@flux-xfer.arc-ts.umich.edu:/scratch/micro612w18_fluxod/username/day3_morn/mauve_ECII_outgroup.fasta ./
+scp username@flux-xfer.arc-ts.umich.edu:/scratch/micro612w19_fluxod/username/day3_morn/mauve_ECII_outgroup.fasta ./
 
 ```
 
@@ -180,8 +180,8 @@ plot(abau_nj_tree)
 
 Perform SNP density analysis to discern evidence of recombination
 -----------------------------------------------------------------
-[[back to top]](day3_morning.html)
-[[HOME]](index.html)
+[[back to top]](https://github.com/alipirani88/Comparative_Genomics/blob/master/day3_morning/README.md)
+[[HOME]](https://github.com/alipirani88/Comparative_Genomics/blob/master/README.md)
 
 An often-overlooked aspect of a proper phylogenetic analysis is to exclude recombinant sequences. Homologous recombination in bacterial genomes is a mode of horizontal transfer, wherein genomic DNA is taken up and swapped in for a homologous sequence. The reason it is critical to account for these recombinant regions is that these horizontally acquired sequences do not represent the phylogenetic history of the strain of interest, but rather in contains information regarding the strain in which the sequence was acquired from. One simple approach for detecting the presence of recombination is to look at the density of variants across a genome. The existence of unusually high or low densities of variants is suggestive that these regions of aberrant density were horizontally acquired. Here we will look at our closely related A. baumannii genomes to see if there is evidence of aberrant variant densities.
 
@@ -194,6 +194,10 @@ For this analysis we want to exclude the out-group, because we are interested in
 ```
 
 abau_msa_no_outgroup = abau_msa[c('ACICU_genome','AbauA_genome','AbauC_genome','AbauB_genome'),]
+
+or 
+
+abau_msa_no_outgroup = abau_msa[c('ACICU_genome.fa/1-3996847','AbauA_genome.fa/1-3953855','AbauB_genome.fa/1-4014916','AbauC_genome.fa/1-4200364', 'Abau_AB0057_genome.fa/1-4050513'),]
 
 ```
 
@@ -229,8 +233,8 @@ hist(which(abau_no_outgroup_var_pos & abau_no_outgroup_non_gap_pos), 10000)
 
 Perform recombination filtering with [Gubbins](https://www.google.com/search?q=gubbins+sanger&ie=utf-8&oe=utf-8)
 ----------------------------------------------
-[[back to top]](day3_morning.html)
-[[HOME]](index.html)
+[[back to top]](https://github.com/alipirani88/Comparative_Genomics/blob/master/day3_morning/README.md)
+[[HOME]](https://github.com/alipirani88/Comparative_Genomics/blob/master/README.md)
 
 Now that we know there is recombination, we know that we need to filter out the recombinant regions to discern the true phylogenetic relationship among our strains. In fact, this is such an extreme case (~99% of variants of recombinant), that we could be totally misled without filtering recombinant regions. To accomplish this we will use the tool gubbins, which essentially relies on elevated regions of variant density to perform recombination filtering.
 
@@ -256,7 +260,9 @@ d3m
 
 #or
 
-cd /scratch/micro612w18_fluxod/username/day3_morn
+cd /scratch/micro612w19_fluxod/username/day3_morn
+
+sed -i 's/\/1-.*//g' mauve_ECII_outgroup.fasta
 
 run_gubbins.py -v -f 50 -o Abau_AB0057_genome mauve_ECII_outgroup.fasta
 
@@ -287,8 +293,8 @@ Use cyberduck or scp to get gubbins output files into Abau_mauve on your local s
 
 cd ~/Desktop/Abau_mauve
 
-scp username@flux-xfer.arc-ts.umich.edu:/scratch/micro612w18_fluxod/username/day3_morn/mauve_ECII_outgroup.recombination.pdf  ./
-scp username@flux-xfer.arc-ts.umich.edu:/scratch/micro612w18_fluxod/username/day3_morn/mauve_ECII_outgroup.final_tree.tre  ./
+scp username@flux-xfer.arc-ts.umich.edu:/scratch/micro612w19_fluxod/username/day3_morn/mauve_ECII_outgroup.recombination.pdf  ./
+scp username@flux-xfer.arc-ts.umich.edu:/scratch/micro612w19_fluxod/username/day3_morn/mauve_ECII_outgroup.final_tree.tre  ./
 
 ```
 
@@ -318,10 +324,11 @@ How does the structure look different than the unfiltered tree?
 
 - Note that turning back to the backstory of these isolates, Abau_B and Abau_C were both isolated first from the same patient. So this analysis supports that patient having imported both strains, which likely diverged at a prior hospital at which they resided.
 
-Create annotated publication quality trees with [iTOL](http://itol.embl.de/)
+<!--Create annotated publication quality trees with [iTOL](http://itol.embl.de/)-->
+Overlay metadata on your tree using R 
 ------------------------------------------------------
-[[back to top]](day3_morning.html)
-[[HOME]](index.html)
+[[back to top]](https://github.com/alipirani88/Comparative_Genomics/blob/master/day3_morning/README.md)
+[[HOME]](https://github.com/alipirani88/Comparative_Genomics/blob/master/README.md)
 
 For the final exercise we will use a different dataset, composed of USA300 methicillin-resistant Staphylococcus aureus genomes. USA300 is a strain of growing concern, as it has been observed to cause infections in both hospitals and in otherwise healthy individuals in the community. An open question is whether there are sub-clades of USA300 in the hospital and the community, or if they are all the same. Here you will create an annotated phylogenetic tree of strains from the community and the hospital, to discern if these form distinct clusters.
 
@@ -335,8 +342,8 @@ cd ~/Desktop (or wherever your desktop is)
 mkdir MRSA_genomes 
 cd MRSA_genomes
 
-scp username@flux-xfer.arc-ts.umich.edu:/scratch/micro612w18_fluxod/username/day3_morn/2016-3-9_KP_BSI_USA300.fa  ./
-scp username@flux-xfer.arc-ts.umich.edu:/scratch/micro612w18_fluxod/username/day3_morn/2016-3-9_KP_BSI_USA300_iTOL_HA_vs_CA.txt  ./
+scp username@flux-xfer.arc-ts.umich.edu:/scratch/micro612w19_fluxod/username/day3_morn/2016-03-09_KP_BSI_USA300.fa  ./
+scp username@flux-xfer.arc-ts.umich.edu:/scratch/micro612w19_fluxod/username/day3_morn/HA_vs_CA  ./
 
 
 ```
@@ -346,8 +353,8 @@ scp username@flux-xfer.arc-ts.umich.edu:/scratch/micro612w18_fluxod/username/day
 Before we embark on our phylogenetic analysis, lets look at the SNP density to verify that there is no recombination
 
 ```
-
-mrsa_msa = read.dna('2016-3-9_KP_BSI_USA300.fa', format = 'fasta') 
+library(ape)
+mrsa_msa = read.dna('2016-03-09_KP_BSI_USA300.fa', format = 'fasta') 
 mrsa_msa_bin = apply(mrsa_msa, 2, FUN = function(x){x == x[1]}) 
 mrsa_var_pos = colSums(mrsa_msa_bin) < nrow(mrsa_msa_bin) 
 hist(which(mrsa_var_pos), 10000)
@@ -356,60 +363,142 @@ hist(which(mrsa_var_pos), 10000)
 
 Does it look like there is evidence of recombination?
 
-> ***iii. Create fasta alignment with only variable positions***
+<!-- > ***iii. Create fasta alignment with only variable positions*** -->
 
-Next, lets create a new fasta alignment file containing only the variant positions, as this will be easier to deal with in Seaview
+<!--Next, lets create a new fasta alignment file containing only the variant positions, as this will be easier to deal with in Seaview-->
+
+<!--```-->
+
+<!--write.dna(mrsa_msa[, mrsa_var_pos], file = '2016-3-9_KP_BSI_USA300_var_pos.fa', format = 'fasta')-->
+
+<!--```-->
+
+> ***iii. Create neighbor joining tree in R ***
+
+We will be using R to construct a neighbor-joining tree. Neighbor joining trees fall under the category of "distance-based" tree building. There are more sophisticated algorithms for tree building, including maximum likelihood and bayesian methods. 
+
+There are a number of bioinformatics tools to create trees. Note that in your research it is not a good idea to use these phylogenetic tools completely blind and I strongly encourage embarking on deeper learning yourself, or consulting with an expert before doing an analysis for a publication. 
+
+One resource here at University of Michigan is the Phylogenetic Methods course, EEB 491. 
+
+First, we will need to install and load in some packages to work with tree objects in R. 
+```
+
+install.packages('phangorn')
+install.packages('phytools')
+
+library(ape) #installed previously, load in if not already in your environment 
+library(phangorn)
+library(phytools)
+```
+
+Next, we will create a pairwise SNV distance matrix of the MRSA samples to create a neighbor joining tree. 
+
+```
+mrsa_msa_var = mrsa_msa[, mrsa_var_pos]
+dna_dist = dist.dna(mrsa_msa_var, model = 'N', as.matrix = TRUE)
+```
+
+Finally, we can use the distance matrix to construct a neighbor joining tree using the function NJ()
+```
+NJ_tree = NJ(dna_dist) 
+```
+
+We can look at our tree using plot()
+
+```
+plot(NJ_tree)
+```
+
+We can explore other representations of our tree in R using the flag "type" in the plot function 
+```
+plot(NJ_tree, type = 'fan')
+plot(NJ_tree, type = 'cladogram')
+plot(NJ_tree, type = 'phylogram') #default
 
 ```
 
-write.dna(mrsa_msa[, mrsa_var_pos], file = '2016-3-9_KP_BSI_USA300_var_pos.fa', format = 'fasta')
+
+<!-- ***iv. Read alignment into Seaview and construct Neighbor Joining tree***-->
+
+<!--In the previous exercise, we used Seaview to look at a pre-existing tree, here we will use Seaview to create a tree from a
+multiple sequence alignment -->
+
+<!--Read in multiple alignment of variable positions-->
+
+<!--```-->
+<!--<!--Go to File -> open ('2016-3-9_KP_BSI_USA300_var_pos.fa)-->
+<!--```-->
+
+<!--Construct Neighbor Joining phylogenetic tree with default parameters (note, this will take a few minutes)-->
+
+<!--```-->
+<!--Go to Trees -> select Distance Methods -> BioNJ -> (Select Bootstrap with 20 replicates) -> Go-->
+<!--```-->
+
+<!--Save your tree-->
+
+<!--```-->
+<!--File -> Save rooted tree-->
+<!--```-->
+
+<!--Note that in your research it is not a good idea to use these phylogenetic tools completely blind and I strongly encourage embarking on deeper learning yourself, or consulting with an expert before doing an analysis for a publication-->
+
+<!-- > ***v. Read tree into iTOL*** -->
+
+<!--```-->
+
+<!--To make a prettier tree and add annotations we will use iTOL (http://itol.embl.de/). 
+
+<!--Go to http://itol.embl.de/-->
+
+<!--To load your tree, click on upload, and select the rooted tree you just created in Seaview-->
+
+<!--```-->
+
+<!--Explore different visualization options for your tree (e.g. make it circular, show bootstrap values, try collapsing nodes/branches)-->
+
+<!--Note that you can always reset your tree if you are unhappy with the changes you’ve made-->
+
+> ***iv. Add annotations to tree in R ***
+
+Now, we will overlay our data on whether an isolate was from a community or hospital infection onto the tree. 
+
+Here is a great example of some of the different ways to annotate your trees in R: https://rdrr.io/cran/ape/man/nodelabels.html
+
+First, we will read in our metadata. 
+
+```
+metadata = read.table('HA_vs_CA', header = TRUE, stringsAsFactors = FALSE)
 
 ```
 
-> ***iv. Read alignment into Seaview and construct Neighbor Joining tree***
-
-In the previous exercise, we used Seaview to look at a pre-existing tree, here we will use Seaview to create a tree from a
-multiple sequence alignment 
-
-Read in multiple alignment of variable positions
+Next, we will create our isolate legend and assign colors to the legend. 
 
 ```
-Go to File -> open ('2016-3-9_KP_BSI_USA300_var_pos.fa)
-```
-
-Construct Neighbor Joining phylogenetic tree with default parameters (note, this will take a few minutes)
-
-```
-Go to Trees -> select Distance Methods -> BioNJ -> (Select Bootstrap with 20 replicates) -> Go
-```
-
-Save your tree
-
-```
-File -> Save rooted tree
-```
-
-Note that in your research it is not a good idea to use these phylogenetic tools completely blind and I strongly encourage embarking on deeper learning yourself, or consulting with an expert before doing an analysis for a publication
-
-> ***v. Read tree into iTOL***
+isolate_legend = structure(metadata[,2], names = metadata[,1])
+isolate_colors = structure(c('red', 'blue'), names = sort(unique(isolate_legend)))
 
 ```
 
-To make a prettier tree and add annotations we will use iTOL (http://itol.embl.de/). 
+Finally, we can use the function tiplabels() to add annotations to our tree and the function legend() to put a legend on our tree.  
 
-Go to http://itol.embl.de/
-
-To load your tree, click on upload, and select the rooted tree you just created in Seaview
+```
+plot(NJ_tree, type = 'fan', no.margin = TRUE, 
+     cex = 0.5, label.offset = 3, align.tip.label = FALSE)
+tiplabels(pie = to.matrix(isolate_legend,names(isolate_colors)), 
+          piecol = isolate_colors, cex = 0.3, adj = 1.4)
+legend('bottomleft', legend = names(isolate_colors), 
+       col = "black", pt.bg = isolate_colors, pch = 21, cex = 1)
 
 ```
 
-Explore different visualization options for your tree (e.g. make it circular, show bootstrap values, try collapsing nodes/branches)
 
-Note that you can always reset your tree if you are unhappy with the changes you’ve made
 
-> ***vi. Add annotations to tree***
 
-One of the most powerful features of iTOL is its ability to overlay diverse types of descriptive meta-data on your tree (http://itol.embl.de/help.cgi#datasets). Here, we will overlay our data on whether an isolate was from a community or hospital infection. To do this simply drag-and-drop the annotation file (2016-3-9_KP_BSI_USA300_iTOL_HA_vs_CA.txt) on your tree and voila! 
+<!--One of the most powerful features of iTOL is its ability to overlay diverse types of descriptive meta-data on your tree (http://itol.embl.de/help.cgi#datasets). Here, we will overlay our data on whether an isolate was from a community or hospital infection. To do this simply drag-and-drop the annotation file (2016-3-9_KP_BSI_USA300_iTOL_HA_vs_CA.txt) on your tree and voila! -->
 
 - Do community and hospital isolates cluster together, or are they inter-mixed?
 
+
+Note, there are also web tools out there to overlay metadata onto your tree and to manipulate the tree in other ways. One such tool is iTOL. 
