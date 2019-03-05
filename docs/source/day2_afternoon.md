@@ -1,6 +1,6 @@
 Day 2 Afternoon
 ===============
-[[HOME]](index.html)
+[[HOME]](https://github.com/alipirani88/Comparative_Genomics/blob/master/README.md)
 
 High-throughput BLAST and pan-genome analysis
 ---------------------------------------------
@@ -19,13 +19,13 @@ Execute the following command to copy files for this afternoon’s exercises to 
 
 ```  
 
-cd /scratch/micro612w18_fluxod/username
+cd /scratch/micro612w19_fluxod/username
 
 or
 
 wd
 
-cp -r /scratch/micro612w18_fluxod/shared/data/day2_after/ ./
+cp -r /scratch/micro612w19_fluxod/shared/data/day2_after/ ./
 
 ```
 
@@ -86,6 +86,14 @@ less KPC_blastp_results.tsv
 
 - **Exercise:** Determine which *Enterococcus* genomes contain vancomycin resistance genes. To do this you will need to: i) create a protein BLAST database for `ardb_van.pfasta`, ii) concetenate the genomes sequences in the `.fasta` files and iii) use `blastx` to BLAST nucleotide genomes against a protein database. 
 
+<details>
+  <summary>Solution</summary>
+  
+```
+Generate results and Get the solution here
+```
+</details>
+
 Identify antibiotic resistance genes with [ARIBA](https://github.com/sanger-pathogens/ariba) directly from paired end reads
 ----------------------------------------------------------
 [[back to top]](day2_afternoon.html)
@@ -95,7 +103,7 @@ Now let's look at the full spectrum of antibiotic resistance genes in our *Klebs
 
 ARIBA (Antimicrobial Resistance Identification By Assembly) is a tool that identifies antibiotic resistance genes by running local assemblies. The input is a FASTA file of reference sequences (can be a mix of genes and noncoding sequences) and paired sequencing reads. ARIBA reports which of the reference sequences were found, plus detailed information on the quality of the assemblies and any variants between the sequencing reads and the reference sequences.
 
-ARIBA is compatible with various databases and also contains a utility to download different databases such as: argannot, card, megares, plasmidfinder, resfinder, srst2_argannot, vfdb_core. Today, we will be working with the [card](https://card.mcmaster.ca/) database, which has been downloaded and placed in the `/scratch/micro612w18_fluxod/shared/out.card.prepareref/` directory.
+ARIBA is compatible with various databases and also contains a utility to download different databases such as: argannot, card, megares, plasmidfinder, resfinder, srst2_argannot, vfdb_core. Today, we will be working with the [card](https://card.mcmaster.ca/) database, which has been downloaded and placed in the `/scratch/micro612w19_fluxod/shared/bin/ariba/database/CARD/` directory.
 
 <!---
 Note: There is an issue with downloading the database. They are in a process to fix the broken CARD database link issue. For now, I am using my own downloaded database.
@@ -111,7 +119,7 @@ Note: There is an issue with downloading the database. They are in a process to 
 
 > ***i. Run ARIBA on input paired-end fastq reads for resistance gene identification.***
 
-The fastq reads are placed in the `kpneumo_fastq` directory. Enter an interactive flux session, change directories to `day2_after` and run the four commands below to start ARIBA jobs in the background.
+The fastq reads are placed in the `kpneumo_fastq` directory. Since ARIBA is a memory intensive, we will enter an interactive flux session to run this exercise. Start the interactive session and change directories to `day2_after` and run the short for loop that will  commands below to start ARIBA jobs in the background.
 
 <!---
 module load python-anaconda3/latest
@@ -120,25 +128,33 @@ module load python-anaconda3/latest
 ```
 iflux
 
-cd /scratch/micro612w18_fluxod/username/day2_after
+cd /scratch/micro612w19_fluxod/username/day2_after
 
 #or 
 
 d2a
 
-#Load dependency
+#Load dependencies
 
-module load cd-hit
+module load python-anaconda3/latest-3.6   bowtie2/2.1.0   cd-hit/4.6.4   mummer/3.23  ariba/2.13.3
+
 
 #ARIBA commands
 
+# List forward end fastq files in the directory and save the filenames into the variable samples. 
 samples=$(ls kpneumo_fastq/*1.fastq.gz) #forward reads
-for samp in $samples; do
-  db_dir=/scratch/micro612w18_fluxod/shared/out.card.prepareref/ #reference database
-  samp2=${samp//1/2} #reverse reads
-  outdir=$(echo ${samp//.fastq.gz/} | cut -d/ -f2) #output directory
-  /nfs/esnitkin/bin_group/anaconda3/bin/python /nfs/esnitkin/bin_group/ariba/scripts/ariba run --force $db_dir $samp $samp2 $outdir & #ariba command
+
+# Set ARIBA dabase directory to the CARD database that we downloaded in the below folder
+db_dir=/scratch/micro612w19_fluxod/shared/bin/ariba/database/CARD/out.card.proteus.prepareref/ #reference database
+
+# Run for loop, where it generates ARIBA command for each of the forward end files.
+for samp in $samples; do   
+samp2=${samp//1.fastq/2.fastq} #reverse reads   
+outdir=$(echo ${samp//.fastq.gz/} | cut -d/ -f2) #output directory 
+ariba run --force $db_dir $samp $samp2 $outdir & #ariba command 
 done
+
+
 ```
 
 The "&" in the above commands(at the end) is a little unix trick to run commands in background. You can run multiple commands in background and make full use of parallel processing. You can check the status of these background jobs by typing:
@@ -153,9 +169,9 @@ ARIBA has a summary function that summarises the results from one or more sample
 
 ```
 
-/nfs/esnitkin/bin_group/anaconda3/bin/ariba summary --preset minimal kpneumo_ariba_minimal_results */report.tsv
+ariba summary --preset minimal kpneumo_ariba_minimal_results */report.tsv
 
-/nfs/esnitkin/bin_group/anaconda3/bin/ariba summary --preset all kpneumo_ariba_all_results */report.tsv
+ariba summary --preset all kpneumo_ariba_all_results */report.tsv
 
 ```
 
@@ -167,8 +183,8 @@ The ARIBA summary generates three output:
 Lets copy these  files, along with a metadata file, to the local system using cyberduck or scp.
 
 ```
-scp username\@flux-xfer.arc-ts.umich.edu:/scratch/micro612w18_fluxod/username/day2_after/kpneumo_ariba* ~/Desktop/
-scp username\@flux-xfer.arc-ts.umich.edu:/scratch/micro612w18_fluxod/username/day2_after/kpneumo_source.tsv ~/Desktop/
+scp username\@flux-xfer.arc-ts.umich.edu:/scratch/micro612w19_fluxod/username/day2_after/kpneumo_ariba* ~/Desktop/
+scp username\@flux-xfer.arc-ts.umich.edu:/scratch/micro612w19_fluxod/username/day2_after/kpneumo_source.tsv ~/Desktop/
 ```
 
 Drag and drop these two files onto the [Phandango](http://jameshadfield.github.io/phandango/#/) website. What types of resistance genes do you see in these *Klebsiella* genomes? This [review]() may help interpret.
@@ -179,7 +195,7 @@ Drag and drop these two files onto the [Phandango](http://jameshadfield.github.i
 
 ```
 ariba_full  = read.csv(file = '~/Desktop/kpneumo_ariba_all_results.csv', row.names = 1)
-rownames(ariba_full) = gsub('/report.tsv','',rownames(ariba_full))a
+rownames(ariba_full) = gsub('/report.tsv','',rownames(ariba_full))
 ```
 
 - Subset to get description for each gene
@@ -211,7 +227,21 @@ colnames(annots) = 'Source'
 pheatmap(ariba_full_match,annotation_rows = annots)
 ```
 
-- **Exercise:** Bacteria of the same species can be classified into different sequence types (STs) based on the sequence identity of certain housekeeping genes using a technique called [multilocus sequence typing (MLST)](https://en.wikipedia.org/wiki/Multilocus_sequence_typing). Sometimes, different sequence types are associated with different environments or different antibiotic resistance genes. We want to know what sequence type(s) our genomes come from, and if there are certain ones that are associated with certain sources or certain antibiotic resistance genes. Using the [ARIBA MLST manual](https://github.com/sanger-pathogens/ariba/wiki/MLST-calling-with-ARIBA), write and run a script to perform MLST calling with ARIBA on all 8 of our *K. pneumonia* genomes. Then, use this information to add a second annotation column to the heatmap we created above to visualize the results. Did you find anything interesting?
+- **Exercise:** Bacteria of the same species can be classified into different sequence types (STs) based on the sequence identity of certain housekeeping genes using a technique called [multilocus sequence typing (MLST)](https://en.wikipedia.org/wiki/Multilocus_sequence_typing). The different combination of these house keeping sequences present within a bacterial species are assigned as distinct alleles and, for each isolate, the alleles at each of the seven genes define the allelic profile or sequence type (ST). Sometimes, different sequence types are associated with different environments or different antibiotic resistance genes. We want to know what sequence type(s) our genomes come from, and if there are certain ones that are associated with certain sources or certain antibiotic resistance genes. 
+
+Using the [ARIBA MLST manual](https://github.com/sanger-pathogens/ariba/wiki/MLST-calling-with-ARIBA), write and run a script (similar to the one above) to perform MLST calling with ARIBA on all 8 of our *K. pneumonia* genomes. Then, use this information to add a second annotation column to the heatmap we created above to visualize the results. 
+
+Did you find anything interesting?
+
+
+<details>
+  <summary>Solution</summary>
+  
+```
+Generate results and Get the solution here
+```
+</details>
+
 
 Perform pan-genome analysis with [Roary](https://sanger-pathogens.github.io/Roary/)
 ----------------------------------------
@@ -237,7 +267,7 @@ Change your directory to day2_after
 
 > Make sure to change username with your uniqname
 
-cd /scratch/micro612w18_fluxod/username/day2_after/
+cd /scratch/micro612w19_fluxod/username/day2_after/
 
 or 
 
@@ -257,11 +287,11 @@ module load parallel
 module load mafft
 module load fasttree
 module load perl-modules
-module load R
+module load R/3.3.0
 module load roary
 
 #Run roary
-roary -p 4 -f Abau_genomes_roary_output -r -n -v Abau_genomes_gff/*.gff 
+roary -p 4 -f Abau_genomes_roary_output -r -n -e -v Abau_genomes_gff/*.gff 
 ```
 
 The above roary command will run pan-genome pipeline on gff files placed in Abau_genomes_gff(-v) using 4 threads(-p), save the results in an output directory Abau_genomes_roary_output(-f), generate R plots using .Rtab output files and align core genes(-n)
@@ -293,7 +323,7 @@ This tree along with the pan-genome matrix can then be used to plot some nice pl
 module load fasttree
 FastTree core_gene_alignment.aln > core_gene_alignment.tree
 module load python-anaconda3/latest
-python /scratch/micro612w18_fluxod/shared/bin/roary/contrib/roary_plots/roary_plots.py core_gene_alignment.tree gene_presence_absence.csv
+python /scratch/micro612w19_fluxod/shared/bin/roary/contrib/roary_plots/roary_plots.py core_gene_alignment.tree gene_presence_absence.csv
 ```
 -->
 
@@ -330,14 +360,14 @@ less gene_presence_absence_wannot.Rtab
 
 **Read matrix into R, generate exploratory plots and query pan-genome**
 
-Use scp or cyberduck to get gene_presence_absence_wannot.Rtab onto your laptop.
+Use scp or cyberduck to get gene_presence_absence_wannot.Rtab onto your laptop desktop folder.
 
 > ***i. Prepare and clean data***
 
 - Fire up RStudio and read gene_presence_absence_wannot.Rtab into matrix.
 
 ```
-pg_matrix = read.table('gene_presence_absence_wannot.Rtab', sep = "\t", quote = "", row.names = 1, skip = 1)
+pg_matrix = read.table('~/Desktop/gene_presence_absence_wannot.Rtab', sep = "\t", quote = "", row.names = 1, skip = 1)
 ```
 
 - Add column names back
@@ -432,8 +462,8 @@ Why does this make sense?
 
 Perform genome comparisons with [ACT](http://www.sanger.ac.uk/science/tools/artemis-comparison-tool-act)
 -------------------------------------
-[[back to top]](day2_afternoon.html)
-[[HOME]](index.html)
+[[back to top]](https://github.com/alipirani88/Comparative_Genomics/blob/master/day2_afternoon/README.md)
+[[HOME]](https://github.com/alipirani88/Comparative_Genomics/blob/master/README.md)
 
 In the previous exercises we were focusing on gene content, but losing the context of the structural variation underlying gene content variation (e.g. large insertions and deletions). 
 Here we will use ACT to compare two of our genomes (note that you can use ACT to compare more than two genomes if desired). 
@@ -444,7 +474,7 @@ As we saw this morning, to compare genomes in ACT we need to use BLAST to create
 
 ```
 
-cd scratch/micro612w18_fluxod/username/day2_after
+cd scratch/micro612w19_fluxod/username/day2_after
 blastall -p blastn -i ./Abau_genomes/AbauA_genome.fasta -d ./Abau_BLAST_DB/ACICU_genome.fasta -m 8 -e 1e-20 -o AbauA_vs_ACICU.blast
 
 ```
