@@ -57,7 +57,7 @@ Workshop
 [Day 2 Afternoon](https://github.com/alipirani88/Comparative_Genomics/blob/master/day2_afternoon/README.md#day-2-afternoon)
 ***
 - [High-throughput BLAST and pan-genome analysis](https://github.com/alipirani88/Comparative_Genomics/blob/master/day2_afternoon/README.md#high-throughput-blast-and-pan-genome-analysis)
-- [Determine which genomes contain KPC genes using [BLAST]](https://github.com/alipirani88/Comparative_Genomics/blob/master/day2_afternoon/README.md#determine-which-genomes-contain-kpc-genes-using-blast)
+- [Determine which genomes contain KPC genes using BLAST](https://github.com/alipirani88/Comparative_Genomics/blob/master/day2_afternoon/README.md#determine-which-genomes-contain-kpc-genes-using-blast)
 - [Identification of antibiotic resistance genes with ARIBA directly from paired-end reads](https://github.com/alipirani88/Comparative_Genomics/blob/master/day2_afternoon/README.md#identification-of-antibiotic-resistance-genes-with-ariba-directly-from-paired-end-reads)
 - [Perform pan-genome analysis with Roary](https://github.com/alipirani88/Comparative_Genomics/blob/master/day2_afternoon/README.md#perform-pan-genome-analysis-with-roary)
 
