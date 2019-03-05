@@ -1,11 +1,11 @@
 #Fix Image links
-sed -i 's/\!\[alt tag\](https:\/\/github.com\/alipirani88\/Comparative_Genomics\/blob\/master\/_img\/day1_morning\//![alt tag](/g' day1_morning.md
-sed -i 's/\!\[alt tag\](https:\/\/github.com\/alipirani88\/Comparative_Genomics\/blob\/master\/_img\/day2_morning\//![alt tag](/g' day2_morning.md
-sed -i 's/\!\[alt tag\](https:\/\/github.com\/alipirani88\/Comparative_Genomics\/blob\/master\/_img\/day3_morning\//![alt tag](/g' day3_morning.md
-sed -i 's/\!\[alt tag\](https:\/\/github.com\/alipirani88\/Comparative_Genomics\/blob\/master\/_img\/day1_afternoon\//![alt tag](/g' day1_afternoon.md
-sed -i 's/\!\[alt tag\](https:\/\/github.com\/alipirani88\/Comparative_Genomics\/blob\/master\/_img\/day2_afternoon\//![alt tag](/g' day2_afternoon.md
-sed -i 's/\!\[alt tag\](https:\/\/github.com\/alipirani88\/Comparative_Genomics\/blob\/master\/_img\/day3_afternoon\//![alt tag](/g' day3_afternoon.md
-sed -i 's/\!\[alt tag\](https:\/\/github.com\/alipirani88\/Comparative_Genomics\/blob\/master\/_img\/day1_after\//![alt tag](/g' day1_afternoon.md
+#sed -i 's/\!\[alt tag\](https:\/\/github.com\/alipirani88\/Comparative_Genomics\/blob\/master\/_img\/day1_morning\//![alt tag](/g' day1_morning.md
+#sed -i 's/\!\[alt tag\](https:\/\/github.com\/alipirani88\/Comparative_Genomics\/blob\/master\/_img\/day2_morning\//![alt tag](/g' day2_morning.md
+#sed -i 's/\!\[alt tag\](https:\/\/github.com\/alipirani88\/Comparative_Genomics\/blob\/master\/_img\/day3_morning\//![alt tag](/g' day3_morning.md
+#sed -i 's/\!\[alt tag\](https:\/\/github.com\/alipirani88\/Comparative_Genomics\/blob\/master\/_img\/day1_afternoon\//![alt tag](/g' day1_afternoon.md
+#sed -i 's/\!\[alt tag\](https:\/\/github.com\/alipirani88\/Comparative_Genomics\/blob\/master\/_img\/day2_afternoon\//![alt tag](/g' day2_afternoon.md
+#sed -i 's/\!\[alt tag\](https:\/\/github.com\/alipirani88\/Comparative_Genomics\/blob\/master\/_img\/day3_afternoon\//![alt tag](/g' day3_afternoon.md
+#sed -i 's/\!\[alt tag\](https:\/\/github.com\/alipirani88\/Comparative_Genomics\/blob\/master\/_img\/day1_after\//![alt tag](/g' day1_afternoon.md
 
 #Fix Home links
 sed -i 's/https:\/\/github.com\/alipirani88\/Comparative_Genomics\/blob\/master\/README.md/index.html/g' *.md
