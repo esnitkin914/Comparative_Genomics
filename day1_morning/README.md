@@ -2,6 +2,9 @@ Day 1 Morning
 =============
 [[HOME]](https://github.com/alipirani88/Comparative_Genomics/blob/master/README.md)
 
+Goal: This morning we will learn how to set up our unix environment which is a necessity when it comes to working on command line. Setting up an environment variable will make our life easier and running commands more enjoyable. We will brush up on few unix programs that some of you learned in Data Carpentry workshop and see how they can be employed for accessing and parsing omics datasets. We will also learn how for loops and awk can be employed to parse and extract complex information from common bioinformatics file formats. At the end of the session, an R exercise will give you an overview as to how you can parse and visualize omics datasets. 
+
+
 Installing and setting up Cyberduck for file transfer
 -----------------------------------------------------
 
