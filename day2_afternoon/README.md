@@ -239,7 +239,7 @@ pheatmap(ariba_full_match,annotation_row = annots)
 
 - **Exercise:** Bacteria of the same species can be classified into different sequence types (STs) based on the sequence identity of certain housekeeping genes using a technique called [multilocus sequence typing (MLST)](https://en.wikipedia.org/wiki/Multilocus_sequence_typing). The different combination of these house keeping sequences present within a bacterial species are assigned as distinct alleles and, for each isolate, the alleles at each of the seven genes define the allelic profile or sequence type (ST). Sometimes, different sequence types are associated with different environments or different antibiotic resistance genes. We want to know what sequence type(s) our genomes come from, and if there are certain ones that are associated with certain sources or certain antibiotic resistance genes. 
 
-Using the [ARIBA MLST manual](https://github.com/sanger-pathogens/ariba/wiki/MLST-calling-with-ARIBA), write and run a script (similar to the one above) to perform MLST calling with ARIBA on all 8 of our *K. pneumonia* genomes. Then, use this information to add a second annotation column to the heatmap we created above to visualize the results. 
+Using the [ARIBA MLST manual](https://github.com/sanger-pathogens/ariba/wiki/MLST-calling-with-ARIBA), write and run a script (similar to the one above) to perform MLST calling with ARIBA on all 8 of our *K. pneumonia* genomes. Then, use this information to add a second annotation column to the heatmap we created above to visualize the results. Running ARIBA mlst requires a MLST species database, so dont forget to download "Klebsiella pneumoniae" databsae and give the path to these database while running ARIBA MLST detection.
 
 Did you find anything interesting?
 
@@ -249,6 +249,12 @@ Did you find anything interesting?
   
 ```
 Generate results and Get the solution here
+
+module load python-anaconda3/latest-3.6   bowtie2/2.1.0   cd-hit/4.6.4   mummer/3.23  ariba/2.13.3
+
+ariba pubmlstspecies
+
+
 ```
 </details>
 
