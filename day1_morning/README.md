@@ -278,6 +278,7 @@ gff: used for describing genes and other features of DNA, RNA and protein sequen
 fastq: used for storing biological sequence / sequencing reads (usually nucleotide sequence) and its corresponding quality scores
 
 <!--
+
 - Question: Previously, you downloaded genome assembly fasta files and ran a shell script to count contigs. Now, lets say you want to find out the combined length of genome in each of these files. This can be achieved by running a short unix command piping together two unix programs: grep and wc. The key to crafting the command is understanding the  features of fasta files,
 
 > ***1) each sequence in fasta file is preceded by a fasta header that starts with ">",***
@@ -289,7 +290,7 @@ To determine the total length of our genome assemblies, we will use grep to matc
 
 <details>
   <summary>Solution</summary>
-
+-->
 
 <!--
 grep -v '^>' Acinetobacter_baumannii.fna | sed 's/[N,n]//g' | awk -F '\n' '{sum += length} END {print sum}'
@@ -297,7 +298,7 @@ for i in *.fna; do grep -v '^>' $i | sed 's/[N,n]//g' | awk -F '\n' '{sum += len
 grep -v '^#' sample.gff | awk -F '\t' '{print $3}' | grep 'rRNA' | wc -l
 grep -v '^#' sample.gff | awk -F '\t' '{print $3}' | grep 'CDS' | wc -l
 grep -v '^#' sample.gff | awk -F '\t' '{print $3}' | grep 'tRNA' | wc -l
--->
+
 
 ```
 
