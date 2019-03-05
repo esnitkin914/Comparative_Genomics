@@ -400,16 +400,6 @@ Select File -> sample_266_contigs_ordered.fasta -> Read BAM/VCF > select sorted 
 
 -->
  
-Using abacas and ACT to compare VRE/VSE genome 
-----------------------------------------------
-
-Now that we learned how ACT can be used to explore and compare genome organization and differences, try comparing VSE_ERR374928_contigs.fasta, a Vancomycin-susceptible Enterococcus against a Vancomycin-resistant Enterococcus reference genome Efaecium_Aus0085.fasta that are placed in VRE_vanB_comparison folder under day2_morn directory. 
-
-The relevant reference genbank file that can be used in ACT is Efaecium_Aus0085.gbf.
-
-Fo this exercise, you will use abacas to order VSE_ERR374928_contigs.fasta against the reference genome Efaecium_Aus0085.fasta and then use the relevant ordered.crunch and ordered.fasta files along with Efaecium_Aus0085.gbf for ACT visualization.
-
-
 Genome Annotation
 -----------------
 [[back to top]](https://github.com/alipirani88/Comparative_Genomics/blob/master/day2_morning/README.md)
@@ -465,4 +455,11 @@ Hint: USA300 MRSA acquired the SCCmec cassette (which contains a penicillin bind
 
 Image from David & Daum Clin Microbiol Rev. 2010 Jul;23(3):616-87. doi: 10.1128/CMR.00081-09.
 
+Using abacas and ACT to compare VRE/VSE genome 
+----------------------------------------------
 
+Now that we learned how ACT can be used to explore and compare genome organization and differences, try comparing VSE_ERR374928_contigs.fasta, a Vancomycin-susceptible Enterococcus against a Vancomycin-resistant Enterococcus reference genome Efaecium_Aus0085.fasta that are placed in VRE_vanB_comparison folder under day2_morn directory. 
+
+The relevant reference genbank file that can be used in ACT is Efaecium_Aus0085.gbf.
+
+Fo this exercise, you will use abacas to order VSE_ERR374928_contigs.fasta against the reference genome Efaecium_Aus0085.fasta and then use the relevant ordered.crunch and ordered.fasta files along with Efaecium_Aus0085.gbf for ACT visualization.
