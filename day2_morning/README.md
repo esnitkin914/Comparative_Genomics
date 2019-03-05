@@ -192,13 +192,12 @@ scp username@flux-xfer.arc-ts.umich.edu:/scratch/micro612w19_fluxod/username/day
 
 The report contains the Assembly, Fastq Screen and FastQC report for a mixture of 51 organisms' sequence data. Sample names for Assembly statistics ends with "l500_contigs".
 
-- Question: Play around with the General statistics table by sorting different columns. (click on a column header). To view just the assembly statistics, click on the N50 column header. Which sample has the worst N50 value? What do you think must be the reason?
+- Question: Which two sample's genome length i.e column Length (Mbp) stand out from all the other genome lengths and what is the reason (hint – check their GC % and their FastQ Screen result)?
 
-- Question: Which two sample's genome length i.e column Length (Mbp) stand out from all the other genome lengths? What is their GC %? What about their FastQ Screen result?
+- Question: Which sample has the worst N50 value? What do you think must be the reason?
 
-- Question: What about Number of Contigs section? Are you getting reasonable number of contigs or is there any bad assembly?
+- Question: Which sample has the second worst N50 value? Is it the same or a different issue from the worst sample?
 
-- Question: Any sample's quality stand out from the rest of the bunch?
 
 
 Compare assembly to reference genome and post-assembly genome improvement
@@ -474,4 +473,6 @@ Now that we learned how ACT can be used to explore and compare genome organizati
 
 The relevant reference genbank file that can be used in ACT is Efaecium_Aus0085.gbf.
 
-Fo this exercise, you will use abacas to order VSE_ERR374928_contigs.fasta against the reference genome Efaecium_Aus0085.fasta and then use the relevant ordered.crunch and ordered.fasta files along with Efaecium_Aus0085.gbf for ACT visualization.
+For this exercise, you will use abacas to order VSE_ERR374928_contigs.fasta against the reference genome Efaecium_Aus0085.fasta and then use the relevant ordered.crunch and ordered.fasta files along with Efaecium_Aus0085.gbf for ACT visualization. Use feature search tool in ACT to search for “vanB” in the resistant genome.
+
+
