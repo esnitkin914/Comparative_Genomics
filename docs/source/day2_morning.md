@@ -1,6 +1,6 @@
 Day 2 Morning
 =============
-[[HOME]](index.html)
+[[HOME]](https://github.com/alipirani88/Comparative_Genomics/blob/master/README.md)
 
 On day 1 we worked through a pipeline to map short-read data to a pre-existing assembly and identify single-nucleotide variants (SNVs) and small insertions/deletions. However, what this sort of analysis misses is the existence of sequence that is not present in your reference. Today we will tackle this issue by assembling our short reads into larger sequences, which we will then analyze to characterize the functions unique to our sequenced genome.   
 
@@ -13,23 +13,23 @@ wd
 
 #or 
 
-cd /scratch/micro612w18_fluxod/username
+cd /scratch/micro612w19_fluxod/username
 
-> Note: Check if you are in your home directory(/scratch/micro612w18_fluxod/username) by executing 'pwd' in terminal. 'pwd' stands for present working directory and it will display the directory you are in.
+> Note: Check if you are in your home directory(/scratch/micro612w19_fluxod/username) by executing 'pwd' in terminal. 'pwd' stands for present working directory and it will display the directory you are in.
 
 pwd
 
 > Note: Copy files for this morning's exercise in your home directory.
 
-cp -r /scratch/micro612w18_fluxod/shared/data/day2_morn ./
+cp -r /scratch/micro612w19_fluxod/shared/data/day2_morn ./
 ```
 
 Genome Assembly using [Spades](http://bioinf.spbau.ru/spades) Pipeline
 ------------------------------
-[[back to top]](day2_morning.html)
-[[HOME]](index.html)
+[[back to top]](https://github.com/alipirani88/Comparative_Genomics/blob/master/day2_morning/README.md)
+[[HOME]](https://github.com/alipirani88/Comparative_Genomics/blob/master/README.md)
 
-![alt tag](intro.png)
+![alt tag](https://github.com/alipirani88/Comparative_Genomics/blob/master/_img/day2_morning/intro.png)
 
 There are a wide range of tools available for assembly of microbial genomes. These assemblers fall in to two general algorithmic categories, which you can learn more about [here](?). In the end, most assemblers will perform well on microbial genomes, unless there is unusually high GC-content or an over-abundance of repetitive sequences, both of which make accurate assembly difficult. 
 
@@ -46,11 +46,11 @@ d2m
 
 #or
 
-cd /scratch/micro612w18_fluxod/username/day2_morn
+cd /scratch/micro612w19_fluxod/username/day2_morn
 
 > We will create a new directory in day2_morn to save genome assembly results:
 
-mkdir Rush_KPC_266_assembly_result
+mkdir MSSA_SRR5244781_assembly_result 
 
 ```
 
@@ -82,7 +82,7 @@ nano spades.pbs
 
 > Copy and paste the below command to the bottom of spades.pbs file.
 
-spades.py --pe1-1 forward_paired.fq.gz --pe1-2 reverse_paired.fq.gz --pe1-s forward_unpaired.fq.gz --pe1-s reverse_unpaired.fq.gz -o Rush_KPC_266_assembly_result/ --careful
+spades.py --pe1-1 forward_paired.fq.gz --pe1-2 reverse_paired.fq.gz --pe1-s forward_unpaired.fq.gz --pe1-s reverse_unpaired.fq.gz -o MSSA_SRR5244781_assembly_result/ --careful
 
 ```
 
@@ -100,8 +100,8 @@ qstat –u username
 
 Assembly evaluation using [QUAST](http://bioinf.spbau.ru/quast)
 ---------------------------------
-[[back to top]](day2_morning.html)
-[[HOME]](index.html)
+[[back to top]](https://github.com/alipirani88/Comparative_Genomics/blob/master/day2_morning/README.md)
+[[HOME]](https://github.com/alipirani88/Comparative_Genomics/blob/master/README.md)
 
 The output of an assembler is a set of contigs (contiguous sequences), that are composed of the short reads that we fed in. Once we have an assembly we want to evaluate how good it is. This is somewhat qualitative, but there are some standard metrics that people use to quantify the quality of their assembly. Useful metrics include: i) number of contigs (the fewer the better), ii) N50 (the minimum contig size that at least 50% of your assembly belongs, the bigger the better). In general you want your assembly to be less than 200 contigs and have an N50 greater than 50 Kb, although these numbers are highly dependent on the properties of the assembled genome. 
 
@@ -112,10 +112,10 @@ To evaluate some example assemblies we will use the tool quast. Quast produces a
 Now to check the example assemblies residing in your day2_morn folder, run the below quast command. Make sure you are in day2_morn folder in your home directory using 'pwd'
 
 ```
-quast.py -o quast sample_264_contigs.fasta sample_266_contigs.fasta
+quast.py -o quast SRR5244781_contigs.fasta SRR5244821_contigs.fasta
 ```
 
-The command above will generate a report file in /scratch/micro612w18_fluxod/username/day2_morn/quast
+The command above will generate a report file in /scratch/micro612w19_fluxod/username/day2_morn/quast
 
 > ***ii. Explore quast output***
 
@@ -130,7 +130,7 @@ Check the difference between the different assembly statistics. Also check the d
 Generating multiple sample reports using [multiqc](http://multiqc.info/)
 --------------------------------------------------
 
-![alt tag](multiqc.jpeg)
+![alt tag](https://github.com/alipirani88/Comparative_Genomics/blob/master/_img/day2_morning/multiqc.jpeg)
 
 Let's imagine a real-life scenario where you are working on a project which requires you to analyze and process hundreds of samples. Having a few samples with extremely bad quality is very commonplace. Including these bad samples into your analysis without adjusting their quality threshold can have a profound effect on downstream analysis and interpretations. 
 
@@ -147,7 +147,7 @@ Download the html report Cdiff_multiqc_report.html from your day2_morn folder.
 ```
 #Note: Make sure you change 'username' in the below command to your 'uniqname'.
 
-scp username@flux-xfer.arc-ts.umich.edu:/scratch/micro612w18_fluxod/username/day2_morn/Cdiff_multiqc_report.html /path-to-local-directory/
+scp username@flux-xfer.arc-ts.umich.edu:/scratch/micro612w19_fluxod/username/day2_morn/Cdiff_multiqc_report.html /path-to-local-directory/
 
 ```
 
@@ -166,7 +166,7 @@ d2m
 
 #or
 
-cd /scratch/micro612w18_fluxod/username/day2_morn/
+cd /scratch/micro612w19_fluxod/username/day2_morn/
 
 cd multiqc_analysis
 
@@ -186,7 +186,7 @@ ls
 
 #transfer this report to your local system and open it in a browser for visual inspection
 
-scp username@flux-xfer.arc-ts.umich.edu:/scratch/micro612w18_fluxod/username/day2_morn/workshop_multiqc.html /path-to-local-directory/
+scp username@flux-xfer.arc-ts.umich.edu:/scratch/micro612w19_fluxod/username/day2_morn/workshop_multiqc.html /path-to-local-directory/
 
 ```
 
@@ -203,10 +203,10 @@ The report contains the Assembly, Fastq Screen and FastQC report for a mixture o
 
 Compare assembly to reference genome and post-assembly genome improvement
 -------------------------------------------------------------------------
-[[back to top]](day2_morning.html)
-[[HOME]](index.html)
+[[back to top]](https://github.com/alipirani88/Comparative_Genomics/blob/master/day2_morning/README.md)
+[[HOME]](https://github.com/alipirani88/Comparative_Genomics/blob/master/README.md)
 
-Now that we feel confident in our assembly, let's compare it to our reference to see if we can identify any large insertions/deletions using a graphical user interface called Artemis Comparison Tool (ACT) for visualization. 
+Once we feel confident in our assembly by using quast or multiQC, let's compare it to our reference to see if we can identify any large insertions/deletions using a graphical user interface called Artemis Comparison Tool (ACT) for visualization. 
 
 <!---
 changed on 23 feb 2018
@@ -214,10 +214,10 @@ To do this we need to first align our genome assembly to our reference. We will 
 >i. Align unordered contigs to reference
 Create a BLAST database from your reference genome using the makeblastdb command.
 ```
-> Make sure you are in /scratch/micro612w18_fluxod/username/day2_morn directory
+> Make sure you are in /scratch/micro612w19_fluxod/username/day2_morn directory
 d2m
 #or
-cd /scratch/micro612w18_fluxod/username/day2_morn
+cd /scratch/micro612w19_fluxod/username/day2_morn
 makeblastdb -in KPNIH1.fasta -dbtype nucl -out KPNIH1.fasta
 ```
 >ii. Stitch together your contigs into a single sequence
@@ -244,7 +244,7 @@ cp KPNIH.gb KPNIH1.fasta concat_comp.blast sample_266_contigs_concat.fasta ACT_c
 Use scp to get sequences and BLAST alignments onto your laptop 
 ```
 > Note: Make sure you change 'username' in the below command with your 'uniqname'.
-scp -r username@flux-xfer.arc-ts.umich.edu:/scratch/micro612w18_fluxod/username/day2_morn/ACT_contig_comparison/ /path-to-local-directory/
+scp -r username@flux-xfer.arc-ts.umich.edu:/scratch/micro612w19_fluxod/username/day2_morn/ACT_contig_comparison/ /path-to-local-directory/
 ```
 >iii. Read these Input files in ACT_contig_comparison folder into ACT
 ```
@@ -256,7 +256,7 @@ Sequence file 2  = sample_266_contigs_concat.fasta
 Click Apply button
 ```
 > Notice that it is a complete mess!!!! The reason is that the contigs are in random order, so it is very difficult to visually compare to the reference. 
-![alt tag](mess.png)
+![alt tag](https://github.com/alipirani88/Comparative_Genomics/blob/master/_img/day2_morning/mess.png)
 -->
 
 In order to simplify the comparison between assembly and reference, we first need to orient the order of the contigs to reference. 
@@ -272,14 +272,14 @@ d2m
 
 #or
 
-cd /scratch/micro612w18_fluxod/username/day2_morn/
+cd /scratch/micro612w19_fluxod/username/day2_morn/
 ```
 
 Now, we will run abacas using these input parameters: 
 
-1) your reference sequence (-r KPNIH.fasta), 
+1) your reference sequence (-r FPR3757.fasta), 
 
-2) your contig file (-q sample_266_contigs.fasta), 
+2) your contig file (-q SRR5244781_contigs.fasta), 
 
 3) the program to use to align contigs to reference (-p nucmer), 
 
@@ -289,7 +289,7 @@ Now, we will run abacas using these input parameters:
 
 6) append contigs into pseudo-chromosome (-a), 
 
-7) the prefix for your output files (–o sample_266_contigs_ordered) 
+7) the prefix for your output files (–o SRR5244781_contigs_ordered) 
 
 Check if abacas can be properly invoked:
 
@@ -300,17 +300,26 @@ abacas.1.3.1.pl -h
 Run abacas on assembly:
 
 ```
-abacas.1.3.1.pl -r KPNIH1.fasta -q sample_266_contigs.fasta -p nucmer -b -d -a -o sample_266_contigs_ordered
+abacas.1.3.1.pl -r FPR3757.fasta -q SRR5244781_contigs.fasta -p nucmer -b -d -a -o SRR5244781_contigs_ordered
 ```
 
 > ***ii. Use ACT to view contig alignment to reference genome***
+
+- Make a new directory by the name ACT_contig_comparison in your day2_morn folder and copy relevant abacas/ACT comparison files to it. 
+
+
+```
+mkdir ACT_contig_comparison
+
+cp FPR3757.gb SRR5244781_contigs_ordered* ACT_contig_comparison/
+```
 
 - Use scp to get ordered fasta sequence and .cruch file onto your laptop 
 
 ```
 > Dont forget to change username and /path-to-local-ACT_contig_comparison-directory/ in the below command
 
-scp username@flux-xfer.arc-ts.umich.edu:/scratch/micro612w18_fluxod/username/day2_morn/sample_266_contigs_ordered* /path-to-previously-created-local-ACT_contig_comparison-directory/
+scp -r username@flux-xfer.arc-ts.umich.edu:/scratch/micro612w19_fluxod/username/day2_morn/ACT_contig_comparison/ /path-to-local-directory/
 
 ```
 
@@ -318,9 +327,9 @@ scp username@flux-xfer.arc-ts.umich.edu:/scratch/micro612w18_fluxod/username/day
 
 ```
 Go to File on top left corner of ACT window -> open 
-Sequence file 1 = KPNIH.gb 
-Comparison file 1  = sample_266_contigs_ordered.crunch 
-Sequence file 2  = sample_266_contigs_ordered.fasta
+Sequence file 1 = FPR3757.gb 
+Comparison file 1  = SRR5244781_contigs_ordered.crunch 
+Sequence file 2  = SRR5244781_contigs_ordered.fasta
 
 Click Apply button
 
@@ -329,12 +338,14 @@ Dont close the ACT window
 
 - Notice that the alignment is totally beautiful now!!! Scan through the alignment and play with ACT features to look at genes present in reference but not in assembly. Keep the ACT window open for further visualizations.
 
-![alt tag](beautiful.png)
 
+![alt tag](https://github.com/alipirani88/Comparative_Genomics/blob/master/_img/day2_morning/beautiful.png)
+
+<!--
 Map reads to the final ordered assembly
 ---------------------------------------
-[[back to top]](day2_morning.html)
-[[HOME]](index.html)
+[[back to top]](https://github.com/alipirani88/Comparative_Genomics/blob/master/day2_morning/README.md)
+[[HOME]](https://github.com/alipirani88/Comparative_Genomics/blob/master/README.md)
 
 You already know the drill/steps involved in reads mapping. Here, we will map the reads to the final ordered assembly genome instead of KPNIH1.fasta.
 
@@ -347,7 +358,7 @@ d2m
 
 #or
 
-cd /scratch/micro612w18_fluxod/username/day2_morn/
+cd /scratch/micro612w19_fluxod/username/day2_morn/
 
 bwa index sample_266_contigs_ordered.fasta
 samtools faidx sample_266_contigs_ordered.fasta
@@ -375,7 +386,7 @@ Copy this sorted and indexed BAM files to local ACT_contig_comparison directory.
 ```
 > Dont forget to change username and /path-to-local-ACT_contig_comparison-directory/ in the below command
 
-scp username@flux-xfer.arc-ts.umich.edu:/scratch/micro612w18_fluxod/username/day2_morn/sample_266_contigs_ordered_sort* /path-to-previously-created-local-ACT_contig_comparison-directory/
+scp username@flux-xfer.arc-ts.umich.edu:/scratch/micro612w19_fluxod/username/day2_morn/sample_266_contigs_ordered_sort* /path-to-previously-created-local-ACT_contig_comparison-directory/
 
 ```
 
@@ -385,17 +396,24 @@ Go back to ACT where your ordered contigs are still open in the window.
 Select File -> sample_266_contigs_ordered.fasta -> Read BAM/VCF > select sorted bam file(sample_266_contigs_ordered_sort.bam) you just copied from flux.
 ```
 
-![alt tag](aligned_reads_deletion.png)
+![alt tag](https://github.com/alipirani88/Comparative_Genomics/blob/master/_img/day2_morning/aligned_reads_deletion.png)
 
+-->
+ 
 Using abacas and ACT to compare VRE/VSE genome 
 ----------------------------------------------
 
-Now that we learned how ACT can be used to explore and compare genome organization and differences, try comparing VSE_ERR374928_contigs.fasta, a Vancomycin-susceptible Enterococcus against a Vancomycin-resistant Enterococcus reference genome Efaecium_Aus0085.fasta that are placed in VRE_vanB_comparison folder under day2_morn directory. The relevant reference genbank file that can be used in ACT is Efaecium_Aus0085.gbf.
+Now that we learned how ACT can be used to explore and compare genome organization and differences, try comparing VSE_ERR374928_contigs.fasta, a Vancomycin-susceptible Enterococcus against a Vancomycin-resistant Enterococcus reference genome Efaecium_Aus0085.fasta that are placed in VRE_vanB_comparison folder under day2_morn directory. 
+
+The relevant reference genbank file that can be used in ACT is Efaecium_Aus0085.gbf.
+
+Fo this exercise, you will use abacas to order VSE_ERR374928_contigs.fasta against the reference genome Efaecium_Aus0085.fasta and then use the relevant ordered.crunch and ordered.fasta files along with Efaecium_Aus0085.gbf for ACT visualization.
+
 
 Genome Annotation
 -----------------
-[[back to top]](day2_morning.html)
-[[HOME]](index.html)
+[[back to top]](https://github.com/alipirani88/Comparative_Genomics/blob/master/day2_morning/README.md)
+[[HOME]](https://github.com/alipirani88/Comparative_Genomics/blob/master/README.md)
 
 **Identify protein-coding genes with [Prokka](http://www.vicbioinformatics.com/software.prokka.shtml)**
 
@@ -416,15 +434,15 @@ d2m
 
 #or
 
-cd /scratch/micro612w18_fluxod/username/day2_morn/
+cd /scratch/micro612w19_fluxod/username/day2_morn/
 
-mkdir sample_266_prokka 
+mkdir SRR5244781_prokka 
 
-prokka -kingdom Bacteria -outdir sample_266_prokka -force -prefix sample_266 sample_266_contigs_ordered.fasta
+prokka -kingdom Bacteria -outdir SRR5244781_prokka -force -prefix SRR5244781 SRR5244781_contigs_ordered.fasta
 
 > Use scp or cyberduck to get Prokka annotated genome on your laptop. Dont forget to change username in the below command
 
-scp -r username@flux-xfer.arc-ts.umich.edu:/scratch/micro612w18_fluxod/username/day2_morn/sample_266_prokka/ /path-to-local-ACT_contig_comparison-directory/
+scp -r username@flux-xfer.arc-ts.umich.edu:/scratch/micro612w16_fluxod/username/day2_morn/SRR5244781_prokka/ /path-to-local-ACT_contig_comparison-directory/
 
 ```
 
@@ -434,9 +452,17 @@ Read files into ACT
 
 ```
 Go to File on top left corner of ACT window -> open 
-Sequence file 1  = KPNIH.gb 
-Comparison file 1  = sample_266_contigs_ordered.crunch 
-Sequence file 2  = sample_266_contigs_ordered.gbf
+Sequence file 1 = FPR3757.gb 
+Comparison file 1  = SRR5244781_contigs_ordered.crunch 
+Sequence file 2  = SRR5244781_contigs_ordered.gbf
 ```
 
-- Play around with ACT to see what types of genes are unique to sample 266!!! 
+- Play around with ACT to see what types of genes are unique to the MSSA genome SRR5244781 compared to the MRSA genome!!! 
+
+Hint: USA300 MRSA acquired the SCCmec cassette (which contains a penicillin binding protein and mecR1) and the element ACME (which contains gene arcA). 
+
+INSERT IMAGE
+
+Image from David & Daum Clin Microbiol Rev. 2010 Jul;23(3):616-87. doi: 10.1128/CMR.00081-09.
+
+
