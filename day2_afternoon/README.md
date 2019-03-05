@@ -196,6 +196,8 @@ Drag and drop these two files onto the [Phandango](http://jameshadfield.github.i
 ```
 ariba_full  = read.csv(file = '~/Desktop/kpneumo_ariba_all_results.csv', row.names = 1)
 rownames(ariba_full) = gsub('/report.tsv','',rownames(ariba_full))
+rownames(ariba_full) = gsub('_1','',rownames(ariba_full))
+rownames(ariba_full) = gsub('_R1','',rownames(ariba_full))
 ```
 
 - Subset to get description for each gene
