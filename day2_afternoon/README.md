@@ -84,7 +84,17 @@ less KPC_blastp_results.tsv
 
 - **Exercise:** Experiment with the `–outfmt` parameter, which controls different output formats that BLAST can produce. 
 
-- **Exercise:** Determine which *Enterococcus* genomes contain vancomycin resistance genes. To do this you will need to: i) create a protein BLAST database for `ardb_van.pfasta`, ii) concetenate the genomes sequences in the `.fasta` files and iii) use `blastx` to BLAST nucleotide genomes against a protein database. 
+- **Exercise:** In this exercise you will try a different type of blasting – blastx. Blastx compares a nucleotide sequence to a protein database by translating the nucleotide sequence in all six frames and running blastp. Your task is to determine which Enterococcus  genomes are vancomycin resistant by blasting against a database of van genes. The required files are located in VRE_van_blast folder under day2_after directory.
+
+Your steps should be:
+
+1) Concatenate .fasta files (VRE/VSE genomes) into a single file (your blast query file)
+2) Create a blastp database from ardb_van.pfasta
+3) Run blastx
+4) Verify that only the VRE genomes hit the database
+5) For extra credit, determine which van genes were hit by using grep to search for the hit gene ID in ardb_van.pfasta
+
+
 
 <details>
   <summary>Solution</summary>
