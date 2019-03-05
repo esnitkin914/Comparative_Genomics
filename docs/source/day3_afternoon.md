@@ -87,7 +87,7 @@ More information on SPANDx pipeline can be obtained from [this](https://sourcefo
 
 A snapshot of the pipeline is shown below:
 
-![alt tag](https://github.com/alipirani88/Comparative_Genomics/blob/master/_img/spandx.jpg)
+![alt tag](spandx.jpg)
 
 Because it takes a while to run, we have pre-run it for you. Your task will be to sort through the outputs of SPANDx. The detailed information about how to interpret the output is in SPANDx manual(section INTERPRETING THE OUTPUTS). 
 
