@@ -369,7 +369,13 @@ Read group tells aligners/other tools that certain reads were sequenced together
 
 This string with -R flag says that all reads belongs to ID:16 and library LB:1; with sample name SM:PCMP_H326_R1.fastq.gz and was sequenced on illumina platform PL:Illumina.
 
-You can extract this information from fastq read header. (@D00728:16:hf2mtbcxx:2:1101:1580:2235 1:N:0:ACTGAGCG+GTAAGGAG)
+You can extract this information from fastq read header. 
+
+```
+
+@D00728:16:hf2mtbcxx:2:1101:1580:2235 1:N:0:ACTGAGCG+GTAAGGAG
+
+```
 
 The output of BWA and most of the short-reads aligners is a SAM file. SAM format is considered as the standard output for most read aligners and stands for Sequence Alignment/Map format. It is a TAB-delimited format that describes how each reads were aligned to the reference sequence. 
 
