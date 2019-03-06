@@ -98,6 +98,11 @@ qsub -V spades.pbs
 qstat –u username 
 ```
 
+Submit PROKKA annotation job
+----------------------------
+
+
+
 Assembly evaluation using [QUAST](http://bioinf.spbau.ru/quast)
 ---------------------------------
 [[back to top]](https://github.com/alipirani88/Comparative_Genomics/blob/master/day2_morning/README.md)
