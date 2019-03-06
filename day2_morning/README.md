@@ -458,9 +458,7 @@ Click on GoTo->FPR3757.gb->Navigator-> GoTo and search by gene name. Search for 
 
 Scroll through the length of the genome. Are there any genes in the MSSA genome that are not in the MRSA genome? 
 
-See this diagram and paper for more information on the features of USA300 MRSA: 
-
-
+See [this](https://github.com/alipirani88/Comparative_Genomics/blob/master/_img/day2_morning/day2_morn_mecA.png) diagram and paper for more information on the features of USA300 MRSA: 
 
 Image from David & Daum Clin Microbiol Rev. 2010 Jul;23(3):616-87. doi: 10.1128/CMR.00081-09.
 
