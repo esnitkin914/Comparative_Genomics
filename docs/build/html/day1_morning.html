@@ -69,19 +69,29 @@
 <li class="toctree-l2"><a class="reference internal" href="#getting-your-data-onto-flux-and-setting-up-environment-variable">Getting your data onto Flux and setting up environment variable</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#unix-is-your-friend">Unix is your friend</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#your-first-sequence-analysis-program">Your first sequence analysis program!!!</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#plotting-genomic-coverage-in-r">Plotting genomic coverage in R</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#power-of-unix-commands">Power of Unix commands</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#contamination-screening-using-fastq-screen">Contamination Screening using FastQ Screen</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#quality-control-using-fastqc">Quality Control using FastQC</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#quality-trimming-using-trimmomatic">Quality Trimming using Trimmomatic</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#pairing-fastq-files-with-for-loop">Pairing fastq Files with for loop</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#exploring-gff-files">Exploring GFF files</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#plotting-genomic-coverage-in-r">Plotting genomic coverage in R</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#submit-variant-calling-job">Submit Variant Calling Job</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="day1_afternoon.html">Day 1 Afternoon</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="day1_afternoon.html#read-mapping">Read Mapping</a></li>
+<li class="toctree-l2"><a class="reference internal" href="day1_afternoon.html#contamination-screening-using-fastq-screen">Contamination Screening using FastQ Screen</a></li>
+<li class="toctree-l2"><a class="reference internal" href="day1_afternoon.html#quality-control-using-fastqc">Quality Control using FastQC</a></li>
+<li class="toctree-l2"><a class="reference internal" href="day1_afternoon.html#quality-trimming-using-trimmomatic">Quality Trimming using Trimmomatic</a></li>
+<li class="toctree-l2"><a class="reference internal" href="day1_afternoon.html#variant-calling-for-collistin-resistant-klebsiella-pneumoniae">Variant Calling for Collistin resistant Klebsiella pneumoniae</a></li>
+<li class="toctree-l2"><a class="reference internal" href="day1_afternoon.html#step1-cleaning">Step1_cleaning</a></li>
+<li class="toctree-l2"><a class="reference internal" href="day1_afternoon.html#step2-mapping">Step2_mapping</a></li>
+<li class="toctree-l2"><a class="reference internal" href="day1_afternoon.html#step3-samtobamconversion">Step3_samtobamconversion</a></li>
+<li class="toctree-l2"><a class="reference internal" href="day1_afternoon.html#step4-removeduplicates">Step4_removeduplicates</a></li>
+<li class="toctree-l2"><a class="reference internal" href="day1_afternoon.html#step5-variantcalling">Step5_variantcalling</a></li>
+<li class="toctree-l2"><a class="reference internal" href="day1_afternoon.html#step6-variantfilteraion">Step6_variantfilteraion</a></li>
+<li class="toctree-l2"><a class="reference internal" href="day1_afternoon.html#variant-annotation-using-snpeff">Variant Annotation using snpEff</a></li>
 <li class="toctree-l2"><a class="reference internal" href="day1_afternoon.html#generate-alignment-statistics">Generate Alignment Statistics</a></li>
-<li class="toctree-l2"><a class="reference internal" href="day1_afternoon.html#variant-calling-and-filteration">Variant Calling and Filteration</a></li>
-<li class="toctree-l2"><a class="reference internal" href="day1_afternoon.html#visualize-bam-and-vcf-files-in-artemis">Visualize BAM and VCF files in Artemis</a></li>
-<li class="toctree-l2"><a class="reference internal" href="day1_afternoon.html#vre-variant-calling-analysis">VRE variant calling analysis</a></li>
+<li class="toctree-l2"><a class="reference internal" href="day1_afternoon.html#visualize-bam-and-vcf-files-in-igv-integrative-genome-viewer">Visualize BAM and VCF files in IGV (Integrative Genome Viewer)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="day1_afternoon.html#exercise-daptomycin-resistance-in-vre">Exercise – Daptomycin resistance in VRE</a></li>
+<li class="toctree-l2"><a class="reference internal" href="day1_afternoon.html#exercise-colistin-resistance-in-acinetobacter">Exercise – Colistin resistance in Acinetobacter</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="day2_morning.html">Day 2 Morning</a><ul>
@@ -89,15 +99,14 @@
 <li class="toctree-l2"><a class="reference internal" href="day2_morning.html#assembly-evaluation-using-quast">Assembly evaluation using QUAST</a></li>
 <li class="toctree-l2"><a class="reference internal" href="day2_morning.html#generating-multiple-sample-reports-using-multiqc">Generating multiple sample reports using multiqc</a></li>
 <li class="toctree-l2"><a class="reference internal" href="day2_morning.html#compare-assembly-to-reference-genome-and-post-assembly-genome-improvement">Compare assembly to reference genome and post-assembly genome improvement</a></li>
-<li class="toctree-l2"><a class="reference internal" href="day2_morning.html#map-reads-to-the-final-ordered-assembly">Map reads to the final ordered assembly</a></li>
-<li class="toctree-l2"><a class="reference internal" href="day2_morning.html#using-abacas-and-act-to-compare-vre-vse-genome">Using abacas and ACT to compare VRE/VSE genome</a></li>
 <li class="toctree-l2"><a class="reference internal" href="day2_morning.html#genome-annotation">Genome Annotation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="day2_morning.html#using-abacas-and-act-to-compare-vre-vse-genome">Using abacas and ACT to compare VRE/VSE genome</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="day2_afternoon.html">Day 2 Afternoon</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="day2_afternoon.html#high-throughput-blast-and-pan-genome-analysis">High-throughput BLAST and pan-genome analysis</a></li>
-<li class="toctree-l2"><a class="reference internal" href="day2_afternoon.html#determine-which-genomes-contain-beta-lactamase-genes">Determine which genomes contain beta-lactamase genes</a></li>
-<li class="toctree-l2"><a class="reference internal" href="day2_afternoon.html#identification-of-antibiotic-resistance-genes-with-ariba-directly-from-paired-end-reads">Identification of antibiotic resistance genes with ARIBA directly from paired end reads</a></li>
+<li class="toctree-l2"><a class="reference internal" href="day2_afternoon.html#determine-which-genomes-contain-kpc-genes-using-blast">Determine which genomes contain KPC genes using BLAST</a></li>
+<li class="toctree-l2"><a class="reference internal" href="day2_afternoon.html#identify-antibiotic-resistance-genes-with-ariba-directly-from-paired-end-reads">Identify antibiotic resistance genes with ARIBA directly from paired end reads</a></li>
 <li class="toctree-l2"><a class="reference internal" href="day2_afternoon.html#perform-pan-genome-analysis-with-roary">Perform pan-genome analysis with Roary</a></li>
 <li class="toctree-l2"><a class="reference internal" href="day2_afternoon.html#perform-genome-comparisons-with-act">Perform genome comparisons with ACT</a></li>
 </ul>
@@ -107,7 +116,7 @@
 <li class="toctree-l2"><a class="reference internal" href="day3_morning.html#perform-some-dna-sequence-comparisons-and-phylogenetic-analysis-in-ape-an-r-package">Perform some DNA sequence comparisons and phylogenetic analysis in APE, an R package</a></li>
 <li class="toctree-l2"><a class="reference internal" href="day3_morning.html#perform-snp-density-analysis-to-discern-evidence-of-recombination">Perform SNP density analysis to discern evidence of recombination</a></li>
 <li class="toctree-l2"><a class="reference internal" href="day3_morning.html#perform-recombination-filtering-with-gubbins">Perform recombination filtering with Gubbins</a></li>
-<li class="toctree-l2"><a class="reference internal" href="day3_morning.html#create-annotated-publication-quality-trees-with-itol">Create annotated publication quality trees with iTOL</a></li>
+<li class="toctree-l2"><a class="reference internal" href="day3_morning.html#overlay-metadata-on-your-tree-using-r">Overlay metadata on your tree using R</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="day3_afternoon.html">Day 3 Afternoon</a><ul>
@@ -158,6 +167,7 @@
   <div class="section" id="day-1-morning">
 <span id="day-1-morning"></span><h1>Day 1 Morning<a class="headerlink" href="#day-1-morning" title="Permalink to this headline">¶</a></h1>
 <p><a class="reference external" href="index.html">[HOME]</a></p>
+<p>This morning we will learn how to set up our unix environment which is a necessity when it comes to working on command line. Setting up an environment variable will make our life easier and running commands more enjoyable. We will brush up on few unix programs that some of you learned in Data Carpentry workshop and see how they can be employed for accessing and parsing omics datasets. We will also learn how for loops and awk can be employed to parse and extract complex information from common bioinformatics file formats. At the end of the session, an R exercise will give you an overview as to how you can parse and visualize omics datasets.</p>
 <div class="section" id="installing-and-setting-up-cyberduck-for-file-transfer">
 <span id="installing-and-setting-up-cyberduck-for-file-transfer"></span><h2>Installing and setting up Cyberduck for file transfer<a class="headerlink" href="#installing-and-setting-up-cyberduck-for-file-transfer" title="Permalink to this headline">¶</a></h2>
 <p>During workshop, we will transfer different output files from flux to your local system. Cyberduck makes it easier to drag and drop any remote file onto your local system and vice versa. Of course, you can use &#8220;scp&#8221; to transfer files but Cyberduck provides a graphical interface to manage file transfer and helps avoid typing long file paths and commands.</p>
@@ -168,7 +178,7 @@
 <blockquote>
 <div><strong><em>3. Type sftp://flux-xfer.arc-ts.umich.edu in quickconnect bar, press enter and enter your flux username and password.</em></strong></div></blockquote>
 <blockquote>
-<div><strong><em>4. This will take you to your flux home directory /home/username. Select &#8220;Go&#8221; from tool bar at the top then select &#8220;Go to folder&#8221; and enter workshop home directory path: /scratch/micro612w18_fluxod/</em></strong></div></blockquote>
+<div><strong><em>4. This will take you to your flux home directory /home/username. Select &#8220;Go&#8221; from tool bar at the top then select &#8220;Go to folder&#8221; and enter workshop home directory path: /scratch/micro612w19_fluxod/</em></strong></div></blockquote>
 <p>To transfer or upload a file, you can drag and drop it into the location you want.</p>
 </div>
 <div class="section" id="getting-your-data-onto-flux-and-setting-up-environment-variable">
@@ -193,7 +203,7 @@ ssh username&#64;flux-login.arc-ts.umich.edu
 <li>setup a shortcut for getting on a cluster node, so that you don&#8217;t have to write out the full command each time.</li>
 </ol>
 <p>One way to set your environment variables would be to manually set up these variables everytime you log in, but this would be extremely tedious and inefficient. So, Unix has setup a way around this, which is to put your environment variable assignments in special files called .bashrc or .bash_profile. Every user has one or both of these files in their home directory, and what&#8217;s special about them is that the commands in them are executed every time you login. So, if you simply set your environmental variable assignments in one of these files, your environment will be setup just the way you want it each time you login!</p>
-<p>All the softwares/tools that we need in this workshop are installed in a directory &#8220;/scratch/micro612w18_fluxod/shared/bin/&#8221; and we want the shell to look for these installed tools in this directory. For this, We will save the full path to these tools in an environment variable PATH.</p>
+<p>All the softwares/tools that we need in this workshop are installed in a directory &#8220;/scratch/micro612w19_fluxod/shared/bin/&#8221; and we want the shell to look for these installed tools in this directory. For this, We will save the full path to these tools in an environment variable PATH.</p>
 <blockquote>
 <div><strong><em>i. Make a backup copy of bashrc file in case something goes wrong.</em></strong></div></blockquote>
 <pre class="literal-block">
@@ -211,50 +221,50 @@ cp ~/.bashrc ~/bashrc_backup
 ##Micro612 Workshop ENV
 
 #Aliases
-alias iflux='qsub -I -V -l nodes=1:ppn=4,pmem=4000mb,walltime=1:00:00:00 -q fluxod -l qos=flux -A micro612w18_fluxod'
-alias wd='cd /scratch/micro612w18_fluxod/username/'
-alias d1m='cd /scratch/micro612w18_fluxod/username/day1_morn'
-alias d1a='cd /scratch/micro612w18_fluxod/username/day1_after'
-alias d2m='cd /scratch/micro612w18_fluxod/username/day2_morn'
-alias d2a='cd /scratch/micro612w18_fluxod/username/day2_after'
-alias d3m='cd /scratch/micro612w18_fluxod/username/day3_morn'
-alias d3a='cd /scratch/micro612w18_fluxod/username/day3_after'
+alias iflux='qsub -I -V -l nodes=1:ppn=4,pmem=4000mb,walltime=1:00:00:00 -q fluxod -l qos=flux -A micro612w19_fluxod'
+alias wd='cd /scratch/micro612w19_fluxod/username/'
+alias d1m='cd /scratch/micro612w19_fluxod/username/day1_morn'
+alias d1a='cd /scratch/micro612w19_fluxod/username/day1_after'
+alias d2m='cd /scratch/micro612w19_fluxod/username/day2_morn'
+alias d2a='cd /scratch/micro612w19_fluxod/username/day2_after'
+alias d3m='cd /scratch/micro612w19_fluxod/username/day3_morn'
+alias d3a='cd /scratch/micro612w19_fluxod/username/day3_after'
 
 
 #Flux Modules
 module load perl-modules
 
 #Perl Libraries
-export PERL5LIB=/scratch/micro612w18_fluxod/shared/bin/PAGIT/lib:/scratch/micro612w18_fluxod/shared/bin/vcftools_0.1.12b/perl:$PERL5LIB
-export PERL5LIB=/scratch/micro612w18_fluxod/shared/perl_libs:$PERL5LIB
+export PERL5LIB=/scratch/micro612w19_fluxod/shared/bin/PAGIT/lib:/scratch/micro612w19_fluxod/shared/bin/vcftools_0.1.12b/perl:$PERL5LIB
+export PERL5LIB=/scratch/micro612w19_fluxod/shared/perl_libs:$PERL5LIB
 
 #Bioinformatics Tools
-export PATH=$PATH:/scratch/micro612w18_fluxod/shared/bin/ncbi-blast-2.7.1+/bin/
-export PATH=$PATH:/scratch/micro612w18_fluxod/shared/bin/MultiQC/build/scripts-2.7/
-export PATH=$PATH:/scratch/micro612w18_fluxod/shared/bin/mauve_snapshot_2015-02-13/linux-x64/
-export PATH=$PATH:/scratch/micro612w18_fluxod/shared/bin/vcftools_0.1.12b/perl/
-export PATH=$PATH:/scratch/micro612w18_fluxod/shared/bin/tabix-0.2.6/
-export PATH=$PATH:/scratch/micro612w18_fluxod/shared/bin/bwa-0.7.12/
-export PATH=$PATH:/scratch/micro612w18_fluxod/shared/bin/Trimmomatic/
-export PATH=$PATH:/scratch/micro612w18_fluxod/shared/bin/bcftools-1.2/
-export PATH=$PATH:/scratch/micro612w18_fluxod/shared/bin/samtools-1.2/
-export PATH=$PATH:/scratch/micro612w18_fluxod/shared/bin/sratoolkit/bin/
-export PATH=$PATH:/scratch/micro612w18_fluxod/shared/bin/Spades/bin/
-export PATH=$PATH:/scratch/micro612w18_fluxod/shared/bin/FastQC/
-export PATH=$PATH:/scratch/micro612w18_fluxod/shared/bin/GenomeAnalysisTK-3.3-0/
-export PATH=$PATH:/scratch/micro612w18_fluxod/shared/bin/picard-tools-1.130/
-export PATH=$PATH:/scratch/micro612w18_fluxod/shared/bin/qualimap_v2.1/
-export PATH=$PATH:/scratch/micro612w18_fluxod/shared/bin/vcftools_0.1.12b/bin/
-export PATH=$PATH:/scratch/micro612w18_fluxod/shared/bin/snpEff/
-export PATH=$PATH:/scratch/micro612w18_fluxod/shared/bin/PAGIT/ABACAS/
-export PATH=$PATH:/scratch/micro612w18_fluxod/shared/bin/blast-2.2.26/bin/
-export PATH=$PATH:/scratch/micro612w18_fluxod/shared/bin/quast/
-export PATH=$PATH:/scratch/micro612w18_fluxod/shared/bin/MUMmer3.23/
-export PATH=$PATH:/scratch/micro612w18_fluxod/shared/bin/fastq_screen_v0.5.2/
-export PATH=$PATH:/scratch/micro612w18_fluxod/shared/bin/prokka-1.11/bin/
-export PATH=$PATH:/scratch/micro612w18_fluxod/shared/bin/LS-BSR-master/
-export PATH=$PATH:/scratch/micro612w18_fluxod/shared/bin/bowtie2-2.2.6/
-export PATH=$PATH:/scratch/micro612w18_fluxod/shared/bin/mcl-14-137/src/alien/oxygen/src/
+export PATH=$PATH:/scratch/micro612w19_fluxod/shared/bin/ncbi-blast-2.7.1+/bin/
+export PATH=$PATH:/scratch/micro612w19_fluxod/shared/bin/MultiQC/build/scripts-2.7/
+export PATH=$PATH:/scratch/micro612w19_fluxod/shared/bin/mauve_snapshot_2015-02-13/linux-x64/
+export PATH=$PATH:/scratch/micro612w19_fluxod/shared/bin/vcftools_0.1.12b/perl/
+export PATH=$PATH:/scratch/micro612w19_fluxod/shared/bin/tabix-0.2.6/
+export PATH=$PATH:/scratch/micro612w19_fluxod/shared/bin/bwa-0.7.12/
+export PATH=$PATH:/scratch/micro612w19_fluxod/shared/bin/Trimmomatic/
+export PATH=$PATH:/scratch/micro612w19_fluxod/shared/bin/bcftools-1.2/
+export PATH=$PATH:/scratch/micro612w19_fluxod/shared/bin/samtools-1.2/
+export PATH=$PATH:/scratch/micro612w19_fluxod/shared/bin/sratoolkit/bin/
+export PATH=$PATH:/scratch/micro612w19_fluxod/shared/bin/Spades/bin/
+export PATH=$PATH:/scratch/micro612w19_fluxod/shared/bin/FastQC/
+export PATH=$PATH:/scratch/micro612w19_fluxod/shared/bin/GenomeAnalysisTK-3.3-0/
+export PATH=$PATH:/scratch/micro612w19_fluxod/shared/bin/picard-tools-1.130/
+export PATH=$PATH:/scratch/micro612w19_fluxod/shared/bin/qualimap_v2.1/
+export PATH=$PATH:/scratch/micro612w19_fluxod/shared/bin/vcftools_0.1.12b/bin/
+export PATH=$PATH:/scratch/micro612w19_fluxod/shared/bin/snpEff/
+export PATH=$PATH:/scratch/micro612w19_fluxod/shared/bin/PAGIT/ABACAS/
+export PATH=$PATH:/scratch/micro612w19_fluxod/shared/bin/blast-2.2.26/bin/
+export PATH=$PATH:/scratch/micro612w19_fluxod/shared/bin/quast/
+export PATH=$PATH:/scratch/micro612w19_fluxod/shared/bin/MUMmer3.23/
+export PATH=$PATH:/scratch/micro612w19_fluxod/shared/bin/fastq_screen_v0.5.2/
+export PATH=$PATH:/scratch/micro612w19_fluxod/shared/bin/prokka-1.11/bin/
+export PATH=$PATH:/scratch/micro612w19_fluxod/shared/bin/LS-BSR-master/
+export PATH=$PATH:/scratch/micro612w19_fluxod/shared/bin/bowtie2-2.2.6/
+export PATH=$PATH:/scratch/micro612w19_fluxod/shared/bin/mcl-14-137/src/alien/oxygen/src/
 
 </pre>
 <p></details></p>
@@ -284,7 +294,7 @@ echo $PATH
 wd
 
 </pre>
-<p>You should be in your workshop working directory that is /scratch/micro612w18_fluxod/username</p>
+<p>You should be in your workshop working directory that is /scratch/micro612w19_fluxod/username</p>
 <!-- Check the dependencies Pending tree file system Pending--></div>
 <div class="section" id="unix-is-your-friend">
 <span id="unix-is-your-friend"></span><h2>Unix is your friend<a class="headerlink" href="#unix-is-your-friend" title="Permalink to this headline">¶</a></h2>
@@ -301,7 +311,7 @@ wd
 <li>Execute the following commands to copy files for this morning’s exercises to your home directory:</li>
 </ul>
 <pre class="literal-block">
-cp -r /scratch/micro612w18_fluxod/shared/data/day1_morn/ ./
+cp -r /scratch/micro612w19_fluxod/shared/data/day1_morn/ ./
 
 cd day1_morn/
 
@@ -324,7 +334,7 @@ curl ftp://ftp.ncbi.nlm.nih.gov/genomes/refseq/bacteria/Escherichia_coli/all_ass
 
 </pre>
 <ul class="simple">
-<li>Decompress the compressed fasta file using gzip</li>
+<li>Decompress the gzip compressed fasta file using gzip command</li>
 </ul>
 <pre class="literal-block">
 gzip -d Acinetobacter_baumannii.fna.gz
@@ -335,47 +345,41 @@ gzip -d E_coli.fna.gz
 <pre class="literal-block">
 grep &quot;&gt;&quot; E_coli.fna | wc -l
 </pre>
-<p>Try this command on other assemblies to see how many contigs they have</p>
+<p>Try this command on other assemblies to see how many contigs they contain.</p>
 </div>
 <div class="section" id="your-first-sequence-analysis-program">
 <span id="your-first-sequence-analysis-program"></span><h2>Your first sequence analysis program!!!<a class="headerlink" href="#your-first-sequence-analysis-program" title="Permalink to this headline">¶</a></h2>
 <p>OK, so now that we have a useful command, wouldn’t it be great to turn it into a program that you can easily apply to a large number of genome assemblies? Of course it would! So, now we are going to take out cool contig counting command, and put it in a shell script that applies it to all files in the desired directory.</p>
-<!--- Copy “/scratch/micro612w18_fluxod/shared/fasta_counter.sh” to your current directory (Hint – use the “cp” command)--><ul class="simple">
+<!--- Copy “/scratch/micro612w19_fluxod/shared/fasta_counter.sh” to your current directory (Hint – use the “cp” command)--><p>There will be times when you have multiple sets of files in a folder in which case it becomes cumbersome to run individual commands on each file. To simplify this task, most programming language have a concept of loops that can be employed to repeat a task/command on a bunch of files repeatedly. Here we have three fasta files for which we want to know the number of contigs in each file. We can either run the above mentioned grep command seperately on each file or use it in a &#8220;for&#8221; loop that iterates through a set of values/files until that list is exhausted.</p>
+<p>Try the below example of for loop, that loops over a bunch of numbers and prints out each value until the list is exhausted.</p>
+<pre class="literal-block">
+for i in 1 2 3 4 5; do echo &quot;Looping ... number $i&quot;; done
+</pre>
+<p>A simple for loop statement consists of three sections:</p>
+<ol class="simple">
+<li>for statement that loops through values and files</li>
+<li>a do statement that can be any type of command that you want to run on a file or a tool that uses the current loop value  as an input</li>
+<li>done statement that indicates completion of a do statement.</li>
+</ol>
+<p>Note that the list values - (1 2 3 4 5) in the above for loop can be anything at all. It can be a bunch of files in a folder with a specific extension (*.gz, *.fasta, *.fna) or a list of values generated through a seperate command that we will see later.</p>
+<p>We will incorporate a similar type of for loop in fasta_counter.sh script that will loop over all the *.fna files in the folder. We will provide the name of the folder through a command line argument and count the number of contigs in each file. A command line argument is a sort of input that can be provided to a script which can then be used in different ways inside the script. fasta_counter.sh requires to know which directory to look for for *.fna files. For this purpose, we will use positional parameters that are a series of special variables ($0 through $9) that contain the contents of the command line.</p>
+<p>Lets take an example to understand what those parameters stands for:</p>
+<pre class="literal-block">
+./some_program.sh Argument1 Argument2 Argument3
+</pre>
+<p>In the above command, we provide three command line Arguments that acts like an input to some_program.sh
+These command line argument inputs can then be used to inside the scripts in the form of $0, $1, $2 and so on in different ways to run a command or a tool.</p>
+<p>Try running the above command and see how it prints out each positional parameters. $0 will be always be the name of the script. $1 would contain &#8220;Argument1&#8221; , $2 would contain &#8220;Argument2&#8221; and so on...</p>
+<p>Lets try to incorporate a for loop inside the fasta_counter.sh script that uses the first command line argument - i.e directory name and search for *.fna files in that directory and runs contig counting command on each of them.</p>
+<ul class="simple">
 <li>Open “fasta_counter.sh” in pico or your favourite text editor and follow instructions for making edits so it will do what we want it to do</li>
-<li>Run this script in day1_morn directory and verify that you get the correct results</li>
+<li>Run this script in day1_morn directory and verify that you get the correct results. Basic usage of the script will be:</li>
 </ul>
+<p>./fasta_counter.sh <directory containing files></p>
 <pre class="literal-block">
-bash fasta_counter.sh .
+./fasta_counter.sh .
 </pre>
-</div>
-<div class="section" id="plotting-genomic-coverage-in-r">
-<span id="plotting-genomic-coverage-in-r"></span><h2>Plotting genomic coverage in R<a class="headerlink" href="#plotting-genomic-coverage-in-r" title="Permalink to this headline">¶</a></h2>
-<p>Data visualization plays an important role in organizing, analyzing and interpreting large amount of omics data. R is one of the most basic and powerful tool for manipulating and visualizing these types of data. The following task will brush up some basic R plotting commands and help you visualize some complex omics data for interpretation.</p>
-<p>One of the most common types of genomic analysis involves comparing the newly sequenced read data of an organism to your choice of reference organism genome. Mapping millions of reads generated in a sequencing experiment to the reference genome fasta file and interpreting various parameters can achieve this analysis.
-One such parameter is validating how well your sequencing experiment performed and assessing the “uniformity” of coverage from whole-genome sequencing.&nbsp;Visualizing Sequencing coverage across the reference genome help us answer this question. Sequencing coverage describes the average number of reads that align to, or &#8220;cover,&#8221; known reference bases.</p>
-<p>The input for this task is a comma-separated file, which contains average sequencing coverage information i.e average number of reads mapped to each 1000 base pairs in reference genome. You can find this input file in your day1_morn directory by the name, Ecoli_coverage_average_bed.csv</p>
-<!---
-Let’s copy Ecoli_coverage_average_bed.csv file from flux shared directory to your desktop using ‘scp’. ‘scp’ stands for secure copy and is used for securely transferring files between remote host/server(flux) and your local computer system. (Both directions)
-scp username@flux-xfer.arc-ts.umich.edu:/scratch/micro612w18_fluxod/shared/Ecoli_coverage_average_bed.csv ~/Desktop/
-Note: You can use your choice of folder/path to copy the file instead of  “~/Desktop/”
---><p>Drag and drop this Ecoli_coverage_average_bed.csv to your local system using cyberduck.</p>
-<p>Now, Fire up R console or studio and import the file (Ecoli_coverage_average_bed.csv) using any type of data import functions in R (read.table, read.csv etc.)</p>
-<p>Hint: The file is comma-separated and contains header line (“bin,Average_coverage”) so use appropriate parameters while importing the file</p>
-<p>Once the data in file is imported into R object, you can plot the column Average_coverage as a time series plot to assess the coverage of your mapped reads across genome.</p>
-<p>Note: A&nbsp;time series plot&nbsp;is a graph that you can use to evaluate patterns and behavior in data over&nbsp;time. Here, we can employ the same plot to see the pattern i.e read depth/coverage at each 1000 bases (represented by bins columns where each bin represents Average number of reads mapped to each 1000 bases in reference genome) using the simplest R function for time series such as <a class="reference external" href="http://stat.ethz.ch/R-manual/R-devel/library/stats/html/plot.ts.html">plot.ts</a></p>
-<p>An example plot.ts plot for Ecoli_coverage_average_bed.csv is shown below for your reference.</p>
-<p><img alt="alt tag" src="_images/plot_1.png" /></p>
-<p>For advance and more beautiful visualization, ggplot2 can be employed to display the same plot. An example ggplot2 plot for Ecoli_coverage_average_bed.csv is shown below for your reference.</p>
-<p><img alt="alt tag" src="_images/plot_2.png" /></p>
-<p><details>
-<summary>Solution</summary></p>
-<pre class="literal-block">
-
-x &lt;- read.table(&quot;Ecoli_coverage_average_bed.csv&quot;, sep=&quot;,&quot;, header=TRUE)
-plot.ts(x$Average_coverage, xlab=&quot;Genome Position(1000bp bins)&quot;, ylab=&quot;Average Read Depth&quot;, main=&quot;Ecoli Bed Coverage&quot;, col=&quot;blue&quot;)
-
-</pre>
-<p></details></p>
+<p>The &#8221;.&#8221; sign tells the script to use current directory as its first command line argument($1)</p>
 </div>
 <div class="section" id="power-of-unix-commands">
 <span id="power-of-unix-commands"></span><h2>Power of Unix commands<a class="headerlink" href="#power-of-unix-commands" title="Permalink to this headline">¶</a></h2>
@@ -383,25 +387,25 @@ plot.ts(x$Average_coverage, xlab=&quot;Genome Position(1000bp bins)&quot;, ylab=
 <p>fasta: used for representing either nucleotide or peptide sequences</p>
 <p>gff: used for describing genes and other features of DNA, RNA and protein sequences</p>
 <p>fastq: used for storing biological sequence / sequencing reads (usually nucleotide sequence) and its corresponding quality scores</p>
-<ul class="simple">
+<!--<ul class="simple">
 <li>Question: Previously, you downloaded genome assembly fasta files and ran a shell script to count contigs. Now, lets say you want to find out the combined length of genome in each of these files. This can be achieved by running a short unix command piping together two unix programs: grep and wc. The key to crafting the command is understanding the  features of fasta files,</li>
 </ul>
 <blockquote>
 <div><strong><em>1) each sequence in fasta file is preceded by a fasta header that starts with &#8220;&gt;&#8221;,</em></strong></div></blockquote>
 <blockquote>
 <div><strong><em>2) the types of bases that a nucleotide sequence represents (A,T,G,C,N)</em></strong></div></blockquote>
-<p>To determine the total length of our genome assemblies, we will use grep to match only those lines that doesn&#8217;t start with &#8220;&gt;&#8221; (remember grep -v option is used to ignore lines) and doesn&#8217;t contain character &#8220;N&#8221;. Then use wc command (stands for word count) to count the characters. We can use unix pipe &#8220;|&#8221; to pass the output of one command to another for further processing. Lets start by counting the number of bases in Acinetobacter_baumannii.fna file</p>
+<p>To determine the total length of our genome assemblies, we will use grep to match only those lines that doesn&#8217;t start with &#8220;&gt;&#8221; (remember grep -v option is used to ignore lines). Then use wc command (stands for word count) to count the characters. We can use unix pipe &#8220;|&#8221; to pass the output of one command to another for further processing. Lets start by counting the number of bases in Acinetobacter_baumannii.fna file</p>
 <p><details>
-<summary>Solution</summary></p>
+<summary>Solution</summary>
+&#8211;&gt;</p>
 <!--
 grep -v '^>' Acinetobacter_baumannii.fna | sed 's/[N,n]//g' | awk -F '\n' '{sum += length} END {print sum}'
 for i in *.fna; do grep -v '^>' $i | sed 's/[N,n]//g' | awk -F '\n' '{sum += length} END {print sum}'; done
 grep -v '^#' sample.gff | awk -F '\t' '{print $3}' | grep 'rRNA' | wc -l
 grep -v '^#' sample.gff | awk -F '\t' '{print $3}' | grep 'CDS' | wc -l
-grep -v '^#' sample.gff | awk -F '\t' '{print $3}' | grep 'tRNA' | wc -l
---><pre class="literal-block">
+grep -v '^#' sample.gff | awk -F '\t' '{print $3}' | grep 'tRNA' | wc -l<pre class="literal-block">
 
-grep -v '^&gt;' Acinetobacter_baumannii.fna | grep -v &quot;N&quot; | grep -v &quot;n&quot; | wc -m
+grep -v '^&gt;' Acinetobacter_baumannii.fna | wc -m
 
 #Note:
 
@@ -416,13 +420,54 @@ grep -v '^&gt;' Acinetobacter_baumannii.fna | grep -v &quot;N&quot; | grep -v &q
 <summary>Solution</summary></p>
 <pre class="literal-block">
 
-for i in *.fna; do grep -v '^&gt;' $i | grep -v &quot;N&quot; | grep -v &quot;n&quot; | wc -m; done
+for i in *.fna; do grep -v '^&gt;' $i | wc -m; done
 
 </pre>
 <p></details></p>
-<ul class="simple">
-<li>Exploring GFF files</li>
-</ul>
+<p>&#8211;&gt;</p>
+<p><strong>Unix one-liners</strong></p>
+<p>As soon as you receive your sample data from sequencing centre, the first thing you do is check its quality using a quality control tool such as FastQC and make sure that it contain sequences from organism that you are working on (Free from any contamination). But before carrying out extensive QC, you can run a bash &#8220;one-liner&#8221; to get some basic statistics about the raw reads. These one-liners are great examples for how a set of simple (relatively) Unix commands can be piped together to do really useful things.</p>
+<p>One such unix utility is Awk commands. Awk is a powerful unix utility that can be used to write tiny but effective programs in the form of statements that define text patterns that are to be searched for in each line of a file and the action that is to be taken when a match is found within a line. It is mostly used for pattern scanning and processing. It searches one or more files to see if they contain lines that matches with the specified patterns and then performs the associated actions.</p>
+<p>A simple awk syntax is divided into three parts:</p>
+<pre class="literal-block">
+awk ' condition { action }'
+</pre>
+<p>If the line that awk reads satisfies the condition, it runs the action on it.</p>
+<pre class="literal-block">
+
+for i in Rush_KPC_266_*.gz; do zcat $i | awk 'BEGIN{OFS=&quot;\t&quot;};((NR-2)%4==0){read=$1;total++;len+=length(read)};END{print total,len/total}'; done
+
+#The above awk command reads every fourth record and calculates some basic fastq statistics.
+
+</pre>
+<p>The above awk command reads every fourth record and calculates the number of reads and average read length.</p>
+<p>Now try running above command using fastq_screen.fastq.gz as input.</p>
+<p>To see the true power of Awk unix proggraming and understand how you can employ it to extract complex information, take a look at below command.</p>
+<p>The following command will print total number of reads in each file, total number of unique reads, percentage of unique reads, most abundant sequence(useful to find adapter sequences or contamination), its frequency, and frequency of that sequence as a proportion of the total reads, average read length.</p>
+<pre class="literal-block">
+
+for i in Rush_KPC_266_*.gz; do zcat $i | awk 'BEGIN{OFS=&quot;\t&quot;};((NR-2)%4==0){read=$1;total++;count[read]++;len+=length(read)}END{for(read in count){if(!max||count[read]&gt;max) {max=count[read];maxRead=read};if(count[read]==1){unique++}};print total,unique,unique*100/total,maxRead,count[maxRead],count[maxRead]*100/total,len/total}'; done
+
+</pre>
+<p>This command will parse a fastq file and calculate different statistics on the fly in a time efficient manner. Awk lets you perform and explore complex data files without the need for using a programming language or an individual tool.</p>
+<p>You can find more of such super useful bash one-liners at Stephen Turner&#8217;s github <a class="reference external" href="https://github.com/stephenturner/oneliners">page</a>. You can also use some pre-written unix utilities and tools such as <a class="reference external" href="https://github.com/lh3/seqtk">seqtk</a>, <a class="reference external" href="https://github.com/lh3/bioawk">bioawk</a> and <a class="reference external" href="http://hannonlab.cshl.edu/fastx_toolkit/">fastx</a> which comes in handy while extracting complex information from fasta/fastq/sam/bam files and are optimized to be insanely fast.</p>
+</div>
+<div class="section" id="pairing-fastq-files-with-for-loop">
+<span id="pairing-fastq-files-with-for-loop"></span><h2>Pairing fastq Files with for loop<a class="headerlink" href="#pairing-fastq-files-with-for-loop" title="Permalink to this headline">¶</a></h2>
+<p>Oftentimes, bioinformatics analyses involves pairing a bunch of files that can then be used as an input for a command or a tool. The most common type of file that are used as pairs is fastq forward and reverse reads. In this exercise, we will go through a simple shell script that searches fastq files having a particular extension and generate a filename string for reverse paired end file.</p>
+<p>The script fastq_pair.sh takes a path to directory as a command line argument and searches files with extension *_1_combine.fastq.gz and generates a filename with an extension *_2_combine.fastq.gz in it.</p>
+<p>You can change the parameter suffix inside the script to look for a different entension.</p>
+<pre class="literal-block">
+less fastq_pair.sh 
+</pre>
+<p>Try running the script in the following fashion where . represents current directory:</p>
+<pre class="literal-block">
+./fastq_pair.sh .
+</pre>
+<p>How about running the awk command that we recently used inside a shell script and ask awk to print some statistics for both forward and reverse reads? Follow instructions in the script and Insert Awk command  in such a way that you use fwd_fastq_file and rev_fastq_file string accordingly.</p>
+</div>
+<div class="section" id="exploring-gff-files">
+<span id="exploring-gff-files"></span><h2>Exploring GFF files<a class="headerlink" href="#exploring-gff-files" title="Permalink to this headline">¶</a></h2>
 <p>The GFF (General Feature Format) format is a tab-seperated file and consists of one line per feature, each containing 9 columns of data.</p>
 <p>column 1: seqname - name of the genome or contig or scaffold</p>
 <p>column 2: source - name of the program that generated this feature, or the data source (database or project name)</p>
@@ -475,188 +520,134 @@ cut -f 3 sample.gff | grep 'tRNA' | wc -l
 <li>Question: Try counting the number of features on a &#8220;+&#8221; or &#8220;-&#8221; strand (column 7).</li>
 </ul>
 <p>Some more useful one-line unix commands for GFF files: <a class="reference external" href="https://github.com/stephenturner/oneliners#gff3-annotations">here</a></p>
-<p><strong>Unix one-liners</strong></p>
-<p>As soon as you receive your sample data from sequencing centre, the first thing you do is check its quality using a quality control tool such as FastQC and make sure that it contain sequences from organism that you are working on (Free from any contamination). But before carrying out extensive QC, you can run a bash &#8220;one-liner&#8221; to get some basic statistics about the raw reads. These one-liners are great examples for how a set of simple (relatively) Unix commands can be piped together to do really useful things.</p>
-<p>Run the following command to print total number of reads in each file, total number of unique reads, percentage of unique reads, most abundant sequence(useful to find adapter sequences or contamination), its frequency, and frequency of that sequence as a proportion of the total reads, average read length.</p>
+<p>Now we&#8217;re going to play around with the GFF in R. Specifically, we&#8217;re interested in looking at the distribution of gene length for all of the genes in the gff file.</p>
+<p>Copy the sample.gff file to your computer using scp or cyberduck:</p>
 <pre class="literal-block">
-for i in Rush_KPC_266_*.gz; do zcat $i | awk 'BEGIN{OFS=&quot;\t&quot;};((NR-2)%4==0){read=$1;total++;count[read]++;len+=length(read)}END{for(read in count){if(!max||count[read]&gt;max) {max=count[read];maxRead=read};if(count[read]==1){unique++}};print total,unique,unique*100/total,maxRead,count[maxRead],count[maxRead]*100/total,len/total}'; done
-
-#The above awk command reads every fourth record and calculates some basic fastq statistics.
+scp username&#64;flux-xfer.arc-ts.umich.edu:/nfs/esnitkin/micro612w19_fluxod/shared/data/day1_morn/sample.gff ~/Desktop/
+Note: You can use your choice of folder/path to copy the file instead of  “~/Desktop/”
 </pre>
-<p>Now try running the above command using fastq_screen.fastq.gz as input.</p>
-<p>You can find more of such super useful bash one-liners at Stephen Turner&#8217;s github <a class="reference external" href="https://github.com/stephenturner/oneliners">page</a>. You can also use some pre-written unix utilities and tools such as <a class="reference external" href="https://github.com/lh3/seqtk">seqtk</a>, <a class="reference external" href="https://github.com/lh3/bioawk">bioawk</a> and <a class="reference external" href="http://hannonlab.cshl.edu/fastx_toolkit/">fastx</a> which comes in handy while extracting complex information from fasta/fastq/sam/bam files and are optimized to be insanely fast.</p>
+<p>Open a text file in RStudio and run the following commands:</p>
+<pre class="literal-block">
+# Plot histogram of gene lengths
+
+# Read in gff file
+gff = read.delim('~/Desktop/sample.gff',
+                 comment.char = '#', # ignore lines that start with '#'
+                 header=F) #  no header
+
+# Rename columns
+colnames(gff) = c('seqname','source','feature','start','end','score','strand','frame','attribute')
+
+# Look at the head of the gff file
+head(gff)
+
+# Get the gene lengths
+gene_lengths = gff$end - gff$start
+
+# Plot a histogram of the gene lengths
+hist(gene_lengths,
+     breaks = 100, # 100 cells
+     xlab = 'Gene Length (bp)', # change x label
+     main = '') # no title
+</pre>
+<p>What information do you learn about gene lengths in this genome?</p>
 </div>
-<div class="section" id="contamination-screening-using-fastq-screen">
-<span id="contamination-screening-using-fastq-screen"></span><h2>Contamination Screening using <a class="reference external" href="http://www.bioinformatics.babraham.ac.uk/projects/fastq_screen/">FastQ Screen</a><a class="headerlink" href="#contamination-screening-using-fastq-screen" title="Permalink to this headline">¶</a></h2>
-<p>When running a sequencing pipeline, it is very important to make sure that your data matches appropriate quality threshold and are free from any contaminants. This step will help you make correct interpretations in downstream analysis and will also let you know if you are required to redo the experiment/library preparation or resequencing or remove contaminant sequences.</p>
-<p>For this purpose, we will employ fastq screen to screen one of our sample against a range of reference genome databases.</p>
-<p>In the previous section, did you notice the sample fastq_screen.fastq.gz had only 28 % unique reads? What sequences does it contain?</p>
-<p>To answer this, We will screen it against Human, Mouse and Ecoli genome and try to determine what percentage of reads are contaminant such as host DNA, i.e Human and mouse.</p>
-<p>We have already created the human, mouse and ecoli reference databases inside fastq_screen tool directory which you can take a look by running:</p>
+<div class="section" id="plotting-genomic-coverage-in-r">
+<span id="plotting-genomic-coverage-in-r"></span><h2>Plotting genomic coverage in R<a class="headerlink" href="#plotting-genomic-coverage-in-r" title="Permalink to this headline">¶</a></h2>
+<p>Data visualization plays an important role in organizing, analyzing and interpreting large amount of omics data. R is one of the most basic and powerful tool for manipulating and visualizing these types of data. The following task will brush up some basic R plotting commands and help you visualize some complex omics data for interpretation.</p>
+<p>One of the most common types of genomic analysis involves comparing the newly sequenced read data of an organism to your choice of reference organism genome. Mapping millions of reads generated in a sequencing experiment to the reference genome fasta file and interpreting various parameters can achieve this analysis.
+One such parameter is validating how well your sequencing experiment performed and assessing the “uniformity” of coverage from whole-genome sequencing.&nbsp;Visualizing Sequencing coverage across the reference genome help us answer this question. Sequencing coverage describes the average number of reads that align to, or &#8220;cover,&#8221; known reference bases.</p>
+<p>The input for this task is a comma-separated file, which contains average sequencing coverage information i.e average number of reads mapped to each 1000 base pairs in reference genome. You can find this input file in your day1_morn directory by the name, Ecoli_coverage_average_bed.csv</p>
+<!---
+Let’s copy Ecoli_coverage_average_bed.csv file from flux shared directory to your desktop using ‘
+’. ‘
+’ stands for secure copy and is used for securely transferring files between remote host/server(flux) and your local computer system. (Both directions)
+scp username@flux-xfer.arc-ts.umich.edu:/scratch/micro612w19_fluxod/shared/Ecoli_coverage_average_bed.csv ~/Desktop/
+Note: You can use your choice of folder/path to copy the file instead of  “~/Desktop/”
+--><p>Drag and drop this Ecoli_coverage_average_bed.csv to your local system using cyberduck.</p>
+<p>Now, Fire up R console or studio and import the file (Ecoli_coverage_average_bed.csv) using any type of data import functions in R (read.table, read.csv etc.)</p>
+<p>Hint: The file is comma-separated and contains header line (“bin,Average_coverage”) so use appropriate parameters while importing the file</p>
+<p>Once the data in file is imported into R object, you can plot the column Average_coverage as a time series plot to assess the coverage of your mapped reads across genome.</p>
+<p>Note: A&nbsp;time series plot&nbsp;is a graph that you can use to evaluate patterns and behavior in data over&nbsp;time. Here, we can employ the same plot to see the pattern i.e read depth/coverage at each 1000 bases (represented by bins columns where each bin represents Average number of reads mapped to each 1000 bases in reference genome) using the simplest R function for time series such as <a class="reference external" href="http://stat.ethz.ch/R-manual/R-devel/library/stats/html/plot.ts.html">plot.ts</a></p>
+<p>An example plot.ts plot for Ecoli_coverage_average_bed.csv is shown below for your reference.</p>
+<p><img alt="alt tag" src="_images/plot_1.png" /></p>
+<p>For advance and more beautiful visualization, ggplot2 can be employed to display the same plot. An example ggplot2 plot for Ecoli_coverage_average_bed.csv is shown below for your reference.</p>
+<p><img alt="alt tag" src="_images/plot_2.png" /></p>
+<p><details>
+<summary>Solution</summary></p>
 <pre class="literal-block">
 
-ls /scratch/micro612w18_fluxod/shared/bin/fastq_screen_v0.5.2/data/
+x &lt;- read.table(&quot;Ecoli_coverage_average_bed.csv&quot;, sep=&quot;,&quot;, header=TRUE)
+plot.ts(x$Average_coverage, xlab=&quot;Genome Position(1000bp bins)&quot;, ylab=&quot;Average Read Depth&quot;, main=&quot;Ecoli Bed Coverage&quot;, col=&quot;blue&quot;)
 
 </pre>
-<p>Note: You will learn creating reference databases in our afternoon session.</p>
-<blockquote>
-<div><strong><em>i. Get an interactive cluster node to start running programs. Use the shortcut that we created in .bashrc file for getting into interactive flux session.</em></strong></div></blockquote>
-<p>How do you know if you are in interactive session?: you should see &#8220;username&#64;nyx&#8221; in your command prompt</p>
-<pre class="literal-block">
-iflux
-</pre>
-<p>Whenever you start an interactive job, the path resets to your home directory. So, navigate to day1_morn directory again.</p>
-<pre class="literal-block">
-d1m
-
-#or
-
-cd /scratch/micro612w18_fluxod/username/day1_morn/
-
-</pre>
-<blockquote>
-<div><strong><em>ii. Lets run fastq_screen on fastq_screen.fastq.gz</em></strong></div></blockquote>
-<pre class="literal-block">
-
-fastq_screen --subset 1000 --force --outdir ./ --aligner bowtie2 fastq_screen.fastq.gz
-
-#Note: We will screen only a subset of fastq reads against reference databases. To screen all the reads, change this argument to --subset 0 but will take long time to finish. (searching sequences against human or mouse genome is a time consuming step) 
-#Also Dont worry about &quot;Broken pipe&quot; warning.
-
-</pre>
-<p>The above run will generate two types of output file: a screen report in text format &#8220;fastq_screen_screen.txt&#8221; and a graphical output &#8220;fastq_screen_screen.png&#8221; showing percentage of reads mapped to each reference genomes.</p>
-<blockquote>
-<div><strong><em>iii. Download the fastq_screen graphical report to your home computer for inspection.</em></strong></div></blockquote>
-<p>Use scp command as shown below or use cyberduck. If you dont the file in cyberduck window, try refreshing it using the refresh button at the top.</p>
-<pre class="literal-block">
-scp username&#64;flux-xfer.arc-ts.umich.edu:/scratch/micro612w18_fluxod/username/day1_morn/fastq_screen_screen.png /path-to-local-directory/
-
-#You can use ~/Desktop/ as your local directory path
-
-</pre>
-<p>Open fastq_screen_screen.png on your system. You will notice that the sample contain a significant amount of human reads; we should always remove these contaminants from our sample before proceeding to any type of microbial analysis.</p>
+<p></details></p>
 </div>
-<div class="section" id="quality-control-using-fastqc">
-<span id="quality-control-using-fastqc"></span><h2>Quality Control using <a class="reference external" href="http://www.bioinformatics.babraham.ac.uk/projects/fastqc/">FastQC</a><a class="headerlink" href="#quality-control-using-fastqc" title="Permalink to this headline">¶</a></h2>
-<p><a class="reference external" href="day1_morning.html">[back to top]</a>
-<a class="reference external" href="index.html">[HOME]</a></p>
-<p>Now we will run FastQC on some sample raw data to assess its quality. FastQC is a quality control tool that reads in sequence data in a variety of formats(fastq, bam, sam) and can either provide an interactive application to review the results or create an HTML based report which can be integrated into any pipeline. It is generally the first step that you take upon receiving the sequence data from sequencing facility to get a quick sense of its quality and whether it exhibits any unusual properties (e.g. contamination or unexpected biological features)</p>
-<blockquote>
-<div><strong><em>i. In your day1_morn directory, create a new directory for saving FastQC results.</em></strong></div></blockquote>
-<pre class="literal-block">
-mkdir Rush_KPC_266_FastQC_results
-mkdir Rush_KPC_266_FastQC_results/before_trimmomatic
-</pre>
-<blockquote>
-<div><strong><em>ii. Verify that FastQC is in your path by invoking it from command line.</em></strong></div></blockquote>
-<pre class="literal-block">
-fastqc -h
-</pre>
-<p>FastQC can be run in two modes: &#8220;command line&#8221; or as a GUI (graphical user interface). We will be using command line version of it.</p>
-<blockquote>
-<div><strong><em>iii. Run FastQC to generate quality report of sequence reads.</em></strong></div></blockquote>
-<pre class="literal-block">
-fastqc -o Rush_KPC_266_FastQC_results/before_trimmomatic/ Rush_KPC_266_1_combine.fastq.gz Rush_KPC_266_2_combine.fastq.gz --extract
-</pre>
-<p>This will generate two results directory, Rush_KPC_266_1_combine_fastqc and Rush_KPC_266_2_combine_fastqc in output folder provided with -o flag.</p>
-<p>The summary.txt file in these directories indicates if the data passed different quality control tests in text format.</p>
-<p>You can visualize and assess the quality of data by opening html report in a local browser.</p>
-<blockquote>
-<div><strong><em>iv. Exit your cluster node so you don’t waste cluster resources and $$$!</em></strong></div></blockquote>
-<blockquote>
-<div><strong><em>v. Download the FastQC html report to your home computer to examine using scp or cyberduck</em></strong></div></blockquote>
-<pre class="literal-block">
-scp username&#64;flux-xfer.arc-ts.umich.edu:/scratch/micro612w18_fluxod/username/day1_morn/Rush_KPC_266_FastQC_results/before_trimmomatic/*.html /path-to-local-directory/
-</pre>
-<p>The analysis in FastQC is broken down into a series of analysis modules. The left hand side of the main interactive display or the top of the HTML report show a summary of the modules which were run, and a quick evaluation of whether the results of the module seem entirely normal (green tick), slightly abnormal (orange triangle) or very unusual (red cross).</p>
-<p><img alt="alt tag" src="_images/1.png" /></p>
-<p>Lets first look at the quality drop(per base sequence quality graph) at the end of &#8220;Per Base Sequence Quality&#8221; graph. This degredation of quality towards the end of reads is commonly observed in illumina samples. The reason for this drop is that as the number of sequencing cycles performed increases, the average quality of the base calls, as reported by the Phred Scores produced by the sequencer falls.</p>
-<p>Next, lets check the overrepresented sequences graph and the kind of adapters that were used for sequencing these samples (Truseq or Nextera) which comes in handy while indicating the adapter database path during downstream filtering step (Trimmomatic).</p>
-<p><img alt="alt tag" src="_images/2.png" /></p>
+<div class="section" id="submit-variant-calling-job">
+<span id="submit-variant-calling-job"></span><h2>Submit Variant Calling Job<a class="headerlink" href="#submit-variant-calling-job" title="Permalink to this headline">¶</a></h2>
+<p>Before we go on a break, we will run a variant calling job that will run all the standard variant calling commands on a sample that we will explore in today&#8217;s afternoon session. The script will run all necessary commands associated with variant calling in an automated fashion. This will let us give ample time to explore the commands that are involved in each of the steps and explore the results that the script generates.</p>
+<p>We will come back later to the script to understand some of the basics of shell scripting and how different commands can be tied together to run a standard process on a bunch of samples.</p>
 <ul class="simple">
-<li>Check out <a class="reference external" href="https://sequencing.qcfail.com/articles/loss-of-base-call-accuracy-with-increasing-sequencing-cycles/">this</a> for more detailed explaination as to why quality drops with increasing sequencing cycles.</li>
-<li><a class="reference external" href="https://www.youtube.com/watch?v=bz93ReOv87Y">A video FastQC walkthrough created by FastQC developers</a></li>
+<li>Go to your class home directory (use your wd shortcut!)</li>
+<li>Execute the following commands to copy files for this afternoon’s exercises to your home directory:</li>
 </ul>
-</div>
-<div class="section" id="quality-trimming-using-trimmomatic">
-<span id="quality-trimming-using-trimmomatic"></span><h2>Quality Trimming using <a class="reference external" href="http://www.usadellab.org/cms/?page=trimmomatic">Trimmomatic</a><a class="headerlink" href="#quality-trimming-using-trimmomatic" title="Permalink to this headline">¶</a></h2>
-<p><a class="reference external" href="day1_morning.html">[back to top]</a>
-<a class="reference external" href="index.html">[HOME]</a></p>
-<p>Filtering out problematic sequences within a dataset is inherently a trade off between sensitivity (ensuring all contaminant sequences are removed) and specificity (leaving all non-contaminant sequence data intact). Adapter and other technical contaminants can potentially occur in any location within the reads.(start, end, read-through (between the reads), partial adapter sequences)</p>
-<p>Trimmomatic is a tool that tries to search these potential contaminant/adapter sequence within the read at all the possible locations. It takes advantage of the added evidence available in paired-end dataset. In paired-end data, read-through/adapters can occur on both the forward and reverse reads of a particular fragment in the same position. Since the fragment was entirely sequenced from both ends, the non-adapter portion of the forward and reverse reads will be reverse-complements of each other. This strategy of searching for contaminant in both the reads is called &#8216;palindrome&#8217; mode.</p>
-<p>For more information on how Trimmomatic tries to achieve this, Please refer <a class="reference external" href="http://www.usadellab.org/cms/uploads/supplementary/Trimmomatic/TrimmomaticManual_V0.32.pdf">this</a> manual.</p>
-<p>Now we will run Trimmomatic on these raw data to remove low quality reads as well as adapters.</p>
-<blockquote>
-<div><strong><em>i. If the interactive session timed out, get an interactive cluster node again to start running programs and navigate to day1_morn directory.</em></strong></div></blockquote>
-<p>How to know if you are in interactive session: you should see &#8220;username&#64;nyx&#8221; in your command prompt</p>
 <pre class="literal-block">
-iflux
 
-cd /scratch/micro612w18_fluxod/username/day1_morn/
+cp -r /scratch/micro612w19_fluxod/shared/data/day1_after/ ./
+
+</pre>
+<p>We will be using sequencing reads from an Illumina-sequenced <em>Klebsiella pneumoniae</em> genome (sample PCMP_H326) as an input for these exercises. This sample, isolated from a hospitalized patient, is resistant to colistin, an antibiotic of last resort. We are interested in seeing if we can identify any mutations in the PCMP_H326 genome that could explain why this sample is resistant to colistin. Colistin resistance can arise through various mutations (see <a class="reference external" href="https://www.frontiersin.org/articles/10.3389/fmicb.2014.00643/full">this review</a>). To narrow our initial search, we will specifically look for mutations that inactivate the <a class="reference external" href="https://aac.asm.org/content/58/10/5696">mgrB gene</a>, a negative regulator of the PhoPQ two-component signalling system.</p>
+<p>Change directory to day1_after and list all the files to search variant_call.sh script.</p>
+<pre class="literal-block">
+cd /scratch/micro612w19_fluxod/username/day1_after/
 
 #or
 
-d1m
-</pre>
-<blockquote>
-<div><strong><em>ii. Create these output directories in your day1_morn folder to save trimmomatic results</em></strong></div></blockquote>
-<pre class="literal-block">
-mkdir Rush_KPC_266_trimmomatic_results
-</pre>
-<blockquote>
-<div><strong><em>iii. Try to invoke trimmomatic from command line.</em></strong></div></blockquote>
-<pre class="literal-block">
-java -jar /scratch/micro612w18_fluxod/shared/bin/Trimmomatic/trimmomatic-0.33.jar –h
-</pre>
-<blockquote>
-<div><strong><em>iv. Run the below trimmomatic commands on raw reads.</em></strong></div></blockquote>
-<pre class="literal-block">
-java -jar /scratch/micro612w18_fluxod/shared/bin/Trimmomatic/trimmomatic-0.33.jar PE Rush_KPC_266_1_combine.fastq.gz Rush_KPC_266_2_combine.fastq.gz Rush_KPC_266_trimmomatic_results/forward_paired.fq.gz Rush_KPC_266_trimmomatic_results/forward_unpaired.fq.gz Rush_KPC_266_trimmomatic_results/reverse_paired.fq.gz Rush_KPC_266_trimmomatic_results/reverse_unpaired.fq.gz ILLUMINACLIP:/scratch/micro612w18_fluxod/shared/bin/Trimmomatic/adapters/TruSeq3-PE.fa:2:30:10:8:true SLIDINGWINDOW:4:15 MINLEN:40 HEADCROP:0
-</pre>
-<p><img alt="alt tag" src="_images/trimm_parameters.png" /></p>
-<p>First, Trimmomatic searches for any matches between the reads and adapter sequences. Adapter sequences are stored in this directory of Trimmomatic tool: /scratch/micro612w18_fluxod/shared/bin/Trimmomatic/adapters/. Trimmomatic comes with a list of standard adapter fasta sequences such TruSeq, Nextera etc. You should use appropriate adapter fasta sequence file based on the illumina kit that was used for sequencing. You can get this information from your sequencing centre or can find it in FastQC html report (Section: Overrepresented sequences).</p>
-<p>Short sections (2 bp as determined by seed misMatch parameter) of each adapter sequences (contained in TruSeq3-PE.fa) are tested in each possible position within the reads. If it finds a perfect match, It starts searching the entire adapter sequence and scores the alignment. The advantage here is that the full alignment is calculated only when there is a perfect seed match which results in considerable efficiency gains. So, When it finds a match, it moves forward with full alignment and when the match reaches 10 bp determined by simpleClipThreshold, it finally trims off the adapter from reads.</p>
-<p>Quoting Trimmomatic:</p>
-<p>&#8220;&#8216;Palindrome&#8217; trimming is specifically designed for the case of &#8216;reading through&#8217; a short fragment into the adapter sequence on the other end. In this approach, the appropriate adapter sequences are &#8216;in silico ligated&#8217; onto the start of the reads, and the combined adapter+read sequences, forward and reverse are aligned. If they align in a manner which indicates &#8216;read- through&#8217; i.e atleast 30 bp match, the forward read is clipped and the reverse read dropped (since it contains no new data).&#8221;</p>
-<blockquote>
-<div><strong><em>v. Now create new directories in day1_morn folder and Run FastQC on these trimmomatic results.</em></strong></div></blockquote>
-<pre class="literal-block">
-mkdir Rush_KPC_266_FastQC_results/after_trimmomatic
+d1a
 
-fastqc -o Rush_KPC_266_FastQC_results/after_trimmomatic/ Rush_KPC_266_trimmomatic_results/forward_paired.fq.gz Rush_KPC_266_trimmomatic_results/reverse_paired.fq.gz --extract
+ls variant_call.sh
 </pre>
-<p>Get these html reports to your local system.</p>
+<p>Try running the script with help menu and check all the inputs that is required by the script to run variant calling.</p>
 <pre class="literal-block">
-scp username&#64;flux-xfer.arc-ts.umich.edu:/scratch/micro612w18_fluxod/username/day1_morn/Rush_KPC_266_FastQC_results/after_trimmomatic/*.html /path-to-local-directory/
-</pre>
-<p><img alt="alt tag" src="_images/3.png" /></p>
-<p>After running Trimmomatic, you should notice that the sequence quality improved (Per base sequence quality) and now it doesn&#8217;t contain any contaminants/adapters (Overrepresented sequences).</p>
-<p>Next, take a look at the per base sequence content graph, and notice that the head bases(~9 bp) are slightly imbalanced. In a perfect scenario, each nucleotide content should run parallel to each other, and should be reflective of the overall A/C/T/G content of your input sequence.</p>
-<p>Quoting FastQC:
-&#8220;It&#8217;s worth noting that some types of library will always produce biased sequence composition, normally at the start of the read. Libraries produced by priming using random hexamers (including nearly all RNA-Seq libraries) and those which were fragmented using transposases inherit an intrinsic bias in the positions at which reads start. This bias does not concern an absolute sequence, but instead provides enrichment of a number of different K-mers at the 5&#8217; end of the reads. Whilst this is a true technical bias, it isn&#8217;t something which can be corrected by trimming and in most cases doesn&#8217;t seem to adversely affect the downstream analysis. It will however produce a warning or error in this module.&#8221;</p>
-<p>This doesn&#8217;t look very bad but you can remove the red cross sign by trimming these imbalanced head bases using HEADCROP:9 flag in the above command.</p>
-<blockquote>
-<div><strong><em>vi. Lets Run trimmomatic again with headcrop 9 and save it in a different directory called Rush_KPC_266_trimmomatic_results_with_headcrop/</em></strong></div></blockquote>
-<pre class="literal-block">
-mkdir Rush_KPC_266_trimmomatic_results_with_headcrop/
 
-time java -jar /scratch/micro612w18_fluxod/shared/bin/Trimmomatic/trimmomatic-0.33.jar PE Rush_KPC_266_1_combine.fastq.gz Rush_KPC_266_2_combine.fastq.gz Rush_KPC_266_trimmomatic_results_with_headcrop/forward_paired.fq.gz Rush_KPC_266_trimmomatic_results_with_headcrop/forward_unpaired.fq.gz Rush_KPC_266_trimmomatic_results_with_headcrop/reverse_paired.fq.gz Rush_KPC_266_trimmomatic_results_with_headcrop/reverse_unpaired.fq.gz ILLUMINACLIP:/scratch/micro612w18_fluxod/shared/bin/Trimmomatic/adapters/TruSeq3-PE.fa:2:30:10:8:true SLIDINGWINDOW:4:20 MINLEN:40 HEADCROP:9
+./variant_call.sh -h
+
 </pre>
-<p>Unix gem: time in above command shows how long a command takes to run?</p>
-<blockquote>
-<div><strong><em>vii. Run FastQC &#8216;one last time&#8217; on updated trimmomatic results with headcrop and check report on your local computer</em></strong></div></blockquote>
+<p>USAGE:
+variant_call.sh forward_paired reverse_paired reference_genome output_directory basename [-h] &#8211; A simple shell script to run Variant Calling steps on a pair of fastq reads.</p>
+<p>The script requires following positional arguments as input to call variants:</p>
+<ol class="simple">
+<li>Forward Paired end reads</li>
+<li>Reverse Paired end reads</li>
+<li>Path to Reference Genome Fasta file</li>
+<li>Output Directory Path</li>
+<li>Analysis Base name to store result files with this prefix.</li>
+</ol>
+<p>The day1_after directory also contains a pbs script that will run variant_call.sh on flux cluster. Edit this pbs script to customize email address and output directory to reflect your username specific paths.</p>
+<p>Change the EMAIL_ADDRESS section of the pbs script to your email_address.</p>
+<p>Change the output directory path in these line to reflect your output path which should be your day1_after directory. Also remember to change the path of reference genome to your day1_after directory. You can find this line at the end of the PBS script.</p>
 <pre class="literal-block">
-mkdir Rush_KPC_266_FastQC_results/after_trimmomatic_headcrop/
-fastqc -o Rush_KPC_266_FastQC_results/after_trimmomatic_headcrop/ --extract -f fastq Rush_KPC_266_trimmomatic_results_with_headcrop/forward_paired.fq.gz Rush_KPC_266_trimmomatic_results_with_headcrop/reverse_paired.fq.gz
+
+./variant_call.sh PCMP_H326_R1.fastq.gz PCMP_H326_R2.fastq.gz /Path-to-your-day1_after/KPNIH1.fasta /Path-to-your-day1_after/ PCMP_H326_
+
 </pre>
-<p>Download the reports again and see the difference.</p>
+<p>Once you are done editing the pbs script, you can go ahead and submit the job. We will go through each of the variant calling result steps folder and explore the results in afternoon session.</p>
 <pre class="literal-block">
-scp username&#64;flux-xfer.arc-ts.umich.edu:/scratch/micro612w18_fluxod/username/day1_morn/Rush_KPC_266_FastQC_results/after_trimmomatic_headcrop/*.html /path-to-local-directory/
+
+qsub variant_call.pbs 
+
 </pre>
-<p>The red cross sign disappeared!</p>
-<p>Lets have a look at one of the Bad Illumina data example <a class="reference external" href="http://www.bioinformatics.babraham.ac.uk/projects/fastqc/bad_sequence_fastqc.html">here</a></p>
-<p><a class="reference external" href="day1_morning.html">[back to top]</a>
-<a class="reference external" href="index.html">[HOME]</a></p>
+<p><strong>Note:</strong> We will be switching from pbs to slurm sometime this year. Here are some useful links about the switch:</p>
+<ul class="simple">
+<li>Tutorial:
+https://www-personal.umich.edu/~mmiranda/BetaTutorial.pdf</li>
+<li>Slides:
+https://www-personal.umich.edu/~mmiranda/BetaSlides1811.pdf</li>
+<li>Beta user guide:
+https://arc-ts.umich.edu/beta/user-guide/</li>
+<li>From Torque to Slurm:
+http://arc-ts.umich.edu/migrating-from-torque-to-slurm/</li>
+</ul>
 </div>
 </div>
 
