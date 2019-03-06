@@ -643,7 +643,7 @@ sed -i 's/gi.*|/Chromosome/g' Rush_KPC_266__filter_gatk.vcf
 > ***ii. Run snpEff for variant annotation.***
 
 ```
-
+#Command
 java -Xmx4g -jar /scratch/micro612w19_fluxod/shared/bin/snpEff/snpEff.jar -csvStats PCMP_H326__filter_gatk_stats -dataDir /scratch/micro612w19_fluxod/shared/bin/snpEff/data/ -d -no-downstream -no-upstream -c /scratch/micro612w19_fluxod/shared/bin/snpEff/snpEff.config KPNIH1 PCMP_H326__filter_gatk.vcf > PCMP_H326__filter_gatk_ann.vcf
 
 ```
