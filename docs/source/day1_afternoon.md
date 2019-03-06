@@ -610,6 +610,14 @@ You can annotate these variants before performing any filtering steps that we di
 
 snpEff contains a database of about 20,000 reference genomes built from trusted and public sources. Lets check if snpEff contains a database of our reference genome.
 
+Make sure you change the directory to Step6_variantfilteraion
+
+```
+d1a
+
+cd PCMP_H326__varcall_result/Step6_variantfilteraion
+```
+
 > ***i. Check snpEff internal database for your reference genome:***
 
 ```     
@@ -650,8 +658,14 @@ Now go to Step6_variantfilteraion folder under PCMP_H326__varcall_result.
 d1a 
 
 cd PCMP_H326__varcall_result/Step6_variantfilteraion
+
+bgzip -fc PCMP_H326__filter_gatk_ann.vcf > PCMP_H326__filter_gatk_ann.vcf.gz
+
+tabix PCMP_H326__filter_gatk_ann.vcf.gz
+
 ```
 
+We compressed this final annotated vcf file and tabix indexd it so that it can be used for IGV visualization
 
 ```
 grep 'ANN=' PCMP_H326__filter_gatk_ann.vcf | head -n1
