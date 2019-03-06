@@ -637,20 +637,6 @@ java -jar /scratch/micro612w19_fluxod/shared/bin/snpEff/snpEff.jar databases | g
 
 The existing KPNIH1 reference database doesn't contain mgrB annotation in it so we built a custom database out of a custom KPNIH1 genbank file. The procedure to configure a custom database can be found [here](http://snpeff.sourceforge.net/SnpEff_manual.html#databases). 
 
-
-
-<!--
-Note down the genome id for your reference genome KPNIH1. In this case: GCA_000281535.2.29
-
-> ***ii. Change the chromosome name in the vcf file to ‘Chromosome’ for snpEff reference database compatibility.***
-
-```
-sed -i 's/gi.*|/Chromosome/g' Rush_KPC_266__filter_gatk.vcf
-```
--->
-
-
-
 > ***ii. Run snpEff for variant annotation.***
 
 ```
