@@ -1,6 +1,5 @@
 Day 1 Afternoon
 ===============
-
 [[HOME]](index.html)
 
 Contamination Screening using [FastQ Screen](http://www.bioinformatics.babraham.ac.uk/projects/fastq_screen/)
@@ -274,11 +273,11 @@ The script requires following positional arguments as input to call variants:
 4. Output Directory Path. A new directory will be created at this path by the name that you will provide for Analysis Base name. for example: if the output path is /dir_1/dir_2/ and Analysis Base name is sample_name , a new directory by the name sample_name_varcall_result will be created in /dir_1/dir_2/
 5. Analysis Base name to store result files with this prefix.
 
-If you remember, we ran the shell script in following fashion.
+If you remember, we ran the shell script in following fashion inside day1_after directory.
 
 ```
 
-bash ./variant_call.sh PCMP_H326_R1.fastq.gz PCMP_H326_R2.fastq.gz /nfs/esnitkin/micro612w19_fluxod/shared/data/day1_after/KPNIH1.fasta /nfs/esnitkin/micro612w19_fluxod/shared/data/day1_after/PCMP_H326_
+bash ./variant_call.sh PCMP_H326_R1.fastq.gz PCMP_H326_R2.fastq.gz /Path-to-your-day1_after/KPNIH1.fasta /Path-to-your-day1_after/ PCMP_H326_
 
 ```
 
@@ -548,9 +547,15 @@ This step will filter variants and process file generation using [GATK](https://
 
 There are various tools that can you can try for variant filteration such as vcftools, GATK, vcfutils etc. Here we will use GATK VariantFiltration utility to filter out low confidence variants.
 
+Make sure you change the directory to Step6_variantfilteraion
+
 ```
+d1a
+
+cd PCMP_H326__varcall_result/Step6_variantfilteraion
 
 java -jar /scratch/micro612w19_fluxod/shared/bin/GenomeAnalysisTK-3.3-0/GenomeAnalysisTK.jar -T VariantFiltration -R KPNIH1.fasta -o PCMP_H326__filter_gatk.vcf --variant PCMP_H326__aln_mpileup_raw.vcf --filterExpression "FQ < 0.025 && MQ > 50 && QUAL > 100 && DP > 15" --filterName pass_filter
+
 
 ```
 
@@ -643,7 +648,7 @@ sed -i 's/gi.*|/Chromosome/g' Rush_KPC_266__filter_gatk.vcf
 > ***ii. Run snpEff for variant annotation.***
 
 ```
-#Command
+
 java -Xmx4g -jar /scratch/micro612w19_fluxod/shared/bin/snpEff/snpEff.jar -csvStats PCMP_H326__filter_gatk_stats -dataDir /scratch/micro612w19_fluxod/shared/bin/snpEff/data/ -d -no-downstream -no-upstream -c /scratch/micro612w19_fluxod/shared/bin/snpEff/snpEff.config KPNIH1 PCMP_H326__filter_gatk.vcf > PCMP_H326__filter_gatk_ann.vcf
 
 ```
@@ -755,6 +760,7 @@ What if we want to look specifically for mutations in mgrB? (what does the `-i` 
 ```
  grep -i mgrb PCMP_H326__parsed.csv
 ```
+
 
 Generate Alignment Statistics
 -----------------------------
@@ -870,18 +876,21 @@ We will be using [IGV](http://software.broadinstitute.org/software/igv/) (Integr
 
 > - KPNIH1 reference fasta 
 > - KPNIH1 genbank file
-> - PCMP_H326__aln_sort.bam 
-> - PCMP_H326__aln_sort.bam.bai
-> - PCMP_H326__aln_sort__filter_gatk_ann.vcf.gz 
-> - PCMP_H326__aln_sort__filter_gatk_ann.vcf.gz.tbi
+> - PCMP_H326__aln_marked.bam
+> - PCMP_H326__aln_marked.bam.bai
+> - PCMP_H326__filter_gatk_ann.vcf.gz
+> - PCMP_H326__filter_gatk_ann.vcf.gz.tbi
+
+Note: This IGV exercise requires an annotated vcf file, so make sure you have completed snpeff exercise successfully.
 
 Let's make a seperate folder (make sure you are in the `day1_after` folder) for the files that we need for visualization and copy it to that folder:
 
 ```
+d1a 
 
 mkdir IGV_files
 
-cp KPNIH1.fasta KPNIH1.gb PCMP_H326__varcall_result/*/PCMP_H326__aln_sort.bam* PCMP_H326__varcall_result/*/PCMP_H326__filter_gatk_ann.vcf.gz* IGV_files/
+cp KPNIH1.fasta KPNIH1.gb PCMP_H326__varcall_result/*/PCMP_H326__aln_marked.bam* PCMP_H326__varcall_result/*/PCMP_H326__filter_gatk_ann.vcf.gz* IGV_files/
 
 ```
 
@@ -903,7 +912,7 @@ Load the following files (each is a separate panel or 'track'):
   - Shows what genes are present (looks like a blue bar when zoomed out)
 - `File` &rarr; `Load from File` &rarr; navigate to `IGV_files` &rarr; `PCMP_H326__aln_sort__filter_gatk_ann.vcf.gz`
   - Shows variants found in the sample (when you zoom in)
-- `File` &rarr; `Load from File` &rarr; navigate to `IGV_files` &rarr; `PCMP_H326__aln_sort.bam`
+- `File` &rarr; `Load from File` &rarr; navigate to `IGV_files` &rarr; `PCMP_H326__aln_marked.bam`
   - Shows coverage and reads aligned to the reference (when you zoom in)
   
 By default, the whole genome is shown:
@@ -974,17 +983,7 @@ Today we ran a variant calling pipeline for a colistin resistant isolate against
 Exercise – Colistin resistance in Acinetobacter
 -----------------------------------------------
 
-In the second exercise we will try and find a mutation that is in a colistin resistant Acinetobacter isolate from a patient, but not in a colistin susceptible isolate from the same patient. In this case, it turned out that despite being from the same patient, the resistant and susceptible genomes are quite different. Therefore, we will focus on differences in a known resistance gene (pmrB). Your task is to run the variant calling and annotation pipelines for SRR7591081 (colR) and SRR6513781 (colS) against the ACICU reference genome (ACICU.fasta). You will then look for pmrB mutations that are in the resistant strain, that are not in the susceptible one. Did the mutation you found match the one from the paper (Patient 1 in https://aac.asm.org/content/early/2019/01/04/AAC.01586-18.abstract)? 
-
-Copy these folder to your day1_after folder:
-
-```
-d1a
-
-cp -r /scratch/micro612w19_fluxod/shared/data/day1_after/Acinetobacter_colistin_resistance/ .
-```
-
-Your steps should be:
+In the second exercise we will try and find a mutation that is in a colistin resistant Acinetobacter isolate from a patient, but not in a colistin susceptible isolate from the same patient. In this case, it turned out that despite being from the same patient, the resistant and susceptible genomes are quite different. Therefore, we will focus on differences in a known resistance gene (pmrB). Your task is to run the variant calling and annotation pipelines for SRR7591081 (colR) and SRR6513781 (colS) against the ACICU reference genome (ACICU.fasta). You will then look for pmrB mutations that are in the resistant strain, that are not in the susceptible one. Did the mutation you found match the one from the paper (Patient 1 in https://aac.asm.org/content/early/2019/01/04/AAC.01586-18.abstract)? Your steps should be:
 
 1) Create two PBS scripts comparing your colR and colS genomes to the reference genomes and submit to cluster
 2) Perform variant annotation against the ACICU reference genome with snpEff
