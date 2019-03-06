@@ -761,6 +761,7 @@ What if we want to look specifically for mutations in mgrB? (what does the `-i` 
  grep -i mgrb PCMP_H326__parsed.csv
 ```
 
+
 Generate Alignment Statistics
 -----------------------------
 
