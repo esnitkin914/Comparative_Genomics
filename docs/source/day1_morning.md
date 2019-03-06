@@ -280,57 +280,6 @@ gff: used for describing genes and other features of DNA, RNA and protein sequen
 fastq: used for storing biological sequence / sequencing reads (usually nucleotide sequence) and its corresponding quality scores
 
 
-- Question: Previously, you downloaded genome assembly fasta files and ran a shell script to count contigs. Now, lets say you want to find out the combined length of genome in each of these files. This can be achieved by running a short unix command piping together two unix programs: grep and wc. The key to crafting the command is understanding the  features of fasta files,
-
-> ***1) each sequence in fasta file is preceded by a fasta header that starts with ">",***
-
-> ***2) the types of bases that a nucleotide sequence represents (A,T,G,C,N)***
-
-
-To determine the total length of our genome assemblies, we will use grep to match only those lines that doesn't start with ">" (remember grep -v option is used to ignore lines). Then use wc command (stands for word count) to count the characters. We can use unix pipe "|" to pass the output of one command to another for further processing. Lets start by counting the number of bases in Acinetobacter_baumannii.fna file
-
-<details>
-  <summary>Solution</summary>
-
-
-<!--
-grep -v '^>' Acinetobacter_baumannii.fna | sed 's/[N,n]//g' | awk -F '\n' '{sum += length} END {print sum}'
-for i in *.fna; do grep -v '^>' $i | sed 's/[N,n]//g' | awk -F '\n' '{sum += length} END {print sum}'; done
-grep -v '^#' sample.gff | awk -F '\t' '{print $3}' | grep 'rRNA' | wc -l
-grep -v '^#' sample.gff | awk -F '\t' '{print $3}' | grep 'CDS' | wc -l
-grep -v '^#' sample.gff | awk -F '\t' '{print $3}' | grep 'tRNA' | wc -l
--->
-
-```
-
-grep -v '^>' Acinetobacter_baumannii.fna | wc -m
-
-#Note:
-
-#- The sign "^" inside the grep pattern represents any pattern that starts with ">" and -v asks grep to ignore those lines.
-#- Use "|" to pass the output of one command to another.
-#- -m parameter will show the character counts. Check wc help menu by typing "wc --help" on terminal to explore other parameters
-
-```
-</details>
-
-
-
-Now run the same command on other fasta files in day1_morn directory. Try using a for loop.
-
-
-<details>
-  <summary>Solution</summary>
-
-```
-
-for i in *.fna; do grep -v '^>' $i | wc -m; done
-
-```
-</details>
-
-
-
 **Unix one-liners**
 
 As soon as you receive your sample data from sequencing centre, the first thing you do is check its quality using a quality control tool such as FastQC and make sure that it contain sequences from organism that you are working on (Free from any contamination). But before carrying out extensive QC, you can run a bash "one-liner" to get some basic statistics about the raw reads. These one-liners are great examples for how a set of simple (relatively) Unix commands can be piped together to do really useful things.
