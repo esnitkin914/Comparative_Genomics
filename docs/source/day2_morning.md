@@ -395,8 +395,6 @@ Go back to ACT where your ordered contigs are still open in the window.
 Select File -> sample_266_contigs_ordered.fasta -> Read BAM/VCF > select sorted bam file(sample_266_contigs_ordered_sort.bam) you just copied from flux.
 ```
 
-![alt tag](aligned_reads_deletion.png)
-
 -->
  
 Genome Annotation
