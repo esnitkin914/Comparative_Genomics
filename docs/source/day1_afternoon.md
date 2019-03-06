@@ -960,7 +960,17 @@ Today we ran a variant calling pipeline for a colistin resistant isolate against
 Exercise – Colistin resistance in Acinetobacter
 -----------------------------------------------
 
-In the second exercise we will try and find a mutation that is in a colistin resistant Acinetobacter isolate from a patient, but not in a colistin susceptible isolate from the same patient. In this case, it turned out that despite being from the same patient, the resistant and susceptible genomes are quite different. Therefore, we will focus on differences in a known resistance gene (pmrB). Your task is to run the variant calling and annotation pipelines for SRR7591081 (colR) and SRR6513781 (colS) against the ACICU reference genome (ACICU.fasta). You will then look for pmrB mutations that are in the resistant strain, that are not in the susceptible one. Did the mutation you found match the one from the paper (Patient 1 in https://aac.asm.org/content/early/2019/01/04/AAC.01586-18.abstract)? Your steps should be:
+In the second exercise we will try and find a mutation that is in a colistin resistant Acinetobacter isolate from a patient, but not in a colistin susceptible isolate from the same patient. In this case, it turned out that despite being from the same patient, the resistant and susceptible genomes are quite different. Therefore, we will focus on differences in a known resistance gene (pmrB). Your task is to run the variant calling and annotation pipelines for SRR7591081 (colR) and SRR6513781 (colS) against the ACICU reference genome (ACICU.fasta). You will then look for pmrB mutations that are in the resistant strain, that are not in the susceptible one. Did the mutation you found match the one from the paper (Patient 1 in https://aac.asm.org/content/early/2019/01/04/AAC.01586-18.abstract)? 
+
+Copy these folder to your day1_after folder:
+
+```
+d1a
+
+cp -r /scratch/micro612w19_fluxod/shared/data/day1_after/Acinetobacter_colistin_resistance/ .
+```
+
+Your steps should be:
 
 1) Create two PBS scripts comparing your colR and colS genomes to the reference genomes and submit to cluster
 2) Perform variant annotation against the ACICU reference genome with snpEff
