@@ -98,6 +98,41 @@ qsub -V spades.pbs
 qstat –u username 
 ```
 
+Submit PROKKA annotation job
+----------------------------
+
+Since Prokka annotation is a time intensive run, we will submit an annotation job and go over the results later at the end of this session. 
+
+
+Before we submit the job, run this command to make sure that prokka is setup properly in your environment.
+
+```
+prokka –setupdb
+```
+
+In your day2_morn directory, you will find a prokka.pbs script. Open this file using nano and change the EMAIL_ADDRESS to your email address.
+
+```
+nano prokka.pbs
+
+```
+
+Now add these line at the end of the pbs script.
+
+```
+
+mkdir SRR5244781_prokka 
+prokka -kingdom Bacteria -outdir SRR5244781_prokka -force -prefix SRR5244781 SRR5244781_contigs_ordered.fasta
+
+```
+
+Submit the job using qsub
+
+```
+qsub prokka.pbs
+```
+
+
 Assembly evaluation using [QUAST](http://bioinf.spbau.ru/quast)
 ---------------------------------
 [[back to top]](day2_morning.html)
@@ -348,7 +383,24 @@ Genome Annotation
 
 From our ACT comparison of our assembly and the reference we can clearly see that there is unique sequence in our assembly. However, we still don’t know what that sequence encodes! To try to get some insight into the sorts of genes unique to our assembly we will run a genome annotation pipeline called Prokka. Prokka works by first running *de novo* gene prediction algorithms to identify protein coding genes and tRNA genes. Next, for protein coding genes Prokka runs a series of comparisons against databases of annotated genes to generate putative annotations for your genome. 
 
-> ***i. Run Prokka on assembly***
+
+Earlier, we submitted a prokka job which should be completed by now. In this exercise, we will go over the prokka results and copy annotation files to our local system that we can then use for ACT visualization.
+
+
+> ***i.  Use scp or cyberduck to get Prokka annotated genome on your laptop. Dont forget to change username in the below command
+
+
+```
+cd SRR5244781_prokka
+
+ls 
+
+scp -r username@flux-xfer.arc-ts.umich.edu:/scratch/micro612w16_fluxod/username/day2_morn/SRR5244781_prokka/ /path-to-local-ACT_contig_comparison-directory/
+
+```
+
+<!--
+ Run Prokka on assembly***
 
 ```
 prokka –setupdb
@@ -374,6 +426,8 @@ prokka -kingdom Bacteria -outdir SRR5244781_prokka -force -prefix SRR5244781 SRR
 scp -r username@flux-xfer.arc-ts.umich.edu:/scratch/micro612w16_fluxod/username/day2_morn/SRR5244781_prokka/ /path-to-local-ACT_contig_comparison-directory/
 
 ```
+
+-->
 
 > ***ii. Reload comparison into ACT now that we’ve annotated the un-annotated!***
 
