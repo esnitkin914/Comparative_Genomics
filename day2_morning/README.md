@@ -400,7 +400,7 @@ scp -r username@flux-xfer.arc-ts.umich.edu:/scratch/micro612w16_fluxod/username/
 ```
 
 <!--
-> ***i. Run Prokka on assembly***
+ Run Prokka on assembly***
 
 ```
 prokka –setupdb
