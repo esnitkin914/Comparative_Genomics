@@ -156,13 +156,13 @@ perl transpose_nex_to_fasta.pl Ortho_SNP_matrix.nex
 
 This file Outputs/Comparative/Ortho_SNP_matrix.fasta should now exist
 
-> ***iii. Create maximum likelihood tree in Seaview***
+> ***iii. Create a neighboring-joining tree in R***
 
 ```
 
 Download Ortho_SNP_matrix.fasta to your home computer
-Import the file into Seaview and construct a tree using PhyML (100 bootstraps)
-Save tree for later analysis
+Read the fasta file into R, create a distance matrix, and make a neighbor joining tree. Make sure you load in the necessary packages! 
+Save tree for later analysis using write.tree()
 
 ```
 
@@ -171,7 +171,9 @@ Phylogenetic tree annotation and visualization
 [[back to top]](https://github.com/alipirani88/Comparative_Genomics/blob/master/day3_afternoon/README.md)
 [[HOME]](https://github.com/alipirani88/Comparative_Genomics/blob/master/README.md)
 
-> ***i. Load the maximum likelihood tree into iTOL***
+> ***i. Load the neighbor-joining tree into iTOL***
+
+Instead of annotating your tree in R, this time, let's use iTOL to make a publication quality tree. 
 
 Note that because the out-group is so distantly related it is difficult to make out the structure of the rest of the tree. 
 
