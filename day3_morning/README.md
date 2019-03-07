@@ -263,7 +263,7 @@ d3m
 
 cd /scratch/micro612w19_fluxod/username/day3_morn
 
-sed -i 's/\/1-.*//g' mauve_ECII_outgroup.fasta
+sed -i 's/.fa.*//g' mauve_ECII_outgroup.fasta
 
 run_gubbins.py -v -f 50 -o Abau_AB0057_genome mauve_ECII_outgroup.fasta
 
