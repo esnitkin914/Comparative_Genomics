@@ -100,7 +100,12 @@ Your steps should be:
   <summary>Solution</summary>
   
 ```
-Generate results and Get the solution here
+cat VRE_*.fasta VSE_ERR37*.fasta > VRE_VSE_genomes.fasta
+
+makeblastdb -in ardb_van.pfasta -dbtype prot
+
+blastx -query VRE_VSE_genomes.fasta -db ardb_van.pfasta -out van_blastp_results.tsv -outfmt 6 -evalue 1e-100 -max_target_seqs 1
+
 ```
 </details>
 
