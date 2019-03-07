@@ -189,7 +189,8 @@ An often-overlooked aspect of a proper phylogenetic analysis is to exclude recom
 
 For this analysis we want to exclude the out-group, because we are interested in determining whether recombination would hamper our ability to reconstruct the phylogenetic relationship among our closely related set of genomes.  
 
-- Note that the names of the sequences might be different for you, so check that if the command doesn’t work.
+- Note that the names of the sequences might be different for you, so check that if the command doesn’t work. Try printing out 
+abau_msa_no_outgroup to check that it worked.
 
 ```
 
@@ -197,7 +198,7 @@ abau_msa_no_outgroup = abau_msa[c('ACICU_genome','AbauA_genome','AbauC_genome','
 
 or 
 
-abau_msa_no_outgroup = abau_msa[c('ACICU_genome.fa/1-3996847','AbauA_genome.fa/1-3953855','AbauB_genome.fa/1-4014916','AbauC_genome.fa/1-4200364', 'Abau_AB0057_genome.fa/1-4050513'),]
+abau_msa_no_outgroup = abau_msa[c('ACICU_genome.fasta/1-3996847','AbauA_genome.fasta/1-3953855','AbauB_genome.fasta/1-4014916','AbauC_genome.fasta/1-4200364', 'Abau_AB0057_genome.fa/1-4050513'),]
 
 ```
 
