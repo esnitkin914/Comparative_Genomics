@@ -167,7 +167,15 @@ done
 
 ```
 
-The "&" in the above commands(at the end) is a little unix trick to run commands in background. You can run multiple commands in background and make full use of parallel processing. You can check the status of these background jobs by typing:
+The "&" in the above commands(at the end) is a little unix trick to run commands in background. You can check the jobs that are running in background with the below command:
+
+```
+
+jobs
+
+```
+
+You can run multiple commands in background and make full use of parallel processing. You can check the status of these background jobs by typing:
 
 ```
 jobs
@@ -248,12 +256,30 @@ Did you find anything interesting?
   <summary>Solution</summary>
   
 ```
-Generate results and Get the solution here
-
+# Load modules
 module load python-anaconda3/latest-3.6   bowtie2/2.1.0   cd-hit/4.6.4   mummer/3.23  ariba/2.13.3
 
+# Check if you have a mlst database for your species of interest
 ariba pubmlstspecies
 
+# Download your species mlst database
+ariba pubmlstget "Klebsiella pneumoniae" get_mlst
+
+# Set ARIBA database directory to the get_mlst database that we just downloaded.
+db_dir=./get_mlst/ref_db/
+
+# Run ariba mlst with this database
+samples=$(ls kpneumo_fastq/*1.fastq.gz) #forward reads
+
+# Run for loop, where it generates ARIBA command for each of the forward end files.
+for samp in $samples; do   
+samp2=${samp//1.fastq/2.fastq} #reverse reads   
+outdir=$(echo ${samp//.fastq.gz/} | cut -d/ -f2) #output directory 
+ariba run --force $db_dir $samp $samp2 $outdir & #ariba command 
+done
+
+# Once the run completes, run summarize_mlst.sh script to print out mlst reports that are generated in current directory
+bash summarize_mlst.sh .
 
 ```
 </details>
