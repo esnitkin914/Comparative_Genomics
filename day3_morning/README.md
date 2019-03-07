@@ -61,8 +61,8 @@ Run mauve to create multiple alignment
 
 i. Open mauve 
 ii. File -> align with progressiveMauve 
-iii. Click on “Add Sequnce” and add each of the 5 genomes you just downloaded
-iv. Name the output file “mauve_ECII_outgroup” and make sure it is in the directory you created for this exercise 
+iii. Click on “Add Sequnce” and add each of the 5 genomes you just downloaded(under Abau_genomes folder)
+iv. Name the output file “mauve_ECII_outgroup” and make sure it is in the directory you created for this exercise i.e Abau_mauve
 v. Click Align! 
 vi. Wait for Mauve to finish and explore the graphical interface
 
