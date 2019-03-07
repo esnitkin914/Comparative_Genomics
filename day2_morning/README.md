@@ -101,7 +101,7 @@ qstat –u username
 Submit PROKKA annotation job
 ----------------------------
 
-Since Prokka annotation is a time intensive run, We will submit a Prokka annotation job that will annotate an assembly fasta file. We will revisit the prokka results later at the end of this session.
+Since Prokka annotation is a time intensive run, we will submit an annotation job and go over the results later at the end of this session. 
 
 
 Before we submit the job, run this command to make sure that prokka is setup properly in your environment.
