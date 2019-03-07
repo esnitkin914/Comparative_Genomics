@@ -167,13 +167,7 @@ done
 
 ```
 
-The "&" in the above commands(at the end) is a little unix trick to run commands in background. You can check the jobs that are running in background with the below command:
-
-```
-
-jobs
-
-```
+The "&" in the above commands(at the end) is a little unix trick to run commands in background. 
 
 You can run multiple commands in background and make full use of parallel processing. You can check the status of these background jobs by typing:
 
