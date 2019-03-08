@@ -309,9 +309,6 @@ To view the tree we will use the ape package in R:
 
 # In RStudio
 
-# If you don't have ape installed:
-install.packages('ape')
-
 # Load ape library
 library(ape)
 
