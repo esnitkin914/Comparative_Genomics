@@ -303,20 +303,26 @@ Open up the pdf and observe the recombinant regions filtered out by gubbins. Doe
 
 Finally, lets look at the recombination-filtered tree to see if this alters our conclusions. 
 
-To view the tree we will use [Seaview](http://doua.prabi.fr/software/seaview), which is a multi-purpose tool for: 
-
-1) visualization/construction of multiple alignments and 
-
-2) phylogenetic tree construction. 
-
-Here, we will just use Seaview to view our gubbins tree.
+To view the tree we will use the ape package in R:
 
 ```
 
-In seaview: 
+# In RStudio
 
-Go to Trees -> import tree (mauve_ECII_outgroup.final_tree.tre) 
-To view sub-tree of interest click on “sub-tree” and select the sub-tree excluding the out-group
+# If you don't have ape installed:
+install.packages('ape')
+
+# Load ape library
+library(ape)
+
+# Path to tree file
+tree_file <- '~/Desktop/mauve_ECII_outgroup.final_tree.tre'
+
+# Read in tree
+tree <- read.tree(tree_file)
+
+# Plot tree
+plot(tree)
 
 ```
 
