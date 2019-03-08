@@ -173,7 +173,7 @@ Phylogenetic tree annotation and visualization
 
 > ***i. Load the neighbor-joining tree into iTOL***
 
-Instead of annotating your tree in R, this time, let's use iTOL to make a publication quality tree. 
+Instead of annotating your tree in R, this time, let's use iTOL to make a publication quality tree. iTOL is a web-based tool to visualize trees and metadata of the taxa. 
 
 Note that because the out-group is so distantly related it is difficult to make out the structure of the rest of the tree. 
 
