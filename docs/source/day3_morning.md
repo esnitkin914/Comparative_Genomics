@@ -313,7 +313,7 @@ To view the tree we will use the ape package in R:
 library(ape)
 
 # Path to tree file
-tree_file <- '~/Desktop/mauve_ECII_outgroup.final_tree.tre'
+tree_file <- '~/Desktop/Abau_mauve/mauve_ECII_outgroup.final_tree.tre'
 
 # Read in tree
 tree <- read.tree(tree_file)
