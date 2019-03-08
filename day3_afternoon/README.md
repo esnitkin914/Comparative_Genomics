@@ -8,7 +8,7 @@ Klebsiella pneumoniae comparative genomic analysis
 To finish up the workshop we are going to go through the process of working up a complete dataset, from start to finish.  This set of genomes originated from a regional outbreak of bla-KPC carrying Klebsiella pneumoniae – one of the most concerning healthcare associated pathogens. 
 The goal is to follow up on a previously [published](http://cid.oxfordjournals.org/content/53/6/532.abstract) epidemiologic analysis, and see if genomics supports prior epidemiologic conclusions and can provide additional insights. 
 
-The results of this genomics analysis were published in [this](http://stm.sciencemag.org/content/4/148/148ra116) paper.
+The results of this genomics analysis were published in [this](http://stm.sciencemag.org/content/9/417/eaan0093) paper.
 
 We have our genomes, and we know in which regional facility each isolate originated. 
 
