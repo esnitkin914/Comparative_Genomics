@@ -96,6 +96,7 @@
 </li>
 <li class="toctree-l1"><a class="reference internal" href="day2_morning.html">Day 2 Morning</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="day2_morning.html#genome-assembly-using-spades-pipeline">Genome Assembly using Spades Pipeline</a></li>
+<li class="toctree-l2"><a class="reference internal" href="day2_morning.html#submit-prokka-annotation-job">Submit PROKKA annotation job</a></li>
 <li class="toctree-l2"><a class="reference internal" href="day2_morning.html#assembly-evaluation-using-quast">Assembly evaluation using QUAST</a></li>
 <li class="toctree-l2"><a class="reference internal" href="day2_morning.html#generating-multiple-sample-reports-using-multiqc">Generating multiple sample reports using multiqc</a></li>
 <li class="toctree-l2"><a class="reference internal" href="day2_morning.html#compare-assembly-to-reference-genome-and-post-assembly-genome-improvement">Compare assembly to reference genome and post-assembly genome improvement</a></li>
@@ -170,8 +171,9 @@
 <div class="section" id="klebsiella-pneumoniae-comparative-genomic-analysis">
 <span id="klebsiella-pneumoniae-comparative-genomic-analysis"></span><h2>Klebsiella pneumoniae comparative genomic analysis<a class="headerlink" href="#klebsiella-pneumoniae-comparative-genomic-analysis" title="Permalink to this headline">¶</a></h2>
 <p>To finish up the workshop we are going to go through the process of working up a complete dataset, from start to finish.  This set of genomes originated from a regional outbreak of bla-KPC carrying Klebsiella pneumoniae – one of the most concerning healthcare associated pathogens.
-The goal is to follow up on a previously <a class="reference external" href="http://cid.oxfordjournals.org/content/53/6/532.abstract">published</a> epidemiologic analysis, and see if genomics supports prior epidemiologic conclusions and can provide additional insights.
-We have our genomes, and we know in which regional facility each isolate originated.</p>
+The goal is to follow up on a previously <a class="reference external" href="http://cid.oxfordjournals.org/content/53/6/532.abstract">published</a> epidemiologic analysis, and see if genomics supports prior epidemiologic conclusions and can provide additional insights.</p>
+<p>The results of this genomics analysis were published in <a class="reference external" href="http://stm.sciencemag.org/content/9/417/eaan0093">this</a> paper.</p>
+<p>We have our genomes, and we know in which regional facility each isolate originated.</p>
 <p>The goal of this exercise is to:</p>
 <ol class="simple">
 <li>process our genomes (QC, variant calling),</li>
@@ -288,12 +290,12 @@ perl transpose_nex_to_fasta.pl Ortho_SNP_matrix.nex
 </pre>
 <p>This file Outputs/Comparative/Ortho_SNP_matrix.fasta should now exist</p>
 <blockquote>
-<div><strong><em>iii. Create maximum likelihood tree in Seaview</em></strong></div></blockquote>
+<div><strong><em>iii. Create a neighboring-joining tree in R</em></strong></div></blockquote>
 <pre class="literal-block">
 
 Download Ortho_SNP_matrix.fasta to your home computer
-Import the file into Seaview and construct a tree using PhyML (100 bootstraps)
-Save tree for later analysis
+Read the fasta file into R, create a distance matrix, and make a neighbor joining tree. Make sure you load in the necessary packages! 
+Save tree for later analysis using write.tree()
 
 </pre>
 </div>
@@ -302,7 +304,8 @@ Save tree for later analysis
 <p><a class="reference external" href="day3_afternoon.html">[back to top]</a>
 <a class="reference external" href="index.html">[HOME]</a></p>
 <blockquote>
-<div><strong><em>i. Load the maximum likelihood tree into iTOL</em></strong></div></blockquote>
+<div><strong><em>i. Load the neighbor-joining tree into iTOL</em></strong></div></blockquote>
+<p>Instead of annotating your tree in R, this time, let&#8217;s use iTOL to make a publication quality tree. iTOL is a web-based tool to visualize trees and metadata of the taxa.</p>
 <p>Note that because the out-group is so distantly related it is difficult to make out the structure of the rest of the tree.</p>
 <p><strong>To remedy this:</strong></p>
 <ul class="simple">

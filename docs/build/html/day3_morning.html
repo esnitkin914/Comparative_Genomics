@@ -96,6 +96,7 @@
 </li>
 <li class="toctree-l1"><a class="reference internal" href="day2_morning.html">Day 2 Morning</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="day2_morning.html#genome-assembly-using-spades-pipeline">Genome Assembly using Spades Pipeline</a></li>
+<li class="toctree-l2"><a class="reference internal" href="day2_morning.html#submit-prokka-annotation-job">Submit PROKKA annotation job</a></li>
 <li class="toctree-l2"><a class="reference internal" href="day2_morning.html#assembly-evaluation-using-quast">Assembly evaluation using QUAST</a></li>
 <li class="toctree-l2"><a class="reference internal" href="day2_morning.html#generating-multiple-sample-reports-using-multiqc">Generating multiple sample reports using multiqc</a></li>
 <li class="toctree-l2"><a class="reference internal" href="day2_morning.html#compare-assembly-to-reference-genome-and-post-assembly-genome-improvement">Compare assembly to reference genome and post-assembly genome improvement</a></li>
@@ -215,8 +216,8 @@ scp -r username&#64;flux-xfer.arc-ts.umich.edu:/scratch/micro612w19_fluxod/usern
 
 i. Open mauve 
 ii. File -&gt; align with progressiveMauve 
-iii. Click on “Add Sequnce” and add each of the 5 genomes you just downloaded
-iv. Name the output file “mauve_ECII_outgroup” and make sure it is in the directory you created for this exercise 
+iii. Click on “Add Sequnce” and add each of the 5 genomes you just downloaded(under Abau_genomes folder)
+iv. Name the output file “mauve_ECII_outgroup” and make sure it is in the directory you created for this exercise i.e Abau_mauve
 v. Click Align! 
 vi. Wait for Mauve to finish and explore the graphical interface
 
@@ -316,7 +317,8 @@ plot(abau_nj_tree)
 <div><strong><em>i. Subset sequences to exclude the out-group</em></strong></div></blockquote>
 <p>For this analysis we want to exclude the out-group, because we are interested in determining whether recombination would hamper our ability to reconstruct the phylogenetic relationship among our closely related set of genomes.</p>
 <ul class="simple">
-<li>Note that the names of the sequences might be different for you, so check that if the command doesn’t work.</li>
+<li>Note that the names of the sequences might be different for you, so check that if the command doesn’t work. Try printing out
+abau_msa_no_outgroup to check that it worked.</li>
 </ul>
 <pre class="literal-block">
 
@@ -324,7 +326,7 @@ abau_msa_no_outgroup = abau_msa[c('ACICU_genome','AbauA_genome','AbauC_genome','
 
 or 
 
-abau_msa_no_outgroup = abau_msa[c('ACICU_genome.fa/1-3996847','AbauA_genome.fa/1-3953855','AbauB_genome.fa/1-4014916','AbauC_genome.fa/1-4200364', 'Abau_AB0057_genome.fa/1-4050513'),]
+abau_msa_no_outgroup = abau_msa[c('ACICU_genome.fasta/1-3996847','AbauA_genome.fasta/1-3953855','AbauB_genome.fasta/1-4014916','AbauC_genome.fasta/1-4200364', 'Abau_AB0057_genome.fa/1-4050513'),]
 
 </pre>
 <blockquote>
@@ -376,7 +378,7 @@ d3m
 
 cd /scratch/micro612w19_fluxod/username/day3_morn
 
-sed -i 's/\/1-.*//g' mauve_ECII_outgroup.fasta
+sed -i 's/.fa.*//g' mauve_ECII_outgroup.fasta
 
 run_gubbins.py -v -f 50 -o Abau_AB0057_genome mauve_ECII_outgroup.fasta
 
@@ -408,18 +410,22 @@ scp username&#64;flux-xfer.arc-ts.umich.edu:/scratch/micro612w19_fluxod/username
 </pre>
 <p>Open up the pdf and observe the recombinant regions filtered out by gubbins. Does it roughly match your expectations based upon your SNP density plots?</p>
 <p>Finally, lets look at the recombination-filtered tree to see if this alters our conclusions.</p>
-<p>To view the tree we will use <a class="reference external" href="http://doua.prabi.fr/software/seaview">Seaview</a>, which is a multi-purpose tool for:</p>
-<ol class="simple">
-<li>visualization/construction of multiple alignments and</li>
-<li>phylogenetic tree construction.</li>
-</ol>
-<p>Here, we will just use Seaview to view our gubbins tree.</p>
+<p>To view the tree we will use the ape package in R:</p>
 <pre class="literal-block">
 
-In seaview: 
+# In RStudio
 
-Go to Trees -&gt; import tree (mauve_ECII_outgroup.final_tree.tre) 
-To view sub-tree of interest click on “sub-tree” and select the sub-tree excluding the out-group
+# Load ape library
+library(ape)
+
+# Path to tree file
+tree_file &lt;- '~/Desktop/Abau_mauve/mauve_ECII_outgroup.final_tree.tre'
+
+# Read in tree
+tree &lt;- read.tree(tree_file)
+
+# Plot tree
+plot(tree)
 
 </pre>
 <p>How does the structure look different than the unfiltered tree?</p>

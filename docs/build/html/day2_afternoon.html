@@ -96,6 +96,7 @@
 </li>
 <li class="toctree-l1"><a class="reference internal" href="day2_morning.html">Day 2 Morning</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="day2_morning.html#genome-assembly-using-spades-pipeline">Genome Assembly using Spades Pipeline</a></li>
+<li class="toctree-l2"><a class="reference internal" href="day2_morning.html#submit-prokka-annotation-job">Submit PROKKA annotation job</a></li>
 <li class="toctree-l2"><a class="reference internal" href="day2_morning.html#assembly-evaluation-using-quast">Assembly evaluation using QUAST</a></li>
 <li class="toctree-l2"><a class="reference internal" href="day2_morning.html#generating-multiple-sample-reports-using-multiqc">Generating multiple sample reports using multiqc</a></li>
 <li class="toctree-l2"><a class="reference internal" href="day2_morning.html#compare-assembly-to-reference-genome-and-post-assembly-genome-improvement">Compare assembly to reference genome and post-assembly genome improvement</a></li>
@@ -241,7 +242,12 @@ less KPC_blastp_results.tsv
 <p><details>
 <summary>Solution</summary></p>
 <pre class="literal-block">
-Generate results and Get the solution here
+cat VRE_*.fasta VSE_ERR37*.fasta &gt; VRE_VSE_genomes.fasta
+
+makeblastdb -in ardb_van.pfasta -dbtype prot
+
+blastx -query VRE_VSE_genomes.fasta -db ardb_van.pfasta -out van_blastp_results.tsv -outfmt 6 -evalue 1e-100 -max_target_seqs 1
+
 </pre>
 <p></details></p>
 </div>
@@ -298,7 +304,8 @@ done
 
 
 </pre>
-<p>The &#8220;&amp;&#8221; in the above commands(at the end) is a little unix trick to run commands in background. You can run multiple commands in background and make full use of parallel processing. You can check the status of these background jobs by typing:</p>
+<p>The &#8220;&amp;&#8221; in the above commands(at the end) is a little unix trick to run commands in background.</p>
+<p>You can run multiple commands in background and make full use of parallel processing. You can check the status of these background jobs by typing:</p>
 <pre class="literal-block">
 jobs
 </pre>
@@ -369,12 +376,30 @@ pheatmap(ariba_full_match,annotation_row = annots)
 <p><details>
 <summary>Solution</summary></p>
 <pre class="literal-block">
-Generate results and Get the solution here
-
+# Load modules
 module load python-anaconda3/latest-3.6   bowtie2/2.1.0   cd-hit/4.6.4   mummer/3.23  ariba/2.13.3
 
+# Check if you have a mlst database for your species of interest
 ariba pubmlstspecies
 
+# Download your species mlst database
+ariba pubmlstget &quot;Klebsiella pneumoniae&quot; get_mlst
+
+# Set ARIBA database directory to the get_mlst database that we just downloaded.
+db_dir=./get_mlst/ref_db/
+
+# Run ariba mlst with this database
+samples=$(ls kpneumo_fastq/*1.fastq.gz) #forward reads
+
+# Run for loop, where it generates ARIBA command for each of the forward end files.
+for samp in $samples; do   
+samp2=${samp//1.fastq/2.fastq} #reverse reads   
+outdir=$(echo ${samp//.fastq.gz/} | cut -d/ -f2) #output directory 
+ariba run --force $db_dir $samp $samp2 $outdir &amp; #ariba command 
+done
+
+# Once the run completes, run summarize_mlst.sh script to print out mlst reports that are generated in current directory
+bash summarize_mlst.sh .
 
 </pre>
 <p></details></p>

@@ -7,6 +7,9 @@ Klebsiella pneumoniae comparative genomic analysis
 
 To finish up the workshop we are going to go through the process of working up a complete dataset, from start to finish.  This set of genomes originated from a regional outbreak of bla-KPC carrying Klebsiella pneumoniae – one of the most concerning healthcare associated pathogens. 
 The goal is to follow up on a previously [published](http://cid.oxfordjournals.org/content/53/6/532.abstract) epidemiologic analysis, and see if genomics supports prior epidemiologic conclusions and can provide additional insights. 
+
+The results of this genomics analysis were published in [this](http://stm.sciencemag.org/content/9/417/eaan0093) paper.
+
 We have our genomes, and we know in which regional facility each isolate originated. 
 
 The goal of this exercise is to:
@@ -156,13 +159,13 @@ perl transpose_nex_to_fasta.pl Ortho_SNP_matrix.nex
 
 This file Outputs/Comparative/Ortho_SNP_matrix.fasta should now exist
 
-> ***iii. Create maximum likelihood tree in Seaview***
+> ***iii. Create a neighboring-joining tree in R***
 
 ```
 
 Download Ortho_SNP_matrix.fasta to your home computer
-Import the file into Seaview and construct a tree using PhyML (100 bootstraps)
-Save tree for later analysis
+Read the fasta file into R, create a distance matrix, and make a neighbor joining tree. Make sure you load in the necessary packages! 
+Save tree for later analysis using write.tree()
 
 ```
 
@@ -171,7 +174,9 @@ Phylogenetic tree annotation and visualization
 [[back to top]](day3_afternoon.html)
 [[HOME]](index.html)
 
-> ***i. Load the maximum likelihood tree into iTOL***
+> ***i. Load the neighbor-joining tree into iTOL***
+
+Instead of annotating your tree in R, this time, let's use iTOL to make a publication quality tree. iTOL is a web-based tool to visualize trees and metadata of the taxa. 
 
 Note that because the out-group is so distantly related it is difficult to make out the structure of the rest of the tree. 
 

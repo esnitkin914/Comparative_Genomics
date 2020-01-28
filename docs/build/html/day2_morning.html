@@ -96,6 +96,7 @@
 </li>
 <li class="toctree-l1 current"><a class="current reference internal" href="">Day 2 Morning</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#genome-assembly-using-spades-pipeline">Genome Assembly using Spades Pipeline</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#submit-prokka-annotation-job">Submit PROKKA annotation job</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#assembly-evaluation-using-quast">Assembly evaluation using QUAST</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#generating-multiple-sample-reports-using-multiqc">Generating multiple sample reports using multiqc</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#compare-assembly-to-reference-genome-and-post-assembly-genome-improvement">Compare assembly to reference genome and post-assembly genome improvement</a></li>
@@ -245,6 +246,30 @@ qsub -V spades.pbs
 <div><strong><em>v. Verify that your job is in the queue with the qstat command</em></strong></div></blockquote>
 <pre class="literal-block">
 qstat –u username 
+</pre>
+</div>
+<div class="section" id="submit-prokka-annotation-job">
+<span id="submit-prokka-annotation-job"></span><h2>Submit PROKKA annotation job<a class="headerlink" href="#submit-prokka-annotation-job" title="Permalink to this headline">¶</a></h2>
+<p>Since Prokka annotation is a time intensive run, we will submit an annotation job and go over the results later at the end of this session.</p>
+<p>Before we submit the job, run this command to make sure that prokka is setup properly in your environment.</p>
+<pre class="literal-block">
+prokka –setupdb
+</pre>
+<p>In your day2_morn directory, you will find a prokka.pbs script. Open this file using nano and change the EMAIL_ADDRESS to your email address.</p>
+<pre class="literal-block">
+nano prokka.pbs
+
+</pre>
+<p>Now add these line at the end of the pbs script.</p>
+<pre class="literal-block">
+
+mkdir SRR5244781_prokka 
+prokka -kingdom Bacteria -outdir SRR5244781_prokka -force -prefix SRR5244781 SRR5244781_contigs_ordered.fasta
+
+</pre>
+<p>Submit the job using qsub</p>
+<pre class="literal-block">
+qsub prokka.pbs
 </pre>
 </div>
 <div class="section" id="assembly-evaluation-using-quast">
@@ -447,57 +472,6 @@ Dont close the ACT window
 <li>Notice that the alignment is totally beautiful now!!! Scan through the alignment and play with ACT features to look at genes present in reference but not in assembly. Keep the ACT window open for further visualizations.</li>
 </ul>
 <p><img alt="alt tag" src="_images/beautiful.png" /></p>
-<!--
-Map reads to the final ordered assembly
----------------------------------------
-[[back to top]](day2_morning.html)
-[[HOME]](index.html)<p>You already know the drill/steps involved in reads mapping. Here, we will map the reads to the final ordered assembly genome instead of KPNIH1.fasta.</p>
-<ul class="simple">
-<li>First create a bwa index of the ordered fasta file.</li>
-</ul>
-<pre class="literal-block">
-&gt; Only proceed further if everything worked uptil now. Make sure you are in day2_morn directory.
-
-d2m
-
-#or
-
-cd /scratch/micro612w19_fluxod/username/day2_morn/
-
-bwa index sample_266_contigs_ordered.fasta
-samtools faidx sample_266_contigs_ordered.fasta
-
-</pre>
-<ul class="simple">
-<li>Align the trimmed reads which we used for genome assembly to this ordered assembly using BWA mem. Convert SAM to BAM. Sort and index it.</li>
-</ul>
-<pre class="literal-block">
-
-bwa mem -M -R &quot;&#64;RG\tID:96\tSM:Rush_KPC_266_1_combine.fastq.gz\tLB:1\tPL:Illumina&quot; -t 8 sample_266_contigs_ordered.fasta forward_paired.fq.gz reverse_paired.fq.gz &gt; sample_266_contigs_ordered.sam
-
-samtools view -Sb sample_266_contigs_ordered.sam &gt; sample_266_contigs_ordered.bam
-
-samtools sort sample_266_contigs_ordered.bam sample_266_contigs_ordered_sort
-
-samtools index sample_266_contigs_ordered_sort.bam
-
-</pre>
-<ul class="simple">
-<li>Lets visualize the alignments against our ordered assembly.</li>
-</ul>
-<p>Copy this sorted and indexed BAM files to local ACT_contig_comparison directory.</p>
-<pre class="literal-block">
-&gt; Dont forget to change username and /path-to-local-ACT_contig_comparison-directory/ in the below command
-
-scp username&#64;flux-xfer.arc-ts.umich.edu:/scratch/micro612w19_fluxod/username/day2_morn/sample_266_contigs_ordered_sort* /path-to-previously-created-local-ACT_contig_comparison-directory/
-
-</pre>
-<pre class="literal-block">
-Go back to ACT where your ordered contigs are still open in the window.
-
-Select File -&gt; sample_266_contigs_ordered.fasta -&gt; Read BAM/VCF &gt; select sorted bam file(sample_266_contigs_ordered_sort.bam) you just copied from flux.
-</pre>
-<p>&#8211;&gt;</p>
 </div>
 <div class="section" id="genome-annotation">
 <span id="genome-annotation"></span><h2>Genome Annotation<a class="headerlink" href="#genome-annotation" title="Permalink to this headline">¶</a></h2>
@@ -505,9 +479,19 @@ Select File -&gt; sample_266_contigs_ordered.fasta -&gt; Read BAM/VCF &gt; selec
 <a class="reference external" href="index.html">[HOME]</a></p>
 <p><strong>Identify protein-coding genes with <a class="reference external" href="http://www.vicbioinformatics.com/software.prokka.shtml">Prokka</a></strong></p>
 <p>From our ACT comparison of our assembly and the reference we can clearly see that there is unique sequence in our assembly. However, we still don’t know what that sequence encodes! To try to get some insight into the sorts of genes unique to our assembly we will run a genome annotation pipeline called Prokka. Prokka works by first running <em>de novo</em> gene prediction algorithms to identify protein coding genes and tRNA genes. Next, for protein coding genes Prokka runs a series of comparisons against databases of annotated genes to generate putative annotations for your genome.</p>
+<p>Earlier, we submitted a prokka job which should be completed by now. In this exercise, we will go over the prokka results and copy annotation files to our local system that we can then use for ACT visualization.</p>
 <blockquote>
-<div><strong><em>i. Run Prokka on assembly</em></strong></div></blockquote>
+<div>***i.  Use scp or cyberduck to get Prokka annotated genome on your laptop. Dont forget to change username in the below command</div></blockquote>
 <pre class="literal-block">
+cd SRR5244781_prokka
+
+ls 
+
+scp -r username&#64;flux-xfer.arc-ts.umich.edu:/scratch/micro612w16_fluxod/username/day2_morn/SRR5244781_prokka/ /path-to-local-ACT_contig_comparison-directory/
+
+</pre>
+<!--
+ Run Prokka on assembly***<pre class="literal-block">
 prokka –setupdb
 </pre>
 <p>Execute Prokka on your ordered assembly</p>
@@ -529,6 +513,7 @@ prokka -kingdom Bacteria -outdir SRR5244781_prokka -force -prefix SRR5244781 SRR
 scp -r username&#64;flux-xfer.arc-ts.umich.edu:/scratch/micro612w16_fluxod/username/day2_morn/SRR5244781_prokka/ /path-to-local-ACT_contig_comparison-directory/
 
 </pre>
+<p>&#8211;&gt;</p>
 <blockquote>
 <div><strong><em>ii. Reload comparison into ACT now that we’ve annotated the un-annotated!</em></strong></div></blockquote>
 <p>Read files into ACT</p>
@@ -547,7 +532,7 @@ Sequence file 2  = SRR5244781_contigs_ordered.gbf
 <p>It also acquired the element ACME. One gene on ACME is arcA.</p>
 <p>Click on GoTo-&gt;FPR3757.gb-&gt;Navigator-&gt; GoTo and search by gene name. Search for arcA. Is it in the MSSA genome? Do you see other arc genes that may be in an operon with arcA?</p>
 <p>Scroll through the length of the genome. Are there any genes in the MSSA genome that are not in the MRSA genome?</p>
-<p>See this diagram and paper for more information on the features of USA300 MRSA:</p>
+<p>See <a class="reference external" href="https://github.com/alipirani88/Comparative_Genomics/blob/master/_img/day2_morning/day2_morn_mecA.png">this</a> diagram and paper for more information on the features of USA300 MRSA:</p>
 <p>Image from David &amp; Daum Clin Microbiol Rev. 2010 Jul;23(3):616-87. doi: 10.1128/CMR.00081-09.</p>
 </div>
 <div class="section" id="using-abacas-and-act-to-compare-vre-vse-genome">
