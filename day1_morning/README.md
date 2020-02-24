@@ -76,7 +76,7 @@ cp ~/.bashrc ~/bashrc_backup
 ##Micro612 Workshop ENV
 
 #Aliases
-alias iflux='qsub -I -V -l nodes=1:ppn=4,pmem=4000mb,walltime=1:00:00:00 -q fluxod -l qos=flux -A micro612w20_class_root/micro612w20_class'
+alias islurm='srun --account=micro612w20_class --nodes=1 --ntasks-per-node=1 --mem-per-cpu=1GB --cpus-per-task=1 --time=12:00:00 --pty /bin/bash'
 alias wd='cd /scratch/micro612w20_class_root/micro612w20_class/username/'
 alias d1m='cd /scratch/micro612w20_class_root/micro612w20_class/username/day1am'
 alias d1a='cd /scratch/micro612w20_class_root/micro612w20_class/username/day1pm'
