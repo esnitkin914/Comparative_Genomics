@@ -11,7 +11,7 @@ Second, we will use the tool [ARIBA](https://github.com/sanger-pathogens/ariba/w
 Third, we will move beyond antibiotic resistance, and look at the complete set of protein coding genes in our input genomes. 
 Finally, we will go back to ACT to understand the sorts of genomic rearrangements underlying observed variation in gene content.
 
-For BLAST and ARIBA, we will be looking at 8 *Klebsiella pneumoniae* genomes from human and environmental sources. Six of these genomes are from [this paper](https://www.pnas.org/content/112/27/E3574), and the other two are sequences from our lab. We are interested in learning more about potential differences in the resistomes of human and environmental isolates. The names of the environmental isolates begin with `ERR` and the names of the clinical isolates abegin with `PCMP_H`
+For BLAST and ARIBA, we will be looking at 8 *Klebsiella pneumoniae* genomes from human and environmental sources. Six of these genomes are from [this paper](https://www.pnas.org/content/112/27/E3574), and the other two are sequences from our lab. We are interested in learning more about potential differences in the resistomes of human and environmental isolates. 
 
 For the pan-genome analysis, we will be looking at four closely related *Acinetobacter baumannii* strains. However, despite being closely related, these genomes have major differences in gene content, as *A. baumannii* has a notoriously flexible genome! In fact, in large part due to its genomic flexibility, *A. baumannii* has transitioned from a harmless environmental contaminant to a pan-resistant super-bug in a matter of a few decades. If you are interested in learning more, check out this nature [review](http://www.nature.com/nrmicro/journal/v5/n12/abs/nrmicro1789.html) or [this](http://www.pnas.org/content/108/33/13758.abstract) paper I published a few years back analyzing the very same genomes you will be working with.
 
@@ -25,7 +25,7 @@ or
 
 wd
 
-cp -r /scratch/micro612w20_class_root/micro612w20_class/shared/data/day2pm/data ./
+cp -r /scratch/micro612w20_class_root/micro612w20_class/shared/data/day2pm/ ./
 
 # load conda environment
 conda activate micro612
@@ -35,6 +35,12 @@ conda activate micro612
 Before we get started, we're going to start a job running ARIBA, which takes about 40 minutes to finish. That way, the results will be there when we're ready for them!
 
 ```
+# list files
+ls
+
+# change directories
+
+
 # modify email address and look at ariba command
 nano ariba.sbatch
 
@@ -159,9 +165,12 @@ less ariba.sbatch
 ARIBA has a summary function that summarises the results from one or more sample runs of ARIBA and generates an output report with various level of information determined by the `-preset` parameter. The parameter `-preset minimal` will generate a minimal report showing only the presence/absence of resistance genes whereas `-preset all` will output all the extra information related to each database hit such as reads and reference sequence coverage, variants and their associated annotations (if the variant confers resistance to an antibiotic) etc.
 
 ```
-ariba summary --preset minimal kpneumo_ariba_minimal_results ariba/*/report.tsv
+# make directory for ariba results
+mkdir ariba_results
 
-ariba summary --preset all kpneumo_ariba_all_results ariba/*/report.tsv
+ariba summary --preset minimal ariba_results/kpneumo_ariba_minimal_results ariba/*/report.tsv
+
+ariba summary --preset all ariba_results/kpneumo_ariba_all_results ariba/*/report.tsv
 ```
 
 The ARIBA summary generates three output:
@@ -180,36 +189,29 @@ Drag and drop these two files onto the [Phandango](http://jameshadfield.github.i
 
 > ***iii. Explore full ARIBA matrix in R***
 
-- Now, fire up RStudio and read in the ARIBA full report `kpneumo_ariba_all_results.csv`
+Now, fire up RStudio and read in the ARIBA full report `kpneumo_ariba_all_results.csv` so we can take a look at the results.
 
 ```
-ariba_full  = read.csv(file = '~/Desktop/kpneumo_ariba_all_results.csv', row.names = 1)
+# Read in data
+ariba_full  = read.csv(file = '~/Desktop/micro612/day2pm/kpneumo_ariba_all_results.csv', row.names = 1)
 rownames(ariba_full) = gsub('_1|_R1|/report.tsv','',rownames(ariba_full))
-```
 
-- Subset to get description for each gene
-
-```
+# Subset to get description for each gene
 ariba_full_match = ariba_full[, grep('match',colnames(ariba_full))]
-```
 
-- Make binary for plotting purposes
-
-```
+# Make binary for plotting purposes
 ariba_full_match[,] = as.numeric(ariba_full_match != 'no')
-```
 
-- Make a heatmap!
+# Make a heatmap!
 
-```
 # install pheatmap if you don't already have it installed 
-install.packages('pheatmap')
+#install.packages('pheatmap')
 
 # load pheatmap
 library(pheatmap)
 
 # load metadata about sample source
-annots = read.table('~/Desktop/kpneumo_source.tsv',row.names=1)
+annots = read.table('~/Desktop/micro612/day2pm/kpneumo_source.tsv',row.names=1)
 colnames(annots) = 'Source'
 
 # plot heatmap
@@ -226,6 +228,7 @@ Steps:
 1. Copy the `ariba.sbatch` file to a new file called `mlst.sbatch`.
 1. Modify the `mlst.sbatch` script in the following ways:
     1. Change the database directory to the _K. pneumoniae_ MLST database you just downloaded.
+    1. Change the `mkdir` line to make a `mlst` directory.
     1. Modify the output directory `outdir` line: Change `ariba` to `mlst`.
 1. Submit the `mlst.sbatch` script. It should take about ___ to run.
 1. Once the run completes, ____
@@ -244,7 +247,7 @@ ariba pubmlstspecies
 ariba pubmlstget "Klebsiella pneumoniae" kp_mlst
 
 # Set ARIBA database directory to the get_mlst database that we just downloaded.
-db_dir=./get_mlst/ref_db/
+db_dir=./kp_mlst/ref_db/
 
 # Run ariba mlst with this database
 samples=$(ls kpneumo_fastq/*1.fastq.gz) #forward reads
