@@ -17,7 +17,7 @@ We have already created the human, mouse and ecoli reference databases inside fa
 
 ```
 
-ls /scratch/micro612w19_fluxod/shared/bin/fastq_screen_v0.5.2/data/
+ls /scratch/micro612w20_class_root/micro612w20_class/shared/bin/fastq_screen_v0.5.2/data/
 
 ```
 
@@ -31,14 +31,14 @@ How do you know if you are in interactive session?: you should see "username@nyx
 iflux
 ```
 
-Whenever you start an interactive job, the path resets to your home directory. So, navigate to day1_after directory again.
+Whenever you start an interactive job, the path resets to your home directory. So, navigate to day1pm directory again.
 
 ```
 d1a
 
 #or
 
-cd /scratch/micro612w19_fluxod/username/day1_after/
+cd /scratch/micro612w20_class_root/micro612w20_class/username/day1pm/
 
 ```
 
@@ -60,7 +60,7 @@ The above run will generate two types of output file: a screen report in text fo
 Use scp command as shown below or use cyberduck. If you dont the file in cyberduck window, try refreshing it using the refresh button at the top.
 
 ```
-scp username@flux-xfer.arc-ts.umich.edu:/scratch/micro612w19_fluxod/username/day1_after/fastq_screen_screen.png /path-to-local-directory/
+scp username@flux-xfer.arc-ts.umich.edu:/scratch/micro612w20_class_root/micro612w20_class/username/day1pm/fastq_screen_screen.png /path-to-local-directory/
 
 #You can use ~/Desktop/ as your local directory path
 
@@ -70,12 +70,12 @@ Open fastq_screen_screen.png on your system. You will notice that the sample con
 
 Quality Control using [FastQC](http://www.bioinformatics.babraham.ac.uk/projects/fastqc/ "FastQC homepage")
 ------------------------------
-[[back to top]](https://github.com/alipirani88/Comparative_Genomics/blob/master/day1_morning/README.md)
+[[back to top]](https://github.com/alipirani88/Comparative_Genomics/blob/master/day1aming/README.md)
 [[HOME]](https://github.com/alipirani88/Comparative_Genomics/blob/master/README.md)
 
 Now we will run FastQC on some sample raw data to assess its quality. FastQC is a quality control tool that reads in sequence data in a variety of formats(fastq, bam, sam) and can either provide an interactive application to review the results or create an HTML based report which can be integrated into any pipeline. It is generally the first step that you take upon receiving the sequence data from sequencing facility to get a quick sense of its quality and whether it exhibits any unusual properties (e.g. contamination or unexpected biological features)
 
-> ***i. In your day1_after directory, create a new directory for saving FastQC results.***
+> ***i. In your day1pm directory, create a new directory for saving FastQC results.***
 
 ```
 mkdir Rush_KPC_266_FastQC_results
@@ -107,18 +107,18 @@ You can visualize and assess the quality of data by opening html report in a loc
 > ***v. Download the FastQC html report to your home computer to examine using scp or cyberduck***
 
 ```
-scp username@flux-xfer.arc-ts.umich.edu:/scratch/micro612w19_fluxod/username/day1_after/Rush_KPC_266_FastQC_results/before_trimmomatic/*.html /path-to-local-directory/
+scp username@flux-xfer.arc-ts.umich.edu:/scratch/micro612w20_class_root/micro612w20_class/username/day1pm/Rush_KPC_266_FastQC_results/before_trimmomatic/*.html /path-to-local-directory/
 ```
 
 The analysis in FastQC is broken down into a series of analysis modules. The left hand side of the main interactive display or the top of the HTML report show a summary of the modules which were run, and a quick evaluation of whether the results of the module seem entirely normal (green tick), slightly abnormal (orange triangle) or very unusual (red cross). 
 
-![alt tag](https://github.com/alipirani88/Comparative_Genomics/blob/master/_img/day1_morning/1.png)
+![alt tag](https://github.com/alipirani88/Comparative_Genomics/blob/master/_img/day1aming/1.png)
 
 Lets first look at the quality drop(per base sequence quality graph) at the end of "Per Base Sequence Quality" graph. This degredation of quality towards the end of reads is commonly observed in illumina samples. The reason for this drop is that as the number of sequencing cycles performed increases, the average quality of the base calls, as reported by the Phred Scores produced by the sequencer falls. 
 
 Next, lets check the overrepresented sequences graph and the kind of adapters that were used for sequencing these samples (Truseq or Nextera) which comes in handy while indicating the adapter database path during downstream filtering step (Trimmomatic).
 
-![alt tag](https://github.com/alipirani88/Comparative_Genomics/blob/master/_img/day1_morning/2.png)
+![alt tag](https://github.com/alipirani88/Comparative_Genomics/blob/master/_img/day1aming/2.png)
 
 - Check out [this](https://sequencing.qcfail.com/articles/loss-of-base-call-accuracy-with-increasing-sequencing-cycles/) for more detailed explaination as to why quality drops with increasing sequencing cycles.
 
@@ -126,7 +126,7 @@ Next, lets check the overrepresented sequences graph and the kind of adapters th
 
 Quality Trimming using [Trimmomatic](http://www.usadellab.org/cms/?page=trimmomatic "Trimmomatic Homepage")
 ------------------------------------
-[[back to top]](https://github.com/alipirani88/Comparative_Genomics/blob/master/day1_morning/README.md)
+[[back to top]](https://github.com/alipirani88/Comparative_Genomics/blob/master/day1aming/README.md)
 [[HOME]](https://github.com/alipirani88/Comparative_Genomics/blob/master/README.md)
 
 Filtering out problematic sequences within a dataset is inherently a trade off between sensitivity (ensuring all contaminant sequences are removed) and specificity (leaving all non-contaminant sequence data intact). Adapter and other technical contaminants can potentially occur in any location within the reads.(start, end, read-through (between the reads), partial adapter sequences)
@@ -137,21 +137,21 @@ For more information on how Trimmomatic tries to achieve this, Please refer [thi
 
 Now we will run Trimmomatic on these raw data to remove low quality reads as well as adapters. 
 
-> ***i. If the interactive session timed out, get an interactive cluster node again to start running programs and navigate to day1_after directory.***
+> ***i. If the interactive session timed out, get an interactive cluster node again to start running programs and navigate to day1pm directory.***
 
 How to know if you are in interactive session: you should see "username@nyx" in your command prompt
 
 ```
 iflux
 
-cd /scratch/micro612w19_fluxod/username/day1_after/
+cd /scratch/micro612w20_class_root/micro612w20_class/username/day1pm/
 
 #or
 
 d1a
 ```
 
-> ***ii. Create these output directories in your day1_after folder to save trimmomatic results***
+> ***ii. Create these output directories in your day1pm folder to save trimmomatic results***
 
 ```
 mkdir Rush_KPC_266_trimmomatic_results
@@ -160,19 +160,19 @@ mkdir Rush_KPC_266_trimmomatic_results
 > ***iii. Try to invoke trimmomatic from command line.***
 
 ```
-java -jar /scratch/micro612w19_fluxod/shared/bin/Trimmomatic/trimmomatic-0.33.jar –h
+java -jar /scratch/micro612w20_class_root/micro612w20_class/shared/bin/Trimmomatic/trimmomatic-0.33.jar –h
 ```
 
 > ***iv. Run the below trimmomatic commands on raw reads.***
 
 ```
-java -jar /scratch/micro612w19_fluxod/shared/bin/Trimmomatic/trimmomatic-0.33.jar PE Rush_KPC_266_1_combine.fastq.gz Rush_KPC_266_2_combine.fastq.gz Rush_KPC_266_trimmomatic_results/forward_paired.fq.gz Rush_KPC_266_trimmomatic_results/forward_unpaired.fq.gz Rush_KPC_266_trimmomatic_results/reverse_paired.fq.gz Rush_KPC_266_trimmomatic_results/reverse_unpaired.fq.gz ILLUMINACLIP:/scratch/micro612w19_fluxod/shared/bin/Trimmomatic/adapters/TruSeq3-PE.fa:2:30:10:8:true SLIDINGWINDOW:4:15 MINLEN:40 HEADCROP:0
+java -jar /scratch/micro612w20_class_root/micro612w20_class/shared/bin/Trimmomatic/trimmomatic-0.33.jar PE Rush_KPC_266_1_combine.fastq.gz Rush_KPC_266_2_combine.fastq.gz Rush_KPC_266_trimmomatic_results/forward_paired.fq.gz Rush_KPC_266_trimmomatic_results/forward_unpaired.fq.gz Rush_KPC_266_trimmomatic_results/reverse_paired.fq.gz Rush_KPC_266_trimmomatic_results/reverse_unpaired.fq.gz ILLUMINACLIP:/scratch/micro612w20_class_root/micro612w20_class/shared/bin/Trimmomatic/adapters/TruSeq3-PE.fa:2:30:10:8:true SLIDINGWINDOW:4:15 MINLEN:40 HEADCROP:0
 ```
 
 
-![alt tag](https://github.com/alipirani88/Comparative_Genomics/blob/master/_img/day1_morning/trimm_parameters.png)
+![alt tag](https://github.com/alipirani88/Comparative_Genomics/blob/master/_img/day1aming/trimm_parameters.png)
 
-First, Trimmomatic searches for any matches between the reads and adapter sequences. Adapter sequences are stored in this directory of Trimmomatic tool: /scratch/micro612w19_fluxod/shared/bin/Trimmomatic/adapters/. Trimmomatic comes with a list of standard adapter fasta sequences such TruSeq, Nextera etc. You should use appropriate adapter fasta sequence file based on the illumina kit that was used for sequencing. You can get this information from your sequencing centre or can find it in FastQC html report (Section: Overrepresented sequences).
+First, Trimmomatic searches for any matches between the reads and adapter sequences. Adapter sequences are stored in this directory of Trimmomatic tool: /scratch/micro612w20_class_root/micro612w20_class/shared/bin/Trimmomatic/adapters/. Trimmomatic comes with a list of standard adapter fasta sequences such TruSeq, Nextera etc. You should use appropriate adapter fasta sequence file based on the illumina kit that was used for sequencing. You can get this information from your sequencing centre or can find it in FastQC html report (Section: Overrepresented sequences).
 
 Short sections (2 bp as determined by seed misMatch parameter) of each adapter sequences (contained in TruSeq3-PE.fa) are tested in each possible position within the reads. If it finds a perfect match, It starts searching the entire adapter sequence and scores the alignment. The advantage here is that the full alignment is calculated only when there is a perfect seed match which results in considerable efficiency gains. So, When it finds a match, it moves forward with full alignment and when the match reaches 10 bp determined by simpleClipThreshold, it finally trims off the adapter from reads.  
 
@@ -180,7 +180,7 @@ Quoting Trimmomatic:
 
 "'Palindrome' trimming is specifically designed for the case of 'reading through' a short fragment into the adapter sequence on the other end. In this approach, the appropriate adapter sequences are 'in silico ligated' onto the start of the reads, and the combined adapter+read sequences, forward and reverse are aligned. If they align in a manner which indicates 'read- through' i.e atleast 30 bp match, the forward read is clipped and the reverse read dropped (since it contains no new data)."
 
-> ***v. Now create new directories in day1_after folder and Run FastQC on these trimmomatic results.***
+> ***v. Now create new directories in day1pm folder and Run FastQC on these trimmomatic results.***
 
 ```
 mkdir Rush_KPC_266_FastQC_results/after_trimmomatic
@@ -191,10 +191,10 @@ fastqc -o Rush_KPC_266_FastQC_results/after_trimmomatic/ Rush_KPC_266_trimmomati
 Get these html reports to your local system.
 
 ```
-scp username@flux-xfer.arc-ts.umich.edu:/scratch/micro612w19_fluxod/username/day1_after/Rush_KPC_266_FastQC_results/after_trimmomatic/*.html /path-to-local-directory/
+scp username@flux-xfer.arc-ts.umich.edu:/scratch/micro612w20_class_root/micro612w20_class/username/day1pm/Rush_KPC_266_FastQC_results/after_trimmomatic/*.html /path-to-local-directory/
 ```
 
-![alt tag](https://github.com/alipirani88/Comparative_Genomics/blob/master/_img/day1_morning/3.png)
+![alt tag](https://github.com/alipirani88/Comparative_Genomics/blob/master/_img/day1aming/3.png)
 
 After running Trimmomatic, you should notice that the sequence quality improved (Per base sequence quality) and now it doesn't contain any contaminants/adapters (Overrepresented sequences).
 
@@ -210,7 +210,7 @@ This doesn't look very bad but you can remove the red cross sign by trimming the
 ```
 mkdir Rush_KPC_266_trimmomatic_results_with_headcrop/
 
-time java -jar /scratch/micro612w19_fluxod/shared/bin/Trimmomatic/trimmomatic-0.33.jar PE Rush_KPC_266_1_combine.fastq.gz Rush_KPC_266_2_combine.fastq.gz Rush_KPC_266_trimmomatic_results_with_headcrop/forward_paired.fq.gz Rush_KPC_266_trimmomatic_results_with_headcrop/forward_unpaired.fq.gz Rush_KPC_266_trimmomatic_results_with_headcrop/reverse_paired.fq.gz Rush_KPC_266_trimmomatic_results_with_headcrop/reverse_unpaired.fq.gz ILLUMINACLIP:/scratch/micro612w19_fluxod/shared/bin/Trimmomatic/adapters/TruSeq3-PE.fa:2:30:10:8:true SLIDINGWINDOW:4:20 MINLEN:40 HEADCROP:9
+time java -jar /scratch/micro612w20_class_root/micro612w20_class/shared/bin/Trimmomatic/trimmomatic-0.33.jar PE Rush_KPC_266_1_combine.fastq.gz Rush_KPC_266_2_combine.fastq.gz Rush_KPC_266_trimmomatic_results_with_headcrop/forward_paired.fq.gz Rush_KPC_266_trimmomatic_results_with_headcrop/forward_unpaired.fq.gz Rush_KPC_266_trimmomatic_results_with_headcrop/reverse_paired.fq.gz Rush_KPC_266_trimmomatic_results_with_headcrop/reverse_unpaired.fq.gz ILLUMINACLIP:/scratch/micro612w20_class_root/micro612w20_class/shared/bin/Trimmomatic/adapters/TruSeq3-PE.fa:2:30:10:8:true SLIDINGWINDOW:4:20 MINLEN:40 HEADCROP:9
 ```
 
 Unix gem: time in above command shows how long a command takes to run?
@@ -223,14 +223,14 @@ fastqc -o Rush_KPC_266_FastQC_results/after_trimmomatic_headcrop/ --extract -f f
 ```
 Download the reports again and see the difference.
 ```
-scp username@flux-xfer.arc-ts.umich.edu:/scratch/micro612w19_fluxod/username/day1_after/Rush_KPC_266_FastQC_results/after_trimmomatic_headcrop/*.html /path-to-local-directory/
+scp username@flux-xfer.arc-ts.umich.edu:/scratch/micro612w20_class_root/micro612w20_class/username/day1pm/Rush_KPC_266_FastQC_results/after_trimmomatic_headcrop/*.html /path-to-local-directory/
 ```
 
 The red cross sign disappeared!
 
 Lets have a look at one of the Bad Illumina data example [here](http://www.bioinformatics.babraham.ac.uk/projects/fastqc/bad_sequence_fastqc.html)
 
-[[back to top]](https://github.com/alipirani88/Comparative_Genomics/blob/master/day1_morning/README.md)
+[[back to top]](https://github.com/alipirani88/Comparative_Genomics/blob/master/day1aming/README.md)
 [[HOME]](https://github.com/alipirani88/Comparative_Genomics/blob/master/README.md)
 
 Earlier, We performed some quality control steps on our sequencing data to make it clean and usable for various downstream analysis. Now we will perform our first sequence analysis, specifically variant calling, and map these reads to a reference genome and try to find out the differences between them.
@@ -273,15 +273,15 @@ The script requires following positional arguments as input to call variants:
 4. Output Directory Path. A new directory will be created at this path by the name that you will provide for Analysis Base name. for example: if the output path is /dir_1/dir_2/ and Analysis Base name is sample_name , a new directory by the name sample_name_varcall_result will be created in /dir_1/dir_2/
 5. Analysis Base name to store result files with this prefix.
 
-If you remember, we ran the shell script in following fashion inside day1_after directory.
+If you remember, we ran the shell script in following fashion inside day1pm directory.
 
 ```
 
-bash ./variant_call.sh PCMP_H326_R1.fastq.gz PCMP_H326_R2.fastq.gz /Path-to-your-day1_after/KPNIH1.fasta /Path-to-your-day1_after/ PCMP_H326_
+bash ./variant_call.sh PCMP_H326_R1.fastq.gz PCMP_H326_R2.fastq.gz /Path-to-your-day1pm/KPNIH1.fasta /Path-to-your-day1pm/ PCMP_H326_
 
 ```
 
-The script generates PCMP_H326__varcall_result folder in your day1_after folder and the results for each step of variant calling will be organized in 6 different steps folder. Each of these steps represents a particular step involved in variant calling starting from cleaning the reads to calling variants.
+The script generates PCMP_H326__varcall_result folder in your day1pm folder and the results for each step of variant calling will be organized in 6 different steps folder. Each of these steps represents a particular step involved in variant calling starting from cleaning the reads to calling variants.
 
 **These 6 folders are:**
 
@@ -314,10 +314,10 @@ This folder contains results generated by Trimmomatic. Since we already went thr
 Step2_mapping
 -------------
 
-[[back to top]](https://github.com/alipirani88/Comparative_Genomics/blob/master/day1_afternoon/README.md)
+[[back to top]](https://github.com/alipirani88/Comparative_Genomics/blob/master/day1pmnoon/README.md)
 [[HOME]](https://github.com/alipirani88/Comparative_Genomics/blob/master/README.md)
 
-![alt tag](https://github.com/alipirani88/Comparative_Genomics/blob/master/_img/day1_after/1_1.png)
+![alt tag](https://github.com/alipirani88/Comparative_Genomics/blob/master/_img/day1pm/1_1.png)
 
 This folder contains results that were generated by mapping reads against a finished reference genome using [BWA](http://bio-bwa.sourceforge.net/bwa.shtml "BWA manual")
 
@@ -361,7 +361,7 @@ The following command was used to do this job using both forward and reverse end
 
 ```
 
-bwa mem -M -R "@RG     ID:16   SM:PCMP_H326_R1.fastq.gz        LB:1    PL:Illumina" -t 8 /nfs/esnitkin/micro612w19_fluxod/shared/data/day1_after/KPNIH1.fasta /nfs/esnitkin/micro612w19_fluxod/shared/data/day1_after/PCMP_H326__varcall_result/forward_paired.fq.gz /nfs/esnitkin/micro612w19_fluxod/shared/data/day1_after/PCMP_H326__varcall_result/reverse_paired.fq.gz > /nfs/esnitkin/micro612w19_fluxod/shared/data/day1_after/PCMP_H326__varcall_result/PCMP_H326__aln.sam
+bwa mem -M -R "@RG     ID:16   SM:PCMP_H326_R1.fastq.gz        LB:1    PL:Illumina" -t 8 /nfs/esnitkin/micro612w20_class_root/micro612w20_class/shared/data/day1pm/KPNIH1.fasta /nfs/esnitkin/micro612w20_class_root/micro612w20_class/shared/data/day1pm/PCMP_H326__varcall_result/forward_paired.fq.gz /nfs/esnitkin/micro612w20_class_root/micro612w20_class/shared/data/day1pm/PCMP_H326__varcall_result/reverse_paired.fq.gz > /nfs/esnitkin/micro612w20_class_root/micro612w20_class/shared/data/day1pm/PCMP_H326__varcall_result/PCMP_H326__aln.sam
 
 ```
 
@@ -379,7 +379,7 @@ You can extract this information from fastq read header.
 
 The output of BWA and most of the short-reads aligners is a SAM file. SAM format is considered as the standard output for most read aligners and stands for Sequence Alignment/Map format. It is a TAB-delimited format that describes how each reads were aligned to the reference sequence. 
 
-Lets explore first few lines of .sam file. Go to day1_after directory and then change directory to PCMP_H326__varcall_result/Step2_mapping/
+Lets explore first few lines of .sam file. Go to day1pm directory and then change directory to PCMP_H326__varcall_result/Step2_mapping/
 
 
 ```
@@ -397,7 +397,7 @@ example:
 
 @SQ	SN:gi|661922017|gb|CP008827.1|	LN:5394056
 @RG	ID:16	SM:PCMP_H326_R1.fastq.gz	LB:1	PL:Illumina
-@PG	ID:bwa	PN:bwa	VN:0.7.12-r1039	CL:bwa mem -M -R @RG\tID:16\tSM:PCMP_H326_R1.fastq.gz\tLB:1\tPL:Illumina -t 8 /nfs/esnitkin/micro612w19_fluxod/shared/data/day1_after/KPNIH1.fasta /nfs/esnitkin/micro612w19_fluxod/shared/data/day1_after/PCMP_H326__varcall_result/forward_paired.fq.gz /nfs/esnitkin/micro612w19_fluxod/shared/data/day1_after/PCMP_H326__varcall_result/reverse_paired.fq.gz
+@PG	ID:bwa	PN:bwa	VN:0.7.12-r1039	CL:bwa mem -M -R @RG\tID:16\tSM:PCMP_H326_R1.fastq.gz\tLB:1\tPL:Illumina -t 8 /nfs/esnitkin/micro612w20_class_root/micro612w20_class/shared/data/day1pm/KPNIH1.fasta /nfs/esnitkin/micro612w20_class_root/micro612w20_class/shared/data/day1pm/PCMP_H326__varcall_result/forward_paired.fq.gz /nfs/esnitkin/micro612w20_class_root/micro612w20_class/shared/data/day1pm/PCMP_H326__varcall_result/reverse_paired.fq.gz
 D00728:16:hf2mtbcxx:2:1101:1580:2235	99	gi|661922017|gb|CP008827.1|	4442353	60	251M	=	4442534	413	GTTCCAGGCGTTCGCCATCCAGCCAAGATTGAGCGCGGTAATACCTTTGTCCCAGAACTCCGGGCTGACATAGTTTTTCAGGCGTTGATCTTCATAGATCTGCGGTACCGAAATGTTCAACCGCAGGGAGGACTGGACCAGGTTGTCTTTGACGTTTTCTTCGTTGCGCCAGGATTTGAGGCTACCGCAGTAGCCCTCCTGCTCGCTCAGCTGCGGATTGAGCTTTTCCGCCGCGATGCCATATTGGGCCA	DDDDDIIHIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIHIIIIIIIIIIIIIIIIIIHIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIHHHIIIIIIIIHGHIHHIIIIEHIIIIIIIIIIIHIIIHIHIHIIHIIIHGDHHHIGHHIHHIIIHIIIHIIIIIIIIIHHIIIICHIIHIHIIHGDHHHCGHHIIIGIDHHDH:+CGHHHHHEEHE@E@5	NM:i:0	MD:Z:251	AS:i:25XS:i:0	RG:Z:16
 
 ```
@@ -452,14 +452,14 @@ For an in-depth explanation about how PCR duplicates arise in sequencing, please
 
 Picard identifies duplicates by searching reads that have same start position on reference or in PE reads same start for both ends. It will choose a representative from each group of duplicate reads based on best base quality scores and other criteria and retain it while removing other duplicates. This step plays a significant role in removing false positive variant calls(such as sequencing error) during variant calling that are represented by PCR duplicate reads.
 
-![alt tag](https://github.com/alipirani88/Comparative_Genomics/blob/master/_img/day1_after/picard.png)
+![alt tag](https://github.com/alipirani88/Comparative_Genomics/blob/master/_img/day1pm/picard.png)
 
 To run this step, we first need to create a dictionary for reference fasta file that is required by PICARD
 
 
 ```
 
-java -jar /scratch/micro612w19_fluxod/shared/bin/picard-tools-1.130/picard.jar CreateSequenceDictionary REFERENCE=KPNIH1.fasta OUTPUT=KPNIH1.dict
+java -jar /scratch/micro612w20_class_root/micro612w20_class/shared/bin/picard-tools-1.130/picard.jar CreateSequenceDictionary REFERENCE=KPNIH1.fasta OUTPUT=KPNIH1.dict
 
 ```
 
@@ -467,7 +467,7 @@ Once the sequence dictionary is created, PICARD can be run for removing duplicat
 
 ```
 
-java -jar /scratch/micro612w19_fluxod/shared/bin/picard-tools-1.130/picard.jar MarkDuplicates REMOVE_DUPLICATES=true INPUT=PCMP_H326__aln_sort.bam OUTPUT=PCMP_H326__aln_marked.bam METRICS_FILE=PCMP_H326__markduplicates_metrics CREATE_INDEX=true VALIDATION_STRINGENCY=LENIENT
+java -jar /scratch/micro612w20_class_root/micro612w20_class/shared/bin/picard-tools-1.130/picard.jar MarkDuplicates REMOVE_DUPLICATES=true INPUT=PCMP_H326__aln_sort.bam OUTPUT=PCMP_H326__aln_marked.bam METRICS_FILE=PCMP_H326__markduplicates_metrics CREATE_INDEX=true VALIDATION_STRINGENCY=LENIENT
 
 ```
 
@@ -495,7 +495,7 @@ less Rush_KPC_266__markduplicates_metrics
 
 Step5_variantcalling
 --------------------
-[[back to top]](https://github.com/alipirani88/Comparative_Genomics/blob/master/day1_afternoon/README.md)
+[[back to top]](https://github.com/alipirani88/Comparative_Genomics/blob/master/day1pmnoon/README.md)
 [[HOME]](https://github.com/alipirani88/Comparative_Genomics/blob/master/README.md)
 
 One of the downstream uses of read mapping is finding differences between our sequence data against a reference. This step is achieved by carrying out variant calling using any of the variant callers (samtools, gatk, freebayes etc). Each variant caller uses a different statistical framework to discover SNPs and other types of mutations. For those of you who are interested in finding out more about the statistics involved, please refer to [this]() samtools paper, one of most commonly used variant callers.
@@ -560,7 +560,7 @@ d1a
 
 cd PCMP_H326__varcall_result/Step6_variantfilteraion
 
-java -jar /scratch/micro612w19_fluxod/shared/bin/GenomeAnalysisTK-3.3-0/GenomeAnalysisTK.jar -T VariantFiltration -R KPNIH1.fasta -o PCMP_H326__filter_gatk.vcf --variant PCMP_H326__aln_mpileup_raw.vcf --filterExpression "FQ < 0.025 && MQ > 50 && QUAL > 100 && DP > 15" --filterName pass_filter
+java -jar /scratch/micro612w20_class_root/micro612w20_class/shared/bin/GenomeAnalysisTK-3.3-0/GenomeAnalysisTK.jar -T VariantFiltration -R KPNIH1.fasta -o PCMP_H326__filter_gatk.vcf --variant PCMP_H326__aln_mpileup_raw.vcf --filterExpression "FQ < 0.025 && MQ > 50 && QUAL > 100 && DP > 15" --filterName pass_filter
 
 
 ```
@@ -632,7 +632,7 @@ cd PCMP_H326__varcall_result/Step6_variantfilteraion
 > ***i. Check snpEff internal database for your reference genome:***
 
 ```     
-java -jar /scratch/micro612w19_fluxod/shared/bin/snpEff/snpEff.jar databases | grep 'kpnih1'
+java -jar /scratch/micro612w20_class_root/micro612w20_class/shared/bin/snpEff/snpEff.jar databases | grep 'kpnih1'
 ```
 
 The existing KPNIH1 reference database doesn't contain mgrB annotation in it so we built a custom database out of a custom KPNIH1 genbank file. The procedure to configure a custom database can be found [here](http://snpeff.sourceforge.net/SnpEff_manual.html#databases). 
@@ -641,7 +641,7 @@ The existing KPNIH1 reference database doesn't contain mgrB annotation in it so 
 
 ```
 
-java -Xmx4g -jar /scratch/micro612w19_fluxod/shared/bin/snpEff/snpEff.jar -csvStats PCMP_H326__filter_gatk_stats -dataDir /scratch/micro612w19_fluxod/shared/bin/snpEff/data/ -d -no-downstream -no-upstream -c /scratch/micro612w19_fluxod/shared/bin/snpEff/snpEff.config KPNIH1 PCMP_H326__filter_gatk.vcf > PCMP_H326__filter_gatk_ann.vcf
+java -Xmx4g -jar /scratch/micro612w20_class_root/micro612w20_class/shared/bin/snpEff/snpEff.jar -csvStats PCMP_H326__filter_gatk_stats -dataDir /scratch/micro612w20_class_root/micro612w20_class/shared/bin/snpEff/data/ -d -no-downstream -no-upstream -c /scratch/micro612w20_class_root/micro612w20_class/shared/bin/snpEff/snpEff.config KPNIH1 PCMP_H326__filter_gatk.vcf > PCMP_H326__filter_gatk_ann.vcf
 
 ```
 
@@ -702,7 +702,7 @@ Run the below parser on your final annotated file PCMP_H326__filter_gatk_ann.vcf
 ```
 module load python-anaconda2/latest 
 
-python /scratch/micro612w19_fluxod/shared/bin/snpEff_parse.py -genbank /path-to/day1_after/KPNIH1.gb -vcf PCMP_H326__filter_gatk_ann.vcf
+python /scratch/micro612w20_class_root/micro612w20_class/shared/bin/snpEff_parse.py -genbank /path-to/day1pm/KPNIH1.gb -vcf PCMP_H326__filter_gatk_ann.vcf
 
 ```
 
@@ -759,7 +759,7 @@ Generate Alignment Statistics
 
 Often, while analyzing sequencing data, we are required to make sure that our analysis steps are correct. Some statistics about our analysis will help us in making that decision. So Lets try to get some statistics about various outputs that were created using the above steps and check if everything makes sense.
 
-Go to your day1_after directory.
+Go to your day1pm directory.
 
 ```
 
@@ -773,7 +773,7 @@ Run the below command on your marked.bam file
 
 ```
 
-java -jar /scratch/micro612w19_fluxod/shared/bin/picard-tools-1.130/picard.jar CollectAlignmentSummaryMetrics R=KPNIH1.fasta I=PCMP_H326__varcall_result/Step5_variantcalling/PCMP_H326__aln_marked.bam O=AlignmentSummaryMetrics.txt
+java -jar /scratch/micro612w20_class_root/micro612w20_class/shared/bin/picard-tools-1.130/picard.jar CollectAlignmentSummaryMetrics R=KPNIH1.fasta I=PCMP_H326__varcall_result/Step5_variantcalling/PCMP_H326__aln_marked.bam O=AlignmentSummaryMetrics.txt
 
 ```
 Open the file AlignmentSummaryMetrics.txt and explore various statistics. It will generate various statistics and the definition for each can be found [here](http://broadinstitute.github.io/picard/picard-metric-definitions.html#AlignmentSummaryMetrics)
@@ -803,7 +803,7 @@ Read coverage/depth describes the average number of reads that align to, or "cov
 After read mapping, it is important to make sure that the reference bases are represented by enough read depth before making any inferences such as variant calling.
 
 ```
-java -jar /scratch/micro612w19_fluxod/shared/bin/picard-tools-1.130/picard.jar CollectWgsMetrics R=KPNIH1.fasta I=PCMP_H326__varcall_result/Step5_variantcalling/PCMP_H326__aln_marked.bam O=WgsMetrics.txt
+java -jar /scratch/micro612w20_class_root/micro612w20_class/shared/bin/picard-tools-1.130/picard.jar CollectWgsMetrics R=KPNIH1.fasta I=PCMP_H326__varcall_result/Step5_variantcalling/PCMP_H326__aln_marked.bam O=WgsMetrics.txt
 
 ```
 
@@ -849,14 +849,14 @@ qualimap bamqc -bam Rush_KPC_266__aln_sort.bam -outdir ./ -outfile Rush_KPC_266_
 ```
 Lets get this pdf report onto our local system and check the chromosome stats table, mapping quality and coverage across the entire reference genome.
 ```
-scp username@flux-xfer.arc-ts.umich.edu:/scratch/micro612w19_fluxod/username/day1_after/Rush_KPC_266_varcall_result/Rush_KPC_266__report.pdf /path-to-local-directory/
+scp username@flux-xfer.arc-ts.umich.edu:/scratch/micro612w20_class_root/micro612w20_class/username/day1pm/Rush_KPC_266_varcall_result/Rush_KPC_266__report.pdf /path-to-local-directory/
 ```
 -->
 
 Visualize BAM and VCF files in [IGV](http://software.broadinstitute.org/software/igv/) (Integrative Genome Viewer)
 ------------------------------------------------------------------------------------------------------------------
 
-[[back to top]](https://github.com/alipirani88/Comparative_Genomics/blob/master/day1_afternoon/README.md)
+[[back to top]](https://github.com/alipirani88/Comparative_Genomics/blob/master/day1pmnoon/README.md)
 [[HOME]](https://github.com/alipirani88/Comparative_Genomics/blob/master/README.md)
 
 While these various statistical/text analyses are helpful, visualization of all of these various output files can help in making some significant decisions and inferences about your entire analysis. There are a wide variety of visualization tools out there that you can choose from for this purpose.
@@ -875,7 +875,7 @@ We will be using [IGV](http://software.broadinstitute.org/software/igv/) (Integr
 
 Note: This IGV exercise requires an annotated vcf file, so make sure you have completed snpeff exercise successfully.
 
-Let's make a seperate folder (make sure you are in the `day1_after` folder) for the files that we need for visualization and copy it to that folder:
+Let's make a seperate folder (make sure you are in the `day1pm` folder) for the files that we need for visualization and copy it to that folder:
 
 ```
 d1a 
@@ -890,7 +890,7 @@ Open a new terminal and run the scp command or cyberduck to get these files to y
 
 ```
 
-scp -r username@flux-xfer.arc-ts.umich.edu:/scratch/micro612w19_fluxod/username/day1_after/PCMP_H326__varcall_result/IGV_files/ /path-to-local-directory/
+scp -r username@flux-xfer.arc-ts.umich.edu:/scratch/micro612w20_class_root/micro612w20_class/username/day1pm/PCMP_H326__varcall_result/IGV_files/ /path-to-local-directory/
 
 #You can use ~/Desktop/ as your local directory path
 ```
@@ -909,7 +909,7 @@ Load the following files (each is a separate panel or 'track'):
   
 By default, the whole genome is shown:
 
-![alt tag](https://github.com/alipirani88/Comparative_Genomics/blob/master/_img/day1_after/igv_zoomed_out.png)
+![alt tag](https://github.com/alipirani88/Comparative_Genomics/blob/master/_img/day1pm/igv_zoomed_out.png)
   
 Using the plus sign in the top right corner of the window, zoom in by clicking 3 times
 - You should see grey bars in the vcf track and blue bars in the fastq track, both showing variant positions
@@ -917,7 +917,7 @@ Using the plus sign in the top right corner of the window, zoom in by clicking 3
 - Light grey and light blue indicate homozygous variants, while dark grey and dark blue indicate heterozygous variants
 - You can navigate to different sections of the genome by moving the red bar at the top
   
-![alt tag](https://github.com/alipirani88/Comparative_Genomics/blob/master/_img/day1_after/igv_zoomed_in1.png)
+![alt tag](https://github.com/alipirani88/Comparative_Genomics/blob/master/_img/day1pm/igv_zoomed_in1.png)
 
 Zoom in ~5 more times until you see reads appear in the bottom part of the window
   - You should see coverage and reads mapped in bottom half of the window
@@ -926,15 +926,15 @@ Zoom in ~5 more times until you see reads appear in the bottom part of the windo
   - You can now also see distinct genes in the genbank annotation track
   - You can hover over a read to get more information about it
   
-![alt tag](https://github.com/alipirani88/Comparative_Genomics/blob/master/_img/day1_after/igv_zoomed_in2.png)
+![alt tag](https://github.com/alipirani88/Comparative_Genomics/blob/master/_img/day1pm/igv_zoomed_in2.png)
   
 To see all of the reads, you can click the square with the arrows pointing to each corner, found in the top-middle-right of the window:
 
-![alt tag](https://github.com/alipirani88/Comparative_Genomics/blob/master/_img/day1_after/igv_zoomed_in3.png)
+![alt tag](https://github.com/alipirani88/Comparative_Genomics/blob/master/_img/day1pm/igv_zoomed_in3.png)
 
 If you zoom in all the way, you can see the nucleotide sequence at the bottom of the screen as well as nucleotide variants in the reads:
 
-![alt tag](https://github.com/alipirani88/Comparative_Genomics/blob/master/_img/day1_after/igv_zoomed_in4.png)
+![alt tag](https://github.com/alipirani88/Comparative_Genomics/blob/master/_img/day1pm/igv_zoomed_in4.png)
 
 Now that you know the basics of how to use IGV, let's navigate to the mgrB gene to look at mutations that might make this sample resistant to colistin. 
 - In the top middle bar of the window, type in gi|661922017|gb|CP008827.1|:3,359,811-3,360,323
@@ -942,7 +942,7 @@ Now that you know the basics of how to use IGV, let's navigate to the mgrB gene 
 - What is the nucleotide of the SNP in the sample? The amino acid change? 
 - Do you think this variant might be the cause of colistin resistance? Why or why not?
 
-![alt tag](https://github.com/alipirani88/Comparative_Genomics/blob/master/_img/day1_after/igv_mgrb.png)
+![alt tag](https://github.com/alipirani88/Comparative_Genomics/blob/master/_img/day1pm/igv_mgrb.png)
 
 
 Now let's look an example of a heterozygous variant - variant positions where more than one allele (variant) with sufficiently high read depth are observed. 
@@ -953,13 +953,13 @@ Now let's look an example of a heterozygous variant - variant positions where mo
 - Why do you think this region contains many heterozygous variants and a higher read coverage than the rest of the genome?
 - You can also see that there are some places with no reads and no coverage. What does this mean?
 
-![alt tag](https://github.com/alipirani88/Comparative_Genomics/blob/master/_img/day1_after/igv_het.png)
+![alt tag](https://github.com/alipirani88/Comparative_Genomics/blob/master/_img/day1pm/igv_het.png)
 
 You can inspect these type of HET variants later for any gene duplication or copy number analysis (by extracting variant positions with high FQ values). Addition of these details will give a better resolution while inferring phylogenetic trees.
 
 You can refer to the [IGV User Guide](http://software.broadinstitute.org/software/igv/userguide) for more information about how to use IGV. 
 
-[[back to top]](https://github.com/alipirani88/Comparative_Genomics/blob/master/day1_afternoon/README.md)
+[[back to top]](https://github.com/alipirani88/Comparative_Genomics/blob/master/day1pmnoon/README.md)
 [[HOME]](https://github.com/alipirani88/Comparative_Genomics/blob/master/README.md)
 
 
