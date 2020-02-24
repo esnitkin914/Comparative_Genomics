@@ -551,11 +551,11 @@ The script requires following positional arguments as input to call variants:
 4. Output Directory Path
 5. Analysis Base name to store result files with this prefix.
 
-The day1pm directory also contains a pbs script that will run variant_call.sh on flux cluster. Edit this pbs script to customize email address and output directory to reflect your username specific paths.
+The day1pm directory also contains a slurm script that will run variant_call.sh on flux cluster. Edit this slurm script to customize email address and output directory to reflect your username specific paths.
 
-Change the EMAIL_ADDRESS section of the pbs script to your email_address.
+Change the EMAIL_ADDRESS section of the slurm script to your email_address.
 
-Change the output directory path in these line to reflect your output path which should be your day1pm directory. Also remember to change the path of reference genome to your day1pm directory. You can find this line at the end of the PBS script.
+Change the output directory path in these line to reflect your output path which should be your day1pm directory. Also remember to change the path of reference genome to your day1pm directory. You can find this line at the end of the SLURM script.
 
 ```
 
@@ -563,15 +563,15 @@ Change the output directory path in these line to reflect your output path which
 
 ```
 
-Once you are done editing the pbs script, you can go ahead and submit the job. We will go through each of the variant calling result steps folder and explore the results in afternoon session. 
+Once you are done editing the slurm script, you can go ahead and submit the job. We will go through each of the variant calling result steps folder and explore the results in afternoon session. 
 
 ```
 
-qsub variant_call.pbs 
+qsub variant_call.sbat 
 
 ```
 
-**Note:** We will be switching from pbs to slurm sometime this year. Here are some useful links about the switch:
+**Note:** We will be switching from slurm to slurm sometime this year. Here are some useful links about the switch:
 - Tutorial:
 https://www-personal.umich.edu/~mmiranda/BetaTutorial.pdf
 - Slides:
