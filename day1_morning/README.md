@@ -331,7 +331,7 @@ for i in *.fna; do grep -v '^>' $i | wc -m; done
 ```
 </details>
 
--->
+
 
 **Unix one-liners**
 
@@ -373,6 +373,8 @@ for i in Rush_KPC_266_*.gz; do zcat $i | awk 'BEGIN{OFS="\t"};((NR-2)%4==0){read
 This command will parse a fastq file and calculate different statistics on the fly in a time efficient manner. Awk lets you perform and explore complex data files without the need for using a programming language or an individual tool.
 
 You can find more of such super useful bash one-liners at Stephen Turner's github [page](https://github.com/stephenturner/oneliners). You can also use some pre-written unix utilities and tools such as [seqtk](https://github.com/lh3/seqtk), [bioawk](https://github.com/lh3/bioawk) and [fastx](http://hannonlab.cshl.edu/fastx_toolkit/) which comes in handy while extracting complex information from fasta/fastq/sam/bam files and are optimized to be insanely fast.
+
+-->
 
 Pairing fastq Files with for loop
 ---------------------------------
