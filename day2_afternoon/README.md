@@ -11,7 +11,7 @@ Second, we will use the tool [ARIBA](https://github.com/sanger-pathogens/ariba/w
 Third, we will move beyond antibiotic resistance, and look at the complete set of protein coding genes in our input genomes. 
 Finally, we will go back to ACT to understand the sorts of genomic rearrangements underlying observed variation in gene content.
 
-For BLAST and ARIBA, we will be looking at 8 *Klebsiella pneumoniae* genomes from human and environmental sources. Six of these genomes are from [this paper](https://www.pnas.org/content/112/27/E3574), and the other two are sequences from our lab. We are interested in learning more about potential differences in the resistomes of human and environmental isolates.
+For BLAST and ARIBA, we will be looking at 8 *Klebsiella pneumoniae* genomes from human and environmental sources. Six of these genomes are from [this paper](https://www.pnas.org/content/112/27/E3574), and the other two are sequences from our lab. We are interested in learning more about potential differences in the resistomes of human and environmental isolates. The names of the environmental isolates begin with `ERR` and the names of the clinical isolates abegin with `PCMP_H`
 
 For the pan-genome analysis, we will be looking at four closely related *Acinetobacter baumannii* strains. However, despite being closely related, these genomes have major differences in gene content, as *A. baumannii* has a notoriously flexible genome! In fact, in large part due to its genomic flexibility, *A. baumannii* has transitioned from a harmless environmental contaminant to a pan-resistant super-bug in a matter of a few decades. If you are interested in learning more, check out this nature [review](http://www.nature.com/nrmicro/journal/v5/n12/abs/nrmicro1789.html) or [this](http://www.pnas.org/content/108/33/13758.abstract) paper I published a few years back analyzing the very same genomes you will be working with.
 
@@ -19,13 +19,13 @@ Execute the following command to copy files for this afternoon’s exercises to 
 
 ```  
 
-cd /scratch/micro612w19_fluxod/username
+cd /scratch/micro612w20_class_root/micro612w20_class/username
 
 or
 
 wd
 
-cp -r /scratch/micro612w19_fluxod/shared/data/day2_after/ ./
+cp -r /scratch/micro612w20_class_root/micro612w20_class/shared_data/day2pm/data ./
 
 ```
 
@@ -34,22 +34,22 @@ Determine which genomes contain KPC genes using [BLAST](https://blast.ncbi.nlm.n
 [[back to top]](day2_afternoon.html)
 [[HOME]](index.html)
 
-Before comparing full genomic content, lets start by looking for the presence of particular genes of interest. Some *K. pneumoniae* harbor a KPC gene that confers resistance to carbapenems, a class of antibiotics of last resort (more information [here](https://www.sciencedirect.com/science/article/pii/S1473309913701907?via%3Dihub) and [here](https://academic.oup.com/jid/article/215/suppl_1/S28/3092084)). We will see if any of our samples have a KPC gene, by comparing the genes in our genomes to KPC genes extracted from the antibiotic resistance database ([ARDB](http://ardb.cbcb.umd.edu/)). These extracted genes can be found in the file `ardb_KPC_genes.pfasta`, which we will use to generate a BLAST database.
+Before comparing full genomic content, lets start by looking for the presence of particular genes of interest. Some *K. pneumoniae* harbor a KPC gene that confers resistance to carbapenems, a class of antibiotics of last resort (more information [here](https://www.sciencedirect.com/science/article/pii/S1473309913701907?via%3Dihub) and [here](https://academic.oup.com/jid/article/215/suppl_1/S28/3092084)). We will see if any of our samples have a KPC gene, by comparing the genes in our genomes to KPC genes extracted from the antibiotic resistance database ([ARDB](http://ardb.cbcb.umd.edu/)). These extracted genes can be found in the file `data/blast_kleb/ardb_KPC_genes.pfasta`, which we will use to generate a BLAST database.
 
 > ***i. Run makeblastdb on the file of KPC genes to create a BLAST database.***
 
 makeblastdb takes as input: 
 
-1) an input fasta file of protein or nucleotide sequences (`ardb_KPC_genes.pfasta`) and 
+1) an input fasta file of protein or nucleotide sequences (`data/blast_kleb/ardb_KPC_genes.pfasta`) and 
 
 2) a flag indicating whether to construct a protein or nucleotide database (in this case protein: `-dbtype prot`).
 
 ```
-#change directory to day2_after
-d2a
+#change directory to day2pm
+d2pm
 
 
-makeblastdb -in ardb_KPC_genes.pfasta -dbtype prot
+makeblastdb -in data/blast_kleb/ardb_KPC_genes.pfasta -dbtype prot
 
 ```
 
@@ -59,11 +59,11 @@ Run BLAST!
 
 The input parameters are: 
 
-1) query sequences (`-query kpneumo_all.pfasta`), 
+1) query sequences (`-query data/blast_kleb/kpneumo_all.pfasta`), 
 
-2) the database to search against (`-db ardb_KPC_genes.pfasta`), 
+2) the database to search against (`-db data/blast_kleb/ardb_KPC_genes.pfasta`), 
 
-3) the name of a file to store your results (`-out KPC_blastp_results`), 
+3) the name of a file to store your results (`-out KPC_blastp_results.tsv`), 
 
 4) output format (`-outfmt 6`), 
 
@@ -73,38 +73,38 @@ The input parameters are:
 
 
 ```
-blastp -query kpneumo_all.pfasta -db ardb_KPC_genes.pfasta -out KPC_blastp_results.tsv -outfmt 6 -evalue 1e-100 -max_target_seqs 1
+blastp -query data/blast_kleb/kpneumo_all.pfasta -db data/blast_kleb/ardb_KPC_genes.pfasta -out KPC_blastp_results.tsv -outfmt 6 -evalue 1e-100 -max_target_seqs 1
 ```
 
-Use `less` to look at `KPC_blastp_results.tsv`.
+Use `less` to look at `KPC_blastp_results.tsv`. Which genomes have a KPC gene?
 
 ```
 less KPC_blastp_results.tsv
 ```
 
-- **Exercise:** Experiment with the `–outfmt` parameter, which controls different output formats that BLAST can produce. 
+[Here](http://www.metagenomics.wiki/tools/blast/blastn-output-format-6) is more information about the content for each of the output file columns.
 
-- **Exercise:** In this exercise you will try a different type of blasting – blastx. Blastx compares a nucleotide sequence to a protein database by translating the nucleotide sequence in all six frames and running blastp. Your task is to determine which Enterococcus  genomes are vancomycin resistant by blasting against a database of van genes. The required files are located in VRE_van_blast folder under day2_after directory.
+- **Exercise:** Experiment with the `–outfmt` parameter, which controls different output formats that BLAST can produce. You can use `blastp -help | less` to get more information about the different output formats. You can search for the `-outfmt` flag by typing `/outfmt` and then typing `n` to get to the next one.
+
+- **Exercise:** In this exercise you will try a different type of blasting – blastx. Blastx compares a nucleotide sequence to a protein database by translating the nucleotide sequence in all six frames and running blastp. Your task is to determine which Enterococcus genomes are vancomycin resistant (VRE, vs. VSE) by blasting against a database of van genes. The required files are located in `data/blast_ent` folder in the `day2pm` directory.
 
 Your steps should be:
 
-1) Concatenate .fasta files (VRE/VSE genomes) into a single file (your blast query file)
-2) Create a blastp database from ardb_van.pfasta
+1) Concatenate the `data/blast_ent/*.fasta` files (VRE/VSE genomes) into a single file (your blast query file) using the `cat` command.
+2) Create a blastp database from `data/blast_ent/ardb_van.pfasta`
 3) Run blastx
 4) Verify that only the VRE genomes hit the database
-5) For extra credit, determine which van genes were hit by using grep to search for the hit gene ID in ardb_van.pfasta
-
-
+5) For extra credit, determine which van genes were hit by using grep to search for the hit gene ID in `data/blast_ent/ardb_van.pfasta`
 
 <details>
   <summary>Solution</summary>
   
 ```
-cat VRE_*.fasta VSE_ERR37*.fasta > VRE_VSE_genomes.fasta
+cat *.fasta > VRE_VSE_genomes.fasta
 
-makeblastdb -in ardb_van.pfasta -dbtype prot
+makeblastdb -in data/blast_ent/ardb_van.pfasta -dbtype prot
 
-blastx -query VRE_VSE_genomes.fasta -db ardb_van.pfasta -out van_blastp_results.tsv -outfmt 6 -evalue 1e-100 -max_target_seqs 1
+blastx -query VRE_VSE_genomes.fasta -db data/blast_ent/ardb_van.pfasta -out van_blastp_results.tsv -outfmt 6 -evalue 1e-100 -max_target_seqs 1
 
 ```
 </details>
@@ -116,7 +116,7 @@ Identify antibiotic resistance genes with [ARIBA](https://github.com/sanger-path
 
 Now let's look at the full spectrum of antibiotic resistance genes in our *Klebsiella* genomes!
 
-ARIBA (Antimicrobial Resistance Identification By Assembly) is a tool that identifies antibiotic resistance genes by running local assemblies. The input is a FASTA file of reference sequences (can be a mix of genes and noncoding sequences) and paired sequencing reads. ARIBA reports which of the reference sequences were found, plus detailed information on the quality of the assemblies and any variants between the sequencing reads and the reference sequences.
+[ARIBA](https://github.com/sanger-pathogens/ariba/wiki) (Antimicrobial Resistance Identification By Assembly) is a tool that identifies antibiotic resistance genes by running local assemblies. The input is a FASTA file of reference sequences (can be a mix of genes and noncoding sequences) and paired sequencing reads. ARIBA reports which of the reference sequences were found, plus detailed information on the quality of the assemblies and any variants between the sequencing reads and the reference sequences.
 
 ARIBA is compatible with various databases and also contains a utility to download different databases such as: argannot, card, megares, plasmidfinder, resfinder, srst2_argannot, vfdb_core. Today, we will be working with the [card](https://card.mcmaster.ca/) database, which has been downloaded and placed in the `/scratch/micro612w19_fluxod/shared/bin/ariba/database/CARD/` directory.
 
@@ -134,7 +134,7 @@ Note: There is an issue with downloading the database. They are in a process to 
 
 > ***i. Run ARIBA on input paired-end fastq reads for resistance gene identification.***
 
-The fastq reads are placed in the `kpneumo_fastq` directory. Since ARIBA is a memory intensive, we will enter an interactive flux session to run this exercise. Start the interactive session and change directories to `day2_after` and run the short for loop that will  commands below to start ARIBA jobs in the background.
+The fastq reads are placed in the `kpneumo_fastq` directory. Since ARIBA is a memory intensive, we will enter an interactive flux session to run this exercise. Start the interactive session and change directories to `day2pm` and run the short for loop that will start ARIBA jobs.
 
 <!---
 module load python-anaconda3/latest
@@ -164,9 +164,10 @@ db_dir=/scratch/micro612w19_fluxod/shared/bin/ariba/database/CARD/out.card.prote
 
 # Run for loop, where it generates ARIBA command for each of the forward end files.
 for samp in $samples; do   
+echo $samp
 samp2=${samp//1.fastq/2.fastq} #reverse reads   
 outdir=$(echo ${samp//.fastq.gz/} | cut -d/ -f2) #output directory 
-ariba run --force $db_dir $samp $samp2 $outdir & #ariba command 
+ariba run --force $db_dir $samp $samp2 $outdir #ariba command 
 done
 
 
