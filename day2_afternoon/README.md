@@ -15,7 +15,7 @@ For BLAST and ARIBA, we will be looking at 8 *Klebsiella pneumoniae* genomes fro
 
 For the pan-genome analysis, we will be looking at four closely related *Acinetobacter baumannii* strains. However, despite being closely related, these genomes have major differences in gene content, as *A. baumannii* has a notoriously flexible genome! In fact, in large part due to its genomic flexibility, *A. baumannii* has transitioned from a harmless environmental contaminant to a pan-resistant super-bug in a matter of a few decades. If you are interested in learning more, check out this nature [review](http://www.nature.com/nrmicro/journal/v5/n12/abs/nrmicro1789.html) or [this](http://www.pnas.org/content/108/33/13758.abstract) paper I published a few years back analyzing the very same genomes you will be working with.
 
-Execute the following command to copy files for this afternoon’s exercises to your scratch directory:
+Execute the following command to copy files for this afternoon’s exercises to your scratch directory, and then load the `micro612` conda environment:
 
 ```  
 
@@ -25,8 +25,21 @@ or
 
 wd
 
-cp -r /scratch/micro612w20_class_root/micro612w20_class/shared_data/day2pm/data ./
+cp -r /scratch/micro612w20_class_root/micro612w20_class/shared/data/day2pm/data ./
 
+# load conda environment
+conda activate micro612
+
+```
+
+Before we get started, we're going to start a job running ARIBA, which takes about 40 minutes to finish. That way, the results will be there when we're ready for them!
+
+```
+# modify email address and look at ariba command
+nano ariba.sbatch
+
+# run job
+sbatch ariba.sbatch
 ```
 
 Determine which genomes contain KPC genes using [BLAST](https://blast.ncbi.nlm.nih.gov/Blast.cgi)
@@ -47,7 +60,6 @@ makeblastdb takes as input:
 ```
 #change directory to day2pm
 d2pm
-
 
 makeblastdb -in data/blast_kleb/ardb_KPC_genes.pfasta -dbtype prot
 
@@ -118,98 +130,57 @@ Now let's look at the full spectrum of antibiotic resistance genes in our *Klebs
 
 [ARIBA](https://github.com/sanger-pathogens/ariba/wiki) (Antimicrobial Resistance Identification By Assembly) is a tool that identifies antibiotic resistance genes by running local assemblies. The input is a FASTA file of reference sequences (can be a mix of genes and noncoding sequences) and paired sequencing reads. ARIBA reports which of the reference sequences were found, plus detailed information on the quality of the assemblies and any variants between the sequencing reads and the reference sequences.
 
-ARIBA is compatible with various databases and also contains a utility to download different databases such as: argannot, card, megares, plasmidfinder, resfinder, srst2_argannot, vfdb_core. Today, we will be working with the [card](https://card.mcmaster.ca/) database, which has been downloaded and placed in the `/scratch/micro612w19_fluxod/shared/bin/ariba/database/CARD/` directory.
-
-<!---
-Note: There is an issue with downloading the database. They are in a process to fix the broken CARD database link issue. For now, I am using my own downloaded database.
->i. Run this command to download CARD database
-```
-/nfs/esnitkin/bin_group/anaconda3/bin/python /nfs/esnitkin/bin_group/ariba/scripts/ariba getref card out.card
-```
->ii. Prepare this downloaded card database for ARIBA
-```
-/nfs/esnitkin/bin_group/anaconda3/bin/python /nfs/esnitkin/bin_group/ariba/scripts/ariba prepareref -f out.card.fa -m out.card.tsv out.card.prepareref
-```
--->
+ARIBA is compatible with various databases and also contains a utility to download different databases such as: argannot, card, megares, plasmidfinder, resfinder, srst2_argannot, vfdb_core. Today, we will be working with the [card](https://card.mcmaster.ca/) database (`data/CARD` in your `day2pm` directory).
 
 > ***i. Run ARIBA on input paired-end fastq reads for resistance gene identification.***
 
-The fastq reads are placed in the `kpneumo_fastq` directory. Since ARIBA is a memory intensive, we will enter an interactive flux session to run this exercise. Start the interactive session and change directories to `day2pm` and run the short for loop that will start ARIBA jobs.
-
-<!---
-module load python-anaconda3/latest
--->
+The fastq reads are in the `data/kpneumo_fastq` directory. Since ARIBA is a memory intensive, we started this at the beginning of the afternoon. We should have our results by now, but first let's look at the ARIBA command.
 
 ```
-iflux
+# enter interactive session
+islurm 
 
-cd /scratch/micro612w19_fluxod/username/day2_after
+cd /scratch/micro612w20_class_root/micro612w20_class/username/day2pm
 
-#or 
+or
 
-d2a
+d2pm
 
-#Load dependencies
+# load conda environment
+conda activate micro612
 
-module load python-anaconda3/latest-3.6   bowtie2/2.1.0   cd-hit/4.6.4   mummer/3.23  ariba/2.13.3
-
-
-#ARIBA commands
-
-# List forward end fastq files in the directory and save the filenames into the variable samples. 
-samples=$(ls kpneumo_fastq/*1.fastq.gz) #forward reads
-
-# Set ARIBA dabase directory to the CARD database that we downloaded in the below folder
-db_dir=/scratch/micro612w19_fluxod/shared/bin/ariba/database/CARD/out.card.proteus.prepareref/ #reference database
-
-# Run for loop, where it generates ARIBA command for each of the forward end files.
-for samp in $samples; do   
-echo $samp
-samp2=${samp//1.fastq/2.fastq} #reverse reads   
-outdir=$(echo ${samp//.fastq.gz/} | cut -d/ -f2) #output directory 
-ariba run --force $db_dir $samp $samp2 $outdir #ariba command 
-done
-
-
+# look at ariba commands
+less ariba.sbatch
 ```
 
-The "&" in the above commands(at the end) is a little unix trick to run commands in background. 
-
-You can run multiple commands in background and make full use of parallel processing. You can check the status of these background jobs by typing:
-
-```
-jobs
-```
 
 > ***ii. Run ARIBA summary function to generate a summary report.***
 
 ARIBA has a summary function that summarises the results from one or more sample runs of ARIBA and generates an output report with various level of information determined by the `-preset` parameter. The parameter `-preset minimal` will generate a minimal report showing only the presence/absence of resistance genes whereas `-preset all` will output all the extra information related to each database hit such as reads and reference sequence coverage, variants and their associated annotations (if the variant confers resistance to an antibiotic) etc.
 
 ```
+ariba summary --preset minimal kpneumo_ariba_minimal_results ariba/*/report.tsv
 
-ariba summary --preset minimal kpneumo_ariba_minimal_results */report.tsv
-
-ariba summary --preset all kpneumo_ariba_all_results */report.tsv
-
+ariba summary --preset all kpneumo_ariba_all_results ariba/*/report.tsv
 ```
 
 The ARIBA summary generates three output:
 
-1. kpneumo_ariba*.csv file that can be viewed in your favourite spreadsheet program.
-2. kpneumo_ariba*.phandango.{csv,tre} that allow you to view the results in [Phandango](http://jameshadfield.github.io/phandango/#/). You can drag-and-drop these files straight into Phandango.
+1. `kpneumo_ariba*.csv` file that can be viewed in your favorite spreadsheet program (e.x. Microsoft Excel).
+2. `kpneumo_ariba*.phandango.{csv,tre}` that allow you to view the results in [Phandango](http://jameshadfield.github.io/phandango/#/). You can drag-and-drop these files straight into Phandango.
 
 Lets copy these  files, along with a metadata file, to the local system using cyberduck or scp.
 
 ```
-scp username\@flux-xfer.arc-ts.umich.edu:/scratch/micro612w19_fluxod/username/day2_after/kpneumo_ariba* ~/Desktop/
-scp username\@flux-xfer.arc-ts.umich.edu:/scratch/micro612w19_fluxod/username/day2_after/kpneumo_source.tsv ~/Desktop/
+scp username\@greatlakes-xfer.arc-ts.umich.edu:/scratch/micro612w20_class_root/micro612w20_class/username/day2pm/kpneumo_ariba* ~/Desktop/micro612/day2pm
+scp username\@greatlakes-xfer.arc-ts.umich.edu:/scratch/micro612w20_class_root/micro612w20_class/username/day2pm/kpneumo_source.tsv ~/Desktop/micro612/day2pm
 ```
 
-Drag and drop these two files onto the [Phandango](http://jameshadfield.github.io/phandango/#/) website. What types of resistance genes do you see in these *Klebsiella* genomes? This [review]() may help interpret.
+Drag and drop these two files onto the [Phandango](http://jameshadfield.github.io/phandango/#/) website. What types of resistance genes do you see in these *Klebsiella* genomes? 
 
 > ***iii. Explore full ARIBA matrix in R***
 
-- Now, fire up RStudio and read in the ARIBA full report "kpneumo_ariba_all_results.csv"
+- Now, fire up RStudio and read in the ARIBA full report `kpneumo_ariba_all_results.csv`
 
 ```
 ariba_full  = read.csv(file = '~/Desktop/kpneumo_ariba_all_results.csv', row.names = 1)
@@ -231,7 +202,7 @@ ariba_full_match[,] = as.numeric(ariba_full_match != 'no')
 - Make a heatmap!
 
 ```
-# install pheatmap
+# install pheatmap if you don't already have it installed 
 install.packages('pheatmap')
 
 # load pheatmap
@@ -247,7 +218,17 @@ pheatmap(ariba_full_match,annotation_row = annots)
 
 - **Exercise:** Bacteria of the same species can be classified into different sequence types (STs) based on the sequence identity of certain housekeeping genes using a technique called [multilocus sequence typing (MLST)](https://en.wikipedia.org/wiki/Multilocus_sequence_typing). The different combination of these house keeping sequences present within a bacterial species are assigned as distinct alleles and, for each isolate, the alleles at each of the seven genes define the allelic profile or sequence type (ST). Sometimes, different sequence types are associated with different environments or different antibiotic resistance genes. We want to know what sequence type(s) our genomes come from, and if there are certain ones that are associated with certain sources or certain antibiotic resistance genes. 
 
-Using the [ARIBA MLST manual](https://github.com/sanger-pathogens/ariba/wiki/MLST-calling-with-ARIBA), write and run a script (similar to the one above) to perform MLST calling with ARIBA on all 8 of our *K. pneumonia* genomes. Then, use this information to add a second annotation column to the heatmap we created above to visualize the results. Running ARIBA mlst requires a MLST species database, so dont forget to download "Klebsiella pneumoniae" databsae and give the path to these database while running ARIBA MLST detection.
+Using the [ARIBA MLST manual](https://github.com/sanger-pathogens/ariba/wiki/MLST-calling-with-ARIBA), write and run a script (similar to the one above) to perform MLST calling with ARIBA on all 8 of our *K. pneumonia* genomes. Then, use this information to add a second annotation column to the heatmap we created above to visualize the results. Running ARIBA mlst requires a MLST species database, so dont forget to download "Klebsiella pneumoniae" database and give the path to this database while running ARIBA MLST detection.
+
+Steps:
+1. Check if you have an MLST database for your species of interest using `ariba pubmlstspecies`.
+1. Download your species MLST database. You can look at the manual or run the command `ariba pubmlstget -h` to help figure out how to download the correct MLST database.
+1. Copy the `ariba.sbatch` file to a new file called `mlst.sbatch`.
+1. Modify the `mlst.sbatch` script in the following ways:
+    1. Change the database directory to the _K. pneumoniae_ MLST database you just downloaded.
+    1. Modify the output directory `outdir` line: Change `ariba` to `mlst`.
+1. Submit the `mlst.sbatch` script. It should take about ___ to run.
+1. Once the run completes, ____
 
 Did you find anything interesting?
 
@@ -256,14 +237,11 @@ Did you find anything interesting?
   <summary>Solution</summary>
   
 ```
-# Load modules
-module load python-anaconda3/latest-3.6   bowtie2/2.1.0   cd-hit/4.6.4   mummer/3.23  ariba/2.13.3
-
-# Check if you have a mlst database for your species of interest
+# Check if you have an mlst database for your species of interest
 ariba pubmlstspecies
 
 # Download your species mlst database
-ariba pubmlstget "Klebsiella pneumoniae" get_mlst
+ariba pubmlstget "Klebsiella pneumoniae" kp_mlst
 
 # Set ARIBA database directory to the get_mlst database that we just downloaded.
 db_dir=./get_mlst/ref_db/
@@ -275,7 +253,7 @@ samples=$(ls kpneumo_fastq/*1.fastq.gz) #forward reads
 for samp in $samples; do   
 samp2=${samp//1.fastq/2.fastq} #reverse reads   
 outdir=$(echo ${samp//.fastq.gz/} | cut -d/ -f2) #output directory 
-ariba run --force $db_dir $samp $samp2 $outdir & #ariba command 
+ariba run --force $db_dir $samp $samp2 $outdir  #ariba command 
 done
 
 # Once the run completes, run summarize_mlst.sh script to print out mlst reports that are generated in current directory
