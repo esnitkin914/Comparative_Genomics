@@ -272,15 +272,15 @@ The "." sign tells the script to use current directory as its first command line
 Power of Unix commands
 ----------------------
 
-In software carpentry, you learned working with shell and automating simple tasks using basic unix commands. Lets see how some of these commands can be employed in genomics analysis while exploring various file formats that we use in day to day analysis. For this session, we will try to explore three different types of bioinformatics file formats: 
-
-fasta: used for representing either nucleotide or peptide sequences
+In software carpentry, you learned working with shell and automating simple tasks using basic unix commands. Lets see how some of these commands can be employed in genomics analysis while exploring various file formats that we use in day to day analysis. For this session, we will try to explore two different types of bioinformatics file formats: 
 
 gff: used for describing genes and other features of DNA, RNA and protein sequences
 
 fastq: used for storing biological sequence / sequencing reads (usually nucleotide sequence) and its corresponding quality scores
 
 <!--
+
+fasta: used for representing either nucleotide or peptide sequences
 
 - Question: Previously, you downloaded genome assembly fasta files and ran a shell script to count contigs. Now, lets say you want to find out the combined length of genome in each of these files. This can be achieved by running a short unix command piping together two unix programs: grep and wc. The key to crafting the command is understanding the  features of fasta files,
 
