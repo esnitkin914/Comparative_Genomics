@@ -193,11 +193,11 @@ ls
 - Now get three genome sequences with the following commands:
 
 ```
-curl ftp://ftp.ncbi.nlm.nih.gov/genomes/refseq/bacteria/Acinetobacter_baumannii/latest_assembly_versions/GCF_000018445.1_ASM1844v1/GCF_000018445.1_ASM1844v1_genomic.fna.gz > Acinetobacter_baumannii.fna.gz
+curl ftp://ftp.ncbi.nlm.nih.gov/genomes/refseq/bacteria/Acinetobacter_baumannii/representative/GCF_000746645.1_ASM74664v1/GCF_000746645.1_ASM74664v1_genomic.fna.gz > Acinetobacter_baumannii.fna.gz
 
-curl ftp://ftp.ncbi.nlm.nih.gov/genomes/refseq/bacteria/Klebsiella_pneumoniae/latest_assembly_versions/GCF_000220485.1_ASM22048v1/GCF_000220485.1_ASM22048v1_genomic.fna.gz > Klen_pneu.fna.gz
+curl ftp://ftp.ncbi.nlm.nih.gov/genomes/refseq/bacteria/Klebsiella_pneumoniae/reference/GCF_000240185.1_ASM24018v2/GCF_000240185.1_ASM24018v2_genomic.fna.gz > Klen_pneu.fna.gz
 
-curl ftp://ftp.ncbi.nlm.nih.gov/genomes/refseq/bacteria/Escherichia_coli/all_assembly_versions/GCF_000194495.1_ASM19449v2/GCF_000194495.1_ASM19449v2_genomic.fna.gz > E_coli.fna.gz
+curl ftp://ftp.ncbi.nlm.nih.gov/genomes/refseq/bacteria/Escherichia_coli/reference/GCF_000005845.2_ASM584v2/GCF_000005845.2_ASM584v2_genomic.fna.gz > E_coli.fna.gz
 
 ```
 
