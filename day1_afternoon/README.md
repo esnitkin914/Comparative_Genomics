@@ -36,8 +36,8 @@ kraken --quick --fastq-input --gzip-compressed --unclassified-out fastq_screen_u
 
 ```
 
-
 > ***iii. Run Kraken report to generate a concise summary report of the species found in reads file.
+
 
 ```
 kraken-report --db minikraken_20171013_4GB/ fastq_screen_kraken > fastq_screen_kraken_report.txt
