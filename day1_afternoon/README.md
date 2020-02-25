@@ -32,7 +32,7 @@ cd /scratch/micro612w20_class_root/micro612w20_class/username/day1pm/kraken/
 
 ```
 
-command here
+kraken --quick --fastq-input --gzip-compressed --unclassified-out fastq_screen_unclassified.txt --db minikraken_20171013_4GB/ --output fastq_screen_kraken fastq_screen.fastq.gz
 
 ```
 
@@ -40,7 +40,8 @@ command here
 > ***iii. Run Kraken report to generate a concise summary report of the species found in reads file.
 
 ```
-- command here
+kraken-report --db minikraken_20171013_4GB/ fastq_screen_kraken > fastq_screen_kraken_report.txt
+
 - explore reports file?
 ```
 
