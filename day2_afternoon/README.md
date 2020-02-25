@@ -172,8 +172,8 @@ The ARIBA summary generates three output:
 Lets copy these  files, along with a metadata file, to the local system using cyberduck or scp.
 
 ```
-scp username\@greatlakes-xfer.arc-ts.umich.edu:/scratch/micro612w20_class_root/micro612w20_class/username/day2pm/ariba/results/kpneumo_card* ~/Desktop/micro612/day2pm
-scp username\@greatlakes-xfer.arc-ts.umich.edu:/scratch/micro612w20_class_root/micro612w20_class/username/day2pm/ariba/data/kpneumo_source.tsv ~/Desktop/micro612/day2pm
+scp username@greatlakes-xfer.arc-ts.umich.edu:/scratch/micro612w20_class_root/micro612w20_class/username/day2pm/ariba/results/kpneumo_card* ~/Desktop/micro612/day2pm
+scp username@greatlakes-xfer.arc-ts.umich.edu:/scratch/micro612w20_class_root/micro612w20_class/username/day2pm/ariba/data/kpneumo_source.tsv ~/Desktop/micro612/day2pm
 ```
 
 Drag and drop these two files onto the [Phandango](http://jameshadfield.github.io/phandango/#/) website. What types of resistance genes do you see in these *Klebsiella* genomes? 
@@ -326,13 +326,16 @@ less -S Abau_genomes_roary_output/gene_presence_absence.Rtab
 
 Use scp or cyberduck to get `gene_presence_absence.csv` and `gene_presence_absence.Rtab` onto your laptop desktop folder.
 
+```
+scp username@greatlakes-xfer.arc-ts.umich.edu:/scratch/micro612w20_class_root/micro612w20_class/username/day2pm/roary/Abau_genomes_roary_output/gene_presence_absence.csv ~/Desktop/micro612/day2pm
+scp username@greatlakes-xfer.arc-ts.umich.edu:/scratch/micro612w20_class_root/micro612w20_class/username/day2pm/roary/Abau_genomes_roary_output/gene_presence_absence.Rtab ~/Desktop/micro612/day2pm
+```
+
 > ***i. Prepare and clean data***
 
 - Fire up RStudio and read both files in.
 
 ```
-pg_matrix = read.table('~/Desktop/gene_presence_absence_wannot.Rtab', sep = "\t", quote = "", row.names = 1, skip = 1)
-
 # read in annotations (only need 3rd column)
 annots = read.csv('~/Desktop/micro612/day2pm/gene_presence_absence.csv')[,3]
 # read in presence-absence heatmap
