@@ -521,14 +521,10 @@ cp -r /scratch/micro612w20_class_root/micro612w20_class/shared/data/day1pm/ ./
 
 We will be using sequencing reads from an Illumina-sequenced *Klebsiella pneumoniae* genome (sample PCMP_H326) as an input for these exercises. This sample, isolated from a hospitalized patient, is resistant to colistin, an antibiotic of last resort. We are interested in seeing if we can identify any mutations in the PCMP_H326 genome that could explain why this sample is resistant to colistin. Colistin resistance can arise through various mutations (see [this review](https://www.frontiersin.org/articles/10.3389/fmicb.2014.00643/full)). To narrow our initial search, we will specifically look for mutations that inactivate the [mgrB gene](https://aac.asm.org/content/58/10/5696), a negative regulator of the PhoPQ two-component signalling system. 
  
-Change directory to day1pm and list all the files to search variant_call.sh script.
+Change directory to the variant calling folder inside day1pm directory and list all the files to search variant_call.sh script.
 
 ```
-cd /scratch/micro612w20_class_root/micro612w20_class/username/day1pm/
-
-#or
-
-d1a
+cd /scratch/micro612w20_class_root/micro612w20_class/username/day1pm/variant_calling/
 
 ls variant_call.sh
 ```
@@ -555,15 +551,13 @@ The day1pm directory also contains a slurm script that will run variant_call.sh 
 
 Change the EMAIL_ADDRESS section of the slurm script to your email_address.
 
-Change the output directory path in these line to reflect your output path which should be your day1pm directory. Also remember to change the path of reference genome to your day1pm directory. You can find this line at the end of the SLURM script.
+```
+
+./variant_call.sh PCMP_H326_R1.fastq.gz PCMP_H326_R2.fastq.gz KPNIH1.fasta ./ PCMP_H326_
 
 ```
 
-./variant_call.sh PCMP_H326_R1.fastq.gz PCMP_H326_R2.fastq.gz /Path-to-your-day1pm/KPNIH1.fasta /Path-to-your-day1pm/ PCMP_H326_
-
-```
-
-Once you are done editing the slurm script, you can go ahead and submit the job. We will go through each of the variant calling result steps folder and explore the results in afternoon session. 
+Once you are done editing the slurm script, you can go ahead and submit the job. Make sure you are submitting the job from variant_calling folder. We will go through each of the variant calling result steps folder and explore the results in afternoon session. 
 
 ```
 
