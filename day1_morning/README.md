@@ -547,7 +547,7 @@ The script requires following positional arguments as input to call variants:
 4. Output Directory Path
 5. Analysis Base name to store result files with this prefix.
 
-The day1pm directory also contains a slurm script that will run variant_call.sh on great lakes cluster. Edit this slurm script to customize email address and output directory to reflect your username specific paths.
+The day1pm directory also contains a slurm script - variant_call.sbat that will run variant_call.sh on great lakes cluster. Edit this slurm script variant_call.sbat to edit email address.
 
 Change the EMAIL_ADDRESS section of the slurm script to your email_address.
 
