@@ -567,17 +567,7 @@ Once you are done editing the slurm script, you can go ahead and submit the job.
 
 ```
 
-qsub variant_call.sbat 
+sbatch variant_call.sbat 
 
 ```
-
-**Note:** We will be switching from slurm to slurm sometime this year. Here are some useful links about the switch:
-- Tutorial:
-https://www-personal.umich.edu/~mmiranda/BetaTutorial.pdf
-- Slides:
-https://www-personal.umich.edu/~mmiranda/BetaSlides1811.pdf
-- Beta user guide:
-https://arc-ts.umich.edu/beta/user-guide/
-- From Torque to Slurm:
-http://arc-ts.umich.edu/migrating-from-torque-to-slurm/
 
