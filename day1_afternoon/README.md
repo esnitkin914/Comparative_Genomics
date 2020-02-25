@@ -2,60 +2,54 @@ Day 1 Afternoon
 ===============
 [[HOME]](https://github.com/alipirani88/Comparative_Genomics/blob/master/README.md)
 
-Contamination Screening using [FastQ Screen](http://www.bioinformatics.babraham.ac.uk/projects/fastq_screen/)
+Contamination Screening using [Kraken](https://ccb.jhu.edu/software/kraken/)
 --------------------------------------------
 
 When running a sequencing pipeline, it is very important to make sure that your data matches appropriate quality threshold and are free from any contaminants. This step will help you make correct interpretations in downstream analysis and will also let you know if you are required to redo the experiment/library preparation or resequencing or remove contaminant sequences.
 
-For this purpose, we will employ fastq screen to screen one of our sample against a range of reference genome databases.
+For this purpose, we will employ Kraken to screen one of our sample against a MiniKraken database - a pre-built database constructed from complete bacterial, archaeal, and viral genomes in RefSeq.
 
-In the previous section, did you notice the sample fastq_screen.fastq.gz had only 28 % unique reads? What sequences does it contain? 
+We will screen one of the sample against Minikraken database and check if the majority of reads in the sample were sequenced from the traget species and what percentage of reads belong to a species/contaminant other than our target species.
 
-To answer this, We will screen it against Human, Mouse and Ecoli genome and try to determine what percentage of reads are contaminant such as host DNA, i.e Human and mouse.
-
-We have already created the human, mouse and ecoli reference databases inside fastq_screen tool directory which you can take a look by running:
-
-```
-
-ls /scratch/micro612w20_class_root/micro612w20_class/shared/bin/fastq_screen_v0.5.2/data/
-
-```
-
-Note: You will learn creating reference databases in our afternoon session.
 
 > ***i. Get an interactive cluster node to start running programs. Use the shortcut that we created in .bashrc file for getting into interactive flux session.***
 
 How do you know if you are in interactive session?: you should see "username@nyx" in your command prompt
 
 ```
-iflux
+islurm
 ```
 
-Whenever you start an interactive job, the path resets to your home directory. So, navigate to day1pm directory again.
-
-```
-d1a
-
-#or
-
-cd /scratch/micro612w20_class_root/micro612w20_class/username/day1pm/
+Navigate to kraken directory placed under day1pm directory.
 
 ```
 
-> ***ii. Lets run fastq_screen on fastq_screen.fastq.gz***
+cd /scratch/micro612w20_class_root/micro612w20_class/username/day1pm/kraken/
 
 ```
 
-fastq_screen --subset 1000 --force --outdir ./ --aligner bowtie2 fastq_screen.fastq.gz
-
-#Note: We will screen only a subset of fastq reads against reference databases. To screen all the reads, change this argument to --subset 0 but will take long time to finish. (searching sequences against human or mouse genome is a time consuming step) 
-#Also Dont worry about "Broken pipe" warning.
+> ***ii. Lets run kraken on fastq_screen.fastq.gz***
 
 ```
 
-The above run will generate two types of output file: a screen report in text format "fastq_screen_screen.txt" and a graphical output "fastq_screen_screen.png" showing percentage of reads mapped to each reference genomes.
+command here
 
-> ***iii. Download the fastq_screen graphical report to your home computer for inspection.***
+```
+
+
+> ***iii. Run Kraken report to generate a concise summary report of the species found in reads file.
+
+```
+- command here
+- explore reports file?
+```
+
+> ***iv. Generate a HTML report to visualize Kraken report using Krona
+
+```
+command here
+output files?
+```
 
 Use scp command as shown below or use cyberduck. If you dont the file in cyberduck window, try refreshing it using the refresh button at the top.
 
@@ -65,8 +59,6 @@ scp username@flux-xfer.arc-ts.umich.edu:/scratch/micro612w20_class_root/micro612
 #You can use ~/Desktop/ as your local directory path
 
 ```
-
-Open fastq_screen_screen.png on your system. You will notice that the sample contain a significant amount of human reads; we should always remove these contaminants from our sample before proceeding to any type of microbial analysis.
 
 Quality Control using [FastQC](http://www.bioinformatics.babraham.ac.uk/projects/fastqc/ "FastQC homepage")
 ------------------------------
