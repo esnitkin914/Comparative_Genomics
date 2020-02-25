@@ -130,9 +130,6 @@ ARIBA is compatible with various databases and also contains a utility to downlo
 The fastq reads are in the `data/kpneumo_fastq` directory. Since ARIBA is a memory intensive, we started this at the beginning of the afternoon. We should have our results by now, but first let's look at the ARIBA command.
 
 ```
-# enter interactive session
-islurm 
-
 # navigate to ariba directory
 cd /scratch/micro612w20_class_root/micro612w20_class/username/day2pm
 
@@ -269,12 +266,6 @@ The way Roary does this is by:
 
 > ***i. Generate pan-genome matrix using Roary and GFF files***
 
-Make sure you are on an interactive node, as this will be even more computationally intensive!
-
-```
-islurm
-```
-
 Change your directory to `day2pm`
 
 ```
@@ -290,14 +281,13 @@ cd roary
 
 ```
 
-Load all the required dependencies and run roary on GFF files placed in Abau_genomes_gff folder.
+Let's look at the Roary command:
 
 ```
-# Run roary
-roary -p 4 -f Abau_genomes_roary_output -r -n -e -v data/Abau_genomes_gff/*.gff 
+less roary.sbat
 ```
 
-The above roary command will run pan-genome pipeline on gff files placed in `Abau_genomes_gff` (`-v`) using 4 threads (`-p`), save the results in an output directory `Abau_genomes_roary_output` (`-f`), generate R plots using .Rtab output files and align core genes(`-n`)
+The roary command runs pan-genome pipeline on gff files placed in `Abau_genomes_gff` (`-v`) using 4 threads (`-p`), save the results in an output directory `Abau_genomes_roary_output` (`-f`), generate R plots using .Rtab output files and align core genes(`-n`)
 
 Change directory to `Abau_genomes_roary_output` to explore the results.
 
