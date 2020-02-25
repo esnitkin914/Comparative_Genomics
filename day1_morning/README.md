@@ -8,27 +8,27 @@ This morning we will learn how to set up our unix environment which is a necessi
 Installing and setting up Cyberduck for file transfer
 -----------------------------------------------------
 
-During workshop, we will transfer different output files from flux to your local system. Cyberduck makes it easier to drag and drop any remote file onto your local system and vice versa. Of course, you can use "scp" to transfer files but Cyberduck provides a graphical interface to manage file transfer and helps avoid typing long file paths and commands.
+During workshop, we will transfer different output files from great lakes to your local system. Cyberduck makes it easier to drag and drop any remote file onto your local system and vice versa. Of course, you can use "scp" to transfer files but Cyberduck provides a graphical interface to manage file transfer and helps avoid typing long file paths and commands.
 
 > ***1. Go to [this](https://cyberduck.io/) cyberduck website and download the executable for your respective operating system.***
 
 > ***2. Double-click on the downloaded zip file to unzip it and double click cyberduck icon.***
 
-> ***3. Type sftp://flux-xfer.arc-ts.umich.edu in quickconnect bar, press enter and enter your flux username and password.***
+> ***3. Type sftp://greatlakes-xfer.arc-ts.umich.edu in quickconnect bar, press enter and enter your great lakes username and password.***
 
-> ***4. This will take you to your flux home directory /home/username. Select "Go" from tool bar at the top then select "Go to folder" and enter workshop home directory path: /scratch/micro612w20_class_root/micro612w20_class/***
+> ***4. This will take you to your great lakes home directory /home/username. Select "Go" from tool bar at the top then select "Go to folder" and enter workshop home directory path: /scratch/micro612w20_class_root/micro612w20_class/***
 
 To transfer or upload a file, you can drag and drop it into the location you want. 
 
 
-Getting your data onto Flux and setting up environment variable
+Getting your data onto great lakes and setting up environment variable
 ---------------------------------------------------------------
 
-**Log in to Flux**
+**Log in to great lakes**
 
 
 ```
-ssh username@flux-login.arc-ts.umich.edu
+ssh username@greatlakes.arc-ts.umich.edu
 ```
 
 <!-- **Set up your .bashrc file so your environment is all set for genomic analysis!** -->
@@ -62,7 +62,7 @@ All the softwares/tools that we need in this workshop are installed in a directo
 
 cp ~/.bashrc ~/bashrc_backup
 
-#Note: "~/" represents your home directory. On flux, these means /home/username
+#Note: "~/" represents your home directory. On great lakes, these means /home/username
 
 ```
 	
@@ -86,7 +86,7 @@ alias d3m='cd /scratch/micro612w20_class_root/micro612w20_class/username/day3am'
 alias d3a='cd /scratch/micro612w20_class_root/micro612w20_class/username/day3pm'
 
 
-#Flux Modules
+#great lakes Modules
 module load perl-modules
 
 #Perl Libraries
@@ -133,7 +133,7 @@ Note: Replace "username" under alias shortcuts with your own umich "uniqname". I
 
 You can also customize the alias name such as wd, d1m etc. catering to your own need and convenience.
 
-The above environment settings will set various shortcuts such as "iflux" for entering interactive flux session, "wd" to navigate to your workshop directory, call necessary flux modules and perl libraries required by certain tools and finally sets the path for bioinformatics programs that we will run during the workshop.
+The above environment settings will set various shortcuts such as "islurm" for entering interactive great lakes session, "wd" to navigate to your workshop directory, call necessary great lakes modules and perl libraries required by certain tools and finally sets the path for bioinformatics programs that we will run during the workshop.
 
 > ***iii. Save the file and Source .bashrc file to make these changes permanent.***
 
@@ -471,7 +471,7 @@ Now we're going to play around with the GFF in R. Specifically, we're interested
 Copy the sample.gff file to your computer using scp or cyberduck:
 
 ```
-scp username@flux-xfer.arc-ts.umich.edu:/nfs/esnitkin/micro612w20_class_root/micro612w20_class/shared/data/day1am/sample.gff ~/Desktop/
+scp username@greatlakes-xfer.arc-ts.umich.edu:/nfs/esnitkin/micro612w20_class_root/micro612w20_class/shared/data/day1am/sample.gff ~/Desktop/
 Note: You can use your choice of folder/path to copy the file instead of  “~/Desktop/”
 ```
 
@@ -551,7 +551,7 @@ The script requires following positional arguments as input to call variants:
 4. Output Directory Path
 5. Analysis Base name to store result files with this prefix.
 
-The day1pm directory also contains a slurm script that will run variant_call.sh on flux cluster. Edit this slurm script to customize email address and output directory to reflect your username specific paths.
+The day1pm directory also contains a slurm script that will run variant_call.sh on great lakes cluster. Edit this slurm script to customize email address and output directory to reflect your username specific paths.
 
 Change the EMAIL_ADDRESS section of the slurm script to your email_address.
 
