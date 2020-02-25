@@ -1,5 +1,5 @@
-Day 2 Afternoon
-===============
+Day 2 PM
+========
 [[HOME]](https://github.com/alipirani88/Comparative_Genomics/blob/master/README.md)
 
 High-throughput BLAST and pan-genome analysis
@@ -15,9 +15,7 @@ For BLAST and ARIBA, we will be looking at 8 *Klebsiella pneumoniae* genomes fro
 
 For the pan-genome analysis, we will be looking at four closely related *Acinetobacter baumannii* strains. However, despite being closely related, these genomes have major differences in gene content, as *A. baumannii* has a notoriously flexible genome! In fact, in large part due to its genomic flexibility, *A. baumannii* has transitioned from a harmless environmental contaminant to a pan-resistant super-bug in a matter of a few decades. If you are interested in learning more, check out this nature [review](http://www.nature.com/nrmicro/journal/v5/n12/abs/nrmicro1789.html) or [this](http://www.pnas.org/content/108/33/13758.abstract) paper I published a few years back analyzing the very same genomes you will be working with.
 
-Before lunch, we're going to start a job running ARIBA, which takes about 40 minutes to finish. That way, the results will be there when we're ready for them! 
-
-Execute the following command to copy files for this afternoon’s exercises to your scratch directory, and then load the `micro612` conda environment if it's not already loaded:
+Navigate to the `day2pm` directory and load the `micro612` conda environment:
 
 
 ```  
@@ -27,26 +25,8 @@ cd /scratch/micro612w20_class_root/micro612w20_class/username
 
 wd
 
-cp -r /scratch/micro612w20_class_root/micro612w20_class/shared/data/day2pm/ ./
-
 # load conda environment
 conda activate micro612
-```
-
-Next, let's start the ariba job:
-
-```
-# list files
-ls
-
-# change directories
-cd ariba
-
-# modify email address and look at ariba command
-nano ariba.sbatch
-
-# run job
-sbatch ariba.sbatch
 ```
 
 Determine which genomes contain KPC genes using [BLAST](https://blast.ncbi.nlm.nih.gov/Blast.cgi)
@@ -109,8 +89,6 @@ less KPC_blastp_results.tsv
 
 [Here](http://www.metagenomics.wiki/tools/blast/blastn-output-format-6) is more information about the content for each of the output file columns.
 
-- **Exercise:** Experiment with the `–outfmt` parameter, which controls different output formats that BLAST can produce. You can use `blastp -help | less` to get more information about the different output formats. You can search for the `-outfmt` flag by typing `/outfmt` and then typing `n` to get to the next one.
-
 - **Exercise:** In this exercise you will try a different type of blasting – blastx. Blastx compares a nucleotide sequence to a protein database by translating the nucleotide sequence in all six frames and running blastp. Your task is to determine which Enterococcus genomes are vancomycin resistant (VRE, vs. VSE) by blasting against a database of van genes. The required files are located in `data/blast_ent` folder in the `day2pm` directory.
 
 Your steps should be:
@@ -134,6 +112,8 @@ blastx -query VRE_VSE_genomes.fasta -db data/blast_ent/ardb_van.pfasta -out van_
 ```
 </details>
 
+- **Exercise:** Experiment with the `–outfmt` parameter, which controls different output formats that BLAST can produce. You can use `blastp -help | less` to get more information about the different output formats. You can search for the `-outfmt` flag by typing `/outfmt` and then typing `n` to get to the next one.
+
 Identify antibiotic resistance genes with [ARIBA](https://github.com/sanger-pathogens/ariba) directly from paired end reads
 ----------------------------------------------------------
 [[back to top]](day2_afternoon.html)
@@ -153,13 +133,16 @@ The fastq reads are in the `data/kpneumo_fastq` directory. Since ARIBA is a memo
 # enter interactive session
 islurm 
 
+# navigate to ariba directory
 cd /scratch/micro612w20_class_root/micro612w20_class/username/day2pm
 
-or
+# or
 
 d2pm
 
-# load conda environment
+cd ariba
+
+# load conda environment if not already loaded
 conda activate micro612
 
 # look at ariba commands
@@ -172,24 +155,28 @@ less ariba.sbatch
 ARIBA has a summary function that summarises the results from one or more sample runs of ARIBA and generates an output report with various level of information determined by the `-preset` parameter. The parameter `-preset minimal` will generate a minimal report showing only the presence/absence of resistance genes whereas `-preset all` will output all the extra information related to each database hit such as reads and reference sequence coverage, variants and their associated annotations (if the variant confers resistance to an antibiotic) etc.
 
 ```
+# look at ariba output
+ls results
+ls results/card
+ls results/card/*
+
 # make directory for ariba results
-mkdir ariba_results
 
-ariba summary --preset minimal ariba_results/kpneumo_ariba_minimal_results ariba/*/report.tsv
+ariba summary --preset minimal results/kpneumo_card_minimal_results results/card/*/report.tsv
 
-ariba summary --preset all ariba_results/kpneumo_ariba_all_results ariba/*/report.tsv
+ariba summary --preset all results/kpneumo_card_all_results results/card/*/report.tsv
 ```
 
 The ARIBA summary generates three output:
 
-1. `kpneumo_ariba*.csv` file that can be viewed in your favorite spreadsheet program (e.x. Microsoft Excel).
-2. `kpneumo_ariba*.phandango.{csv,tre}` that allow you to view the results in [Phandango](http://jameshadfield.github.io/phandango/#/). You can drag-and-drop these files straight into Phandango.
+1. `kpneumo_card*.csv` file that can be viewed in your favorite spreadsheet program (e.x. Microsoft Excel).
+2. `kpneumo_card*.phandango.{csv,tre}` that allow you to view the results in [Phandango](http://jameshadfield.github.io/phandango/#/). You can drag-and-drop these files straight into Phandango.
 
 Lets copy these  files, along with a metadata file, to the local system using cyberduck or scp.
 
 ```
-scp username\@greatlakes-xfer.arc-ts.umich.edu:/scratch/micro612w20_class_root/micro612w20_class/username/day2pm/kpneumo_ariba* ~/Desktop/micro612/day2pm
-scp username\@greatlakes-xfer.arc-ts.umich.edu:/scratch/micro612w20_class_root/micro612w20_class/username/day2pm/kpneumo_source.tsv ~/Desktop/micro612/day2pm
+scp username\@greatlakes-xfer.arc-ts.umich.edu:/scratch/micro612w20_class_root/micro612w20_class/username/day2pm/ariba/results/kpneumo_card* ~/Desktop/micro612/day2pm
+scp username\@greatlakes-xfer.arc-ts.umich.edu:/scratch/micro612w20_class_root/micro612w20_class/username/day2pm/ariba/data/kpneumo_source.tsv ~/Desktop/micro612/day2pm
 ```
 
 Drag and drop these two files onto the [Phandango](http://jameshadfield.github.io/phandango/#/) website. What types of resistance genes do you see in these *Klebsiella* genomes? 
@@ -231,17 +218,14 @@ Using the [ARIBA MLST manual](https://github.com/sanger-pathogens/ariba/wiki/MLS
 
 Steps:
 1. Check if you have an MLST database for your species of interest using `ariba pubmlstspecies`.
-1. Download your species MLST database. You can look at the manual or run the command `ariba pubmlstget -h` to help figure out how to download the correct MLST database.
+1. Download your species MLST database. You can look at the manual or run the command `ariba pubmlstget -h` to help figure out how to download the correct MLST database. I would suggest downloading it to the `data` directory. 
 1. Copy the `ariba.sbatch` file to a new file called `mlst.sbatch`.
 1. Modify the `mlst.sbatch` script in the following ways:
     1. Change the database directory to the _K. pneumoniae_ MLST database you just downloaded.
-    1. Change the `mkdir` line to make a `mlst` directory.
-    1. Modify the output directory `outdir` line: Change `ariba` to `mlst`.
-1. Submit the `mlst.sbatch` script. It should take about ___ to run.
-1. Once the run completes, ____
-
-Did you find anything interesting?
-
+    1. Change the `mkdir` line to make a `results/mlst` directory.
+    1. Modify the output directory `outdir` line: Change `card` to `mlst`.
+1. Submit the `mlst.sbatch` script. It should take about 7 minutes to run.
+1. Once the run completes, run `scripts/summarize_mlst.sh results/mlst` to look at the MLST results. If you want, you can save it to its own file. What sequence types are present? 
 
 <details>
   <summary>Solution</summary>
@@ -254,20 +238,20 @@ ariba pubmlstspecies
 ariba pubmlstget "Klebsiella pneumoniae" kp_mlst
 
 # Set ARIBA database directory to the get_mlst database that we just downloaded.
-db_dir=./kp_mlst/ref_db/
+db_dir=data/kp_mlst/ref_db/
 
 # Run ariba mlst with this database
-samples=$(ls kpneumo_fastq/*1.fastq.gz) #forward reads
+samples=$(ls data/kpneumo_fastq/*1.fastq.gz) #forward reads
 
 # Run for loop, where it generates ARIBA command for each of the forward end files.
 for samp in $samples; do   
 samp2=${samp//1.fastq/2.fastq} #reverse reads   
-outdir=$(echo ${samp//.fastq.gz/} | cut -d/ -f2) #output directory 
+outdir=results/mlst/$(echo ${samp//.fastq.gz/} | cut -d/ -f2) #output directory 
 ariba run --force $db_dir $samp $samp2 $outdir  #ariba command 
 done
 
 # Once the run completes, run summarize_mlst.sh script to print out mlst reports that are generated in current directory
-bash summarize_mlst.sh .
+bash scripts/summarize_mlst.sh results/mlst
 
 ```
 </details>
