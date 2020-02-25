@@ -508,8 +508,6 @@ sbatch ariba.sbatch
 Now, let's start the Roary job:
 
 ```
-# Make sure to change username with your uniqname
-
 cd ../roary
 
 # or 
@@ -521,7 +519,7 @@ cd roary
 Start the Roary job:
 
 ```
-# Run roary
+# run roary
 sbatch roary.sbat
 ```
 
