@@ -450,13 +450,21 @@ Here we will use ACT to compare two of our genomes (note that you can use ACT to
 
 > ***i. Create ACT alignment file with BLAST***
 
-As we saw this morning, to compare genomes in ACT we need to use BLAST to create the alignments. We will do this on flux.
+As we saw this morning, to compare genomes in ACT we need to use BLAST to create the alignments. We will do this on great lakes.
 
 ```
+# navigate to act directory
+cd /scratch/micro612w20_class_root/micro612w20_class/username/day2pm
 
-cd scratch/micro612w19_fluxod/username/day2_after/act
-blastall -p blastn -i data/Abau_genomes/AbauA_genome.fasta -d data/Abau_BLAST_DB/ACICU_genome.fasta -m 8 -e 1e-20 -o AbauA_vs_ACICU.blast
+# or
 
+d2pm
+cd act
+```
+
+Run blast on two _A. baumanii_ genomes:
+```
+blastn -query data/Abau_genomes/AbauA_genome.fasta -db data/Abau_BLAST_DB/ACICU_genome.fasta -outfmt 6 -evalue 1e-20 > AbauA_vs_ACICU.blast
 ```
 
 > ***ii. Read in genomes, alignments and annotation files***
@@ -464,11 +472,11 @@ blastall -p blastn -i data/Abau_genomes/AbauA_genome.fasta -d data/Abau_BLAST_DB
 Use scp or cyberduck to transfer Abau_ACT_files folder onto your laptop
 
 
-1. Abau_genomes/AbauA_genome.fasta 
-2. Abau_genomes/ACICU_genome.fasta 
-3. AbauA_vs_ACICU.blast 
-4. Abau_ACT_files/AbauA_genome_gene.gff 
-5. Abau_ACT_files/ACICU_genome_gene.gff
+1. `Abau_genomes/AbauA_genome.fasta` 
+2. `Abau_genomes/ACICU_genome.fasta` 
+3. `AbauA_vs_ACICU.blast` 
+4. `Abau_ACT_files/AbauA_genome_gene.gff` 
+5. `Abau_ACT_files/ACICU_genome_gene.gff`
 
 
 > ***iii. Explore genome comparison and features of ACT***
