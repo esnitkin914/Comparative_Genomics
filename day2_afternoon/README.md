@@ -342,12 +342,6 @@ annots = read.csv('~/Desktop/micro612/day2pm/gene_presence_absence.csv')[,3]
 pg_matrix = read.delim('~/Desktop/micro612/day2pm/gene_presence_absence.Rtab', row.names = 1)
 ```
 
-- Add column names back
-
-```
-colnames(pg_matrix) = c('ACICU', 'AbauA', 'AbauB', 'AbauC')
-```
-
 - Use head, str, dim, etc. to explore the matrix.
 
 > ***ii. Generate exploratory heatmaps.***
