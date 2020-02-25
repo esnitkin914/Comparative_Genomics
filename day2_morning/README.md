@@ -1,4 +1,4 @@
-Day 2 Morning
+Day 2 AM
 =============
 [[HOME]](https://github.com/alipirani88/Comparative_Genomics/blob/master/README.md)
 
@@ -471,7 +471,7 @@ For this exercise, you will use abacas to order VSE_ERR374928_contigs.fasta agai
 Prep for this afternoon
 -----------------------
 
-Before lunch, we're going to start a job running ARIBA, which takes about 40 minutes to finish. That way, the results will be there when we're ready for them! 
+Before lunch, we're going to start a job running ARIBA, which takes about 40 minutes to finish, and a job running Roray, which takes about 20 minutes to finish. That way, the results will be there when we're ready for them! 
 
 Execute the following command to copy files for this afternoon’s exercises to your scratch directory, and then load the `micro612` conda environment if it's not already loaded:
 
@@ -503,6 +503,26 @@ nano ariba.sbatch
 
 # run job
 sbatch ariba.sbatch
+```
+
+Now, let's start the Roary job:
+
+```
+# Make sure to change username with your uniqname
+
+cd ../roary
+
+# or 
+
+d2pm
+cd roary
+```
+
+Start the Roary job:
+
+```
+# Run roary
+sbatch roary.sbat
 ```
 
 
