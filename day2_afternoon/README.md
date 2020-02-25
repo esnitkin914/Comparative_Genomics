@@ -15,13 +15,15 @@ For BLAST and ARIBA, we will be looking at 8 *Klebsiella pneumoniae* genomes fro
 
 For the pan-genome analysis, we will be looking at four closely related *Acinetobacter baumannii* strains. However, despite being closely related, these genomes have major differences in gene content, as *A. baumannii* has a notoriously flexible genome! In fact, in large part due to its genomic flexibility, *A. baumannii* has transitioned from a harmless environmental contaminant to a pan-resistant super-bug in a matter of a few decades. If you are interested in learning more, check out this nature [review](http://www.nature.com/nrmicro/journal/v5/n12/abs/nrmicro1789.html) or [this](http://www.pnas.org/content/108/33/13758.abstract) paper I published a few years back analyzing the very same genomes you will be working with.
 
-Execute the following command to copy files for this afternoon’s exercises to your scratch directory, and then load the `micro612` conda environment:
+Before lunch, we're going to start a job running ARIBA, which takes about 40 minutes to finish. That way, the results will be there when we're ready for them! 
+
+Execute the following command to copy files for this afternoon’s exercises to your scratch directory, and then load the `micro612` conda environment if it's not already loaded:
+
 
 ```  
-
 cd /scratch/micro612w20_class_root/micro612w20_class/username
 
-or
+# or
 
 wd
 
@@ -29,17 +31,16 @@ cp -r /scratch/micro612w20_class_root/micro612w20_class/shared/data/day2pm/ ./
 
 # load conda environment
 conda activate micro612
-
 ```
 
-Before we get started, we're going to start a job running ARIBA, which takes about 40 minutes to finish. That way, the results will be there when we're ready for them!
+Next, let's start the ariba job:
 
 ```
 # list files
 ls
 
 # change directories
-
+cd ariba
 
 # modify email address and look at ariba command
 nano ariba.sbatch
@@ -54,6 +55,12 @@ Determine which genomes contain KPC genes using [BLAST](https://blast.ncbi.nlm.n
 [[HOME]](index.html)
 
 Before comparing full genomic content, lets start by looking for the presence of particular genes of interest. Some *K. pneumoniae* harbor a KPC gene that confers resistance to carbapenems, a class of antibiotics of last resort (more information [here](https://www.sciencedirect.com/science/article/pii/S1473309913701907?via%3Dihub) and [here](https://academic.oup.com/jid/article/215/suppl_1/S28/3092084)). We will see if any of our samples have a KPC gene, by comparing the genes in our genomes to KPC genes extracted from the antibiotic resistance database ([ARDB](http://ardb.cbcb.umd.edu/)). These extracted genes can be found in the file `data/blast_kleb/ardb_KPC_genes.pfasta`, which we will use to generate a BLAST database.
+
+First, change directories to the blast directory:
+
+```
+cd blast
+```
 
 > ***i. Run makeblastdb on the file of KPC genes to create a BLAST database.***
 
