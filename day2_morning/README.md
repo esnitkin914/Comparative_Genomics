@@ -468,3 +468,41 @@ The relevant reference genbank file that can be used in ACT is Efaecium_Aus0085.
 For this exercise, you will use abacas to order VSE_ERR374928_contigs.fasta against the reference genome Efaecium_Aus0085.fasta and then use the relevant ordered.crunch and ordered.fasta files along with Efaecium_Aus0085.gbf for ACT visualization. Use feature search tool in ACT to search for “vanB” in the resistant genome.
 
 
+Prep for this afternoon
+-----------------------
+
+Before lunch, we're going to start a job running ARIBA, which takes about 40 minutes to finish. That way, the results will be there when we're ready for them! 
+
+Execute the following command to copy files for this afternoon’s exercises to your scratch directory, and then load the `micro612` conda environment if it's not already loaded:
+
+
+```  
+cd /scratch/micro612w20_class_root/micro612w20_class/username
+
+# or
+
+wd
+
+cp -r /scratch/micro612w20_class_root/micro612w20_class/shared/data/day2pm/ ./
+
+# load conda environment
+conda activate micro612
+```
+
+Next, let's start the ariba job:
+
+```
+# list files
+ls
+
+# change directories
+cd ariba
+
+# modify email address and look at ariba command
+nano ariba.sbatch
+
+# run job
+sbatch ariba.sbatch
+```
+
+
