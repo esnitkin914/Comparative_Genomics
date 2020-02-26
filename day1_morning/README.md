@@ -142,9 +142,9 @@ Load great lakes anaconda package and set up a conda environment in the followin
 ```
 module load python3.7-anaconda/2019.07
 
-conda env create -f /scratch/micro612w20_class_root/micro612w20_class/shared/conda_envs/day1pm.yml -n Workshop_env
+conda env create -f /scratch/micro612w20_class_root/micro612w20_class/shared/conda_envs/day1pm.yml -n micro612
 
-conda activate Workshop_env
+conda activate micro612
 ```
 
 
@@ -585,7 +585,7 @@ Change the EMAIL_ADDRESS section of the slurm script to your email_address.
 Once you are done editing the slurm script, you can go ahead and submit the job. Make sure you are submitting the job from variant_calling folder and you have activated the conda environment. We will go through each of the variant calling result steps folder and explore the results in afternoon session. 
 
 ```
-conda activate Workshop_env
+conda activate micro612
 
 sbatch variant_call.sbat 
 
