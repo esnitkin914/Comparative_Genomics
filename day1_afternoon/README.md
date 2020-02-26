@@ -716,7 +716,7 @@ less -S PCMP_H326__parsed.csv
 
 How many high-impact variants are there based on the snpEff annotation?
 ```
- grep HIGH PCMP_H326__parsed.csv | wc -l
+grep HIGH PCMP_H326__parsed.csv | wc -l
 ```
 
 What proteins are these high-impact variants in?
@@ -741,7 +741,7 @@ grep HIGH PCMP_H326__parsed.csv | cut -d$'\t' -f4,10
 
 What if we want to look specifically for mutations in mgrB? (what does the `-i` flag do?)
 ```
- grep -i mgrb PCMP_H326__parsed.csv
+grep -i mgrb PCMP_H326__parsed.csv
 ```
 
 
