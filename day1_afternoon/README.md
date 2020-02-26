@@ -900,7 +900,7 @@ Load the following files (each is a separate panel or 'track'):
   
 By default, the whole genome is shown:
 
-![alt tag](https://github.com/alipirani88/Comparative_Genomics/blob/master/_img/day1pm/igv_zoomed_out.png)
+![alt tag](https://github.com/alipirani88/Comparative_Genomics/blob/master/_img/day1_after/igv_zoomed_out.png)
   
 Using the plus sign in the top right corner of the window, zoom in by clicking 3 times
 - You should see grey bars in the vcf track and blue bars in the fastq track, both showing variant positions
@@ -908,7 +908,7 @@ Using the plus sign in the top right corner of the window, zoom in by clicking 3
 - Light grey and light blue indicate homozygous variants, while dark grey and dark blue indicate heterozygous variants
 - You can navigate to different sections of the genome by moving the red bar at the top
   
-![alt tag](https://github.com/alipirani88/Comparative_Genomics/blob/master/_img/day1pm/igv_zoomed_in1.png)
+![alt tag](https://github.com/alipirani88/Comparative_Genomics/blob/master/_img/day1_after/igv_zoomed_in1.png)
 
 Zoom in ~5 more times until you see reads appear in the bottom part of the window
   - You should see coverage and reads mapped in bottom half of the window
@@ -917,15 +917,15 @@ Zoom in ~5 more times until you see reads appear in the bottom part of the windo
   - You can now also see distinct genes in the genbank annotation track
   - You can hover over a read to get more information about it
   
-![alt tag](https://github.com/alipirani88/Comparative_Genomics/blob/master/_img/day1pm/igv_zoomed_in2.png)
+![alt tag](https://github.com/alipirani88/Comparative_Genomics/blob/master/_img/day1_after/igv_zoomed_in2.png)
   
 To see all of the reads, you can click the square with the arrows pointing to each corner, found in the top-middle-right of the window:
 
-![alt tag](https://github.com/alipirani88/Comparative_Genomics/blob/master/_img/day1pm/igv_zoomed_in3.png)
+![alt tag](https://github.com/alipirani88/Comparative_Genomics/blob/master/_img/day1_after/igv_zoomed_in3.png)
 
 If you zoom in all the way, you can see the nucleotide sequence at the bottom of the screen as well as nucleotide variants in the reads:
 
-![alt tag](https://github.com/alipirani88/Comparative_Genomics/blob/master/_img/day1pm/igv_zoomed_in4.png)
+![alt tag](https://github.com/alipirani88/Comparative_Genomics/blob/master/_img/day1_after/igv_zoomed_in4.png)
 
 Now that you know the basics of how to use IGV, let's navigate to the mgrB gene to look at mutations that might make this sample resistant to colistin. 
 - In the top middle bar of the window, type in gi|661922017|gb|CP008827.1|:3,359,811-3,360,323
@@ -933,7 +933,7 @@ Now that you know the basics of how to use IGV, let's navigate to the mgrB gene 
 - What is the nucleotide of the SNP in the sample? The amino acid change? 
 - Do you think this variant might be the cause of colistin resistance? Why or why not?
 
-![alt tag](https://github.com/alipirani88/Comparative_Genomics/blob/master/_img/day1pm/igv_mgrb.png)
+![alt tag](https://github.com/alipirani88/Comparative_Genomics/blob/master/_img/day1_after/igv_mgrb.png)
 
 
 Now let's look an example of a heterozygous variant - variant positions where more than one allele (variant) with sufficiently high read depth are observed. 
