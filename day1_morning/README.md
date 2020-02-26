@@ -90,9 +90,6 @@ alias d3a='cd /scratch/micro612w20_class_root/micro612w20_class/username/day3pm'
 
 # Add tools to PATH
 export PATH=$PATH:/scratch/micro612w20_class_root/micro612w20_class/shared/bin/quast/
-export PATH=$PATH:/scratch/micro612w20_class_root/micro612w20_class/shared/bin/mcl-14-137/src/alien/oxygen/src/
-export PATH=$PATH:/scratch/micro612w20_class_root/micro612w20_class/shared/bin/PAGIT/ABACAS/
-export PATH=$PATH:/scratch/micro612w20_class_root/micro612w20_class/shared/bin/MUMmer3.23/
 ```
 </details>
 
