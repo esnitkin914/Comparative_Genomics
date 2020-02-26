@@ -14,10 +14,12 @@ We will screen one of the sample against Minikraken database and check if the ma
 
 > i. Get an interactive cluster node to start running programs. Use the shortcut that we created in .bashrc file for getting into interactive flux session.***
 
-How do you know if you are in interactive session?: you should see "username@nyx" in your command prompt
+How do you know if you are in interactive session?: you should see "username@glXXXX" in your command prompt where XXXX refers to 
 
 ```
 islurm
+
+conda activate Workshop_env
 ```
 
 Navigate to kraken directory placed under day1pm directory.
@@ -32,7 +34,7 @@ cd /scratch/micro612w20_class_root/micro612w20_class/username/day1pm/kraken/
 
 ```
 
-kraken --quick --threads 4 --fastq-input --gzip-compressed --unclassified-out fastq_screen_unclassified.txt --db minikraken_20171013_4GB/ --output fastq_screen_kraken fastq_screen_subsample.fastq.gz
+kraken --quick --fastq-input --gzip-compressed --unclassified-out fastq_screen_unclassified.txt --db minikraken_20171013_4GB/ --output fastq_screen_kraken fastq_screen_subsample.fastq.gz
 
 ```
 
