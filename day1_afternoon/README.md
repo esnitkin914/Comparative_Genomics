@@ -19,7 +19,7 @@ How do you know if you are in interactive session?: you should see "username@glX
 ```
 islurm
 
-conda activate Workshop_env
+conda activate micro612
 ```
 
 Navigate to kraken directory placed under day1pm directory.
@@ -134,7 +134,7 @@ For more information on how Trimmomatic tries to achieve this, Please refer [thi
 
 Now we will run Trimmomatic on these raw data to remove low quality reads as well as adapters. 
 
-> ***i. If the interactive session timed out, get an interactive cluster node again to start running programs and navigate to day1pm directory. Also, load the Conda environment - Workshop_env.***
+> ***i. If the interactive session timed out, get an interactive cluster node again to start running programs and navigate to day1pm directory. Also, load the Conda environment - micro612.***
 
 How to know if you are in interactive session: you should see "username@nyx" in your command prompt
 
@@ -147,7 +147,7 @@ cd /scratch/micro612w20_class_root/micro612w20_class/username/day1pm/
 
 d1a
 
-conda activate Workshop_env
+conda activate micro612
 ```
 
 > ***ii. Create these output directories in your day1pm folder to save trimmomatic results***
