@@ -36,6 +36,7 @@ kraken --quick --threads 4 --fastq-input --gzip-compressed --unclassified-out fa
 
 ```
 
+
 > ***iii. Run Kraken report to generate a concise summary report of the species found in reads file.
 
 
@@ -43,6 +44,7 @@ kraken --quick --threads 4 --fastq-input --gzip-compressed --unclassified-out fa
 kraken-report --db minikraken_20171013_4GB/ fastq_screen_kraken > fastq_screen_kraken_report.txt
 
 ```
+
 
 > ***iv. Generate a HTML report to visualize Kraken report using Krona
 
@@ -55,7 +57,7 @@ ktImportTaxonomy fastq_screen_krona.input -o fastq_screen_krona.out.html
 Use scp command as shown below or use cyberduck. If you dont the file in cyberduck window, try refreshing it using the refresh button at the top.
 
 ```
-scp username@flux-xfer.arc-ts.umich.edu:/scratch/micro612w20_class_root/micro612w20_class/username/day1pm/fastq_screen_krona.out.html /path-to-local-directory/
+scp username@greatlakes-xfer.arc-ts.umich.edu:/scratch/micro612w20_class_root/micro612w20_class/username/day1pm/fastq_screen_krona.out.html /path-to-local-directory/
 
 #You can use ~/Desktop/ as your local directory path
 
@@ -100,7 +102,7 @@ You can visualize and assess the quality of data by opening html report in a loc
 > ***v. Download the FastQC html report to your home computer to examine using scp or cyberduck***
 
 ```
-scp username@flux-xfer.arc-ts.umich.edu:/scratch/micro612w20_class_root/micro612w20_class/username/day1pm/Rush_KPC_266_FastQC_results/before_trimmomatic/*.html /path-to-local-directory/
+scp username@greatlakes-xfer.arc-ts.umich.edu:/scratch/micro612w20_class_root/micro612w20_class/username/day1pm/Rush_KPC_266_FastQC_results/before_trimmomatic/*.html /path-to-local-directory/
 ```
 
 The analysis in FastQC is broken down into a series of analysis modules. The left hand side of the main interactive display or the top of the HTML report show a summary of the modules which were run, and a quick evaluation of whether the results of the module seem entirely normal (green tick), slightly abnormal (orange triangle) or very unusual (red cross). 
@@ -135,7 +137,7 @@ Now we will run Trimmomatic on these raw data to remove low quality reads as wel
 How to know if you are in interactive session: you should see "username@nyx" in your command prompt
 
 ```
-iflux
+islurm
 
 cd /scratch/micro612w20_class_root/micro612w20_class/username/day1pm/
 
@@ -153,13 +155,13 @@ mkdir Rush_KPC_266_trimmomatic_results
 > ***iii. Try to invoke trimmomatic from command line.***
 
 ```
-java -jar /scratch/micro612w20_class_root/micro612w20_class/shared/bin/Trimmomatic/trimmomatic-0.33.jar –h
+trimmomatic –h
 ```
 
 > ***iv. Run the below trimmomatic commands on raw reads.***
 
 ```
-java -jar /scratch/micro612w20_class_root/micro612w20_class/shared/bin/Trimmomatic/trimmomatic-0.33.jar PE Rush_KPC_266_1_combine.fastq.gz Rush_KPC_266_2_combine.fastq.gz Rush_KPC_266_trimmomatic_results/forward_paired.fq.gz Rush_KPC_266_trimmomatic_results/forward_unpaired.fq.gz Rush_KPC_266_trimmomatic_results/reverse_paired.fq.gz Rush_KPC_266_trimmomatic_results/reverse_unpaired.fq.gz ILLUMINACLIP:/scratch/micro612w20_class_root/micro612w20_class/shared/bin/Trimmomatic/adapters/TruSeq3-PE.fa:2:30:10:8:true SLIDINGWINDOW:4:15 MINLEN:40 HEADCROP:0
+trimmomatic PE Rush_KPC_266_1_combine.fastq.gz Rush_KPC_266_2_combine.fastq.gz Rush_KPC_266_trimmomatic_results/forward_paired.fq.gz Rush_KPC_266_trimmomatic_results/forward_unpaired.fq.gz Rush_KPC_266_trimmomatic_results/reverse_paired.fq.gz Rush_KPC_266_trimmomatic_results/reverse_unpaired.fq.gz ILLUMINACLIP:/scratch/micro612w20_class_root/micro612w20_class/shared/conda_envs/day1pm/share/trimmomatic-0.39-1/adapters/TruSeq3-PE.fa:2:30:10:8:true SLIDINGWINDOW:4:15 MINLEN:40 HEADCROP:0
 ```
 
 
@@ -184,7 +186,7 @@ fastqc -o Rush_KPC_266_FastQC_results/after_trimmomatic/ Rush_KPC_266_trimmomati
 Get these html reports to your local system.
 
 ```
-scp username@flux-xfer.arc-ts.umich.edu:/scratch/micro612w20_class_root/micro612w20_class/username/day1pm/Rush_KPC_266_FastQC_results/after_trimmomatic/*.html /path-to-local-directory/
+scp username@greatlakes-xfer.arc-ts.umich.edu:/scratch/micro612w20_class_root/micro612w20_class/username/day1pm/Rush_KPC_266_FastQC_results/after_trimmomatic/*.html /path-to-local-directory/
 ```
 
 ![alt tag](https://github.com/alipirani88/Comparative_Genomics/blob/master/_img/day1aming/3.png)
@@ -203,7 +205,7 @@ This doesn't look very bad but you can remove the red cross sign by trimming the
 ```
 mkdir Rush_KPC_266_trimmomatic_results_with_headcrop/
 
-time java -jar /scratch/micro612w20_class_root/micro612w20_class/shared/bin/Trimmomatic/trimmomatic-0.33.jar PE Rush_KPC_266_1_combine.fastq.gz Rush_KPC_266_2_combine.fastq.gz Rush_KPC_266_trimmomatic_results_with_headcrop/forward_paired.fq.gz Rush_KPC_266_trimmomatic_results_with_headcrop/forward_unpaired.fq.gz Rush_KPC_266_trimmomatic_results_with_headcrop/reverse_paired.fq.gz Rush_KPC_266_trimmomatic_results_with_headcrop/reverse_unpaired.fq.gz ILLUMINACLIP:/scratch/micro612w20_class_root/micro612w20_class/shared/bin/Trimmomatic/adapters/TruSeq3-PE.fa:2:30:10:8:true SLIDINGWINDOW:4:20 MINLEN:40 HEADCROP:9
+trimmomatic PE Rush_KPC_266_1_combine.fastq.gz Rush_KPC_266_2_combine.fastq.gz Rush_KPC_266_trimmomatic_results_with_headcrop/forward_paired.fq.gz Rush_KPC_266_trimmomatic_results_with_headcrop/forward_unpaired.fq.gz Rush_KPC_266_trimmomatic_results_with_headcrop/reverse_paired.fq.gz Rush_KPC_266_trimmomatic_results_with_headcrop/reverse_unpaired.fq.gz ILLUMINACLIP:/scratch/micro612w20_class_root/micro612w20_class/shared/conda_envs/day1pm/share/trimmomatic-0.39-1/adapters/TruSeq3-PE.fa:2:30:10:8:true SLIDINGWINDOW:4:20 MINLEN:40 HEADCROP:9
 ```
 
 Unix gem: time in above command shows how long a command takes to run?
@@ -212,11 +214,12 @@ Unix gem: time in above command shows how long a command takes to run?
 
 ```
 mkdir Rush_KPC_266_FastQC_results/after_trimmomatic_headcrop/
+
 fastqc -o Rush_KPC_266_FastQC_results/after_trimmomatic_headcrop/ --extract -f fastq Rush_KPC_266_trimmomatic_results_with_headcrop/forward_paired.fq.gz Rush_KPC_266_trimmomatic_results_with_headcrop/reverse_paired.fq.gz
 ```
 Download the reports again and see the difference.
 ```
-scp username@flux-xfer.arc-ts.umich.edu:/scratch/micro612w20_class_root/micro612w20_class/username/day1pm/Rush_KPC_266_FastQC_results/after_trimmomatic_headcrop/*.html /path-to-local-directory/
+scp username@greatlakes-xfer.arc-ts.umich.edu:/scratch/micro612w20_class_root/micro612w20_class/username/day1pm/Rush_KPC_266_FastQC_results/after_trimmomatic_headcrop/*.html /path-to-local-directory/
 ```
 
 The red cross sign disappeared!
@@ -248,7 +251,7 @@ The goal of this exercise is to learn what standard variant calling steps are in
 
 Let us see what inputs and commands variant_call.sh script need to run variant calling on PCMP_H326.
 
-Try running the script with help menu and check all the inputs that is required by the script.
+Navigate to variant_calling folder in day1pm directory and Try running the script with help menu. Check all the inputs that is required by the script.
 
 ```
 
@@ -266,11 +269,11 @@ The script requires following positional arguments as input to call variants:
 4. Output Directory Path. A new directory will be created at this path by the name that you will provide for Analysis Base name. for example: if the output path is /dir_1/dir_2/ and Analysis Base name is sample_name , a new directory by the name sample_name_varcall_result will be created in /dir_1/dir_2/
 5. Analysis Base name to store result files with this prefix.
 
-If you remember, we ran the shell script in following fashion inside day1pm directory.
+If you remember, we ran the shell script in following fashion inside variant_calling directory.
 
 ```
 
-bash ./variant_call.sh PCMP_H326_R1.fastq.gz PCMP_H326_R2.fastq.gz /Path-to-your-day1pm/KPNIH1.fasta /Path-to-your-day1pm/ PCMP_H326_
+./variant_call.sh PCMP_H326_R1.fastq.gz PCMP_H326_R2.fastq.gz KPNIH1.fasta ./ PCMP_H326_
 
 ```
 
@@ -421,7 +424,7 @@ BAM is the compressed binary equivalent of SAM but are usually quite smaller in 
 The first section for this step will ask samtools to convert SAM format(-S) to BAM format(-b)
 
 ```
-samtools view -Sb PCMP_H326__aln.sam > PCMP_H326__aln.bam
+samtools view -Sb ./PCMP_H326__varcall_result/PCMP_H326__aln.sam > ./PCMP_H326__varcall_result/PCMP_H326__aln.bam
 ```
 
 The next section will sort these converted BAM file using SAMTOOLS
@@ -431,7 +434,7 @@ Most of the downstream tools such as GATK requires your BAM file to be indexed a
 Now before indexing this BAM file, we will sort the data by positions(default) using samtools. Some RNA Seq/Gene expression tools require it to be sorted by read name which is achieved by passing -n flag.
 
 ```
-samtools sort PCMP_H326__aln.bam PCMP_H326__aln_sort
+samtools sort -O BAM -o ./PCMP_H326__varcall_result/PCMP_H326__aln_sort.bam ./PCMP_H326__varcall_result/PCMP_H326__aln.bam
 ```
 
 Step4_removeduplicates
@@ -452,7 +455,7 @@ To run this step, we first need to create a dictionary for reference fasta file 
 
 ```
 
-java -jar /scratch/micro612w20_class_root/micro612w20_class/shared/bin/picard-tools-1.130/picard.jar CreateSequenceDictionary REFERENCE=KPNIH1.fasta OUTPUT=KPNIH1.dict
+picard CreateSequenceDictionary REFERENCE=KPNIH1.fasta OUTPUT=KPNIH1.dict
 
 ```
 
@@ -460,7 +463,7 @@ Once the sequence dictionary is created, PICARD can be run for removing duplicat
 
 ```
 
-java -jar /scratch/micro612w20_class_root/micro612w20_class/shared/bin/picard-tools-1.130/picard.jar MarkDuplicates REMOVE_DUPLICATES=true INPUT=PCMP_H326__aln_sort.bam OUTPUT=PCMP_H326__aln_marked.bam METRICS_FILE=PCMP_H326__markduplicates_metrics CREATE_INDEX=true VALIDATION_STRINGENCY=LENIENT
+picard MarkDuplicates REMOVE_DUPLICATES=true INPUT=./PCMP_H326__varcall_result/PCMP_H326__aln_sort.bam OUTPUT=./PCMP_H326__varcall_result/PCMP_H326__aln_marked.bam METRICS_FILE=./PCMP_H326__varcall_result/PCMP_H326__markduplicates_metrics CREATE_INDEX=true VALIDATION_STRINGENCY=LENIENT
 
 ```
 
@@ -470,7 +473,7 @@ This bam file should be indexed before we can use it for variant calling.
 
 
 ```
-samtools index PCMP_H326__aln_marked.bam
+samtools index ./PCMP_H326__varcall_result/PCMP_H326__aln_marked.bam
 ```
 
 <!--
@@ -503,7 +506,7 @@ This step will Call variants using [samtools](http://www.htslib.org/doc/samtools
 
 ```
 
-samtools mpileup -ug -f KPNIH1.fasta PCMP_H326__aln_marked.bam | bcftools call -O v -v -c -o PCMP_H326__aln_mpileup_raw.vcf
+samtools mpileup -ug -f KPNIH1.fasta ./PCMP_H326__varcall_result/PCMP_H326__aln_marked.bam | bcftools call -O v -v -c -o ./PCMP_H326__varcall_result/PCMP_H326__aln_mpileup_raw.vcf
 
 #In the above command, we are using samtools mpileup to generate a pileup formatted file from BAM alignments and genotype likelihoods (-g flag) in BCF format (binary version of vcf). This bcf output is then piped to bcftools, which calls variants and outputs them in vcf format (-c flag for using consensus calling algorithm  and -v for outputting variants positions only)
 
@@ -515,8 +518,6 @@ Let's go through the VCF file and try to understand a few important VCF specific
 Go to Step5_variantcalling folder under PCMP_H326__varcall_result folder.
 
 ```
-
-d1a
 
 cd PCMP_H326__varcall_result/Step5_variantcalling
 
@@ -549,11 +550,9 @@ There are various tools that can you can try for variant filteration such as vcf
 Make sure you change the directory to Step6_variantfilteraion
 
 ```
-d1a
+cd ../Step6_variantfilteraion
 
-cd PCMP_H326__varcall_result/Step6_variantfilteraion
-
-java -jar /scratch/micro612w20_class_root/micro612w20_class/shared/bin/GenomeAnalysisTK-3.3-0/GenomeAnalysisTK.jar -T VariantFiltration -R KPNIH1.fasta -o PCMP_H326__filter_gatk.vcf --variant PCMP_H326__aln_mpileup_raw.vcf --filterExpression "FQ < 0.025 && MQ > 50 && QUAL > 100 && DP > 15" --filterName pass_filter
+gatk VariantFiltration -R KPNIH1.fasta -O ./PCMP_H326__varcall_result/PCMP_H326__filter_gatk.vcf --variant ./PCMP_H326__varcall_result/PCMP_H326__aln_mpileup_raw.vcf --filter-expression "FQ < 0.025 && MQ > 50 && QUAL > 100 && DP > 15" --filter-name pass_filter
 
 
 ```
@@ -582,7 +581,8 @@ Now, let's remove indels from our final vcf file and keep only variants that pas
 
 ```
 
-vcftools --vcf PCMP_H326__filter_gatk.vcf --keep-filtered pass_filter --remove-indels --recode --recode-INFO-all --out PCMP_H326__filter_onlysnp
+vcftools --vcf ./PCMP_H326__varcall_result/PCMP_H326__filter_gatk.vcf --keep-filtered 
+pass_filter --remove-indels --recode --recode-INFO-all --out ./PCMP_H326__varcall_result/PCMP_H326__filter_onlysnp
 
 ```
 
@@ -617,9 +617,9 @@ snpEff contains a database of about 20,000 reference genomes built from trusted 
 Make sure you change the directory to Step6_variantfilteraion
 
 ```
-d1a
 
 cd PCMP_H326__varcall_result/Step6_variantfilteraion
+
 ```
 
 > ***i. Check snpEff internal database for your reference genome:***
@@ -842,7 +842,7 @@ qualimap bamqc -bam Rush_KPC_266__aln_sort.bam -outdir ./ -outfile Rush_KPC_266_
 ```
 Lets get this pdf report onto our local system and check the chromosome stats table, mapping quality and coverage across the entire reference genome.
 ```
-scp username@flux-xfer.arc-ts.umich.edu:/scratch/micro612w20_class_root/micro612w20_class/username/day1pm/Rush_KPC_266_varcall_result/Rush_KPC_266__report.pdf /path-to-local-directory/
+scp username@greatlakes-xfer.arc-ts.umich.edu:/scratch/micro612w20_class_root/micro612w20_class/username/day1pm/Rush_KPC_266_varcall_result/Rush_KPC_266__report.pdf /path-to-local-directory/
 ```
 -->
 
@@ -883,7 +883,7 @@ Open a new terminal and run the scp command or cyberduck to get these files to y
 
 ```
 
-scp -r username@flux-xfer.arc-ts.umich.edu:/scratch/micro612w20_class_root/micro612w20_class/username/day1pm/PCMP_H326__varcall_result/IGV_files/ /path-to-local-directory/
+scp -r username@greatlakes-xfer.arc-ts.umich.edu:/scratch/micro612w20_class_root/micro612w20_class/username/day1pm/PCMP_H326__varcall_result/IGV_files/ /path-to-local-directory/
 
 #You can use ~/Desktop/ as your local directory path
 ```
