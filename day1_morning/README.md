@@ -495,7 +495,7 @@ Open a text file in RStudio and run the following commands:
 # Plot histogram of gene lengths
 
 # Read in gff file
-gff = read.delim('~/Downloads//sample.gff',
+gff = read.delim('~/Desktop/sample.gff',
                  comment.char = '#', # ignore lines that start with '#'
                  header=F,  #  no header
                  stringsAsFactors = FALSE) # do not read in as data type "factor"
