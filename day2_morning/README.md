@@ -58,10 +58,12 @@ Now, we will use a genome assembly tool called Spades for assembling the reads.
 
 > ***ii. Test out Spades to make sure it's in your path***
 
-To make sure that your paths are set up correctly, try running Spades with the –h (help) flag, which should produce usage instruction.
+Load the workshop conda environment micro612. To make sure that your conda paths are set up correctly, try running Spades with the –h (help) flag, which should produce usage instruction. 
 
 ```
 > check if spades is working. 
+
+conda activate micro612
 
 spades.py -h     
 
@@ -69,33 +71,33 @@ spades.py -h
 
 > ***iii. Submit a cluster job to assemble***
 
-Since it takes a huge amount of memory and time to assemble genomes using spades, we will run a pbs script on the cluster for this step.
+Since it takes a huge amount of memory and time to assemble genomes using spades, we will run a slurm script on great lakes cluster for this step.
 
-Now, open the spades.pbs file residing in the day2aming folder with nano and add the following spades command to the bottom of the file. Replace the EMAIL_ADDRESS in spades.pbs file with your actual email-address. This will make sure that whenever the job starts, aborts or ends, you will get an email notification.
-
-```
-> Open the spades.pbs file using nano:
-
-nano spades.pbs
-
-> Now replace the EMAIL_ADDRESS in spades.pbs file with your actual email-address. This will make sure that whenever the job starts, aborts or ends, you will get an email notification.
-
-> Copy and paste the below command to the bottom of spades.pbs file.
-
-spades.py --pe1-1 forward_paired.fq.gz --pe1-2 reverse_paired.fq.gz --pe1-s forward_unpaired.fq.gz --pe1-s reverse_unpaired.fq.gz -o MSSA_SRR5244781_assembly_result/ --careful
+Now, open the spades.sbat file residing in the day2aming folder with nano and add the following spades command to the bottom of the file. Replace the EMAIL_ADDRESS in spades.sbat file with your actual email-address. This will make sure that whenever the job starts, aborts or ends, you will get an email notification.
 
 ```
+> Open the spades.sbat file using nano:
 
-> ***iv. Submit your job to the cluster with qsub***
+nano spades.sbat
+
+> Now replace the EMAIL_ADDRESS in spades.sbat file with your actual email-address. This will make sure that whenever the job starts, aborts or ends, you will get an email notification.
+
+> Copy and paste the below command to the bottom of spades.sbat file.
+
+spades.py -1 forward_paired.fq.gz -2 reverse_paired.fq.gz -o MSSA_SRR5244781_assembly_result/ --careful
 
 ```
-qsub -V spades.pbs
-```
 
-> ***v. Verify that your job is in the queue with the qstat command***
+> ***iv. Submit your job to the cluster with sbatch***
 
 ```
-qstat –u username 
+sbatch spades.sbat
+```
+
+> ***v. Verify that your job is in the queue with the squeue command***
+
+```
+squeue -u username 
 ```
 
 Submit PROKKA annotation job
@@ -110,14 +112,14 @@ Before we submit the job, run this command to make sure that prokka is setup pro
 prokka –setupdb
 ```
 
-In your day2am directory, you will find a prokka.pbs script. Open this file using nano and change the EMAIL_ADDRESS to your email address.
+In your day2am directory, you will find a prokka.sbat script. Open this file using nano and change the EMAIL_ADDRESS to your email address.
 
 ```
-nano prokka.pbs
+nano prokka.sbat
 
 ```
 
-Now add these line at the end of the pbs script.
+Now add these line at the end of the slurm script.
 
 ```
 
@@ -126,10 +128,10 @@ prokka -kingdom Bacteria -outdir SRR5244781_prokka -force -prefix SRR5244781 SRR
 
 ```
 
-Submit the job using qsub
+Submit the job using sbatch
 
 ```
-qsub prokka.pbs
+sbatch prokka.sbat
 ```
 
 
@@ -146,7 +148,13 @@ To evaluate some example assemblies we will use the tool quast. Quast produces a
 
 Now to check the example assemblies residing in your day2am folder, run the below quast command. Make sure you are in day2am folder in your home directory using 'pwd'
 
+SInce Quast needs an older version of python, we will deactivate the current environment and run quast outside micro612 environment.  
+
 ```
+conda deactivate 
+
+module load python2.7-anaconda/2019.03
+
 quast.py -o quast SRR5244781_contigs.fasta SRR5244821_contigs.fasta
 ```
 
@@ -182,7 +190,7 @@ Download the html report Cdiff_multiqc_report.html from your day2am folder.
 ```
 #Note: Make sure you change 'username' in the below command to your 'uniqname'.
 
-scp username@flux-xfer.arc-ts.umich.edu:/scratch/micro612w20_class_root/micro612w20_class/username/day2am/Cdiff_multiqc_report.html /path-to-local-directory/
+scp username@greatlakes-xfer.arc-ts.umich.edu:/scratch/micro612w20_class_root/micro612w20_class/username/day2am/Cdiff_multiqc_report.html /path-to-local-directory/
 
 ```
 
@@ -205,9 +213,9 @@ cd /scratch/micro612w20_class_root/micro612w20_class/username/day2am/
 
 cd multiqc_analysis
 
-#Load python and Try invoking multiqc 
+#Activate workshop conda environment
 
-module load python-anaconda2/latest
+conda activate micro612
 
 multiqc -h
 
@@ -242,56 +250,6 @@ Compare assembly to reference genome and post-assembly genome improvement
 
 Once we feel confident in our assembly by using quast or multiQC, let's compare it to our reference to see if we can identify any large insertions/deletions using a graphical user interface called Artemis Comparison Tool (ACT) for visualization. 
 
-<!---
-changed on 23 feb 2018
-To do this we need to first align our genome assembly to our reference. We will accomplish this using command-line BLAST.
->i. Align unordered contigs to reference
-Create a BLAST database from your reference genome using the makeblastdb command.
-```
-> Make sure you are in /scratch/micro612w20_class_root/micro612w20_class/username/day2am directory
-d2m
-#or
-cd /scratch/micro612w20_class_root/micro612w20_class/username/day2am
-makeblastdb -in KPNIH1.fasta -dbtype nucl -out KPNIH1.fasta
-```
->ii. Stitch together your contigs into a single sequence
-```
-echo ">sample_266_contigs_concat" > sample_266_contigs_concat.fasta 
-grep -v ">" sample_266_contigs.fasta >> sample_266_contigs_concat.fasta 
-```
-BLAST your stitched together contigs against your reference. 
-The input parameters are: 
-1) query sequences (-query sample_266_contigs_concat.fasta), 
-2) the database to search against (-db KPNIH1.fasta), 
-3) the name of a file to store your results (-out blastn_results), 
-4) output format (-outfmt 6), 
-5) e-value cutoff (-evalue 1e-20)
-```
-blastn -outfmt 6 -evalue 1e-20 -db KPNIH1.fasta -query sample_266_contigs_concat.fasta -out concat_comp.blast
-```
->ii. Use ACT(Installed in your local system) to compare stitched together contigs to reference.
-For these, first we will create a seperate directory called ACT_contig_comparison in day2am folder and copy all the necessary ACT input to this directory.
-```
-mkdir ACT_contig_comparison 
-cp KPNIH.gb KPNIH1.fasta concat_comp.blast sample_266_contigs_concat.fasta ACT_contig_comparison/
-```
-Use scp to get sequences and BLAST alignments onto your laptop 
-```
-> Note: Make sure you change 'username' in the below command with your 'uniqname'.
-scp -r username@flux-xfer.arc-ts.umich.edu:/scratch/micro612w20_class_root/micro612w20_class/username/day2am/ACT_contig_comparison/ /path-to-local-directory/
-```
->iii. Read these Input files in ACT_contig_comparison folder into ACT
-```
-Start ACT and set your working directory to ACT_contig_comparison(wherever it is stored on your local system)
-Go to File on top left corner of ACT window -> open 
-Sequence file 1 = KPNIH.gb
-Comparison file 1  = concat_comp_blast 
-Sequence file 2  = sample_266_contigs_concat.fasta
-Click Apply button
-```
-> Notice that it is a complete mess!!!! The reason is that the contigs are in random order, so it is very difficult to visually compare to the reference. 
-![alt tag](https://github.com/alipirani88/Comparative_Genomics/blob/master/_img/day2_morning/mess.png)
--->
 
 In order to simplify the comparison between assembly and reference, we first need to orient the order of the contigs to reference. 
 
