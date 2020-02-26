@@ -88,6 +88,9 @@ alias d2a='cd /scratch/micro612w20_class_root/micro612w20_class/username/day2pm'
 alias d3m='cd /scratch/micro612w20_class_root/micro612w20_class/username/day3am'
 alias d3a='cd /scratch/micro612w20_class_root/micro612w20_class/username/day3pm'
 
+# Add tools to PATH
+export PATH=$PATH:/scratch/micro612w20_class_root/micro612w20_class/shared/bin/quast/
+
 ```
 </details>
 
