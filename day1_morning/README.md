@@ -77,7 +77,7 @@ cp ~/.bashrc ~/bashrc_backup
 
 #Aliases
 # Interactive great lakes SLURM node
-alias islurm='srun --account=micro612w20_class --nodes=1 --ntasks-per-node=1 --mem-per-cpu=1GB --cpus-per-task=1 --time=12:00:00 --pty /bin/bash'
+alias islurm='srun --account=micro612w20_class --nodes=1 --ntasks-per-node=1 --mem-per-cpu=1GB --cpus-per-task=1 --time=12:00:00 --export=ALL --pty /bin/bash'
 
 # Set up Directory shortcuts
 alias wd='cd /scratch/micro612w20_class_root/micro612w20_class/username/'
