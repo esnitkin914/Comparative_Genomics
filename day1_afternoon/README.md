@@ -625,7 +625,7 @@ cd PCMP_H326__varcall_result/Step6_variantfilteraion
 > ***i. Check snpEff internal database for your reference genome:***
 
 ```     
-java -jar /scratch/micro612w20_class_root/micro612w20_class/shared/bin/snpEff/snpEff.jar databases | grep 'kpnih1'
+snpEff databases | grep -w 'Klebsiella_pneumoniae_subsp_pneumoniae_kpnih1'
 ```
 
 The existing KPNIH1 reference database doesn't contain mgrB annotation in it so we built a custom database out of a custom KPNIH1 genbank file. The procedure to configure a custom database can be found [here](http://snpeff.sourceforge.net/SnpEff_manual.html#databases). 
@@ -634,7 +634,7 @@ The existing KPNIH1 reference database doesn't contain mgrB annotation in it so 
 
 ```
 
-java -Xmx4g -jar /scratch/micro612w20_class_root/micro612w20_class/shared/bin/snpEff/snpEff.jar -csvStats PCMP_H326__filter_gatk_stats -dataDir /scratch/micro612w20_class_root/micro612w20_class/shared/bin/snpEff/data/ -d -no-downstream -no-upstream -c /scratch/micro612w20_class_root/micro612w20_class/shared/bin/snpEff/snpEff.config KPNIH1 PCMP_H326__filter_gatk.vcf > PCMP_H326__filter_gatk_ann.vcf
+snpEff -csvStats PCMP_H326__filter_gatk_stats -dataDir /scratch/micro612w20_class_root/micro612w20_class/shared/bin/snpEff/data/ -d -no-downstream -no-upstream -c /scratch/micro612w20_class_root/micro612w20_class/shared/bin/snpEff/snpEff.config KPNIH1 PCMP_H326__filter_gatk.vcf > PCMP_H326__filter_gatk_ann.vcf
 
 ```
 
@@ -645,8 +645,6 @@ snpEff will add an extra field named 'ANN' at the end of INFO field. Lets go thr
 Now go to Step6_variantfilteraion folder under PCMP_H326__varcall_result. 
 
 ```
-d1a 
-
 cd PCMP_H326__varcall_result/Step6_variantfilteraion
 
 bgzip -fc PCMP_H326__filter_gatk_ann.vcf > PCMP_H326__filter_gatk_ann.vcf.gz
@@ -963,7 +961,7 @@ Today we ran a variant calling pipeline for a colistin resistant isolate against
 
 Your steps should be:
 
-1) Create a PBS script to run the shell script in the directory and submit to cluster
+1) Create a SLURM script to run the shell script in the directory and submit to cluster
 
 2) Load files into IGV and examine annotations of genes in or around variants in filtered vcf (*note snpEff annotation should be skipped because our reference is not in the database)
 
@@ -974,7 +972,7 @@ In the second exercise we will try and find a mutation that is in a colistin res
 
 Your steps should be:
 
-1) Create two PBS scripts comparing your colR and colS genomes to the reference genomes and submit to cluster
+1) Create two SLURM scripts comparing your colR and colS genomes to the reference genomes and submit to cluster
 2) Perform variant annotation against the ACICU reference genome with snpEff
 3) Create parsed annotated variant matrix
 4) Determine if colR has a pmrB mutation that the colS isolate does not, and compare it to the mutation found in the paper
