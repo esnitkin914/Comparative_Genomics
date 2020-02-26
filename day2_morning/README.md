@@ -29,7 +29,7 @@ Genome Assembly using [Spades](http://bioinf.spbau.ru/spades) Pipeline
 [[back to top]](https://github.com/alipirani88/Comparative_Genomics/blob/master/day2aming/README.md)
 [[HOME]](https://github.com/alipirani88/Comparative_Genomics/blob/master/README.md)
 
-![alt tag](https://github.com/alipirani88/Comparative_Genomics/blob/master/_img/day2aming/intro.png)
+![alt tag](https://github.com/alipirani88/Comparative_Genomics/blob/master/_img/day2_morning/intro.png)
 
 There are a wide range of tools available for assembly of microbial genomes. These assemblers fall in to two general algorithmic categories, which you can learn more about [here](?). In the end, most assemblers will perform well on microbial genomes, unless there is unusually high GC-content or an over-abundance of repetitive sequences, both of which make accurate assembly difficult. 
 
@@ -165,7 +165,7 @@ Check the difference between the different assembly statistics. Also check the d
 Generating multiple sample reports using [multiqc](http://multiqc.info/)
 --------------------------------------------------
 
-![alt tag](https://github.com/alipirani88/Comparative_Genomics/blob/master/_img/day2aming/multiqc.jpeg)
+![alt tag](https://github.com/alipirani88/Comparative_Genomics/blob/master/_img/day2_morning/multiqc.jpeg)
 
 Let's imagine a real-life scenario where you are working on a project which requires you to analyze and process hundreds of samples. Having a few samples with extremely bad quality is very commonplace. Including these bad samples into your analysis without adjusting their quality threshold can have a profound effect on downstream analysis and interpretations. 
 
@@ -290,7 +290,7 @@ Sequence file 2  = sample_266_contigs_concat.fasta
 Click Apply button
 ```
 > Notice that it is a complete mess!!!! The reason is that the contigs are in random order, so it is very difficult to visually compare to the reference. 
-![alt tag](https://github.com/alipirani88/Comparative_Genomics/blob/master/_img/day2aming/mess.png)
+![alt tag](https://github.com/alipirani88/Comparative_Genomics/blob/master/_img/day2_morning/mess.png)
 -->
 
 In order to simplify the comparison between assembly and reference, we first need to orient the order of the contigs to reference. 
@@ -372,7 +372,7 @@ Dont close the ACT window
 
 - Notice that the alignment is totally beautiful now!!! Scan through the alignment and play with ACT features to look at genes present in reference but not in assembly. Keep the ACT window open for further visualizations.
 
-![alt tag](https://github.com/alipirani88/Comparative_Genomics/blob/master/_img/day2aming/beautiful.png)
+![alt tag](https://github.com/alipirani88/Comparative_Genomics/blob/master/_img/day2_morning/beautiful.png)
  
 Genome Annotation
 -----------------
@@ -454,7 +454,7 @@ Click on GoTo->FPR3757.gb->Navigator-> GoTo and search by gene name. Search for 
 
 Scroll through the length of the genome. Are there any genes in the MSSA genome that are not in the MRSA genome? 
 
-See [this](https://github.com/alipirani88/Comparative_Genomics/blob/master/_img/day2aming/day2am_mecA.png) diagram and paper for more information on the features of USA300 MRSA: 
+See [this](https://github.com/alipirani88/Comparative_Genomics/blob/master/_img/day2_morning/day2am_mecA.png) diagram and paper for more information on the features of USA300 MRSA: 
 
 Image from David & Daum Clin Microbiol Rev. 2010 Jul;23(3):616-87. doi: 10.1128/CMR.00081-09.
 
