@@ -376,6 +376,7 @@ You can find more of such super useful bash one-liners at Stephen Turner's githu
 
 -->
 
+<!--
 Pairing fastq Files with for loop
 ---------------------------------
 
@@ -396,6 +397,7 @@ Try running the script in the following fashion where . represents current direc
 ```
 
 How about running the awk command that we recently used inside a shell script and ask awk to print some statistics for both forward and reverse reads? Follow instructions in the script and Insert Awk command  in such a way that you use fwd_fastq_file and rev_fastq_file string accordingly.
+-->
 
 Exploring GFF files
 -------------------
