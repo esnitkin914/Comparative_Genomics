@@ -750,12 +750,12 @@ Generate Alignment Statistics
 
 Often, while analyzing sequencing data, we are required to make sure that our analysis steps are correct. Some statistics about our analysis will help us in making that decision. So Lets try to get some statistics about various outputs that were created using the above steps and check if everything makes sense.
 
-Go to your day1pm directory.
+Go to your day1pm/variant_calling directory.
 
 ```
 
 d1a
-
+cd variant_calling
 ```
 
 > ***i. Collect Alignment statistics using Picard***
@@ -764,7 +764,7 @@ Run the below command on your marked.bam file
 
 ```
 
-java -jar /scratch/micro612w20_class_root/micro612w20_class/shared/bin/picard-tools-1.130/picard.jar CollectAlignmentSummaryMetrics R=KPNIH1.fasta I=PCMP_H326__varcall_result/Step5_variantcalling/PCMP_H326__aln_marked.bam O=AlignmentSummaryMetrics.txt
+picard CollectAlignmentSummaryMetrics R=KPNIH1.fasta I=PCMP_H326__varcall_result/Step5_variantcalling/PCMP_H326__aln_marked.bam O=AlignmentSummaryMetrics.txt
 
 ```
 Open the file AlignmentSummaryMetrics.txt and explore various statistics. It will generate various statistics and the definition for each can be found [here](http://broadinstitute.github.io/picard/picard-metric-definitions.html#AlignmentSummaryMetrics)
@@ -794,7 +794,7 @@ Read coverage/depth describes the average number of reads that align to, or "cov
 After read mapping, it is important to make sure that the reference bases are represented by enough read depth before making any inferences such as variant calling.
 
 ```
-java -jar /scratch/micro612w20_class_root/micro612w20_class/shared/bin/picard-tools-1.130/picard.jar CollectWgsMetrics R=KPNIH1.fasta I=PCMP_H326__varcall_result/Step5_variantcalling/PCMP_H326__aln_marked.bam O=WgsMetrics.txt
+picard CollectWgsMetrics R=KPNIH1.fasta I=PCMP_H326__varcall_result/Step5_variantcalling/PCMP_H326__aln_marked.bam O=WgsMetrics.txt
 
 ```
 
@@ -823,13 +823,13 @@ grep -v '#' WgsMetrics.txt | cut -f2 | head -n3
 > Question: Percentage of bases that attained at least 5X sequence coverage.
 
 ```
-grep -v '#' WgsMetrics.txt | cut -f13 | head -n3
+grep -v '#' WgsMetrics.txt | cut -f15 | head -n3
 ```
 
 > Question: Percentage of bases that had siginificantly high coverage. Regions with unusually high depth sometimes indicate either repetitive regions or PCR amplification bias.
 
 ```
-grep -v '#' WgsMetrics.txt | cut -f25 | head -n3
+grep -v '#' WgsMetrics.txt | cut -f27 | head -n3
 ```
 
 <!--
@@ -866,11 +866,11 @@ We will be using [IGV](http://software.broadinstitute.org/software/igv/) (Integr
 
 Note: This IGV exercise requires an annotated vcf file, so make sure you have completed snpeff exercise successfully.
 
-Let's make a seperate folder (make sure you are in the `day1pm` folder) for the files that we need for visualization and copy it to that folder:
+Let's make a seperate folder (make sure you are in the `day1pm/variant_calling` folder) for the files that we need for visualization and copy it to that folder:
 
 ```
 d1a 
-
+cd variant_calling
 mkdir IGV_files
 
 cp KPNIH1.fasta KPNIH1.gb PCMP_H326__varcall_result/*/PCMP_H326__aln_marked.bam* PCMP_H326__varcall_result/*/PCMP_H326__filter_gatk_ann.vcf.gz* IGV_files/
