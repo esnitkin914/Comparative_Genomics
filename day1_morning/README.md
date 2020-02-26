@@ -257,7 +257,7 @@ Try running the above command and see how it prints out each positional paramete
 
 Lets try to incorporate a for loop inside the fasta_counter.sh script that uses the first command line argument - i.e directory name and search for \*.fna files in that directory and runs contig counting command on each of them.
 
-- Open “fasta_counter.sh” in pico or your favourite text editor and follow instructions for making edits so it will do what we want it to do
+- Open “fasta_counter.sh” in nano or your favourite text editor and follow instructions for making edits so it will do what we want it to do
 
 - Run this script in day1am directory and verify that you get the correct results. Basic usage of the script will be:
 
@@ -466,9 +466,22 @@ cut -f 3 sample.gff | grep 'tRNA' | wc -l
 
 - Question: Try counting the number of features on a "+" or "-" strand (column 7).
 
+Now, let's use what we learned about for loops and creating shell scripts above to create a script called "feature_counter.sh" This script will take as input a directory and will search for all gff files in the directory. It will calculate and output the number of tRNA features in the gff.   
+
+- Open “feature_counter.sh” in nano or your favourite text editor and follow instructions for making edits so it will do what we want it to do
+
+- Run this script in day1am directory and verify that you get the correct results. Basic usage of the script will be:
+
+./feature_counter.sh <directory containing gff files>
+
+```
+./feature_counter.sh .
+```
+
+
 Some more useful one-line unix commands for GFF files: [here](https://github.com/stephenturner/oneliners#gff3-annotations)
 
-Now we're going to play around with the GFF in R. Specifically, we're interested in looking at the distribution of gene length for all of the genes in the gff file.
+Now we're going to play around with a GFF in R. Specifically, we're interested in looking at the distribution of gene length for all of the genes in the gff file.
 
 Copy the sample.gff file to your computer using scp or cyberduck:
 
