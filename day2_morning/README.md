@@ -283,9 +283,11 @@ Now, we will run abacas using these input parameters:
 
 7) the prefix for your output files (–o SRR5244781_contigs_ordered) 
 
-Check if abacas can be properly invoked:
+Source the relevant abacas dependencies and Check if abacas can be properly invoked:
 
 ```
+source /scratch/micro612w20_class_root/micro612w20_class/shared/bin/PAGIT_2020/PAGIT/sourceme.pagit
+
 abacas.1.3.1.pl -h
 ```
 
@@ -356,36 +358,6 @@ ls
 scp -r username@flux-xfer.arc-ts.umich.edu:/scratch/micro612w16_fluxod/username/day2am/SRR5244781_prokka/ /path-to-local-ACT_contig_comparison-directory/
 
 ```
-
-<!--
- Run Prokka on assembly***
-
-```
-prokka –setupdb
-```
-
-Execute Prokka on your ordered assembly 
-
-```
-> Make sure you are in day2am directory.
-
-d2m
-
-#or
-
-cd /scratch/micro612w20_class_root/micro612w20_class/username/day2am/
-
-mkdir SRR5244781_prokka 
-
-prokka -kingdom Bacteria -outdir SRR5244781_prokka -force -prefix SRR5244781 SRR5244781_contigs_ordered.fasta
-
-> Use scp or cyberduck to get Prokka annotated genome on your laptop. Dont forget to change username in the below command
-
-scp -r username@flux-xfer.arc-ts.umich.edu:/scratch/micro612w16_fluxod/username/day2am/SRR5244781_prokka/ /path-to-local-ACT_contig_comparison-directory/
-
-```
-
--->
 
 > ***ii. Reload comparison into ACT now that we’ve annotated the un-annotated!***
 
@@ -480,5 +452,3 @@ Start the Roary job:
 # run roary
 sbatch roary.sbat
 ```
-
-
