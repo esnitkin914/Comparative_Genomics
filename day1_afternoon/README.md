@@ -12,7 +12,7 @@ For this purpose, we will employ Kraken to screen one of our sample against a Mi
 We will screen one of the sample against Minikraken database and check if the majority of reads in the sample were sequenced from the traget species and what percentage of reads belong to a species/contaminant other than our target species.
 
 
-> ***i. Get an interactive cluster node to start running programs. Use the shortcut that we created in .bashrc file for getting into interactive flux session.***
+> i. Get an interactive cluster node to start running programs. Use the shortcut that we created in .bashrc file for getting into interactive flux session.***
 
 How do you know if you are in interactive session?: you should see "username@nyx" in your command prompt
 
@@ -28,7 +28,7 @@ cd /scratch/micro612w20_class_root/micro612w20_class/username/day1pm/kraken/
 
 ```
 
-> ***ii. Lets run kraken on fastq_screen.fastq.gz***
+> ii. Lets run kraken on fastq_screen.fastq.gz***
 
 ```
 
@@ -37,7 +37,7 @@ kraken --quick --threads 4 --fastq-input --gzip-compressed --unclassified-out fa
 ```
 
 
-> ***iii. Run Kraken report to generate a concise summary report of the species found in reads file.
+> iii. Run Kraken report to generate a concise summary report of the species found in reads file.
 
 
 ```
@@ -46,7 +46,7 @@ kraken-report --db minikraken_20171013_4GB/ fastq_screen_kraken > fastq_screen_k
 ```
 
 
-> ***iv. Generate a HTML report to visualize Kraken report using Krona
+> iv. Generate a HTML report to visualize Kraken report using Krona
 
 ```
 cut -f2,3 fastq_screen_kraken > fastq_screen_krona.input
