@@ -9,7 +9,7 @@ When running a sequencing pipeline, it is very important to make sure that your 
 
 For this purpose, we will employ Kraken to screen one of our sample against a MiniKraken database - a pre-built database constructed from complete bacterial, archaeal, and viral genomes in RefSeq.
 
-We will screen one of the sample against Minikraken database and check if the majority of reads in the sample were sequenced from the traget species and what percentage of reads belong to a species/contaminant other than our target species.
+We will screen one of the sample against Minikraken database and check if the majority of reads in the sample were sequenced from the traget species and what percentage of reads are contaminants?
 
 
 > i. Get an interactive cluster node to start running programs. Use the shortcut that we created in .bashrc file for getting into interactive flux session.***
