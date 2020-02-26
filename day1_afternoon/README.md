@@ -2,7 +2,7 @@ Day 1 Afternoon
 ===============
 [[HOME]](https://github.com/alipirani88/Comparative_Genomics/blob/master/README.md)
 
-Contamination Screening using [Kraken](https://ccb.jhu.edu/software/kraken/)
+Contamination Screening using [Kraken](https://ccb.jhu.edu/software/kraken/) Need a better example!!!
 --------------------------------------------
 
 When running a sequencing pipeline, it is very important to make sure that your data matches appropriate quality threshold and are free from any contaminants. This step will help you make correct interpretations in downstream analysis and will also let you know if you are required to redo the experiment/library preparation or resequencing or remove contaminant sequences.
@@ -32,7 +32,7 @@ cd /scratch/micro612w20_class_root/micro612w20_class/username/day1pm/kraken/
 
 ```
 
-kraken --quick --fastq-input --gzip-compressed --unclassified-out fastq_screen_unclassified.txt --db minikraken_20171013_4GB/ --output fastq_screen_kraken fastq_screen.fastq.gz
+kraken --quick --threads 4 --fastq-input --gzip-compressed --unclassified-out fastq_screen_unclassified.txt --db minikraken_20171013_4GB/ --output fastq_screen_kraken fastq_screen_subsample.fastq.gz
 
 ```
 
@@ -42,20 +42,20 @@ kraken --quick --fastq-input --gzip-compressed --unclassified-out fastq_screen_u
 ```
 kraken-report --db minikraken_20171013_4GB/ fastq_screen_kraken > fastq_screen_kraken_report.txt
 
-- explore reports file?
 ```
 
 > ***iv. Generate a HTML report to visualize Kraken report using Krona
 
 ```
-command here
-output files?
+cut -f2,3 fastq_screen_kraken > fastq_screen_krona.input
+
+ktImportTaxonomy fastq_screen_krona.input -o fastq_screen_krona.out.html
 ```
 
 Use scp command as shown below or use cyberduck. If you dont the file in cyberduck window, try refreshing it using the refresh button at the top.
 
 ```
-scp username@flux-xfer.arc-ts.umich.edu:/scratch/micro612w20_class_root/micro612w20_class/username/day1pm/fastq_screen_screen.png /path-to-local-directory/
+scp username@flux-xfer.arc-ts.umich.edu:/scratch/micro612w20_class_root/micro612w20_class/username/day1pm/fastq_screen_krona.out.html /path-to-local-directory/
 
 #You can use ~/Desktop/ as your local directory path
 
