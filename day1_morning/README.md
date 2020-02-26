@@ -521,7 +521,7 @@ gff$attribute[gene_lengths == max(gene_lengths)]
 gff$attribute[which.min(gene_lengths)]
 gff$attribute[which.max(gene_lengths)]
 ```
-
+</details>
 
 What information do you learn about gene lengths in this genome?
 
