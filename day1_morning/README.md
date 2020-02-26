@@ -2,7 +2,7 @@ Day 1 Morning
 =============
 [[HOME]](https://github.com/alipirani88/Comparative_Genomics/blob/master/README.md)
 
-This morning we will learn how to set up our unix environment which is a necessity when it comes to working on command line. Setting up an environment variable will make our life easier and running commands more enjoyable. We will brush up on few unix programs that some of you learned in Data Carpentry workshop and see how they can be employed for accessing and parsing omics datasets. We will also learn how for loops and awk can be employed to parse and extract complex information from common bioinformatics file formats. At the end of the session, an R exercise will give you an overview as to how you can parse and visualize omics datasets. 
+This morning we will learn how to set up our unix and conda environment which is a necessity when it comes to working on command line. Setting up an environment will make our life easier and running commands more enjoyable. We will brush up on few unix programs that some of you learned in Data Carpentry workshop and see how they can be employed for accessing and parsing omics datasets. We will also learn how for loops and awk can be employed to parse and extract complex information from common bioinformatics file formats. At the end of the session, an R exercise will give you an overview as to how you can parse and visualize omics datasets. 
 
 
 Installing and setting up Cyberduck for file transfer
@@ -48,7 +48,7 @@ Some examples of ways that we will use environment variables in the class are:
 
 1) create shortcuts for directories that you frequently go to,
 
-2) tell unix where frequently used programs live, so you don't have to put the full path name each time you use it and 
+2) Setup a conda environment to install all the required tools and have them availble in your environment
 
 3) setup a shortcut for getting on a cluster node, so that you don't have to write out the full command each time.
 
@@ -76,7 +76,10 @@ cp ~/.bashrc ~/bashrc_backup
 ##Micro612 Workshop ENV
 
 #Aliases
+# Interactive great lakes SLURM node
 alias islurm='srun --account=micro612w20_class --nodes=1 --ntasks-per-node=1 --mem-per-cpu=1GB --cpus-per-task=1 --time=12:00:00 --pty /bin/bash'
+
+# Set up Directory shortcuts
 alias wd='cd /scratch/micro612w20_class_root/micro612w20_class/username/'
 alias d1m='cd /scratch/micro612w20_class_root/micro612w20_class/username/day1am'
 alias d1a='cd /scratch/micro612w20_class_root/micro612w20_class/username/day1pm'
@@ -84,42 +87,6 @@ alias d2m='cd /scratch/micro612w20_class_root/micro612w20_class/username/day2am'
 alias d2a='cd /scratch/micro612w20_class_root/micro612w20_class/username/day2pm'
 alias d3m='cd /scratch/micro612w20_class_root/micro612w20_class/username/day3am'
 alias d3a='cd /scratch/micro612w20_class_root/micro612w20_class/username/day3pm'
-
-
-#great lakes Modules
-module load perl-modules
-
-#Perl Libraries
-export PERL5LIB=/scratch/micro612w20_class_root/micro612w20_class/shared/bin/PAGIT/lib:/scratch/micro612w20_class_root/micro612w20_class/shared/bin/vcftools_0.1.12b/perl:$PERL5LIB
-export PERL5LIB=/scratch/micro612w20_class_root/micro612w20_class/shared/perl_libs:$PERL5LIB
-
-#Bioinformatics Tools
-export PATH=$PATH:/scratch/micro612w20_class_root/micro612w20_class/shared/bin/ncbi-blast-2.7.1+/bin/
-export PATH=$PATH:/scratch/micro612w20_class_root/micro612w20_class/shared/bin/MultiQC/build/scripts-2.7/
-export PATH=$PATH:/scratch/micro612w20_class_root/micro612w20_class/shared/bin/mauve_snapshot_2015-02-13/linux-x64/
-export PATH=$PATH:/scratch/micro612w20_class_root/micro612w20_class/shared/bin/vcftools_0.1.12b/perl/
-export PATH=$PATH:/scratch/micro612w20_class_root/micro612w20_class/shared/bin/tabix-0.2.6/
-export PATH=$PATH:/scratch/micro612w20_class_root/micro612w20_class/shared/bin/bwa-0.7.12/
-export PATH=$PATH:/scratch/micro612w20_class_root/micro612w20_class/shared/bin/Trimmomatic/
-export PATH=$PATH:/scratch/micro612w20_class_root/micro612w20_class/shared/bin/bcftools-1.2/
-export PATH=$PATH:/scratch/micro612w20_class_root/micro612w20_class/shared/bin/samtools-1.2/
-export PATH=$PATH:/scratch/micro612w20_class_root/micro612w20_class/shared/bin/sratoolkit/bin/
-export PATH=$PATH:/scratch/micro612w20_class_root/micro612w20_class/shared/bin/Spades/bin/
-export PATH=$PATH:/scratch/micro612w20_class_root/micro612w20_class/shared/bin/FastQC/
-export PATH=$PATH:/scratch/micro612w20_class_root/micro612w20_class/shared/bin/GenomeAnalysisTK-3.3-0/
-export PATH=$PATH:/scratch/micro612w20_class_root/micro612w20_class/shared/bin/picard-tools-1.130/
-export PATH=$PATH:/scratch/micro612w20_class_root/micro612w20_class/shared/bin/qualimap_v2.1/
-export PATH=$PATH:/scratch/micro612w20_class_root/micro612w20_class/shared/bin/vcftools_0.1.12b/bin/
-export PATH=$PATH:/scratch/micro612w20_class_root/micro612w20_class/shared/bin/snpEff/
-export PATH=$PATH:/scratch/micro612w20_class_root/micro612w20_class/shared/bin/PAGIT/ABACAS/
-export PATH=$PATH:/scratch/micro612w20_class_root/micro612w20_class/shared/bin/blast-2.2.26/bin/
-export PATH=$PATH:/scratch/micro612w20_class_root/micro612w20_class/shared/bin/quast/
-export PATH=$PATH:/scratch/micro612w20_class_root/micro612w20_class/shared/bin/MUMmer3.23/
-export PATH=$PATH:/scratch/micro612w20_class_root/micro612w20_class/shared/bin/fastq_screen_v0.5.2/
-export PATH=$PATH:/scratch/micro612w20_class_root/micro612w20_class/shared/bin/prokka-1.11/bin/
-export PATH=$PATH:/scratch/micro612w20_class_root/micro612w20_class/shared/bin/LS-BSR-master/
-export PATH=$PATH:/scratch/micro612w20_class_root/micro612w20_class/shared/bin/bowtie2-2.2.6/
-export PATH=$PATH:/scratch/micro612w20_class_root/micro612w20_class/shared/bin/mcl-14-137/src/alien/oxygen/src/
 
 ```
 </details>
@@ -157,7 +124,24 @@ wd
 
 You should be in your workshop working directory that is /scratch/micro612w20_class_root/micro612w20_class/username 
 
-<!-- Check the dependencies Pending tree file system Pending-->
+> ***v. Set up a conda environment using a YML file***
+
+The YML file required for generating the conda environment is located here:
+
+```
+/scratch/micro612w20_class_root/micro612w20_class/shared/conda_envs/
+```
+
+Load great lakes anaconda package and set up a conda environment in the following way - 
+
+```
+module load python3.7-anaconda/2019.07
+
+conda env create -f /scratch/micro612w20_class_root/micro612w20_class/shared/conda_envs/day1pm.yml -n Workshop_env
+
+conda activate Workshop_env
+```
+
 
 
 Unix is your friend
