@@ -577,9 +577,10 @@ Change the EMAIL_ADDRESS section of the slurm script to your email_address.
 
 ```
 
-Once you are done editing the slurm script, you can go ahead and submit the job. Make sure you are submitting the job from variant_calling folder. We will go through each of the variant calling result steps folder and explore the results in afternoon session. 
+Once you are done editing the slurm script, you can go ahead and submit the job. Make sure you are submitting the job from variant_calling folder and you have activated the conda environment. We will go through each of the variant calling result steps folder and explore the results in afternoon session. 
 
 ```
+conda activate Workshop_env
 
 sbatch variant_call.sbat 
 
