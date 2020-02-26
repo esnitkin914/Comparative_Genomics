@@ -14,7 +14,7 @@ We will screen one of the sample against Minikraken database and check if the ma
 
 > i. Get an interactive cluster node to start running programs. Use the shortcut that we created in .bashrc file for getting into interactive flux session.***
 
-How do you know if you are in interactive session?: you should see "username@glXXXX" in your command prompt where XXXX refers to 
+How do you know if you are in interactive session?: you should see "username@glXXXX" in your command prompt where XXXX refers to the cluster node number.
 
 ```
 islurm
