@@ -482,9 +482,10 @@ Open a text file in RStudio and run the following commands:
 # Plot histogram of gene lengths
 
 # Read in gff file
-gff = read.delim('~/Desktop/sample.gff',
+gff = read.delim('~/Downloads//sample.gff',
                  comment.char = '#', # ignore lines that start with '#'
-                 header=F) #  no header
+                 header=F,  #  no header
+                 stringsAsFactors = FALSE) # do not read in as data type "factor"
 
 # Rename columns
 colnames(gff) = c('seqname','source','feature','start','end','score','strand','frame','attribute')
@@ -501,6 +502,26 @@ hist(gene_lengths,
      xlab = 'Gene Length (bp)', # change x label
      main = '') # no title
 ```
+
+- Challenge: Now that you know the gene lengths, get the length of the smallest and largest gene. Then get the attribute of the smallest and largest gene. 
+
+<details>
+  <summary>Solution</summary>
+  
+```
+# Length of smallest and largest gene
+min(gene_lengths) 
+max(gene_lengths) 
+
+# Attribute of smallest and largest gene
+gff$attribute[gene_lengths == min(gene_lengths)]
+gff$attribute[gene_lengths == max(gene_lengths)]
+
+# Or you could use which.min() and which.max()
+gff$attribute[which.min(gene_lengths)]
+gff$attribute[which.max(gene_lengths)]
+```
+
 
 What information do you learn about gene lengths in this genome?
 
