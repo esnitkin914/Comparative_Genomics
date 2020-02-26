@@ -37,6 +37,7 @@ Workshop
 
 [Day 1 Afternoon](https://github.com/alipirani88/Comparative_Genomics/blob/master/day1_afternoon/README.md#day-1-afternoon)
 ***
+- [Contamination Screening using Kraken](https://github.com/alipirani88/Comparative_Genomics/blob/master/day1_afternoon/README.md#contamination-screening-using-kraken)
 - [Quality Control using FastQC](https://github.com/alipirani88/Comparative_Genomics/blob/master/day1_afternoon/README.md#quality-control-using-fastqc)
 - [Quality Trimming using Trimmomatic](https://github.com/alipirani88/Comparative_Genomics/blob/master/day1_afternoon/README.md#quality-trimming-using-trimmomatic)
 - [Read Mapping](https://github.com/alipirani88/Comparative_Genomics/blob/master/day1_afternoon/README.md#read-mapping)
