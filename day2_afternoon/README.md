@@ -39,6 +39,9 @@ Before comparing full genomic content, lets start by looking for the presence of
 First, change directories to the blast directory:
 
 ```
+#change directory to day2pm
+d2pm
+
 cd blast
 ```
 
@@ -51,9 +54,6 @@ makeblastdb takes as input:
 2) a flag indicating whether to construct a protein or nucleotide database (in this case protein: `-dbtype prot`).
 
 ```
-#change directory to day2pm
-d2pm
-
 makeblastdb -in data/blast_kleb/ardb_KPC_genes.pfasta -dbtype prot
 
 ```
