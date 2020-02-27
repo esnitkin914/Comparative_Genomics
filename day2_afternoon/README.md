@@ -472,11 +472,11 @@ blastn -query data/Abau_genomes/AbauA_genome.fasta -db data/Abau_BLAST_DB/ACICU_
 Use scp or cyberduck to transfer Abau_ACT_files folder onto your laptop
 
 
-1. `Abau_genomes/AbauA_genome.fasta` 
-2. `Abau_genomes/ACICU_genome.fasta` 
+1. `data/Abau_genomes/AbauA_genome.fasta` 
+2. `data/Abau_genomes/ACICU_genome.fasta` 
 3. `AbauA_vs_ACICU.blast` 
-4. `Abau_ACT_files/AbauA_genome_gene.gff` 
-5. `Abau_ACT_files/ACICU_genome_gene.gff`
+4. `data/Abau_ACT_files/AbauA_genome_gene.gff` 
+5. `data/Abau_ACT_files/ACICU_genome_gene.gff`
 
 
 > ***iii. Explore genome comparison and features of ACT***
