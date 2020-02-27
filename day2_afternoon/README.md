@@ -349,7 +349,7 @@ scp username@greatlakes-xfer.arc-ts.umich.edu:/scratch/micro612w20_class_root/mi
 # read in annotations (only need 3rd column)
 annots = read.csv('~/Desktop/micro612/day2pm/gene_presence_absence.csv')[,3]
 # read in presence-absence heatmap
-pg_matrix = read.delim('~/Desktop/micro612/day2pm/gene_presence_absence.Rtab', row.names = 1)
+pg_matrix = read.delim('~/Desktop/micro612/day2pm/gene_presence_absence.Rtab', row.names = 1, header=TRUE)
 ```
 
 - Use head, str, dim, etc. to explore the matrix.
