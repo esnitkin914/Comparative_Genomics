@@ -695,57 +695,63 @@ We wrote a small python script parser to parse the annotated vcf file and print 
 Run the below parser on your final annotated file PCMP_H326__filter_gatk_ann.vcf as shown below
 
 ```
-module load python-anaconda2/latest 
+conda env create -f parse_snpEff.yml
 
-python /scratch/micro612w20_class_root/micro612w20_class/shared/bin/snpEff_parse.py -genbank /path-to/day1pm/KPNIH1.gb -vcf PCMP_H326__filter_gatk_ann.vcf
+conda activate parse_snpeff
+
+# look at how to run the script
+python scripts/parse_snpEff.py -h
+
+# run the script
+python scripts/parse_snpEff.py -genbank KPNIH1.gb -vcf PCMP_H326__varcall_result/Step6_variantfilteraion/PCMP_H326__filter_gatk_ann.vcf
 
 ```
 
-This script will generate a new csv file called PCMP_H326__parsed.csv with extracted annotated information printed in a table format. Let's take a look at these parsed annotated features from variant filtering.
+This script will generate a new csv file called snpEff_parsed.csv with extracted annotated information printed in a table format. If you want to change the name of the output file, you can use the argument `-outfile`. Let's take a look at these parsed annotated features from variant filtering.
 
-First, make sure you're in the directory where `PCMP_H326__parsed.csv` is stored:
+First, make sure you're in the directory where `snpEff_parsed.csv` is stored:
 ```
-ls PCMP_H326__parsed.csv
+ls snpEff_parsed.csv
 ```
 
 Let's look at what the different columns contain:
 ```
-head -n 1 PCMP_H326__parsed.csv | tr ',' '\n' | cat -n
+head -n 1 snpEff_parsed.csv | tr ',' '\n' | cat -n
 ```
 
 Now that we know what the different columns are, let's look at the whole file using less (can you figure out what the `-S` flag does?):
 ```
-less -S PCMP_H326__parsed.csv
+less -S snpEff_parsed.csv
 ```
 
 How many high-impact variants are there based on the snpEff annotation?
 ```
-grep HIGH PCMP_H326__parsed.csv | wc -l
+grep HIGH snpEff_parsed.csv | wc -l
 ```
 
 What proteins are these high-impact variants in?
 ```
-grep HIGH PCMP_H326__parsed.csv | cut -d$'\t' -f4
+grep HIGH snpEff_parsed.csv | cut -d',' -f13
 ```
 
 How many of each type of high-impact variants are there?
 ```
-grep HIGH PCMP_H326__parsed.csv | cut -d$'\t' -f5  | sort | uniq -c
+grep HIGH snpEff_parsed.csv | cut -d',' -f7  | sort | uniq -c
 ```
 
 What are the actual variant changes?
 ```
- grep HIGH PCMP_H326__parsed.csv | cut -d$'\t' -f10
+ grep HIGH snpEff_parsed.csv | cut -d',' -f8
 ```
 
 Let's get the protein and variant change together:
 ```
-grep HIGH PCMP_H326__parsed.csv | cut -d$'\t' -f4,10
+grep HIGH snpEff_parsed.csv | cut -d',' -f8,9
 ```
 
 What if we want to look specifically for mutations in mgrB? (what does the `-i` flag do?)
 ```
-grep -i mgrb PCMP_H326__parsed.csv
+grep -i mgrb snpEff_parsed.csv
 ```
 
 
