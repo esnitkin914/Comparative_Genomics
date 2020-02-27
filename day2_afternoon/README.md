@@ -184,7 +184,7 @@ Now, fire up RStudio and read in the ARIBA full report `kpneumo_ariba_all_result
 
 ```
 # Read in data
-ariba_full  = read.csv(file = '~/Desktop/micro612/day2pm/kpneumo_ariba_all_results.csv', row.names = 1)
+ariba_full  = read.csv(file = '~/Desktop/micro612/day2pm/kpneumo_card_all_results.csv', row.names = 1)
 rownames(ariba_full) = gsub('_1|_R1|/report.tsv','',rownames(ariba_full))
 
 # Subset to get description for each gene
