@@ -327,9 +327,9 @@ We're going to use information from `gene_presence_absence.csv` and `gene_presen
 
 ```
 # annotation information is here
-less -S Abau_genomes_roary_output/gene_presence_absence.csv
+less -S gene_presence_absence.csv
 # presence/absence information
-less -S Abau_genomes_roary_output/gene_presence_absence.Rtab
+less -S gene_presence_absence.Rtab
 ```
 
 **Read matrices into R, generate exploratory plots and query pan-genome**
