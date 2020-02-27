@@ -139,6 +139,8 @@ Load great lakes anaconda package and set up a conda environment in the followin
 ```
 module load python3.7-anaconda/2019.07
 
+conda config --set channel_priority false
+
 conda env create -f /scratch/micro612w20_class_root/micro612w20_class/shared/conda_envs/day1pm.yml -n micro612
 
 conda activate micro612
