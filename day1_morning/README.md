@@ -81,12 +81,12 @@ alias islurm='srun --account=micro612w20_class --nodes=1 --ntasks-per-node=1 --m
 
 # Set up Directory shortcuts
 alias wd='cd /scratch/micro612w20_class_root/micro612w20_class/username/'
-alias d1m='cd /scratch/micro612w20_class_root/micro612w20_class/username/day1am'
-alias d1a='cd /scratch/micro612w20_class_root/micro612w20_class/username/day1pm'
-alias d2m='cd /scratch/micro612w20_class_root/micro612w20_class/username/day2am'
-alias d2a='cd /scratch/micro612w20_class_root/micro612w20_class/username/day2pm'
-alias d3m='cd /scratch/micro612w20_class_root/micro612w20_class/username/day3am'
-alias d3a='cd /scratch/micro612w20_class_root/micro612w20_class/username/day3pm'
+alias d1am='cd /scratch/micro612w20_class_root/micro612w20_class/username/day1am'
+alias d1pm='cd /scratch/micro612w20_class_root/micro612w20_class/username/day1pm'
+alias d2am='cd /scratch/micro612w20_class_root/micro612w20_class/username/day2am'
+alias d2pm='cd /scratch/micro612w20_class_root/micro612w20_class/username/day2pm'
+alias d3am='cd /scratch/micro612w20_class_root/micro612w20_class/username/day3am'
+alias d3pm='cd /scratch/micro612w20_class_root/micro612w20_class/username/day3pm'
 
 # Add tools to PATH
 export PATH=$PATH:/scratch/micro612w20_class_root/micro612w20_class/shared/bin/quast/
@@ -100,7 +100,7 @@ Note: Replace "username" under alias shortcuts with your own umich "uniqname". I
 - Press return. Then you will be prompted to enter what you want to replace "username" with (here, your uniqname). 
 - Press return. Then press a to replace all incidences or y to accept each incidence one by one. 
 
-You can also customize the alias name such as wd, d1m etc. catering to your own need and convenience.
+You can also customize the alias name such as wd, d1am etc. catering to your own need and convenience.
 
 The above environment settings will set various shortcuts such as "islurm" for entering interactive great lakes session, "wd" to navigate to your workshop directory, call necessary great lakes modules and perl libraries required by certain tools and finally sets the path for bioinformatics programs that we will run during the workshop.
 
@@ -170,7 +170,7 @@ cd day1am/
 
 #or 
 
-d1m
+d1am
 
 ls
 
