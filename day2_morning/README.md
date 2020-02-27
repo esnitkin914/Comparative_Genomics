@@ -429,10 +429,10 @@ ls
 cd ariba
 
 # modify email address and look at ariba command
-nano ariba.sbatch
+nano ariba.sbat
 
 # run job
-sbatch ariba.sbatch
+sbatch ariba.sbat
 ```
 
 Now, let's start the Roary job:
