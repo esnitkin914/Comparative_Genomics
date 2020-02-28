@@ -143,6 +143,8 @@ conda config --set channel_priority false
 
 conda env create -f /scratch/micro612w20_class_root/micro612w20_class/shared/conda_envs/day1pm.yml -n micro612
 
+ktUpdateTaxonomy.sh
+
 conda activate micro612
 ```
 
