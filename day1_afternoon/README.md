@@ -377,8 +377,9 @@ You can extract this information from fastq read header.
 
 ```
 
-The output of BWA and most of the short-reads aligners is a SAM file. SAM format is considered as the standard output for most read aligners and stands for Sequence Alignment/Map format. It is a TAB-delimited format that describes how each reads were aligned to the reference sequence. 
+The output of BWA and most of the short-reads aligners is a SAM file. SAM format is considered as the standard output for most read aligners and stands for Sequence Alignment/Map format. It is a TAB-delimited format that describes how each reads were aligned to the reference sequence. Detailed information about the SAM specs can be obtained from this [pdf](https://www.google.com/url?sa=t&rct=j&q=&esrc=s&source=web&cd=1&ved=0ahUKEwizkvfAk9rLAhXrm4MKHVXxC9kQFggdMAA&url=https%3A%2F%2Fsamtools.github.io%2Fhts-specs%2FSAMv1.pdf&usg=AFQjCNHFmjxTXKnxYqN0WpIFjZNylwPm0Q) document.
 
+<!--
 Lets explore first few lines of .sam file. Go to day1pm directory and then change directory to PCMP_H326__varcall_result/Step2_mapping/
 
 
@@ -417,6 +418,8 @@ NM tag tells number of changes necessary to make it equal to the reference(2 cha
 MD tag tells you what positions in the read alignment are different from reference base and is used by variant callers to call SNP's. 
 
 AS is an alignment score and XS:i:0 is an suboptimal alignment score.
+
+-->
 
 Step3_samtobamconversion
 ------------------------
