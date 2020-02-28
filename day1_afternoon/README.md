@@ -59,7 +59,7 @@ ktImportTaxonomy fastq_screen_krona.input -o fastq_screen_krona.out.html
 Use scp command as shown below or use cyberduck. If you dont the file in cyberduck window, try refreshing it using the refresh button at the top.
 
 ```
-scp username@greatlakes-xfer.arc-ts.umich.edu:/scratch/micro612w20_class_root/micro612w20_class/username/day1pm/fastq_screen_krona.out.html /path-to-local-directory/
+scp username@greatlakes-xfer.arc-ts.umich.edu:/scratch/micro612w20_class_root/micro612w20_class/username/day1pm/kraken/fastq_screen_krona.out.html /path-to-local-directory/
 
 #You can use ~/Desktop/ as your local directory path
 
