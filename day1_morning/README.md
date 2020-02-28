@@ -144,7 +144,7 @@ module load python3.7-anaconda/2019.07
 conda config --set channel_priority false
 
 # Create a new conda environment - micro612 from a YML file
-conda env create -f /scratch/micro612w20_class_root/micro612w20_class/shared/conda_envs/day1pm.yml -n micro612
+conda env create -f /scratch/micro612w20_class_root/micro612w20_class/shared/conda_envs/micro612.yml -n micro612
 
 # Update one of the databases that you would need in one of the Kraken exercises 
 ktUpdateTaxonomy.sh
