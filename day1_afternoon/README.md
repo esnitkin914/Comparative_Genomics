@@ -384,7 +384,7 @@ Lets explore first few lines of .sam file. Go to day1pm directory and then chang
 
 ```
 d1a
-
+cd variant_calling
 cd PCMP_H326__varcall_result/Step2_mapping/
 
 head -n4 PCMP_H326__aln.sam
