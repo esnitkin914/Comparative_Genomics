@@ -137,14 +137,19 @@ The YML file required for generating the conda environment is located here:
 Load great lakes anaconda package and set up a conda environment in the following way - 
 
 ```
+# Load anaconda package from great lakes 
 module load python3.7-anaconda/2019.07
 
+# Set channel_priority to false so that it can install packages as per the YML file and not from loaded channels.
 conda config --set channel_priority false
 
+# Create a new conda environment - micro612 from a YML file
 conda env create -f /scratch/micro612w20_class_root/micro612w20_class/shared/conda_envs/day1pm.yml -n micro612
 
+# Update one of the databases that you would need in one of the Kraken exercises 
 ktUpdateTaxonomy.sh
 
+# Load your environment and use the tools
 conda activate micro612
 ```
 
