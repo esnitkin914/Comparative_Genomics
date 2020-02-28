@@ -957,13 +957,13 @@ Now let's look an example of a heterozygous variant - variant positions where mo
 - Why do you think this region contains many heterozygous variants and a higher read coverage than the rest of the genome?
 - You can also see that there are some places with no reads and no coverage. What does this mean?
 
-![alt tag](https://github.com/alipirani88/Comparative_Genomics/blob/master/_img/day1pm/igv_het.png)
+![alt tag](https://github.com/alipirani88/Comparative_Genomics/blob/master/_img/day1_after/igv_het.png)
 
 You can inspect these type of HET variants later for any gene duplication or copy number analysis (by extracting variant positions with high FQ values). Addition of these details will give a better resolution while inferring phylogenetic trees.
 
 You can refer to the [IGV User Guide](http://software.broadinstitute.org/software/igv/userguide) for more information about how to use IGV. 
 
-[[back to top]](https://github.com/alipirani88/Comparative_Genomics/blob/master/day1pmnoon/README.md)
+[[back to top]](https://github.com/alipirani88/Comparative_Genomics/blob/master/day1_after/README.md)
 [[HOME]](https://github.com/alipirani88/Comparative_Genomics/blob/master/README.md)
 
 
