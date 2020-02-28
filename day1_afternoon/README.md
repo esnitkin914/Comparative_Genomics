@@ -523,7 +523,7 @@ Go to Step5_variantcalling folder under PCMP_H326__varcall_result folder.
 
 ```
 
-cd PCMP_H326__varcall_result/Step5_variantcalling
+cd ../Step5_variantcalling
 
 less PCMP_H326__aln_mpileup_raw.vcf
 
