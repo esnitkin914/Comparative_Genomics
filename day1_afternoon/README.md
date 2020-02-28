@@ -699,6 +699,9 @@ conda env create -f parse_snpEff.yml
 
 conda activate parse_snpeff
 
+# change to variant_calling directory
+cd ../..
+
 # look at how to run the script
 python scripts/parse_snpEff.py -h
 
