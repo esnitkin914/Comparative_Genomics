@@ -38,6 +38,8 @@ There are a wide range of tools available for assembly of microbial genomes. The
 
 Here we will use the Spades assembler with default parameters. Because genome assembly is a computationally intensive process, we will submit our assembly jobs to the cluster, and move ahead with some pre-assembled genomes, while your assemblies are running.
 
+![spades](assembly_details_spades.png)
+
 > ***i. Create directory to hold your assembly output.***
 
 Create a new directory for the spades output in your day2am folder
@@ -147,6 +149,8 @@ The output of an assembler is a set of contigs (contiguous sequences), that are 
 
 To evaluate some example assemblies we will use the tool quast. Quast produces a series of metrics describing the quality of your genome assemblies. 
 
+![spades](assembly_details_quast.png)
+
 > ***i. Run quast on a set of previously generated assemblies***
 
 Now to check the example assemblies residing in your day2am folder, run the below quast command. Make sure you are in day2am folder in your home directory using 'pwd'
@@ -255,6 +259,8 @@ Once we feel confident in our assembly by using quast or multiQC, let's compare 
 
 
 In order to simplify the comparison between assembly and reference, we first need to orient the order of the contigs to reference. 
+
+![spades](assembly_details_abacas.png)
 
 > ***i. Run abacas to orient contigs to the reference***
 
