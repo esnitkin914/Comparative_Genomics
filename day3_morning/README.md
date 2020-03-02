@@ -250,7 +250,9 @@ module load python/2.7.3 biopython dendropy reportlab fasttree RAxML fastml/gub 
 
 ```
 
-module load bioperl python-anaconda2/201607 biopython dendropy reportlab fasttree RAxML fastml/gub gubbins
+module load Bioinformatics
+
+module load gubbins/2.3.1
 
 ```
 
@@ -265,7 +267,7 @@ cd /scratch/micro612w20_class_root/micro612w20_class/username/day3am
 
 sed -i 's/.fa.*//g' mauve_ECII_outgroup.fasta
 
-run_gubbins.py -v -f 50 -o Abau_AB0057_genome mauve_ECII_outgroup.fasta
+run_gubbins -v -f 50 -o Abau_AB0057_genome mauve_ECII_outgroup.fasta
 
 ```
 
@@ -283,7 +285,7 @@ The inputs are:
 
 ```
 
-gubbins_drawer.py -t mauve_ECII_outgroup.final_tree.tre -o mauve_ECII_outgroup.recombination.pdf mauve_ECII_outgroup.recombination_predictions.embl
+gubbins_drawer -t mauve_ECII_outgroup.final_tree.tre -o mauve_ECII_outgroup.recombination.pdf mauve_ECII_outgroup.recombination_predictions.embl
 
 ```
 > ***iii. Download and view gubbins figure and filtered tree***
