@@ -351,12 +351,12 @@ Genome Annotation
 ![annotation](genome_annotation.png)
 
 **Identify protein-coding genes with [Prokka](http://www.vicbioinformatics.com/software.prokka.shtml)**
+![prokka](annotation_details_prokka.png)
 
 From our ACT comparison of our assembly and the reference we can clearly see that there is unique sequence in our assembly. However, we still don’t know what that sequence encodes! To try to get some insight into the sorts of genes unique to our assembly we will run a genome annotation pipeline called Prokka. Prokka works by first running *de novo* gene prediction algorithms to identify protein coding genes and tRNA genes. Next, for protein coding genes Prokka runs a series of comparisons against databases of annotated genes to generate putative annotations for your genome. 
 
 
 Earlier, we submitted a prokka job which should be completed by now. In this exercise, we will go over the prokka results and copy annotation files to our local system that we can then use for ACT visualization.
-
 
 > ***i.  Use scp or cyberduck to get Prokka annotated genome on your laptop. Dont forget to change username in the below command
 
@@ -371,6 +371,8 @@ scp -r username@flux-xfer.arc-ts.umich.edu:/scratch/micro612w16_fluxod/username/
 ```
 
 > ***ii. Reload comparison into ACT now that we’ve annotated the un-annotated!***
+
+![prokka](annotation_details_ACT.png)
 
 Read files into ACT
 
