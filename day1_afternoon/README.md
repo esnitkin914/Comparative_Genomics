@@ -62,6 +62,12 @@ cut -f2,3 fastq_screen_kraken > fastq_screen_krona.input
 ktImportTaxonomy fastq_screen_krona.input -o fastq_screen_krona.out.html
 ```
 
+If you get an error saying - Taxonomy not found, then run ktUpdateTaxonomy caommand
+
+```
+ktUpdateTaxonomy.sh
+```
+
 Use scp command as shown below or use cyberduck. If you dont the file in cyberduck window, try refreshing it using the refresh button at the top.
 
 ```
