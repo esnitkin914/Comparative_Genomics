@@ -15,18 +15,21 @@ For BLAST and ARIBA, we will be looking at 8 *Klebsiella pneumoniae* genomes fro
 
 For the pan-genome analysis, we will be looking at four closely related *Acinetobacter baumannii* strains. However, despite being closely related, these genomes have major differences in gene content, as *A. baumannii* has a notoriously flexible genome! In fact, in large part due to its genomic flexibility, *A. baumannii* has transitioned from a harmless environmental contaminant to a pan-resistant super-bug in a matter of a few decades. If you are interested in learning more, check out this nature [review](http://www.nature.com/nrmicro/journal/v5/n12/abs/nrmicro1789.html) or [this](http://www.pnas.org/content/108/33/13758.abstract) paper I published a few years back analyzing the very same genomes you will be working with.
 
-Navigate to the `day2pm` directory and load the `micro612` conda environment:
+Navigate to the `day2pm` directory and create a new conda environment for this session:
 
 
 ```  
-cd /scratch/micro612w20_class_root/micro612w20_class/username
+# Load anaconda package from great lakes 
+module load python3.7-anaconda/2019.07
 
-# or
+# Set channel_priority to false so that it can install packages as per the YML file and not from loaded channels.
+conda config --set channel_priority false
 
-wd
+# Create a new conda environment - micro612 from a YML file
+conda env create -f /scratch/micro612w20_class_root/micro612w20_class/shared/data/day2pm/day2pm.yaml -n day2pm
 
-# load conda environment
-conda activate micro612
+# Load your environment and use the tools
+conda activate day2pm
 ```
 
 Determine which genomes contain KPC genes using [BLAST](https://blast.ncbi.nlm.nih.gov/Blast.cgi)
