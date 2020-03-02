@@ -992,6 +992,6 @@ Your steps should be:
 
 1) Load the conda environment.
 2) Create two SLURM scripts comparing your colR and colS genomes to the reference genomes and submit to cluster
-3) Perform variant annotation against the ACICU reference genome with snpEff. The ACICU snpEff database is Acinetobacter_baumannii_acicu.
+3) Perform variant annotation against the ACICU reference genome with snpEff. The ACICU snpEff database name that you should use with snpEff command is Acinetobacter_baumannii_acicu.
 4) Create parsed annotated variant matrix
 5) Determine if colR has a pmrB mutation that the colS isolate does not, and compare it to the mutation found in the paper
