@@ -348,6 +348,8 @@ Genome Annotation
 [[back to top]](https://github.com/alipirani88/Comparative_Genomics/blob/master/day2aming/README.md)
 [[HOME]](https://github.com/alipirani88/Comparative_Genomics/blob/master/README.md)
 
+![annotation](genome_annotation.png)
+
 **Identify protein-coding genes with [Prokka](http://www.vicbioinformatics.com/software.prokka.shtml)**
 
 From our ACT comparison of our assembly and the reference we can clearly see that there is unique sequence in our assembly. However, we still don’t know what that sequence encodes! To try to get some insight into the sorts of genes unique to our assembly we will run a genome annotation pipeline called Prokka. Prokka works by first running *de novo* gene prediction algorithms to identify protein coding genes and tRNA genes. Next, for protein coding genes Prokka runs a series of comparisons against databases of annotated genes to generate putative annotations for your genome. 
