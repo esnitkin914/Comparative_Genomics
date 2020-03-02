@@ -312,6 +312,10 @@ Try listing the folders in PCMP_H326__varcall_result:
 ls -1ad PCMP_H326__varcall_result/*
 
 ```
+Let's visualize the steps: 
+![Visualizing the steps1](variant_id.png)
+![Visualizing the steps2](variant_filtering_and_annot.png)
+
 
 Step1_cleaning
 --------------
