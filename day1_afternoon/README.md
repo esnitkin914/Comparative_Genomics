@@ -9,6 +9,7 @@ Two different ways we can process raw reads include 1) variant calling and 2) ge
 
 Contamination Screening using [Kraken](https://ccb.jhu.edu/software/kraken/) Need a better example!!!
 --------------------------------------------
+![QC-ing](genomics_pipeline_qc.png)
 
 When running a sequencing pipeline, it is very important to make sure that your data matches appropriate quality threshold and are free from any contaminants. This step will help you make correct interpretations in downstream analysis and will also let you know if you are required to redo the experiment/library preparation or resequencing or remove contaminant sequences.
 
