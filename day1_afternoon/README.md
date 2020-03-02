@@ -319,6 +319,8 @@ ls -1ad PCMP_H326__varcall_result/*
 
 ```
 
+Let's visualize the steps of this process:
+
 ![var_call_steps](detailed_var_call.png)
 
 Step1_cleaning
