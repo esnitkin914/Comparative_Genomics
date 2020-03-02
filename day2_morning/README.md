@@ -428,8 +428,20 @@ wd
 
 cp -r /scratch/micro612w20_class_root/micro612w20_class/shared/data/day2pm/ ./
 
-# load conda environment
-conda activate micro612
+# Load anaconda package from great lakes 
+module load python3.7-anaconda/2019.07
+
+# Deactivate current conda 
+conda deactivate 
+
+# Set channel_priority to false so that it can install packages as per the YML file and not from loaded channels.
+conda config --set channel_priority false
+
+# Create a new conda environment - micro612 from a YML file
+conda env create -f /scratch/micro612w20_class_root/micro612w20_class/shared/data/day2pm/day2pm.yaml -n day2pm
+
+# Load your environment and use the tools
+conda activate day2pm
 ```
 
 Next, let's start the ariba job:
