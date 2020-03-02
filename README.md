@@ -19,11 +19,14 @@ Prerequisites
 - [Micro612 pre-course hw](https://github.com/alipirani88/Comparative_Genomics/blob/master/Micro612_pre-course_hw/Micro612_w18_pre-course_hw.pdf): A pre-course homework will help setting up Micro612 flux directories and bash profile.
 -->
 
+<!---
 Link
 ----
 
 GOTO: http://comparative-genomics.readthedocs.io/en/latest/index.html#
 ***
+
+-->
 
 Workshop
 --------
