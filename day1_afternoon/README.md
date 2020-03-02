@@ -2,6 +2,11 @@ Day 1 Afternoon
 ===============
 [[HOME]](https://github.com/alipirani88/Comparative_Genomics/blob/master/README.md)
 
+Overview of Genomics Pipeline
+-----------------------------
+Two different ways we can process raw reads include 1) variant calling and 2) genome assembly. We'll talk about both in this course, and we'll keep coming back to this roadmap to give some perspective on where we are in the pipeline. 
+![Mile high view of a genomics pipeline](genomics_pipeline.png)
+
 Contamination Screening using [Kraken](https://ccb.jhu.edu/software/kraken/) Need a better example!!!
 --------------------------------------------
 
