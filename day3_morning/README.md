@@ -86,7 +86,9 @@ Mauve produces alignments in .xmfa format (use less to see what this looks like)
 ```
 Now run these command in day3am folder on flux:
 
-module load bioperl
+module load Bioinformatics
+
+module load bioperl/1.7.2
 
 perl convert_msa_format.pl -i mauve_ECII_outgroup -o mauve_ECII_outgroup.fasta -f fasta -c
 
