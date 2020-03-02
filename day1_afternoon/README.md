@@ -254,6 +254,7 @@ In this session, we will be covering the important steps that are part of any Re
 
 Variant Calling for Collistin resistant Klebsiella pneumoniae
 -------------------------------------------------------------
+![Mile high view of a genomics pipeline](genomics_pipeline_variant_calling.png)
 
 At the end of our morning session, we submitted a variant calling job to run all the variant calling steps on PCMP_H326 genome.
 
@@ -620,7 +621,7 @@ sed -i 's/>.*/>Rush_KPC_266_/g' Rush_KPC_266__consensus.fa
 
 Variant Annotation using snpEff
 -------------------------------
-
+![variant annotation using snpeff](variant_annot.png)
 Variant annotation is one of the crucial steps in any variant calling pipeline. Most of the variant annotation tools create their own database or use an external one to assign function and predict the effect of variants on genes. We will try to touch base on some basic steps of annotating variants in our vcf file using snpEff. 
 
 You can annotate these variants before performing any filtering steps that we did earlier or you can decide to annotate just the final filtered variants. 
