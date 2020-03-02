@@ -2,6 +2,7 @@ Day 2 PM
 ========
 [[HOME]](https://github.com/alipirani88/Comparative_Genomics/blob/master/README.md)
 
+![roadmap](comp_genomics.png)
 High-throughput BLAST and pan-genome analysis
 ---------------------------------------------
 
@@ -37,6 +38,7 @@ Determine which genomes contain KPC genes using [BLAST](https://blast.ncbi.nlm.n
 [[back to top]](day2_afternoon.html)
 [[HOME]](index.html)
 
+![blast](comp_genomics_details_blast.png)
 Before comparing full genomic content, lets start by looking for the presence of particular genes of interest. Some *K. pneumoniae* harbor a KPC gene that confers resistance to carbapenems, a class of antibiotics of last resort (more information [here](https://www.sciencedirect.com/science/article/pii/S1473309913701907?via%3Dihub) and [here](https://academic.oup.com/jid/article/215/suppl_1/S28/3092084)). We will see if any of our samples have a KPC gene, by comparing the genes in our genomes to KPC genes extracted from the antibiotic resistance database ([ARDB](http://ardb.cbcb.umd.edu/)). These extracted genes can be found in the file `data/blast_kleb/ardb_KPC_genes.pfasta`, which we will use to generate a BLAST database.
 
 First, change directories to the blast directory:
@@ -269,6 +271,7 @@ bash scripts/summarize_mlst.sh results/mlst
 
 Perform pan-genome analysis with [Roary](https://sanger-pathogens.github.io/Roary/)
 ----------------------------------------
+![roary](comp_genomics_details_roary.png)
 
 Roary is a pan genome pipeline, which takes annotated assemblies in GFF3 format and calculates the pan-genome. The pan-genome is just a fancy term for the full complement of genes in a set of genomes. 
 
@@ -447,6 +450,8 @@ Perform genome comparisons with [ACT](http://www.sanger.ac.uk/science/tools/arte
 -------------------------------------
 [[back to top]](https://github.com/alipirani88/Comparative_Genomics/blob/master/day2_afternoon/README.md)
 [[HOME]](https://github.com/alipirani88/Comparative_Genomics/blob/master/README.md)
+
+![act](comp_genomics_details_ACT.png)
 
 In the previous exercises we were focusing on gene content, but losing the context of the structural variation underlying gene content variation (e.g. large insertions and deletions). 
 Here we will use ACT to compare two of our genomes (note that you can use ACT to compare more than two genomes if desired). 
