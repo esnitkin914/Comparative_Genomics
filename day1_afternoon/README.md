@@ -990,7 +990,8 @@ In the second exercise we will try and find a mutation that is in a colistin res
 
 Your steps should be:
 
-1) Create two SLURM scripts comparing your colR and colS genomes to the reference genomes and submit to cluster
-2) Perform variant annotation against the ACICU reference genome with snpEff
-3) Create parsed annotated variant matrix
-4) Determine if colR has a pmrB mutation that the colS isolate does not, and compare it to the mutation found in the paper
+1) Load the conda environment.
+2) Create two SLURM scripts comparing your colR and colS genomes to the reference genomes and submit to cluster
+3) Perform variant annotation against the ACICU reference genome with snpEff
+4) Create parsed annotated variant matrix
+5) Determine if colR has a pmrB mutation that the colS isolate does not, and compare it to the mutation found in the paper
