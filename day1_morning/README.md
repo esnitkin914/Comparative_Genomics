@@ -69,9 +69,7 @@ cp ~/.bashrc ~/bashrc_backup
 > ***ii. Open ~/.bashrc file using any text editor and add the following lines to your .bashrc file.***
 
 
-<details>
-  <summary>Click here to expand entries</summary>
-  
+
 ```
 ##Micro612 Workshop ENV
 
@@ -91,7 +89,7 @@ alias d3pm='cd /scratch/micro612w20_class_root/micro612w20_class/username/day3pm
 # Add tools to PATH
 export PATH=$PATH:/scratch/micro612w20_class_root/micro612w20_class/shared/bin/quast/
 ```
-</details>
+
 
 
 Note: Replace "username" under alias shortcuts with your own umich "uniqname". In the text editor, nano, you can do this by 
