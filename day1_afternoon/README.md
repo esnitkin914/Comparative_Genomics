@@ -979,7 +979,7 @@ Your steps should be:
 
 1) Load micro612 environment.
 
-2) Create a SLURM script to run the shell script in the directory and submit to cluster
+2) Create a SLURM script to run the shell script in VRE_dapto_resistance directory and submit to cluster. Read comments in variant_call.sbat for assistance.
 
 3) Load files into IGV and examine annotations of genes in or around variants in filtered vcf (*note snpEff annotation should be skipped because our reference is not in the database)
 
