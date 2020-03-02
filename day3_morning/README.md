@@ -4,6 +4,8 @@ Day 3 Morning
 
 On day 1, we ran through a pipeline to map reads against a reference genome and call variants, but didn’t do much with the variants we identified. Among the most common analyses to perform on a set of variants is to construct phylogenetic trees. Here we will explore different tools for generating and visualizing phylogenetic trees, and also see how recombination can distort phylogenetic signal.
 
+![phylo](phylo.png)
+
 For the first several exercises, we will use the A. baumannii genomes that we worked with yesterday afternoon. 
 The backstory on these genomes is that Abau_A, Abau_B and Abau_C are representatives of three clones (as defined by pulsed-field gel electrophoresis - a low-resolution typing method) that were circulating in our hospital. 
 
