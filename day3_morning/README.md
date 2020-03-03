@@ -102,7 +102,7 @@ module load Bioinformatics
 
 module load bioperl/1.7.2
 
-perl convert_msa_format.pl -i mauve_ECII_outgroup -o mauve_ECII_outgroup.fasta -f fasta -c
+perl ../convert_msa_format.pl -i mauve_ECII_outgroup -o mauve_ECII_outgroup.fasta -f fasta -c
 
 ```
 
