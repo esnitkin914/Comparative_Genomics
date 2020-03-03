@@ -285,7 +285,7 @@ run_gubbins -v -f 50 -o Abau_AB0057_genome mauve_ECII_outgroup.fasta
 
 > ***ii. Create gubbins output figure***
 
-Gubbins produces a series of output files, some of which can be run through another program to produce a visual display of filtered recombinant regions. Run the gubbins_drawer.py script to create a pdf visualization of recombinant regions. 
+Gubbins produces a series of output files, some of which can be run through another program to produce a visual display of filtered recombinant regions. Run the gubbins_drawer script to create a pdf visualization of recombinant regions. 
 
 The inputs are: 
 
@@ -297,7 +297,7 @@ The inputs are:
 
 ```
 
-gubbins_drawer -t mauve_ECII_outgroup.final_tree.tre -o mauve_ECII_outgroup.recombination.pdf mauve_ECII_outgroup.recombination_predictions.embl
+gubbins_drawer mauve_ECII_outgroup.final_tree.tre mauve_ECII_outgroup.recombination_predictions.embl -o mauve_ECII_outgroup.recombination.pdf
 
 ```
 > ***iii. Download and view gubbins figure and filtered tree***
@@ -308,8 +308,8 @@ Use cyberduck or scp to get gubbins output files into Abau_mauve on your local s
 
 cd ~/Desktop/Abau_mauve
 
-scp username@greatlakes-xfer.arc-ts.umich.edu:/scratch/micro612w20_class_root/micro612w20_class/username/day3am/mauve_ECII_outgroup.recombination.pdf  ./
-scp username@greatlakes-xfer.arc-ts.umich.edu:/scratch/micro612w20_class_root/micro612w20_class/username/day3am/mauve_ECII_outgroup.final_tree.tre  ./
+scp username@greatlakes-xfer.arc-ts.umich.edu:/scratch/micro612w20_class_root/micro612w20_class/username/day3am/Abau_genomes/mauve_ECII_outgroup.recombination.pdf  ./
+scp username@greatlakes-xfer.arc-ts.umich.edu:/scratch/micro612w20_class_root/micro612w20_class/username/day3am/Abau_genomes/mauve_ECII_outgroup.final_tree.tre  ./
 
 ```
 
