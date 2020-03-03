@@ -576,13 +576,18 @@ The script requires following positional arguments as input to call variants:
 4. Output Directory Path
 5. Analysis Base name to store result files with this prefix.
 
-The day1pm directory also contains a slurm script - variant_call.sbat that will run variant_call.sh on great lakes cluster. Edit this slurm script variant_call.sbat to edit email address.
-
-Change the EMAIL_ADDRESS section of the slurm script to your email_address.
-
+The day1pm directory also contains a slurm script called variant_call.sbat. We will run  variant_call.sh on the Great Lakes Cluster using the following command (you will see this in the variant_call.sbat). 
 ```
 
 ./variant_call.sh PCMP_H326_R1.fastq.gz PCMP_H326_R2.fastq.gz KPNIH1.fasta ./ PCMP_H326_
+
+```
+
+Change the EMAIL_ADDRESS section (#SBATCH --mail-user=) of the slurm script to your email address using your favorite text editor (we learned nano in the pre-workshop).
+
+```
+
+nano variant_call.sbat
 
 ```
 
