@@ -38,7 +38,7 @@ Perform whole genome alignment with [Mauve](http://darlinglab.org/mauve/mauve.ht
 
 An alternative approach for identification of variants among genomes is to perform whole genome alignments of assemblies. If the original short read data is unavailable, this might be the only approach available to you. Typically, these programs don’t scale well to large numbers of genomes (e.g. > 100), but they are worth being familiar with. We will use the tool mauve for constructing whole genome alignments of our five A. baumannii genomes.
 
-> ***i. Perform mauve alignment and transfer xmfa back to flux***
+> ***i. Perform mauve alignment and transfer xmfa back to great lakes***
 
 <!---
 Use cyberduck/scp to get genomes folder Abau_genomes onto your laptop
@@ -71,7 +71,7 @@ vi. Wait for Mauve to finish and explore the graphical interface
 
 ```
 
-Use cyberduck or scp to transfer your alignment back to flux for some processing
+Use cyberduck or scp to transfer your alignment back to great lakes for some processing
 
 ```
 
@@ -96,7 +96,7 @@ Mauve produces alignments in .xmfa format (use less to see what this looks like)
 
 
 ```
-Now run these command in day3am folder on flux:
+# Now run these command in day3am folder on great lakes:
 
 module load Bioinformatics
 
@@ -257,7 +257,7 @@ Now that we know there is recombination, we know that we need to filter out the 
 
 > ***i. Run gubbins on your fasta alignment***
 
-Go back on flux and load modules required by gubbins
+Go back on great lakes and load modules required by gubbins
 
 <!---
 Older version:
@@ -355,7 +355,7 @@ Overlay metadata on your tree using R
 
 For the final exercise we will use a different dataset, composed of USA300 methicillin-resistant Staphylococcus aureus genomes. USA300 is a strain of growing concern, as it has been observed to cause infections in both hospitals and in otherwise healthy individuals in the community. An open question is whether there are sub-clades of USA300 in the hospital and the community, or if they are all the same. Here you will create an annotated phylogenetic tree of strains from the community and the hospital, to discern if these form distinct clusters.
 
-> ***i. Download MRSA genome alignment from flux***
+> ***i. Download MRSA genome alignment from great lakes***
 
 Use cyberduck or scp to get genomes onto your laptop
 
