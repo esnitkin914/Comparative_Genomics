@@ -47,6 +47,7 @@ Workshop
 - [Variant Calling](https://github.com/alipirani88/Comparative_Genomics/blob/master/day1_afternoon/README.md#variant-calling-and-filteration)
 - [Visualize BAM/VCF files in Artemis](https://github.com/alipirani88/Comparative_Genomics/blob/master/day1_afternoon/README.md#visualize-bam-and-vcf-files-in-artemis)
 - [Exercise: Daptomycin resistance in VRE](https://github.com/alipirani88/Comparative_Genomics/blob/master/day1_afternoon/README.md#exercise:-daptomycin-resistance-in-vre)
+- [Exercise: Colistin resistance in Acinetobacter](https://github.com/alipirani88/Comparative_Genomics/blob/master/day1_afternoon/README.md#exercise:-colistin-resistance-in-acinetobacter)
 
 [Day 2 Morning](https://github.com/alipirani88/Comparative_Genomics/blob/master/day2_morning/README.md#day-2-morning)
 ***
