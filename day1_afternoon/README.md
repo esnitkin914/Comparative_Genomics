@@ -81,6 +81,7 @@ awk '$4 == "S" {print $0}' MRSA_CO_HA_479_kraken_report.txt | head
 - what is the percentage of majority species in MRSA_CO_HA_473 and MRSA_CO_HA_479?
 - how different they look?
 - what is the percentage of Staphylococcus aureus in MRSA_CO_HA_479?
+- majority of reads in MRSA_CO_HA_479 remained unclassified? what could be the possible explanation?
 
 Lets visualize the same information in an ionteractive form.
 
