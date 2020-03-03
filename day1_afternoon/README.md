@@ -53,6 +53,19 @@ kraken-report --db minikraken_20171013_4GB/ fastq_screen_kraken > fastq_screen_k
 
 ```
 
+The output of kraken-report is tab-delimited, with one line per taxon. The fields of the output, from left-to-right, are as follows:
+
+1. Percentage of reads covered by the clade rooted at this taxon
+2. Number of reads covered by the clade rooted at this taxon
+3. Number of reads assigned directly to this taxon
+4. A rank code, indicating (U)nclassified, (D)omain, (K)ingdom, (P)hylum, (C)lass, (O)rder, (F)amily, (G)enus, or (S)pecies. All other ranks are simply '-'.
+5. NCBI taxonomy ID
+6. indented scientific name
+
+
+```
+less fastq_screen_kraken_report.txt
+```
 
 > iv. Generate a HTML report to visualize Kraken report using Krona
 
