@@ -7,17 +7,14 @@ Overview of Genomics Pipeline
 Two different ways we can process raw reads include 1) variant calling and 2) genome assembly. We'll talk about both in this course, and we'll keep coming back to this roadmap to give some perspective on where we are in the pipeline. 
 ![Mile high view of a genomics pipeline](genomics_pipeline.png)
 
-Contamination Screening using [Kraken](https://ccb.jhu.edu/software/kraken/) Need a better example!!!
+Contamination Screening using [Kraken](https://ccb.jhu.edu/software/kraken/)
 --------------------------------------------
 ![QC-ing](genomics_pipeline_qc.png)
 
 When running a sequencing pipeline, it is very important to make sure that your data matches appropriate quality threshold and are free from any contaminants. This step will help you make correct interpretations in downstream analysis and will also let you know if you are required to redo the experiment/library preparation or resequencing or remove contaminant sequences.
 
-For this purpose, we will employ Kraken to screen one of our sample against a MiniKraken database - a pre-built database constructed from complete bacterial, archaeal, and viral genomes in RefSeq.
-
-We will screen one of the sample against Minikraken database and check if the majority of reads in the sample were sequenced from the traget species and what percentage of reads are contaminants?
-
-
+For this purpose, we will employ Kraken which is a taxonomic sequence classifier that assigns taxonomic labels to short DNA reads. We will screen our samples against a MiniKraken database (a pre-built database constructed from complete bacterial, archaeal, and viral genomes in RefSeq.) and confirm if the majority of reads in our sample belong to the target species.
+ 
 > i. Get an interactive cluster node to start running programs. Use the shortcut that we created in .bashrc file for getting into interactive flux session.***
 
 How do you know if you are in interactive session?: you should see "username@glXXXX" in your command prompt where XXXX refers to the cluster node number.
@@ -36,12 +33,14 @@ cd /scratch/micro612w20_class_root/micro612w20_class/username/day1pm/kraken/
 
 ```
 
-> ii. Lets run kraken on fastq_screen.fastq.gz***
+> ii. Lets run kraken on samples MRSA_CO_HA_473_R1_001.fastq.gz and MRSA_CO_HA_479_R1_001.fastq.gz which were part of the same sequencing library***
 
 ```
 
-kraken --quick --fastq-input --gzip-compressed --unclassified-out fastq_screen_unclassified.txt --db minikraken_20171013_4GB/ --output fastq_screen_kraken fastq_screen_subsample.fastq.gz
+kraken --quick --fastq-input --gzip-compressed --unclassified-out MRSA_CO_HA_473_unclassified.txt --db minikraken_20171013_4GB/ --output MRSA_CO_HA_473_kraken /MRSA_CO_HA_473_R1_001.fastq.gz
 
+
+kraken --quick --fastq-input --gzip-compressed --unclassified-out MRSA_CO_HA_479_unclassified.txt --db minikraken_20171013_4GB/ --output MRSA_CO_HA_479_kraken /MRSA_CO_HA_479_R1_001.fastq.gz
 ```
 
 
@@ -49,7 +48,9 @@ kraken --quick --fastq-input --gzip-compressed --unclassified-out fastq_screen_u
 
 
 ```
-kraken-report --db minikraken_20171013_4GB/ fastq_screen_kraken > fastq_screen_kraken_report.txt
+kraken-report --db minikraken_20171013_4GB/ MRSA_CO_HA_473_kraken > MRSA_CO_HA_473_kraken_report.txt
+
+kraken-report --db minikraken_20171013_4GB/ MRSA_CO_HA_479_kraken > MRSA_CO_HA_479_kraken_report.txt
 
 ```
 
@@ -64,15 +65,32 @@ The output of kraken-report is tab-delimited, with one line per taxon. The field
 
 
 ```
-less fastq_screen_kraken_report.txt
+less MRSA_CO_HA_473_kraken_report.txt
 ```
+
+Lets extract columns by Species (column 4 - S) and sort by Percentage of reads covered by the species (Column 1).
+
+```
+awk '$4 == "S" {print $0}' MRSA_CO_HA_473_R1_00_kraken_report.txt | head
+
+awk '$4 == "S" {print $0}' MRSA_CO_HA_479_R1_00_kraken_report.txt | head
+```
+
+what is the percentage of majority species in MRSA_CO_HA_473 and MRSA_CO_HA_479?
+how different they look?
+what is the percentage of Staphylococcus aureus in MRSA_CO_HA_479?
+
+Lets visualize the same information in an ionteractive form.
 
 > iv. Generate a HTML report to visualize Kraken report using Krona
 
 ```
-cut -f2,3 fastq_screen_kraken > fastq_screen_krona.input
+cut -f2,3 MRSA_CO_HA_473_kraken > MRSA_CO_HA_473_krona.input
+cut -f2,3 MRSA_CO_HA_479_kraken > MRSA_CO_HA_479_krona.input
 
-ktImportTaxonomy fastq_screen_krona.input -o fastq_screen_krona.out.html
+ktImportTaxonomy MRSA_CO_HA_473_krona.input -o MRSA_CO_HA_473_krona.out.html
+ktImportTaxonomy MRSA_CO_HA_479_krona.input -o MRSA_CO_HA_479_krona.out.html
+
 ```
 
 If you get an error saying - Taxonomy not found, then run ktUpdateTaxonomy caommand
@@ -84,7 +102,7 @@ ktUpdateTaxonomy.sh
 Use scp command as shown below or use cyberduck. If you dont the file in cyberduck window, try refreshing it using the refresh button at the top.
 
 ```
-scp username@greatlakes-xfer.arc-ts.umich.edu:/scratch/micro612w20_class_root/micro612w20_class/username/day1pm/kraken/fastq_screen_krona.out.html /path-to-local-directory/
+scp username@greatlakes-xfer.arc-ts.umich.edu:/scratch/micro612w20_class_root/micro612w20_class/username/day1pm/kraken/*.html /path-to-local-directory/
 
 #You can use ~/Desktop/ as your local directory path
 
