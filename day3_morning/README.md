@@ -104,6 +104,8 @@ module load bioperl/1.7.2
 
 perl ../convert_msa_format.pl -i mauve_ECII_outgroup -o mauve_ECII_outgroup.fasta -f fasta -c
 
+sed -i 's/.fa.*//g' mauve_ECII_outgroup.fasta 
+
 ```
 
 Perform some DNA sequence comparisons and phylogenetic analysis in [APE](http://ape-package.ird.fr/), an R package
