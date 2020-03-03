@@ -1019,8 +1019,8 @@ You can refer to the [IGV User Guide](http://software.broadinstitute.org/softwar
 [[HOME]](https://github.com/alipirani88/Comparative_Genomics/blob/master/README.md)
 
 
-Exercise – Daptomycin resistance in VRE
----------------------------------------
+Exercise: Daptomycin resistance in VRE
+--------------------------------------
 
 Today we ran a variant calling pipeline for a colistin resistant isolate against a susceptible reference. In that case the susceptible reference genome was somewhat arbitrarily selected, in that it had no epidemiologic relationship to the resistant isolate. This worked out, because we had an idea of what gene the resistance mutation should be in, and we were able to fish it out from the relatively large number of differences. In this exercise we will take a different approach of comparing our resistant isolate to a susceptible isolate from the same patient. In particular, these samples both come from a patient infected with VRE before and after treatment with daptomycin. The first sample was the patient’s initial sample and is susceptible to daptomycin, and the second was after daptomycin resistance emerged during treatment. Your goal is to map reads from the resistant genome (VRE_daptoR)  to the susceptible reference (VRE_daptoS_ref_strain.fa) and search for variants that may be associated with resistance. To accomplish this you will run the programs from this session to generate filtered variant files (VCF), and then explore these variants in IGV to see what genes they are in (we have provided you with a gff file with gene annotations that can be loaded into IGV - VRE_daptoS_gene_annot.gff3). To help with your interpretation, see if you see any genes hit that were reported in this paper, which was the first to identify putative daptomycin resistance loci (hint: non-coding variants can be functional, so make sure you look at what genes are downstream of inter-genic variants). 
 
@@ -1032,8 +1032,8 @@ Your steps should be:
 
 3) Load files into IGV and examine annotations of genes in or around variants in filtered vcf (*note snpEff annotation should be skipped because our reference is not in the database)
 
-Exercise – Colistin resistance in Acinetobacter
------------------------------------------------
+Exercise: Colistin resistance in Acinetobacter
+----------------------------------------------
 
 In the second exercise we will try and find a mutation that is in a colistin resistant Acinetobacter isolate from a patient, but not in a colistin susceptible isolate from the same patient. In this case, it turned out that despite being from the same patient, the resistant and susceptible genomes are quite different. Therefore, we will focus on differences in a known resistance gene (pmrB). Your task is to run the variant calling and annotation pipelines for SRR7591081 (colR) and SRR6513781 (colS) against the ACICU reference genome (ACICU.fasta). You will then look for pmrB mutations that are in the resistant strain, that are not in the susceptible one. Did the mutation you found match the one from the [paper](https://aac.asm.org/content/early/2019/01/04/AAC.01586-18.abstract) i.e patient 1.
 
