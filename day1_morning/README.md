@@ -576,7 +576,7 @@ The script requires following positional arguments as input to call variants:
 4. Output Directory Path
 5. Analysis Base name to store result files with this prefix.
 
-The day1pm directory also contains a slurm script called variant_call.sbat. We will run  variant_call.sh on the Great Lakes Cluster using the following command (you will see this in the variant_call.sbat). 
+The day1pm directory also contains a slurm script called variant_call.sbat. We will run  variant_call.sh on the Great Lakes Cluster using the following command (you will see this command in the variant_call.sbat). 
 ```
 
 ./variant_call.sh PCMP_H326_R1.fastq.gz PCMP_H326_R2.fastq.gz KPNIH1.fasta ./ PCMP_H326_
