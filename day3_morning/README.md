@@ -40,6 +40,7 @@ An alternative approach for identification of variants among genomes is to perfo
 
 > ***i. Perform mauve alignment and transfer xmfa back to flux***
 
+<!---
 Use cyberduck/scp to get genomes folder Abau_genomes onto your laptop
 
 ```
@@ -77,7 +78,18 @@ Use cyberduck or scp to transfer your alignment back to flux for some processing
 scp ~/Desktop/Abau_mauve/mauve_ECII_outgroup username@greatlakes-xfer.arc-ts.umich.edu:/scratch/micro612w20_class_root/micro612w20_class/username/day3am 
 
 ```
- 
+-->
+
+```
+# Cahnge directory to Abau_genomes that contains input fasta files for alignment
+cd Abau_genomes/
+
+# Add command line mauve to your PATH variable
+export PATH=/scratch/micro612w20_class_root/micro612w20_class/shared/bin/mauve/linux-x64/:$PATH
+
+progressiveMauve --output=mauve_ECII_outgroup ACICU_genome.fasta AbauA_genome.fasta AbauB_genome.fasta AbauC_genome.fasta Abau_AB0057_genome.fa
+```
+
 > ***ii. Convert alignment to fasta format***
 
 Mauve produces alignments in .xmfa format (use less to see what this looks like), which is not compatible with other programs we want to use. We will use a custom script convert_msa_format.pl to change the alignment format to fasta format
@@ -110,7 +122,7 @@ Note that ape has a ton of useful functions for more sophisticated phylogenetic 
 cd ~/Desktop/Abau_mauve
 
 
-scp username@greatlakes-xfer.arc-ts.umich.edu:/scratch/micro612w20_class_root/micro612w20_class/username/day3am/mauve_ECII_outgroup.fasta ./
+scp username@greatlakes-xfer.arc-ts.umich.edu:/scratch/micro612w20_class_root/micro612w20_class/username/day3am/Abau_genomes/mauve_ECII_outgroup.fasta ./
 
 ```
 
