@@ -81,8 +81,8 @@ scp ~/Desktop/Abau_mauve/mauve_ECII_outgroup username@greatlakes-xfer.arc-ts.umi
 -->
 
 ```
-# Cahnge directory to Abau_genomes that contains input fasta files for alignment
-cd Abau_genomes/
+# Change directory to Abau_genomes under day3am that contains input fasta files for alignment
+cd day3am/Abau_genomes/
 
 # Add command line mauve to your PATH variable
 export PATH=/scratch/micro612w20_class_root/micro612w20_class/shared/bin/mauve/linux-x64/:$PATH
