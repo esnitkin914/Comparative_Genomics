@@ -277,13 +277,7 @@ module load gubbins/2.3.1
 Run gubbins on your fasta formatted alignment
 
 ```
-d3am
-
-#or
-
-cd /scratch/micro612w20_class_root/micro612w20_class/username/day3am
-
-sed -i 's/.fa.*//g' mauve_ECII_outgroup.fasta
+cd /scratch/micro612w20_class_root/micro612w20_class/username/day3am/Abau_genomes
 
 run_gubbins -v -f 50 -o Abau_AB0057_genome mauve_ECII_outgroup.fasta
 
