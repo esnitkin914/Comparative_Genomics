@@ -277,7 +277,7 @@ module load gubbins/2.3.1
 Run gubbins on your fasta formatted alignment
 
 ```
-d3m
+d3am
 
 #or
 
