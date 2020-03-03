@@ -11,7 +11,7 @@ Contamination Screening using [Kraken](https://ccb.jhu.edu/software/kraken/)
 --------------------------------------------
 ![QC-ing](genomics_pipeline_qc.png)
 
-When running a sequencing pipeline, it is very important to make sure that your data matches appropriate quality threshold and are free from any contaminants. This step will help you make correct interpretations in downstream analysis and will also let you know if you are required to redo the experiment/library preparation or resequencing or remove contaminant sequences.
+When running a sequencing pipeline, it is very important to make sure that your data matches appropriate quality threshold and are free from any contaminants. This step will help you make correct interpretations in downstream analysis and will also let you know if you are required to redo the experiment/library preparation or remove contaminant sequences.
 
 For this purpose, we will employ Kraken which is a taxonomic sequence classifier that assigns taxonomic labels to short DNA reads. We will screen our samples against a MiniKraken database (a pre-built database constructed from complete bacterial, archaeal, and viral genomes in RefSeq.) and confirm if the majority of reads in our sample belong to the target species.
  
@@ -34,6 +34,8 @@ cd /scratch/micro612w20_class_root/micro612w20_class/username/day1pm/kraken/
 ```
 
 > ii. Lets run kraken on samples MRSA_CO_HA_473_R1_001.fastq.gz and MRSA_CO_HA_479_R1_001.fastq.gz which were part of the same sequencing library***
+
+Since Kraken takes time to run, we have already placed the output of Kraken command in day1pm/kraken directory.
 
 ```
 
@@ -68,17 +70,17 @@ The output of kraken-report is tab-delimited, with one line per taxon. The field
 less MRSA_CO_HA_473_kraken_report.txt
 ```
 
-Lets extract columns by Species (column 4 - S) and sort by Percentage of reads covered by the species (Column 1).
+Lets extract columns by Species (column 4 - "S") and check the major species indentified in our sample.
 
 ```
-awk '$4 == "S" {print $0}' MRSA_CO_HA_473_R1_00_kraken_report.txt | head
+awk '$4 == "S" {print $0}' MRSA_CO_HA_473_kraken_report.txt | head
 
-awk '$4 == "S" {print $0}' MRSA_CO_HA_479_R1_00_kraken_report.txt | head
+awk '$4 == "S" {print $0}' MRSA_CO_HA_479_kraken_report.txt | head
 ```
 
-what is the percentage of majority species in MRSA_CO_HA_473 and MRSA_CO_HA_479?
-how different they look?
-what is the percentage of Staphylococcus aureus in MRSA_CO_HA_479?
+- what is the percentage of majority species in MRSA_CO_HA_473 and MRSA_CO_HA_479?
+- how different they look?
+- what is the percentage of Staphylococcus aureus in MRSA_CO_HA_479?
 
 Lets visualize the same information in an ionteractive form.
 
@@ -93,7 +95,7 @@ ktImportTaxonomy MRSA_CO_HA_479_krona.input -o MRSA_CO_HA_479_krona.out.html
 
 ```
 
-If you get an error saying - Taxonomy not found, then run ktUpdateTaxonomy caommand
+In case you get an error saying - Taxonomy not found, run ktUpdateTaxonomy.sh command again.
 
 ```
 ktUpdateTaxonomy.sh
