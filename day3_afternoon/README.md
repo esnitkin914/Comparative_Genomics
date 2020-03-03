@@ -68,9 +68,9 @@ The fastq files are located in:
 
 Rather than copying these to your directory, analyze the files directly in that directory, so everyone doesn’t have to copy 25G to their home directories. 
 
-Copy and paste commands to run fastqc.sh as PBS script, into a PBS script and submit this PBS script as a job to the flux.
+Copy and paste commands to run fastqc.sh as slurm script, into a slurm script and submit this slurm script as a job to great lakes.
 
-Your PBS script wil contain the following command after the PBS preamble stuff(Make sure your $PBS_O_WORKDIR is set inside the pbs script):
+Your slurm script wil contain the following command after the slurm preamble stuff(Make sure your $SLURM_SUBMIT_DIR is set inside the slurm script):
 
 ```bash fastqc.sh /scratch/micro612w20_class_root/micro612w20_class/shared/data/day3pm_fastq/ ```
 
@@ -121,7 +121,7 @@ This summary file is:
 Use cyberduck/scp to download this file and view in excel
 
 - View SPANDx manual for interpretation of different columns which can be found [here](https://sourceforge.net/projects/spandx/files/SPANDx%20Manual_v3.1.pdf/download)
-- Back on Flux, use grep to pull SNPs that have HIGH impact
+- Back on great lakes, use grep to pull SNPs that have HIGH impact
 - What types of mutations are predicted to have “HIGH” impact?
 - How many genomes do these HIGH impact mutations tend to be present in? How do you interpret this?
 
