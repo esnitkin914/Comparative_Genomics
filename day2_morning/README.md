@@ -162,6 +162,8 @@ conda deactivate
 
 module load python2.7-anaconda/2019.03
 
+export PATH=$PATH:/scratch/micro612w20_class_root/micro612w20_class/shared/bin/quast/
+
 quast.py -o quast SRR5244781_contigs.fasta SRR5244821_contigs.fasta
 ```
 
