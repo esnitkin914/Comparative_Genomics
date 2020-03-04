@@ -50,6 +50,9 @@ kraken --quick --fastq-input --gzip-compressed --unclassified-out MRSA_CO_HA_479
 
 
 ```
+# Update the taxonomy database before generating kraken report
+ktUpdateTaxonomy.sh
+
 kraken-report --db minikraken_20171013_4GB/ MRSA_CO_HA_473_kraken > MRSA_CO_HA_473_kraken_report.txt
 
 kraken-report --db minikraken_20171013_4GB/ MRSA_CO_HA_479_kraken > MRSA_CO_HA_479_kraken_report.txt
