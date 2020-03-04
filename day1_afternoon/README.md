@@ -1046,9 +1046,13 @@ Your steps should be:
 
 2) Create a SLURM script to run the shell script in VRE_dapto_resistance directory and submit to cluster. Read comments in variant_call.sbat for assistance.
 
-3) Make sure you bgzip and tabix index your vcf files for IGV visualization since it is not included in variant calling shell script.
+3) Once the job completes, Make sure you bgzip and tabix index your vcf files (in folder Step6_variantfilteraion) for IGV visualization since it is not included in variant calling shell script. (*note snpEff annotation should be skipped because our reference is not in the database)
 
-4) Load files into IGV and examine annotations of genes in or around variants in filtered vcf (*note snpEff annotation should be skipped because our reference is not in the database)
+Wait for this variant call job to finish before you proceed to next exercise.
+
+4) Examine onlysnp vcf file and check how many high quality SNPs we end up with.
+
+5) Load files into IGV and examine annotations of genes in or around variants in filtered vcf. Use VRE_daptoS_gene_annot.gff3, VRE_daptoS_ref_strain.fasta, relevant bam and vcf files for IGV (*note snpEff annotation should be skipped because our reference is not in the database)
 
 Exercise: Colistin resistance in Acinetobacter
 ----------------------------------------------
@@ -1059,7 +1063,17 @@ Your steps should be:
 
 1) Load the conda environment.
 2) Create two SLURM scripts comparing your colR and colS genomes to the reference genomes and submit to cluster
-3) Make sure you bgzip and tabix index your vcf files for IGV visualization since it is not included in variant calling shell script.
-4) Perform variant annotation against the ACICU reference genome with snpEff. The ACICU snpEff database name that you should use with snpEff command is Acinetobacter_baumannii_acicu.
-5) Create parsed annotated variant matrix
+3) Once the job completes, Make sure you bgzip and tabix index your vcf files (in folder Step6_variantfilteraion) for IGV visualization since it is not included in variant calling shell script.
+4) Perform variant annotation against the ACICU reference genome with snpEff. snpEff already has prebuilt files built for our reference genome ACICU.fasta. We will use this internal ACICU database while runniung snpEff.
+
+To find out if we have our reference genome database available, try searching it with - 
+
+```
+snpEff databases | grep 'acicu'
+```
+
+In the STDOUT results, you will find the name of ACICU internal database - Acinetobacter_baumannii_acicu which should be used your database name argument in snpEff command. For example, earlier we used KPNIH1 as our database to annotate our vcf. For this exercise, yopu would be using Acinetobacter_baumannii_acicu as your database name.
+
+
+5) Create parsed annotated variant matrix using the parse_snpEff.py script that we used in the earlier example.
 6) Determine if colR has a pmrB mutation that the colS isolate does not, and compare it to the mutation found in the paper
