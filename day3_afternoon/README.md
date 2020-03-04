@@ -79,6 +79,43 @@ Your slurm script wil contain the following command after the slurm preamble stu
 
 Check the multiqc report of your fastq files.
 
+MLST typing using ARIBA
+-----------------------
+[[back to top]](https://github.com/alipirani88/Comparative_Genomics/blob/master/day3pmnoon/README.md)
+[[HOME]](https://github.com/alipirani88/Comparative_Genomics/blob/master/README.md)
+
+On the second day afternoon you ran ARIBA to perform sequence typing of a single genome using ARIBA tool. However, a typical public epidimiology project will include many genomes sampled from different sites and you will want to sequence type each of these samples to study their genetic diversity. From the bash workshop, I hope you can appreciate that you do not want to process 100 genomes by typing 100 commands – rather you want to write a short shell script to do the work for you!
+
+
+> ***i. Edit the shell script mlst.sh located in /scratch/micro612w20_class_root/micro612w20_class/your username/day3pm to run ARIBA on all fastq files.***
+
+**Important info about this shell script** 
+- The shell script includes a for loop that loops over all of the genomes in the target directory
+- The tricky part of this shell script is that each fastq command contains two files (forward and reverse reads). So, you need to take advantage of the fact that the forward and reverse read files both have the same prefix, and you can loop over these prefixes. 
+- You should be able to get prefixes by piping the following unix commands: ls, cut, sort, uniq
+- The prefix should be a part of both forward and reverse reads. For example, the file_prefix for samples Rush_KPC_264_1_sequence.fastq.gz and Rush_KPC_264_2_sequence.fastq.gz should be Rush_KPC_264
+- Use this prefix as output directory input for ariba command.
+- when you are testing your shell script, comment out (using #) the lines below echo so you can see that if the script is 'echo'-ing the correct commands.
+
+The fastq files are located in:
+
+```
+/scratch/micro612w20_class_root/micro612w20_class/shared/data/day3pm_fastq/
+```
+
+Rather than copying these to your directory, analyze the files directly in that directory, so everyone doesn’t have to copy 25G to their home directories. 
+
+Copy and paste commands to run fastqc.sh as slurm script, into a slurm script and submit this slurm script as a job to great lakes.
+
+Your slurm script wil contain the following command after the slurm preamble stuff(Make sure your $SLURM_SUBMIT_DIR is set inside the slurm script):
+
+```bash mlst.sh /scratch/micro612w20_class_root/micro612w20_class/shared/data/day3pm_fastq/ ```
+
+
+> ***ii. Examine output of FastQC to verify that all samples are OK***
+
+Check the multiqc report of your fastq files.
+
 Examine results of [SPANDx](http://www.ncbi.nlm.nih.gov/pubmed/25201145) pipeline
 ---------------------------
 [[back to top]](https://github.com/alipirani88/Comparative_Genomics/blob/master/day3pmnoon/README.md)
