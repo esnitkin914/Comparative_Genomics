@@ -476,6 +476,9 @@ cd roary
 Start the Roary job:
 
 ```
+# modify email address and look at roary command
+nano roary.sbat
+
 # run roary
 sbatch roary.sbat
 ```
