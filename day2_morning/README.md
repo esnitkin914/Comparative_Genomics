@@ -430,9 +430,6 @@ wd
 
 cp -r /scratch/micro612w20_class_root/micro612w20_class/shared/data/day2pm/ ./
 
-# Load anaconda package from great lakes 
-module load python3.7-anaconda/2019.07
-
 # Deactivate current conda 
 conda deactivate 
 
