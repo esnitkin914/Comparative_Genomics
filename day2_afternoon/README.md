@@ -20,11 +20,7 @@ Navigate to the `day2pm` directory and create a new conda environment for this s
 
 
 ```  
-# Load anaconda package from great lakes 
-module load python3.7-anaconda/2019.07
-
-# Set channel_priority to false so that it can install packages as per the YML file and not from loaded channels.
-conda config --set channel_priority false
+# Log out and log back in please
 
 # Create a new conda environment - micro612 from a YML file
 conda env create -f /scratch/micro612w20_class_root/micro612w20_class/shared/data/day2pm/day2pm.yaml -n day2pm
