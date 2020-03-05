@@ -88,7 +88,7 @@ On Day 2 afternoon, you ran ARIBA to perform sequence typing of a single genome 
 
 We already ran Ariba MLST and CARD tool on day3pm_fastq samples and have placed in day3pm folder.
 
-> ***i. Explore MLST typing results. 
+> i. Explore MLST typing results. 
 
 You can find the processed MLST results for day3pm_fastq samples in this folder:
 
@@ -96,15 +96,15 @@ You can find the processed MLST results for day3pm_fastq samples in this folder:
 
 Run summarize_mlst.sh and check the dominant sequence type that these samples belong to.
 
-> ***ii. Summarize ARIBA CARD results
+> ii. Summarize ARIBA CARD results
 
 Use Ariba's summary function and summarize ARIBA CARD results that are placed in:
 
 /scratch/micro612w20_class_root/micro612w20_class/shared/data/day3pm/CARD_results
 
-> ***iii. Drag and drop Phandango associated file onto the Phandango website and check what type of actibiotic resistance genes are present in these genomes?
+> iii. Drag and drop Phandango associated file onto the Phandango website and check what type of actibiotic resistance genes are present in these genomes?
 
-> ***iv. Explore full ARIBA matrix in R and plot a heatmap to visualize the presence/absence of various resistancve genes.
+> iv. Explore full ARIBA matrix in R and plot a heatmap to visualize the presence/absence of various resistancve genes.
 
 Examine results of [SPANDx](http://www.ncbi.nlm.nih.gov/pubmed/25201145) pipeline
 ---------------------------
