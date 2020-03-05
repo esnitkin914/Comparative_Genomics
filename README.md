@@ -77,6 +77,7 @@ Workshop
 [Day 3 Afternoon](https://github.com/alipirani88/Comparative_Genomics/blob/master/day3_afternoon/README.md#day-3-afternoon)
 ***
 - [Perform QC on fastq files](https://github.com/alipirani88/Comparative_Genomics/blob/master/day3_afternoon/README.md#perform-qc-on-fastq-files)
+- [Run ARIBA CARD and MLST typing on day3pm_fastq samples](https://github.com/alipirani88/Comparative_Genomics/blob/master/day3_afternoon/README.md#run-ariba-card-and-mlst-typing-on-day3pm_fastq samples)
 - [Examine results of SPANDx pipeline](https://github.com/alipirani88/Comparative_Genomics/blob/master/day3_afternoon/README.md#examine-results-of-spandx-pipeline)
 - [Recombination detection and tree generation](https://github.com/alipirani88/Comparative_Genomics/blob/master/day3_afternoon/README.md#recombination-detection-and-tree-generation)
 - [Phylogenetic tree annotation and visualization](https://github.com/alipirani88/Comparative_Genomics/blob/master/day3_afternoon/README.md#phylogenetic-tree-annotation-and-visualization)
