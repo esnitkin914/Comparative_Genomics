@@ -228,6 +228,7 @@ Which patient’s infections might have originated from the blue facility?
 
 ```
 
+<!---
 Assessment of genomic deletions
 -------------------------------
 [[back to top]](https://github.com/alipirani88/Comparative_Genomics/blob/master/day3pmnoon/README.md)
@@ -274,3 +275,4 @@ iii. Explore genomic deletion in more detail with ACT
 What genes appear to have been lost?
 
 ```
+-->
