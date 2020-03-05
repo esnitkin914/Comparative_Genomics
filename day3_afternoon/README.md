@@ -110,6 +110,9 @@ Use Ariba's summary function and summarize ARIBA CARD results that are placed in
 
 > iv. Explore full ARIBA matrix in R and plot a heatmap to visualize the presence/absence of various resistancve genes.
 
+how many of these samples contain carbapenam resistant gene - KPC?
+
+
 Examine results of [SPANDx](http://www.ncbi.nlm.nih.gov/pubmed/25201145) pipeline
 ---------------------------
 [[back to top]](https://github.com/alipirani88/Comparative_Genomics/blob/master/day3pmnoon/README.md)
