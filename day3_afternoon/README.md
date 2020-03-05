@@ -102,7 +102,7 @@ Use Ariba's summary function and summarize ARIBA CARD results that are placed in
 
 /scratch/micro612w20_class_root/micro612w20_class/shared/data/day3pm/CARD_results
 
-> iii. Drag and drop Phandango associated file onto the Phandango website and check what type of actibiotic resistance genes are present in these genomes?
+> iii. Drag and drop Phandango associated files onto the Phandango website and check what type of actibiotic resistance genes are present in these genomes?
 
 > iv. Explore full ARIBA matrix in R and plot a heatmap to visualize the presence/absence of various resistancve genes.
 
