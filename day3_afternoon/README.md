@@ -86,9 +86,11 @@ Run ARIBA CARD and MLST typing on day3pm_fastq samples
 
 On Day 2 afternoon, you ran ARIBA to perform sequence typing of a single genome using ARIBA tool. However, a typical public epidimiology project will include many genomes sampled from different sites and you will want to sequence type each of these samples to study their genetic diversity and determine if these samples contain antibiotic resistance genes. 
 
-We already ran Ariba MLST and CARD tool on day3pm_fastq samples and have placed in day3pm folder.
+Since both MLST typing and CARD resistance gene detection takes a while to run on these samples, We already processed them and have placed the results in day3pm folder.
 
 > i. Explore MLST typing results. 
+
+Try exploring mlst.sh and mlst.sbat scripts that were used to generate these results and try to understand the implementation of for loop in running them sequentially.
 
 You can find the processed MLST results for day3pm_fastq samples in this folder:
 
@@ -97,6 +99,8 @@ You can find the processed MLST results for day3pm_fastq samples in this folder:
 Run summarize_mlst.sh and check the dominant sequence type that these samples belong to.
 
 > ii. Summarize ARIBA CARD results
+
+Try exploring card.sh and card.sbat scripts that were used to generate these results and try to understand the implementation of for loop in running them sequentially.
 
 Use Ariba's summary function and summarize ARIBA CARD results that are placed in:
 
