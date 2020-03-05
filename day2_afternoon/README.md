@@ -20,11 +20,6 @@ Navigate to the `day2pm` directory and create a new conda environment for this s
 
 
 ```  
-# Log out and log back in please
-
-# Create a new conda environment - micro612 from a YML file
-conda env create -f /scratch/micro612w20_class_root/micro612w20_class/shared/data/day2pm/day2pm.yaml -n day2pm
-
 # Load your environment and use the tools
 conda activate day2pm
 ```
