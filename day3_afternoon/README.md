@@ -213,9 +213,14 @@ Follow along with the Day 3 morning exercise where we annotated a MRSA tree with
 
 2. Drop tip labels from the tree that are not in the annotation file. Hint use setdiff() and drop.tip()
 
-3. Midpoint root the tree for visualization purposed my_tree = midpoint.root(my_tree), where "my_tree" is what you named your neighbor-joining tree above. 
+3. Midpoint root the tree for visualization purposes using the function midpoint.root()
 
-4. Use sapply to make your isolate_legend variable in the same order as your my_tree$tip.labels. 
+```
+my_tree = midpoint.root(my_tree) #where "my_tree" is what you named your neighbor-joining tree above 
+
+```
+
+4. Use sapply() to make your isolate_legend in the same order as your ```my_tree$tip.labels```. 
 
 5. We provided color hex codes in Rush_KPC_facility_codes.txt so everyone's facilities are labeled with the same color. Use the following commands to extract the colors from the metadata and create your legend colors. 
 ```
@@ -244,6 +249,7 @@ Note that because the out-group is so distantly related it is difficult to make 
 > ***ii. Load the annotation file ‘Rush_KPC_facility_codes_iTOL.txt’ to view the facility of isolation, play with tree visualization properties to understand how isolates group by facility, Circular vs. normal tree layout, Bootstrap values, Ignoring branch lengths***
 -->
 
+After you've overlayed facility metadata on your tree, answer the following questions: 
 ```
 
 Which facilities appear to have a lot of intra-facility transmission based on grouping of isolates from the same facility? 
