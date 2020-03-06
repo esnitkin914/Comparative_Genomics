@@ -207,6 +207,7 @@ Phylogenetic tree annotation and visualization
 ----------------------------------------------
 [[back to top]](https://github.com/alipirani88/Comparative_Genomics/blob/master/day3pmnoon/README.md)
 [[HOME]](https://github.com/alipirani88/Comparative_Genomics/blob/master/README.md)
+<!---
 
 > ***i. Load the neighbor-joining tree into iTOL***
 
@@ -220,6 +221,7 @@ Note that because the out-group is so distantly related it is difficult to make 
 - Click on the extended branch leading to where KPNIH1 was, go to the “tree structure” menu and click “collapse branch”
 
 > ***ii. Load the annotation file ‘Rush_KPC_facility_codes_iTOL.txt’ to view the facility of isolation, play with tree visualization properties to understand how isolates group by facility, Circular vs. normal tree layout, Bootstrap values, Ignoring branch lengths***
+-->
 
 ```
 
