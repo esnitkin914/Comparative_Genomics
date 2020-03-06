@@ -199,7 +199,6 @@ This file Outputs/Comparative/Ortho_SNP_matrix.fasta should now exist
 
 Download Ortho_SNP_matrix.fasta to your home computer
 Read the fasta file into R, create a distance matrix, and make a neighbor joining tree. Make sure you load in the necessary packages! 
-Save tree for later analysis using write.tree()
 
 ```
 
@@ -207,6 +206,28 @@ Phylogenetic tree annotation and visualization
 ----------------------------------------------
 [[back to top]](https://github.com/alipirani88/Comparative_Genomics/blob/master/day3pmnoon/README.md)
 [[HOME]](https://github.com/alipirani88/Comparative_Genomics/blob/master/README.md)
+
+Follow along with the Day 3 morning exercise where we annotated a MRSA tree with CA vs. HA metadata to overlay facility information on your _Klebsiella_ neighbor-joining tree you just made. 
+
+1. Read in annotation file called Rush_KPC_facility_codes.txt to R. 
+
+2. Drop tip labels from the tree that are not in the annotation file. Hint use setdiff() and drop.tip()
+
+3. Midpoint root the tree for visualization purposed my_tree = midpoint.root(my_tree), where "my_tree" is what you named your neighbor-joining tree above. 
+
+4. Use sapply to make your isolate_legend variable in the same order as your my_tree$tip.labels. 
+
+5. We provided color hex codes in Rush_KPC_facility_codes.txt so everyone's facilities are labeled with the same color. Use the following commands to extract the colors from the metadata and create your legend colors. 
+```
+colors = metadata[,c('Color', 'Facility')] # metadata = whatever your variable from reading in the annotation file from step 1 is called 
+colors = colors[!duplicated(metadata[,c('Color', 'Facility')]),]
+isolate_colors = structure(colors[,'Color'], names = colors[,'Facility'])
+```
+
+6. Use plot(), tiplabels() and legend() to plot your tree with metadata overlayed as we did previously. 
+
+To visualize the data on the tree better, you can use show.tip.label = FALSE in plot() to remove the tree tip labels from the plot. You can also play around with the tree layout type using the argument type. You can change the placement of the colored tip labels by changing the number value of the parameter "adj" in tiplabels().  
+
 <!---
 
 > ***i. Load the neighbor-joining tree into iTOL***
