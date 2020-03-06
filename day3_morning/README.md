@@ -420,9 +420,9 @@ mrsa_msa_var = mrsa_msa[, mrsa_var_pos]
 dna_dist = dist.dna(mrsa_msa_var, model = 'N', as.matrix = TRUE)
 ```
 
-Finally, we can use the distance matrix to construct a neighbor joining tree using the function NJ()
+Finally, we can use the distance matrix to construct a neighbor joining tree using the function nj()
 ```
-NJ_tree = NJ(dna_dist) 
+NJ_tree = nj(dna_dist) 
 ```
 
 We can look at our tree using plot()
