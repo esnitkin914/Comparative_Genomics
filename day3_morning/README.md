@@ -102,6 +102,8 @@ module load Bioinformatics
 
 module load bioperl/1.7.2
 
+conda activate micro612
+
 perl ../convert_msa_format.pl -i mauve_ECII_outgroup -o mauve_ECII_outgroup.fasta -f fasta -c
 
 sed -i 's/.fa.*//g' mauve_ECII_outgroup.fasta 
