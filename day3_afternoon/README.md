@@ -209,7 +209,7 @@ Phylogenetic tree annotation and visualization
 
 Follow along with the Day 3 morning exercise where we annotated a MRSA tree with CA vs. HA metadata to overlay facility information on your _Klebsiella_ neighbor-joining tree you just made. 
 
-1. Read in annotation file called Rush_KPC_facility_codes.txt to R. 
+1. Read in annotation file called Rush_KPC_facility_codes.txt to R. This file is comma delimited. 
 
 2. Drop tip labels from the tree that are not in the annotation file. Hint use ```setdiff()``` and ```drop.tip()```
 
@@ -231,7 +231,7 @@ isolate_colors = structure(colors[,'Color'], names = colors[,'Facility'])
 
 6. Use ```plot()```, ```tiplabels()``` and ```legend()``` to plot your tree with metadata overlayed as we did previously. 
 
-To visualize the data on the tree better, you can use show.tip.label = FALSE in plot() to remove the tree tip labels from the plot. You can also play around with the tree layout type using the argument type. You can change the placement of the colored tip labels by changing the number value of the parameter "adj" in tiplabels().  
+To visualize the data on the tree better, you can use the argument ```show.tip.label = FALSE``` in ```plot()``` to remove the tree tip labels from the plot. You can also play around with the tree layout type  (e.g. phylogram, fan, etc) using the argument ```type```. You can change the placement of the colored tip labels by changing the number value of the parameter ```adj``` in ```tiplabels()```.  
 
 <!---
 
