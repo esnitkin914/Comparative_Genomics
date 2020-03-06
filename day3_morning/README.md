@@ -492,10 +492,19 @@ metadata = read.table('HA_vs_CA', header = TRUE, stringsAsFactors = FALSE)
 
 ```
 
-Next, we will create our isolate legend and assign colors to the legend. 
+Next, let's clean up the tree tip label names to match the metadata IDs, and then drop the tree tips we don't have metadata for. 
+```
+NJ_tree$tip.label = gsub('_R.*','',NJ_tree$tip.label)
+NJ_tree = drop.tip(NJ_tree, setdiff(NJ_tree$tip.label, metadata$ID))
 
 ```
-isolate_legend = structure(metadata[,2], names = metadata[,1])
+
+Next, we will create our isolate legend and assign colors to the legend. It's important that the labels are in the same order as the tree tips. So, we will use an sapply statement (which is like a for loop) to iterate through the tree tip labels, and figure out the label for each tree tip id. 
+
+```
+isolate_legend = sapply(NJ_tree$tip.label, function(id){
+  metadata$SOURCE[metadata$ID == id]
+})
 isolate_colors = structure(c('red', 'blue'), names = sort(unique(isolate_legend)))
 
 ```
