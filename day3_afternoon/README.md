@@ -211,16 +211,16 @@ Follow along with the Day 3 morning exercise where we annotated a MRSA tree with
 
 1. Read in annotation file called Rush_KPC_facility_codes.txt to R. 
 
-2. Drop tip labels from the tree that are not in the annotation file. Hint use setdiff() and drop.tip()
+2. Drop tip labels from the tree that are not in the annotation file. Hint use ```setdiff()``` and ```drop.tip()```
 
-3. Midpoint root the tree for visualization purposes using the function midpoint.root()
-
-```
-my_tree = midpoint.root(my_tree) #where "my_tree" is what you named your neighbor-joining tree above 
+3. Midpoint root the tree for visualization purposes using the function ```midpoint.root()```
 
 ```
+my_tree = midpoint.root(my_tree) #where my_tree is what you named your neighbor-joining tree above 
 
-4. Use sapply() to make your isolate_legend in the same order as your ```my_tree$tip.labels```. 
+```
+
+4. Use ```sapply()``` to make your isolate_legend in the same order as your ```my_tree$tip.labels```. 
 
 5. We provided color hex codes in Rush_KPC_facility_codes.txt so everyone's facilities are labeled with the same color. Use the following commands to extract the colors from the metadata and create your legend colors. 
 ```
@@ -229,7 +229,7 @@ colors = colors[!duplicated(metadata[,c('Color', 'Facility')]),]
 isolate_colors = structure(colors[,'Color'], names = colors[,'Facility'])
 ```
 
-6. Use plot(), tiplabels() and legend() to plot your tree with metadata overlayed as we did previously. 
+6. Use ```plot()```, ```tiplabels()``` and ```legend()``` to plot your tree with metadata overlayed as we did previously. 
 
 To visualize the data on the tree better, you can use show.tip.label = FALSE in plot() to remove the tree tip labels from the plot. You can also play around with the tree layout type using the argument type. You can change the placement of the colored tip labels by changing the number value of the parameter "adj" in tiplabels().  
 
