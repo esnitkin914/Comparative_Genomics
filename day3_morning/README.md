@@ -505,7 +505,7 @@ Next, we will create our isolate legend and assign colors to the legend. It's im
 isolate_legend = sapply(NJ_tree$tip.label, function(id){
   metadata$SOURCE[metadata$ID == id]
 })
-isolate_colors = structure(c('red', 'blue'), names = sort(unique(isolate_legend)))
+isolate_colors = structure(c('blue', 'red'), names = sort(unique(isolate_legend)))
 
 ```
 
