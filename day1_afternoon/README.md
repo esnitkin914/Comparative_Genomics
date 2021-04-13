@@ -2,71 +2,129 @@ Day 1 Afternoon
 ===============
 [[HOME]](https://github.com/alipirani88/Comparative_Genomics/blob/master/README.md)
 
-Contamination Screening using [FastQ Screen](http://www.bioinformatics.babraham.ac.uk/projects/fastq_screen/)
+Overview of Genomics Pipeline
+-----------------------------
+Two different ways we can process raw reads include 1) variant calling and 2) genome assembly. We'll talk about both in this course, and we'll keep coming back to this roadmap to give some perspective on where we are in the pipeline. 
+![Mile high view of a genomics pipeline](genomics_pipeline.png)
+
+Contamination Screening using [Kraken](https://ccb.jhu.edu/software/kraken/)
 --------------------------------------------
+![QC-ing](genomics_pipeline_qc.png)
 
-When running a sequencing pipeline, it is very important to make sure that your data matches appropriate quality threshold and are free from any contaminants. This step will help you make correct interpretations in downstream analysis and will also let you know if you are required to redo the experiment/library preparation or resequencing or remove contaminant sequences.
+When running a sequencing pipeline, it is very important to make sure that your data matches appropriate quality threshold and are free from any contaminants. This step will help you make correct interpretations in downstream analysis and will also let you know if you are required to redo the experiment/library preparation or remove contaminant sequences.
 
-For this purpose, we will employ fastq screen to screen one of our sample against a range of reference genome databases.
+For this purpose, we will employ Kraken which is a taxonomic sequence classifier that assigns taxonomic labels to short DNA reads. We will screen our samples against a MiniKraken database (a pre-built database constructed from complete bacterial, archaeal, and viral genomes in RefSeq.) and confirm if the majority of reads in our sample belong to the target species.
+ 
+> i. Get an interactive cluster node to start running programs. Use the shortcut that we created in .bashrc file for getting into interactive flux session.***
 
-In the previous section, did you notice the sample fastq_screen.fastq.gz had only 28 % unique reads? What sequences does it contain? 
+How do you know if you are in interactive session?: you should see "username@glXXXX" in your command prompt where XXXX refers to the cluster node number.
 
-To answer this, We will screen it against Human, Mouse and Ecoli genome and try to determine what percentage of reads are contaminant such as host DNA, i.e Human and mouse.
+```
+islurm
 
-We have already created the human, mouse and ecoli reference databases inside fastq_screen tool directory which you can take a look by running:
+conda activate micro612
+```
+
+Navigate to kraken directory placed under day1pm directory.
 
 ```
 
+<<<<<<< HEAD
 ls /scratch/micro612w21_class_root/micro612w21_class/shared/bin/fastq_screen_v0.5.2/data/
+=======
+cd /scratch/micro612w21_class_root/micro612w21_class/username/day1pm/kraken/
+>>>>>>> 52d7e42228b6b5787ccc5588c485001b4a8754e8
 
 ```
 
-Note: You will learn creating reference databases in our afternoon session.
+> ii. Lets run kraken on samples MRSA_CO_HA_473_R1_001.fastq.gz and MRSA_CO_HA_479_R1_001.fastq.gz which were part of the same sequencing library***
 
-> ***i. Get an interactive cluster node to start running programs. Use the shortcut that we created in .bashrc file for getting into interactive flux session.***
-
-How do you know if you are in interactive session?: you should see "username@nyx" in your command prompt
+Since Kraken takes time to run, we have already placed the output of Kraken command in day1pm/kraken directory.
 
 ```
-iflux
+
+kraken --quick --fastq-input --gzip-compressed --unclassified-out MRSA_CO_HA_473_unclassified.txt --db minikraken_20171013_4GB/ --output MRSA_CO_HA_473_kraken /MRSA_CO_HA_473_R1_001.fastq.gz
+
+
+kraken --quick --fastq-input --gzip-compressed --unclassified-out MRSA_CO_HA_479_unclassified.txt --db minikraken_20171013_4GB/ --output MRSA_CO_HA_479_kraken /MRSA_CO_HA_479_R1_001.fastq.gz
 ```
 
-Whenever you start an interactive job, the path resets to your home directory. So, navigate to day1pm directory again.
+
+> iii. Run Kraken report to generate a concise summary report of the species found in reads file.
+
 
 ```
-d1a
+# Update the taxonomy database before generating kraken report
+ktUpdateTaxonomy.sh
 
-#or
+kraken-report --db minikraken_20171013_4GB/ MRSA_CO_HA_473_kraken > MRSA_CO_HA_473_kraken_report.txt
 
+kraken-report --db minikraken_20171013_4GB/ MRSA_CO_HA_479_kraken > MRSA_CO_HA_479_kraken_report.txt
+
+```
+
+The output of kraken-report is tab-delimited, with one line per taxon. The fields of the output, from left-to-right, are as follows:
+
+1. Percentage of reads covered by the clade rooted at this taxon
+2. Number of reads covered by the clade rooted at this taxon
+3. Number of reads assigned directly to this taxon
+4. A rank code, indicating (U)nclassified, (D)omain, (K)ingdom, (P)hylum, (C)lass, (O)rder, (F)amily, (G)enus, or (S)pecies. All other ranks are simply '-'.
+5. NCBI taxonomy ID
+6. indented scientific name
+
+<<<<<<< HEAD
 cd /scratch/micro612w21_class_root/micro612w21_class/username/day1pm/
+=======
+>>>>>>> 52d7e42228b6b5787ccc5588c485001b4a8754e8
+
+```
+less MRSA_CO_HA_473_kraken_report.txt
+```
+
+Lets extract columns by Species (column 4 - "S") and check the major species indentified in our sample.
+
+```
+awk '$4 == "S" {print $0}' MRSA_CO_HA_473_kraken_report.txt | head
+
+awk '$4 == "S" {print $0}' MRSA_CO_HA_479_kraken_report.txt | head
+```
+
+- what is the percentage of majority species in MRSA_CO_HA_473 and MRSA_CO_HA_479?
+- how different they look?
+- what is the percentage of Staphylococcus aureus in MRSA_CO_HA_479?
+- majority of reads in MRSA_CO_HA_479 remained unclassified? what could be the possible explanation?
+
+Lets visualize the same information in an ionteractive form.
+
+> iv. Generate a HTML report to visualize Kraken report using Krona
+
+```
+cut -f2,3 MRSA_CO_HA_473_kraken > MRSA_CO_HA_473_krona.input
+cut -f2,3 MRSA_CO_HA_479_kraken > MRSA_CO_HA_479_krona.input
+
+ktImportTaxonomy MRSA_CO_HA_473_krona.input -o MRSA_CO_HA_473_krona.out.html
+ktImportTaxonomy MRSA_CO_HA_479_krona.input -o MRSA_CO_HA_479_krona.out.html
 
 ```
 
-> ***ii. Lets run fastq_screen on fastq_screen.fastq.gz***
+In case you get an error saying - Taxonomy not found, run ktUpdateTaxonomy.sh command again.
 
 ```
-
-fastq_screen --subset 1000 --force --outdir ./ --aligner bowtie2 fastq_screen.fastq.gz
-
-#Note: We will screen only a subset of fastq reads against reference databases. To screen all the reads, change this argument to --subset 0 but will take long time to finish. (searching sequences against human or mouse genome is a time consuming step) 
-#Also Dont worry about "Broken pipe" warning.
-
+ktUpdateTaxonomy.sh
 ```
-
-The above run will generate two types of output file: a screen report in text format "fastq_screen_screen.txt" and a graphical output "fastq_screen_screen.png" showing percentage of reads mapped to each reference genomes.
-
-> ***iii. Download the fastq_screen graphical report to your home computer for inspection.***
 
 Use scp command as shown below or use cyberduck. If you dont the file in cyberduck window, try refreshing it using the refresh button at the top.
 
 ```
+<<<<<<< HEAD
 scp username@flux-xfer.arc-ts.umich.edu:/scratch/micro612w21_class_root/micro612w21_class/username/day1pm/fastq_screen_screen.png /path-to-local-directory/
+=======
+scp username@greatlakes-xfer.arc-ts.umich.edu:/scratch/micro612w21_class_root/micro612w21_class/username/day1pm/kraken/*.html /path-to-local-directory/
+>>>>>>> 52d7e42228b6b5787ccc5588c485001b4a8754e8
 
 #You can use ~/Desktop/ as your local directory path
 
 ```
-
-Open fastq_screen_screen.png on your system. You will notice that the sample contain a significant amount of human reads; we should always remove these contaminants from our sample before proceeding to any type of microbial analysis.
 
 Quality Control using [FastQC](http://www.bioinformatics.babraham.ac.uk/projects/fastqc/ "FastQC homepage")
 ------------------------------
@@ -107,18 +165,22 @@ You can visualize and assess the quality of data by opening html report in a loc
 > ***v. Download the FastQC html report to your home computer to examine using scp or cyberduck***
 
 ```
+<<<<<<< HEAD
 scp username@flux-xfer.arc-ts.umich.edu:/scratch/micro612w21_class_root/micro612w21_class/username/day1pm/Rush_KPC_266_FastQC_results/before_trimmomatic/*.html /path-to-local-directory/
+=======
+scp username@greatlakes-xfer.arc-ts.umich.edu:/scratch/micro612w21_class_root/micro612w21_class/username/day1pm/Rush_KPC_266_FastQC_results/before_trimmomatic/*.html /path-to-local-directory/
+>>>>>>> 52d7e42228b6b5787ccc5588c485001b4a8754e8
 ```
 
 The analysis in FastQC is broken down into a series of analysis modules. The left hand side of the main interactive display or the top of the HTML report show a summary of the modules which were run, and a quick evaluation of whether the results of the module seem entirely normal (green tick), slightly abnormal (orange triangle) or very unusual (red cross). 
 
-![alt tag](https://github.com/alipirani88/Comparative_Genomics/blob/master/_img/day1aming/1.png)
+![alt tag](https://github.com/alipirani88/Comparative_Genomics/blob/master/_img/day1_morning/1.png)
 
 Lets first look at the quality drop(per base sequence quality graph) at the end of "Per Base Sequence Quality" graph. This degredation of quality towards the end of reads is commonly observed in illumina samples. The reason for this drop is that as the number of sequencing cycles performed increases, the average quality of the base calls, as reported by the Phred Scores produced by the sequencer falls. 
 
 Next, lets check the overrepresented sequences graph and the kind of adapters that were used for sequencing these samples (Truseq or Nextera) which comes in handy while indicating the adapter database path during downstream filtering step (Trimmomatic).
 
-![alt tag](https://github.com/alipirani88/Comparative_Genomics/blob/master/_img/day1aming/2.png)
+![alt tag](https://github.com/alipirani88/Comparative_Genomics/blob/master/_img/day1_morning/2.png)
 
 - Check out [this](https://sequencing.qcfail.com/articles/loss-of-base-call-accuracy-with-increasing-sequencing-cycles/) for more detailed explaination as to why quality drops with increasing sequencing cycles.
 
@@ -137,18 +199,20 @@ For more information on how Trimmomatic tries to achieve this, Please refer [thi
 
 Now we will run Trimmomatic on these raw data to remove low quality reads as well as adapters. 
 
-> ***i. If the interactive session timed out, get an interactive cluster node again to start running programs and navigate to day1pm directory.***
+> ***i. If the interactive session timed out, get an interactive cluster node again to start running programs and navigate to day1pm directory. Also, load the Conda environment - micro612.***
 
 How to know if you are in interactive session: you should see "username@nyx" in your command prompt
 
 ```
-iflux
+islurm
 
 cd /scratch/micro612w21_class_root/micro612w21_class/username/day1pm/
 
 #or
 
 d1a
+
+conda activate micro612
 ```
 
 > ***ii. Create these output directories in your day1pm folder to save trimmomatic results***
@@ -160,17 +224,25 @@ mkdir Rush_KPC_266_trimmomatic_results
 > ***iii. Try to invoke trimmomatic from command line.***
 
 ```
+<<<<<<< HEAD
 java -jar /scratch/micro612w21_class_root/micro612w21_class/shared/bin/Trimmomatic/trimmomatic-0.33.jar –h
+=======
+trimmomatic –h
+>>>>>>> 52d7e42228b6b5787ccc5588c485001b4a8754e8
 ```
 
 > ***iv. Run the below trimmomatic commands on raw reads.***
 
 ```
+<<<<<<< HEAD
 java -jar /scratch/micro612w21_class_root/micro612w21_class/shared/bin/Trimmomatic/trimmomatic-0.33.jar PE Rush_KPC_266_1_combine.fastq.gz Rush_KPC_266_2_combine.fastq.gz Rush_KPC_266_trimmomatic_results/forward_paired.fq.gz Rush_KPC_266_trimmomatic_results/forward_unpaired.fq.gz Rush_KPC_266_trimmomatic_results/reverse_paired.fq.gz Rush_KPC_266_trimmomatic_results/reverse_unpaired.fq.gz ILLUMINACLIP:/scratch/micro612w21_class_root/micro612w21_class/shared/bin/Trimmomatic/adapters/TruSeq3-PE.fa:2:30:10:8:true SLIDINGWINDOW:4:15 MINLEN:40 HEADCROP:0
+=======
+trimmomatic PE Rush_KPC_266_1_combine.fastq.gz Rush_KPC_266_2_combine.fastq.gz Rush_KPC_266_trimmomatic_results/forward_paired.fq.gz Rush_KPC_266_trimmomatic_results/forward_unpaired.fq.gz Rush_KPC_266_trimmomatic_results/reverse_paired.fq.gz Rush_KPC_266_trimmomatic_results/reverse_unpaired.fq.gz ILLUMINACLIP:/scratch/micro612w21_class_root/micro612w21_class/shared/conda_envs/day1pm/share/trimmomatic-0.39-1/adapters/TruSeq3-PE.fa:2:30:10:8:true SLIDINGWINDOW:4:15 MINLEN:40 HEADCROP:0
+>>>>>>> 52d7e42228b6b5787ccc5588c485001b4a8754e8
 ```
 
 
-![alt tag](https://github.com/alipirani88/Comparative_Genomics/blob/master/_img/day1aming/trimm_parameters.png)
+![alt tag](https://github.com/alipirani88/Comparative_Genomics/blob/master/_img/day1_morning/trimm_parameters.png)
 
 First, Trimmomatic searches for any matches between the reads and adapter sequences. Adapter sequences are stored in this directory of Trimmomatic tool: /scratch/micro612w21_class_root/micro612w21_class/shared/bin/Trimmomatic/adapters/. Trimmomatic comes with a list of standard adapter fasta sequences such TruSeq, Nextera etc. You should use appropriate adapter fasta sequence file based on the illumina kit that was used for sequencing. You can get this information from your sequencing centre or can find it in FastQC html report (Section: Overrepresented sequences).
 
@@ -191,10 +263,14 @@ fastqc -o Rush_KPC_266_FastQC_results/after_trimmomatic/ Rush_KPC_266_trimmomati
 Get these html reports to your local system.
 
 ```
+<<<<<<< HEAD
 scp username@flux-xfer.arc-ts.umich.edu:/scratch/micro612w21_class_root/micro612w21_class/username/day1pm/Rush_KPC_266_FastQC_results/after_trimmomatic/*.html /path-to-local-directory/
+=======
+scp username@greatlakes-xfer.arc-ts.umich.edu:/scratch/micro612w21_class_root/micro612w21_class/username/day1pm/Rush_KPC_266_FastQC_results/after_trimmomatic/*.html /path-to-local-directory/
+>>>>>>> 52d7e42228b6b5787ccc5588c485001b4a8754e8
 ```
 
-![alt tag](https://github.com/alipirani88/Comparative_Genomics/blob/master/_img/day1aming/3.png)
+![alt tag](https://github.com/alipirani88/Comparative_Genomics/blob/master/_img/day1_morning/3.png)
 
 After running Trimmomatic, you should notice that the sequence quality improved (Per base sequence quality) and now it doesn't contain any contaminants/adapters (Overrepresented sequences).
 
@@ -210,7 +286,11 @@ This doesn't look very bad but you can remove the red cross sign by trimming the
 ```
 mkdir Rush_KPC_266_trimmomatic_results_with_headcrop/
 
+<<<<<<< HEAD
 time java -jar /scratch/micro612w21_class_root/micro612w21_class/shared/bin/Trimmomatic/trimmomatic-0.33.jar PE Rush_KPC_266_1_combine.fastq.gz Rush_KPC_266_2_combine.fastq.gz Rush_KPC_266_trimmomatic_results_with_headcrop/forward_paired.fq.gz Rush_KPC_266_trimmomatic_results_with_headcrop/forward_unpaired.fq.gz Rush_KPC_266_trimmomatic_results_with_headcrop/reverse_paired.fq.gz Rush_KPC_266_trimmomatic_results_with_headcrop/reverse_unpaired.fq.gz ILLUMINACLIP:/scratch/micro612w21_class_root/micro612w21_class/shared/bin/Trimmomatic/adapters/TruSeq3-PE.fa:2:30:10:8:true SLIDINGWINDOW:4:20 MINLEN:40 HEADCROP:9
+=======
+trimmomatic PE Rush_KPC_266_1_combine.fastq.gz Rush_KPC_266_2_combine.fastq.gz Rush_KPC_266_trimmomatic_results_with_headcrop/forward_paired.fq.gz Rush_KPC_266_trimmomatic_results_with_headcrop/forward_unpaired.fq.gz Rush_KPC_266_trimmomatic_results_with_headcrop/reverse_paired.fq.gz Rush_KPC_266_trimmomatic_results_with_headcrop/reverse_unpaired.fq.gz ILLUMINACLIP:/scratch/micro612w21_class_root/micro612w21_class/shared/conda_envs/day1pm/share/trimmomatic-0.39-1/adapters/TruSeq3-PE.fa:2:30:10:8:true SLIDINGWINDOW:4:20 MINLEN:40 HEADCROP:9
+>>>>>>> 52d7e42228b6b5787ccc5588c485001b4a8754e8
 ```
 
 Unix gem: time in above command shows how long a command takes to run?
@@ -219,11 +299,16 @@ Unix gem: time in above command shows how long a command takes to run?
 
 ```
 mkdir Rush_KPC_266_FastQC_results/after_trimmomatic_headcrop/
+
 fastqc -o Rush_KPC_266_FastQC_results/after_trimmomatic_headcrop/ --extract -f fastq Rush_KPC_266_trimmomatic_results_with_headcrop/forward_paired.fq.gz Rush_KPC_266_trimmomatic_results_with_headcrop/reverse_paired.fq.gz
 ```
 Download the reports again and see the difference.
 ```
+<<<<<<< HEAD
 scp username@flux-xfer.arc-ts.umich.edu:/scratch/micro612w21_class_root/micro612w21_class/username/day1pm/Rush_KPC_266_FastQC_results/after_trimmomatic_headcrop/*.html /path-to-local-directory/
+=======
+scp username@greatlakes-xfer.arc-ts.umich.edu:/scratch/micro612w21_class_root/micro612w21_class/username/day1pm/Rush_KPC_266_FastQC_results/after_trimmomatic_headcrop/*.html /path-to-local-directory/
+>>>>>>> 52d7e42228b6b5787ccc5588c485001b4a8754e8
 ```
 
 The red cross sign disappeared!
@@ -248,6 +333,7 @@ In this session, we will be covering the important steps that are part of any Re
 
 Variant Calling for Collistin resistant Klebsiella pneumoniae
 -------------------------------------------------------------
+![Mile high view of a genomics pipeline](genomics_pipeline_variant_calling.png)
 
 At the end of our morning session, we submitted a variant calling job to run all the variant calling steps on PCMP_H326 genome.
 
@@ -255,7 +341,7 @@ The goal of this exercise is to learn what standard variant calling steps are in
 
 Let us see what inputs and commands variant_call.sh script need to run variant calling on PCMP_H326.
 
-Try running the script with help menu and check all the inputs that is required by the script.
+Navigate to variant_calling folder in day1pm directory and Try running the script with help menu. Check all the inputs that is required by the script.
 
 ```
 
@@ -273,11 +359,11 @@ The script requires following positional arguments as input to call variants:
 4. Output Directory Path. A new directory will be created at this path by the name that you will provide for Analysis Base name. for example: if the output path is /dir_1/dir_2/ and Analysis Base name is sample_name , a new directory by the name sample_name_varcall_result will be created in /dir_1/dir_2/
 5. Analysis Base name to store result files with this prefix.
 
-If you remember, we ran the shell script in following fashion inside day1pm directory.
+If you remember, we ran the shell script in following fashion inside variant_calling directory.
 
 ```
 
-bash ./variant_call.sh PCMP_H326_R1.fastq.gz PCMP_H326_R2.fastq.gz /Path-to-your-day1pm/KPNIH1.fasta /Path-to-your-day1pm/ PCMP_H326_
+./variant_call.sh PCMP_H326_R1.fastq.gz PCMP_H326_R2.fastq.gz KPNIH1.fasta ./ PCMP_H326_
 
 ```
 
@@ -306,6 +392,10 @@ ls -1ad PCMP_H326__varcall_result/*
 
 ```
 
+Let's visualize the steps of this process:
+
+![var_call_steps](detailed_var_call.png)
+
 Step1_cleaning
 --------------
 
@@ -317,7 +407,7 @@ Step2_mapping
 [[back to top]](https://github.com/alipirani88/Comparative_Genomics/blob/master/day1pmnoon/README.md)
 [[HOME]](https://github.com/alipirani88/Comparative_Genomics/blob/master/README.md)
 
-![alt tag](https://github.com/alipirani88/Comparative_Genomics/blob/master/_img/day1pm/1_1.png)
+![alt tag](https://github.com/alipirani88/Comparative_Genomics/blob/master/_img/day1_after/1_1.png)
 
 This folder contains results that were generated by mapping reads against a finished reference genome using [BWA](http://bio-bwa.sourceforge.net/bwa.shtml "BWA manual")
 
@@ -377,14 +467,15 @@ You can extract this information from fastq read header.
 
 ```
 
-The output of BWA and most of the short-reads aligners is a SAM file. SAM format is considered as the standard output for most read aligners and stands for Sequence Alignment/Map format. It is a TAB-delimited format that describes how each reads were aligned to the reference sequence. 
+The output of BWA and most of the short-reads aligners is a SAM file. SAM format is considered as the standard output for most read aligners and stands for Sequence Alignment/Map format. It is a TAB-delimited format that describes how each reads were aligned to the reference sequence. Detailed information about the SAM specs can be obtained from this [pdf](https://www.google.com/url?sa=t&rct=j&q=&esrc=s&source=web&cd=1&ved=0ahUKEwizkvfAk9rLAhXrm4MKHVXxC9kQFggdMAA&url=https%3A%2F%2Fsamtools.github.io%2Fhts-specs%2FSAMv1.pdf&usg=AFQjCNHFmjxTXKnxYqN0WpIFjZNylwPm0Q) document.
 
+<!--
 Lets explore first few lines of .sam file. Go to day1pm directory and then change directory to PCMP_H326__varcall_result/Step2_mapping/
 
 
 ```
 d1a
-
+cd variant_calling
 cd PCMP_H326__varcall_result/Step2_mapping/
 
 head -n4 PCMP_H326__aln.sam
@@ -418,6 +509,8 @@ MD tag tells you what positions in the read alignment are different from referen
 
 AS is an alignment score and XS:i:0 is an suboptimal alignment score.
 
+-->
+
 Step3_samtobamconversion
 ------------------------
 
@@ -428,7 +521,7 @@ BAM is the compressed binary equivalent of SAM but are usually quite smaller in 
 The first section for this step will ask samtools to convert SAM format(-S) to BAM format(-b)
 
 ```
-samtools view -Sb PCMP_H326__aln.sam > PCMP_H326__aln.bam
+samtools view -Sb ./PCMP_H326__varcall_result/PCMP_H326__aln.sam > ./PCMP_H326__varcall_result/PCMP_H326__aln.bam
 ```
 
 The next section will sort these converted BAM file using SAMTOOLS
@@ -438,7 +531,7 @@ Most of the downstream tools such as GATK requires your BAM file to be indexed a
 Now before indexing this BAM file, we will sort the data by positions(default) using samtools. Some RNA Seq/Gene expression tools require it to be sorted by read name which is achieved by passing -n flag.
 
 ```
-samtools sort PCMP_H326__aln.bam PCMP_H326__aln_sort
+samtools sort -O BAM -o ./PCMP_H326__varcall_result/PCMP_H326__aln_sort.bam ./PCMP_H326__varcall_result/PCMP_H326__aln.bam
 ```
 
 Step4_removeduplicates
@@ -452,14 +545,18 @@ For an in-depth explanation about how PCR duplicates arise in sequencing, please
 
 Picard identifies duplicates by searching reads that have same start position on reference or in PE reads same start for both ends. It will choose a representative from each group of duplicate reads based on best base quality scores and other criteria and retain it while removing other duplicates. This step plays a significant role in removing false positive variant calls(such as sequencing error) during variant calling that are represented by PCR duplicate reads.
 
-![alt tag](https://github.com/alipirani88/Comparative_Genomics/blob/master/_img/day1pm/picard.png)
+![alt tag](https://github.com/alipirani88/Comparative_Genomics/blob/master/_img/day1_after/picard.png)
 
 To run this step, we first need to create a dictionary for reference fasta file that is required by PICARD
 
 
 ```
 
+<<<<<<< HEAD
 java -jar /scratch/micro612w21_class_root/micro612w21_class/shared/bin/picard-tools-1.130/picard.jar CreateSequenceDictionary REFERENCE=KPNIH1.fasta OUTPUT=KPNIH1.dict
+=======
+picard CreateSequenceDictionary REFERENCE=KPNIH1.fasta OUTPUT=KPNIH1.dict
+>>>>>>> 52d7e42228b6b5787ccc5588c485001b4a8754e8
 
 ```
 
@@ -467,7 +564,11 @@ Once the sequence dictionary is created, PICARD can be run for removing duplicat
 
 ```
 
+<<<<<<< HEAD
 java -jar /scratch/micro612w21_class_root/micro612w21_class/shared/bin/picard-tools-1.130/picard.jar MarkDuplicates REMOVE_DUPLICATES=true INPUT=PCMP_H326__aln_sort.bam OUTPUT=PCMP_H326__aln_marked.bam METRICS_FILE=PCMP_H326__markduplicates_metrics CREATE_INDEX=true VALIDATION_STRINGENCY=LENIENT
+=======
+picard MarkDuplicates REMOVE_DUPLICATES=true INPUT=./PCMP_H326__varcall_result/PCMP_H326__aln_sort.bam OUTPUT=./PCMP_H326__varcall_result/PCMP_H326__aln_marked.bam METRICS_FILE=./PCMP_H326__varcall_result/PCMP_H326__markduplicates_metrics CREATE_INDEX=true VALIDATION_STRINGENCY=LENIENT
+>>>>>>> 52d7e42228b6b5787ccc5588c485001b4a8754e8
 
 ```
 
@@ -477,7 +578,7 @@ This bam file should be indexed before we can use it for variant calling.
 
 
 ```
-samtools index PCMP_H326__aln_marked.bam
+samtools index ./PCMP_H326__varcall_result/PCMP_H326__aln_marked.bam
 ```
 
 <!--
@@ -510,7 +611,7 @@ This step will Call variants using [samtools](http://www.htslib.org/doc/samtools
 
 ```
 
-samtools mpileup -ug -f KPNIH1.fasta PCMP_H326__aln_marked.bam | bcftools call -O v -v -c -o PCMP_H326__aln_mpileup_raw.vcf
+samtools mpileup -ug -f KPNIH1.fasta ./PCMP_H326__varcall_result/PCMP_H326__aln_marked.bam | bcftools call -O v -v -c -o ./PCMP_H326__varcall_result/PCMP_H326__aln_mpileup_raw.vcf
 
 #In the above command, we are using samtools mpileup to generate a pileup formatted file from BAM alignments and genotype likelihoods (-g flag) in BCF format (binary version of vcf). This bcf output is then piped to bcftools, which calls variants and outputs them in vcf format (-c flag for using consensus calling algorithm  and -v for outputting variants positions only)
 
@@ -523,9 +624,7 @@ Go to Step5_variantcalling folder under PCMP_H326__varcall_result folder.
 
 ```
 
-d1a
-
-cd PCMP_H326__varcall_result/Step5_variantcalling
+cd ../Step5_variantcalling
 
 less PCMP_H326__aln_mpileup_raw.vcf
 
@@ -556,11 +655,13 @@ There are various tools that can you can try for variant filteration such as vcf
 Make sure you change the directory to Step6_variantfilteraion
 
 ```
-d1a
+cd ../Step6_variantfilteraion
 
-cd PCMP_H326__varcall_result/Step6_variantfilteraion
-
+<<<<<<< HEAD
 java -jar /scratch/micro612w21_class_root/micro612w21_class/shared/bin/GenomeAnalysisTK-3.3-0/GenomeAnalysisTK.jar -T VariantFiltration -R KPNIH1.fasta -o PCMP_H326__filter_gatk.vcf --variant PCMP_H326__aln_mpileup_raw.vcf --filterExpression "FQ < 0.025 && MQ > 50 && QUAL > 100 && DP > 15" --filterName pass_filter
+=======
+gatk VariantFiltration -R KPNIH1.fasta -O ./PCMP_H326__varcall_result/PCMP_H326__filter_gatk.vcf --variant ./PCMP_H326__varcall_result/PCMP_H326__aln_mpileup_raw.vcf --filter-expression "FQ < 0.025 && MQ > 50 && QUAL > 100 && DP > 15" --filter-name pass_filter
+>>>>>>> 52d7e42228b6b5787ccc5588c485001b4a8754e8
 
 
 ```
@@ -589,7 +690,8 @@ Now, let's remove indels from our final vcf file and keep only variants that pas
 
 ```
 
-vcftools --vcf PCMP_H326__filter_gatk.vcf --keep-filtered pass_filter --remove-indels --recode --recode-INFO-all --out PCMP_H326__filter_onlysnp
+vcftools --vcf ./PCMP_H326__varcall_result/PCMP_H326__filter_gatk.vcf --keep-filtered 
+pass_filter --remove-indels --recode --recode-INFO-all --out ./PCMP_H326__varcall_result/PCMP_H326__filter_onlysnp
 
 ```
 
@@ -611,10 +713,22 @@ sed -i 's/>.*/>Rush_KPC_266_/g' Rush_KPC_266__consensus.fa
 ```
 -->
 
+Step 7 bgzip and Tabix index vcf files for IGV visualization.
+-------------------------------------------------------------
+
+Compress the final annotated vcf file and tabix index it so that it can be used for IGV visualization
+
+```
+bgzip -fc PCMP_H326__filter_gatk_ann.vcf > PCMP_H326__filter_gatk_ann.vcf.gz
+
+tabix PCMP_H326__filter_gatk_ann.vcf.gz
+
+```
+
 
 Variant Annotation using snpEff
 -------------------------------
-
+![variant annotation using snpeff](variant_annot.png)
 Variant annotation is one of the crucial steps in any variant calling pipeline. Most of the variant annotation tools create their own database or use an external one to assign function and predict the effect of variants on genes. We will try to touch base on some basic steps of annotating variants in our vcf file using snpEff. 
 
 You can annotate these variants before performing any filtering steps that we did earlier or you can decide to annotate just the final filtered variants. 
@@ -624,15 +738,19 @@ snpEff contains a database of about 20,000 reference genomes built from trusted 
 Make sure you change the directory to Step6_variantfilteraion
 
 ```
-d1a
 
 cd PCMP_H326__varcall_result/Step6_variantfilteraion
+
 ```
 
 > ***i. Check snpEff internal database for your reference genome:***
 
 ```     
+<<<<<<< HEAD
 java -jar /scratch/micro612w21_class_root/micro612w21_class/shared/bin/snpEff/snpEff.jar databases | grep 'kpnih1'
+=======
+snpEff databases | grep -w 'Klebsiella_pneumoniae_subsp_pneumoniae_kpnih1'
+>>>>>>> 52d7e42228b6b5787ccc5588c485001b4a8754e8
 ```
 
 The existing KPNIH1 reference database doesn't contain mgrB annotation in it so we built a custom database out of a custom KPNIH1 genbank file. The procedure to configure a custom database can be found [here](http://snpeff.sourceforge.net/SnpEff_manual.html#databases). 
@@ -641,7 +759,11 @@ The existing KPNIH1 reference database doesn't contain mgrB annotation in it so 
 
 ```
 
+<<<<<<< HEAD
 java -Xmx4g -jar /scratch/micro612w21_class_root/micro612w21_class/shared/bin/snpEff/snpEff.jar -csvStats PCMP_H326__filter_gatk_stats -dataDir /scratch/micro612w21_class_root/micro612w21_class/shared/bin/snpEff/data/ -d -no-downstream -no-upstream -c /scratch/micro612w21_class_root/micro612w21_class/shared/bin/snpEff/snpEff.config KPNIH1 PCMP_H326__filter_gatk.vcf > PCMP_H326__filter_gatk_ann.vcf
+=======
+snpEff -csvStats PCMP_H326__filter_gatk_stats -dataDir /scratch/micro612w21_class_root/micro612w21_class/shared/bin/snpEff/data/ -d -no-downstream -no-upstream -c /scratch/micro612w21_class_root/micro612w21_class/shared/bin/snpEff/snpEff.config KPNIH1 PCMP_H326__filter_gatk.vcf > PCMP_H326__filter_gatk_ann.vcf
+>>>>>>> 52d7e42228b6b5787ccc5588c485001b4a8754e8
 
 ```
 
@@ -652,17 +774,16 @@ snpEff will add an extra field named 'ANN' at the end of INFO field. Lets go thr
 Now go to Step6_variantfilteraion folder under PCMP_H326__varcall_result. 
 
 ```
-d1a 
-
 cd PCMP_H326__varcall_result/Step6_variantfilteraion
 
+# Make sure your vcf file is bgzipped and tabix indexed
 bgzip -fc PCMP_H326__filter_gatk_ann.vcf > PCMP_H326__filter_gatk_ann.vcf.gz
 
 tabix PCMP_H326__filter_gatk_ann.vcf.gz
 
 ```
 
-We compressed this final annotated vcf file and tabix indexd it so that it can be used for IGV visualization
+We compressed this final annotated vcf file and tabix indexed it so that it can be used for IGV visualization
 
 ```
 grep 'ANN=' PCMP_H326__filter_gatk_ann.vcf | head -n1
@@ -700,57 +821,68 @@ We wrote a small python script parser to parse the annotated vcf file and print 
 Run the below parser on your final annotated file PCMP_H326__filter_gatk_ann.vcf as shown below
 
 ```
-module load python-anaconda2/latest 
+conda activate micro612
 
+# change to variant_calling directory
+cd ../..
+
+<<<<<<< HEAD
 python /scratch/micro612w21_class_root/micro612w21_class/shared/bin/snpEff_parse.py -genbank /path-to/day1pm/KPNIH1.gb -vcf PCMP_H326__filter_gatk_ann.vcf
+=======
+# look at how to run the script
+python scripts/parse_snpEff.py -h
+
+# run the script
+python scripts/parse_snpEff.py -genbank KPNIH1.gb -vcf PCMP_H326__varcall_result/Step6_variantfilteraion/PCMP_H326__filter_gatk_ann.vcf
+>>>>>>> 52d7e42228b6b5787ccc5588c485001b4a8754e8
 
 ```
 
-This script will generate a new csv file called PCMP_H326__parsed.csv with extracted annotated information printed in a table format. Let's take a look at these parsed annotated features from variant filtering.
+This script will generate a new csv file called snpEff_parsed.csv with extracted annotated information printed in a table format. If you want to change the name of the output file, you can use the argument `-outfile`. Let's take a look at these parsed annotated features from variant filtering.
 
-First, make sure you're in the directory where `PCMP_H326__parsed.csv` is stored:
+First, make sure you're in the directory where `snpEff_parsed.csv` is stored:
 ```
-ls PCMP_H326__parsed.csv
+ls snpEff_parsed.csv
 ```
 
 Let's look at what the different columns contain:
 ```
-head -n 1 PCMP_H326__parsed.csv | tr ',' '\n' | cat -n
+head -n 1 snpEff_parsed.csv | tr ',' '\n' | cat -n
 ```
 
 Now that we know what the different columns are, let's look at the whole file using less (can you figure out what the `-S` flag does?):
 ```
-less -S PCMP_H326__parsed.csv
+less -S snpEff_parsed.csv
 ```
 
 How many high-impact variants are there based on the snpEff annotation?
 ```
- grep HIGH PCMP_H326__parsed.csv | wc -l
+grep HIGH snpEff_parsed.csv | wc -l
 ```
 
 What proteins are these high-impact variants in?
 ```
-grep HIGH PCMP_H326__parsed.csv | cut -d$'\t' -f4
+grep HIGH snpEff_parsed.csv | cut -d',' -f13
 ```
 
 How many of each type of high-impact variants are there?
 ```
-grep HIGH PCMP_H326__parsed.csv | cut -d$'\t' -f5  | sort | uniq -c
+grep HIGH snpEff_parsed.csv | cut -d',' -f7  | sort | uniq -c
 ```
 
 What are the actual variant changes?
 ```
- grep HIGH PCMP_H326__parsed.csv | cut -d$'\t' -f10
+ grep HIGH snpEff_parsed.csv | cut -d',' -f8
 ```
 
 Let's get the protein and variant change together:
 ```
-grep HIGH PCMP_H326__parsed.csv | cut -d$'\t' -f4,10
+grep HIGH snpEff_parsed.csv | cut -d',' -f8,9
 ```
 
 What if we want to look specifically for mutations in mgrB? (what does the `-i` flag do?)
 ```
- grep -i mgrb PCMP_H326__parsed.csv
+grep -i mgrb snpEff_parsed.csv
 ```
 
 
@@ -759,12 +891,12 @@ Generate Alignment Statistics
 
 Often, while analyzing sequencing data, we are required to make sure that our analysis steps are correct. Some statistics about our analysis will help us in making that decision. So Lets try to get some statistics about various outputs that were created using the above steps and check if everything makes sense.
 
-Go to your day1pm directory.
+Go to your day1pm/variant_calling directory.
 
 ```
 
 d1a
-
+cd variant_calling
 ```
 
 > ***i. Collect Alignment statistics using Picard***
@@ -773,7 +905,11 @@ Run the below command on your marked.bam file
 
 ```
 
+<<<<<<< HEAD
 java -jar /scratch/micro612w21_class_root/micro612w21_class/shared/bin/picard-tools-1.130/picard.jar CollectAlignmentSummaryMetrics R=KPNIH1.fasta I=PCMP_H326__varcall_result/Step5_variantcalling/PCMP_H326__aln_marked.bam O=AlignmentSummaryMetrics.txt
+=======
+picard CollectAlignmentSummaryMetrics R=KPNIH1.fasta I=PCMP_H326__varcall_result/Step5_variantcalling/PCMP_H326__aln_marked.bam O=AlignmentSummaryMetrics.txt
+>>>>>>> 52d7e42228b6b5787ccc5588c485001b4a8754e8
 
 ```
 Open the file AlignmentSummaryMetrics.txt and explore various statistics. It will generate various statistics and the definition for each can be found [here](http://broadinstitute.github.io/picard/picard-metric-definitions.html#AlignmentSummaryMetrics)
@@ -803,7 +939,11 @@ Read coverage/depth describes the average number of reads that align to, or "cov
 After read mapping, it is important to make sure that the reference bases are represented by enough read depth before making any inferences such as variant calling.
 
 ```
+<<<<<<< HEAD
 java -jar /scratch/micro612w21_class_root/micro612w21_class/shared/bin/picard-tools-1.130/picard.jar CollectWgsMetrics R=KPNIH1.fasta I=PCMP_H326__varcall_result/Step5_variantcalling/PCMP_H326__aln_marked.bam O=WgsMetrics.txt
+=======
+picard CollectWgsMetrics R=KPNIH1.fasta I=PCMP_H326__varcall_result/Step5_variantcalling/PCMP_H326__aln_marked.bam O=WgsMetrics.txt
+>>>>>>> 52d7e42228b6b5787ccc5588c485001b4a8754e8
 
 ```
 
@@ -832,13 +972,13 @@ grep -v '#' WgsMetrics.txt | cut -f2 | head -n3
 > Question: Percentage of bases that attained at least 5X sequence coverage.
 
 ```
-grep -v '#' WgsMetrics.txt | cut -f13 | head -n3
+grep -v '#' WgsMetrics.txt | cut -f15 | head -n3
 ```
 
 > Question: Percentage of bases that had siginificantly high coverage. Regions with unusually high depth sometimes indicate either repetitive regions or PCR amplification bias.
 
 ```
-grep -v '#' WgsMetrics.txt | cut -f25 | head -n3
+grep -v '#' WgsMetrics.txt | cut -f27 | head -n3
 ```
 
 <!--
@@ -849,7 +989,11 @@ qualimap bamqc -bam Rush_KPC_266__aln_sort.bam -outdir ./ -outfile Rush_KPC_266_
 ```
 Lets get this pdf report onto our local system and check the chromosome stats table, mapping quality and coverage across the entire reference genome.
 ```
+<<<<<<< HEAD
 scp username@flux-xfer.arc-ts.umich.edu:/scratch/micro612w21_class_root/micro612w21_class/username/day1pm/Rush_KPC_266_varcall_result/Rush_KPC_266__report.pdf /path-to-local-directory/
+=======
+scp username@greatlakes-xfer.arc-ts.umich.edu:/scratch/micro612w21_class_root/micro612w21_class/username/day1pm/Rush_KPC_266_varcall_result/Rush_KPC_266__report.pdf /path-to-local-directory/
+>>>>>>> 52d7e42228b6b5787ccc5588c485001b4a8754e8
 ```
 -->
 
@@ -875,11 +1019,11 @@ We will be using [IGV](http://software.broadinstitute.org/software/igv/) (Integr
 
 Note: This IGV exercise requires an annotated vcf file, so make sure you have completed snpeff exercise successfully.
 
-Let's make a seperate folder (make sure you are in the `day1pm` folder) for the files that we need for visualization and copy it to that folder:
+Let's make a seperate folder (make sure you are in the `day1pm/variant_calling` folder) for the files that we need for visualization and copy it to that folder:
 
 ```
 d1a 
-
+cd variant_calling
 mkdir IGV_files
 
 cp KPNIH1.fasta KPNIH1.gb PCMP_H326__varcall_result/*/PCMP_H326__aln_marked.bam* PCMP_H326__varcall_result/*/PCMP_H326__filter_gatk_ann.vcf.gz* IGV_files/
@@ -890,7 +1034,11 @@ Open a new terminal and run the scp command or cyberduck to get these files to y
 
 ```
 
+<<<<<<< HEAD
 scp -r username@flux-xfer.arc-ts.umich.edu:/scratch/micro612w21_class_root/micro612w21_class/username/day1pm/PCMP_H326__varcall_result/IGV_files/ /path-to-local-directory/
+=======
+scp -r username@greatlakes-xfer.arc-ts.umich.edu:/scratch/micro612w21_class_root/micro612w21_class/username/day1pm/PCMP_H326__varcall_result/IGV_files/ /path-to-local-directory/
+>>>>>>> 52d7e42228b6b5787ccc5588c485001b4a8754e8
 
 #You can use ~/Desktop/ as your local directory path
 ```
@@ -909,7 +1057,7 @@ Load the following files (each is a separate panel or 'track'):
   
 By default, the whole genome is shown:
 
-![alt tag](https://github.com/alipirani88/Comparative_Genomics/blob/master/_img/day1pm/igv_zoomed_out.png)
+![alt tag](https://github.com/alipirani88/Comparative_Genomics/blob/master/_img/day1_after/igv_zoomed_out.png)
   
 Using the plus sign in the top right corner of the window, zoom in by clicking 3 times
 - You should see grey bars in the vcf track and blue bars in the fastq track, both showing variant positions
@@ -917,7 +1065,7 @@ Using the plus sign in the top right corner of the window, zoom in by clicking 3
 - Light grey and light blue indicate homozygous variants, while dark grey and dark blue indicate heterozygous variants
 - You can navigate to different sections of the genome by moving the red bar at the top
   
-![alt tag](https://github.com/alipirani88/Comparative_Genomics/blob/master/_img/day1pm/igv_zoomed_in1.png)
+![alt tag](https://github.com/alipirani88/Comparative_Genomics/blob/master/_img/day1_after/igv_zoomed_in1.png)
 
 Zoom in ~5 more times until you see reads appear in the bottom part of the window
   - You should see coverage and reads mapped in bottom half of the window
@@ -926,15 +1074,15 @@ Zoom in ~5 more times until you see reads appear in the bottom part of the windo
   - You can now also see distinct genes in the genbank annotation track
   - You can hover over a read to get more information about it
   
-![alt tag](https://github.com/alipirani88/Comparative_Genomics/blob/master/_img/day1pm/igv_zoomed_in2.png)
+![alt tag](https://github.com/alipirani88/Comparative_Genomics/blob/master/_img/day1_after/igv_zoomed_in2.png)
   
 To see all of the reads, you can click the square with the arrows pointing to each corner, found in the top-middle-right of the window:
 
-![alt tag](https://github.com/alipirani88/Comparative_Genomics/blob/master/_img/day1pm/igv_zoomed_in3.png)
+![alt tag](https://github.com/alipirani88/Comparative_Genomics/blob/master/_img/day1_after/igv_zoomed_in3.png)
 
 If you zoom in all the way, you can see the nucleotide sequence at the bottom of the screen as well as nucleotide variants in the reads:
 
-![alt tag](https://github.com/alipirani88/Comparative_Genomics/blob/master/_img/day1pm/igv_zoomed_in4.png)
+![alt tag](https://github.com/alipirani88/Comparative_Genomics/blob/master/_img/day1_after/igv_zoomed_in4.png)
 
 Now that you know the basics of how to use IGV, let's navigate to the mgrB gene to look at mutations that might make this sample resistant to colistin. 
 - In the top middle bar of the window, type in gi|661922017|gb|CP008827.1|:3,359,811-3,360,323
@@ -942,7 +1090,7 @@ Now that you know the basics of how to use IGV, let's navigate to the mgrB gene 
 - What is the nucleotide of the SNP in the sample? The amino acid change? 
 - Do you think this variant might be the cause of colistin resistance? Why or why not?
 
-![alt tag](https://github.com/alipirani88/Comparative_Genomics/blob/master/_img/day1pm/igv_mgrb.png)
+![alt tag](https://github.com/alipirani88/Comparative_Genomics/blob/master/_img/day1_after/igv_mgrb.png)
 
 
 Now let's look an example of a heterozygous variant - variant positions where more than one allele (variant) with sufficiently high read depth are observed. 
@@ -953,35 +1101,55 @@ Now let's look an example of a heterozygous variant - variant positions where mo
 - Why do you think this region contains many heterozygous variants and a higher read coverage than the rest of the genome?
 - You can also see that there are some places with no reads and no coverage. What does this mean?
 
-![alt tag](https://github.com/alipirani88/Comparative_Genomics/blob/master/_img/day1pm/igv_het.png)
+![alt tag](https://github.com/alipirani88/Comparative_Genomics/blob/master/_img/day1_after/igv_het.png)
 
 You can inspect these type of HET variants later for any gene duplication or copy number analysis (by extracting variant positions with high FQ values). Addition of these details will give a better resolution while inferring phylogenetic trees.
 
 You can refer to the [IGV User Guide](http://software.broadinstitute.org/software/igv/userguide) for more information about how to use IGV. 
 
-[[back to top]](https://github.com/alipirani88/Comparative_Genomics/blob/master/day1pmnoon/README.md)
+[[back to top]](https://github.com/alipirani88/Comparative_Genomics/blob/master/day1_after/README.md)
 [[HOME]](https://github.com/alipirani88/Comparative_Genomics/blob/master/README.md)
 
 
-Exercise – Daptomycin resistance in VRE
----------------------------------------
+Exercise: Daptomycin resistance in VRE
+--------------------------------------
 
-Today we ran a variant calling pipeline for a colistin resistant isolate against a susceptible reference. In that case the susceptible reference genome was somewhat arbitrarily selected, in that it had no epidemiologic relationship to the resistant isolate. This worked out, because we had an idea of what gene the resistance mutation should be in, and we were able to fish it out from the relatively large number of differences. In this exercise we will take a different approach of comparing our resistant isolate to a susceptible isolate from the same patient. In particular, these samples both come from a patient infected with VRE before and after treatment with daptomycin. The first sample was the patient’s initial sample and is susceptible to daptomycin, and the second was after daptomycin resistance emerged during treatment. Your goal is to map reads from the resistant genome (VRE_daptoR)  to the susceptible reference (VRE_daptoS_ref_strain.fa) and search for variants that may be associated with resistance. To accomplish this you will run the programs from this session to generate filtered variant files (VCF), and then explore these variants in IGV to see what genes they are in (we have provided you with a gff file with gene annotations that can be loaded into IGV - VRE_daptoS_gene_annot.gff3). To help with your interpretation, see if you see any genes hit that were reported in this paper, which was the first to identify putative daptomycin resistance loci (hint: non-coding variants can be functional, so make sure you look at what genes are downstream of inter-genic variants). 
+Today we ran a variant calling pipeline for a colistin resistant isolate against a susceptible reference. In that case the susceptible reference genome was somewhat arbitrarily selected, in that it had no epidemiologic relationship to the resistant isolate. This worked out, because we had an idea of what gene the resistance mutation should be in, and we were able to fish it out from the relatively large number of differences. In this exercise we will take a different approach of comparing our resistant isolate to a susceptible isolate from the same patient. In particular, these samples both come from a patient infected with VRE before and after treatment with daptomycin. The first sample was the patient’s initial sample and is susceptible to daptomycin, and the second was after daptomycin resistance emerged during treatment. Your goal is to map reads from the resistant genome (VRE_daptoR)  to the susceptible reference (VRE_daptoS_ref_strain.fa) and search for variants that may be associated with resistance. To accomplish this you will run the programs from this session to generate filtered variant files (VCF), and then explore these variants in IGV to see what genes they are in (we have provided you with a gff file with gene annotations that can be loaded into IGV - VRE_daptoS_gene_annot.gff3). To help with your interpretation, see if you see any genes hit that were reported in this paper - cardiolipin synthases, which was the first to identify putative daptomycin resistance loci (hint: non-coding variants can be functional, so make sure you look at what genes are downstream of inter-genic variants). 
 
 Your steps should be:
 
-1) Create a PBS script to run the shell script in the directory and submit to cluster
+1) Load micro612 environment.
 
-2) Load files into IGV and examine annotations of genes in or around variants in filtered vcf (*note snpEff annotation should be skipped because our reference is not in the database)
+2) Create a SLURM script to run the shell script in VRE_dapto_resistance directory and submit to cluster. Read comments in variant_call.sbat for assistance.
 
-Exercise – Colistin resistance in Acinetobacter
------------------------------------------------
+3) Once the job completes, Make sure you bgzip and tabix index your vcf files (in folder Step6_variantfilteraion) for IGV visualization since it is not included in variant calling shell script. (*note snpEff annotation should be skipped because our reference is not in the database)
+
+Wait for this variant call job to finish before you proceed to next exercise.
+
+4) Examine onlysnp vcf file and check how many high quality SNPs we end up with.
+
+5) Load files into IGV and examine annotations of variants in or around cardiolipin synthases in filtered vcf. Use VRE_daptoS_gene_annot.gff3, VRE_daptoS_ref_strain.fasta, relevant bam and vcf files for IGV (*note snpEff annotation should be skipped because our reference is not in the database)
+
+Exercise: Colistin resistance in Acinetobacter
+----------------------------------------------
 
 In the second exercise we will try and find a mutation that is in a colistin resistant Acinetobacter isolate from a patient, but not in a colistin susceptible isolate from the same patient. In this case, it turned out that despite being from the same patient, the resistant and susceptible genomes are quite different. Therefore, we will focus on differences in a known resistance gene (pmrB). Your task is to run the variant calling and annotation pipelines for SRR7591081 (colR) and SRR6513781 (colS) against the ACICU reference genome (ACICU.fasta). You will then look for pmrB mutations that are in the resistant strain, that are not in the susceptible one. Did the mutation you found match the one from the [paper](https://aac.asm.org/content/early/2019/01/04/AAC.01586-18.abstract) i.e patient 1.
 
 Your steps should be:
 
-1) Create two PBS scripts comparing your colR and colS genomes to the reference genomes and submit to cluster
-2) Perform variant annotation against the ACICU reference genome with snpEff
-3) Create parsed annotated variant matrix
-4) Determine if colR has a pmrB mutation that the colS isolate does not, and compare it to the mutation found in the paper
+1) Load the conda environment.
+2) Create two SLURM scripts comparing your colR and colS genomes to the reference genomes and submit to cluster
+3) Once the job completes, Make sure you bgzip and tabix index your vcf files (in folder Step6_variantfilteraion) for IGV visualization since it is not included in variant calling shell script.
+4) Perform variant annotation against the ACICU reference genome with snpEff. snpEff already has prebuilt files built for our reference genome ACICU.fasta. We will use this internal ACICU database while runniung snpEff.
+
+To find out if we have our reference genome database available, try searching it with - 
+
+```
+snpEff databases | grep 'acicu'
+```
+
+In the STDOUT results, you will find the name of ACICU internal database - Acinetobacter_baumannii_acicu which should be used your database name argument in snpEff command. For example, earlier we used KPNIH1 as our database to annotate our vcf. For this exercise, yopu would be using Acinetobacter_baumannii_acicu as your database name.
+
+
+5) Create parsed annotated variant matrix using the parse_snpEff.py script that we used in the earlier example.
+6) Determine if colR has a pmrB mutation that the colS isolate does not, and compare it to the mutation found in the paper

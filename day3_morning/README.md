@@ -4,6 +4,8 @@ Day 3 Morning
 
 On day 1, we ran through a pipeline to map reads against a reference genome and call variants, but didn’t do much with the variants we identified. Among the most common analyses to perform on a set of variants is to construct phylogenetic trees. Here we will explore different tools for generating and visualizing phylogenetic trees, and also see how recombination can distort phylogenetic signal.
 
+![phylo](phylo.png)
+
 For the first several exercises, we will use the A. baumannii genomes that we worked with yesterday afternoon. 
 The backstory on these genomes is that Abau_A, Abau_B and Abau_C are representatives of three clones (as defined by pulsed-field gel electrophoresis - a low-resolution typing method) that were circulating in our hospital. 
 
@@ -36,8 +38,9 @@ Perform whole genome alignment with [Mauve](http://darlinglab.org/mauve/mauve.ht
 
 An alternative approach for identification of variants among genomes is to perform whole genome alignments of assemblies. If the original short read data is unavailable, this might be the only approach available to you. Typically, these programs don’t scale well to large numbers of genomes (e.g. > 100), but they are worth being familiar with. We will use the tool mauve for constructing whole genome alignments of our five A. baumannii genomes.
 
-> ***i. Perform mauve alignment and transfer xmfa back to flux***
+> ***i. Perform mauve alignment and transfer xmfa back to great lakes***
 
+<!---
 Use cyberduck/scp to get genomes folder Abau_genomes onto your laptop
 
 ```
@@ -51,7 +54,11 @@ cd Abau_mauve
 
 - Now copy Abau_genomes folder residing in your day3am folder using scp or cyberduck:
 
+<<<<<<< HEAD
 scp -r username@flux-xfer.arc-ts.umich.edu:/scratch/micro612w21_class_root/micro612w21_class/username/day3am/Abau_genomes ./
+=======
+scp -r username@greatlakes-xfer.arc-ts.umich.edu:/scratch/micro612w21_class_root/micro612w21_class/username/day3am/Abau_genomes ./
+>>>>>>> 52d7e42228b6b5787ccc5588c485001b4a8754e8
 
 ```
 
@@ -68,25 +75,46 @@ vi. Wait for Mauve to finish and explore the graphical interface
 
 ```
 
-Use cyberduck or scp to transfer your alignment back to flux for some processing
+Use cyberduck or scp to transfer your alignment back to great lakes for some processing
 
 ```
 
+<<<<<<< HEAD
 scp ~/Desktop/Abau_mauve/mauve_ECII_outgroup username@flux-xfer.arc-ts.umich.edu:/scratch/micro612w21_class_root/micro612w21_class/username/day3am 
+=======
+scp ~/Desktop/Abau_mauve/mauve_ECII_outgroup username@greatlakes-xfer.arc-ts.umich.edu:/scratch/micro612w21_class_root/micro612w21_class/username/day3am 
 
 ```
- 
+-->
+>>>>>>> 52d7e42228b6b5787ccc5588c485001b4a8754e8
+
+```
+# Change directory to Abau_genomes under day3am that contains input fasta files for alignment
+cd day3am/Abau_genomes/
+
+# Add command line mauve to your PATH variable
+export PATH=/scratch/micro612w21_class_root/micro612w21_class/shared/bin/mauve/linux-x64/:$PATH
+
+progressiveMauve --output=mauve_ECII_outgroup ACICU_genome.fasta AbauA_genome.fasta AbauB_genome.fasta AbauC_genome.fasta Abau_AB0057_genome.fa
+```
+
 > ***ii. Convert alignment to fasta format***
 
 Mauve produces alignments in .xmfa format (use less to see what this looks like), which is not compatible with other programs we want to use. We will use a custom script convert_msa_format.pl to change the alignment format to fasta format
 
 
 ```
-Now run these command in day3am folder on flux:
+# Now run these command in day3am folder on great lakes:
 
-module load bioperl
+module load Bioinformatics
 
-perl convert_msa_format.pl -i mauve_ECII_outgroup -o mauve_ECII_outgroup.fasta -f fasta -c
+module load bioperl/1.7.2
+
+conda activate micro612
+
+perl ../convert_msa_format.pl -i mauve_ECII_outgroup -o mauve_ECII_outgroup.fasta -f fasta -c
+
+sed -i 's/.fa.*//g' mauve_ECII_outgroup.fasta 
 
 ```
 
@@ -106,7 +134,11 @@ Note that ape has a ton of useful functions for more sophisticated phylogenetic 
 cd ~/Desktop/Abau_mauve
 
 
+<<<<<<< HEAD
 scp username@flux-xfer.arc-ts.umich.edu:/scratch/micro612w21_class_root/micro612w21_class/username/day3am/mauve_ECII_outgroup.fasta ./
+=======
+scp username@greatlakes-xfer.arc-ts.umich.edu:/scratch/micro612w21_class_root/micro612w21_class/username/day3am/Abau_genomes/mauve_ECII_outgroup.fasta ./
+>>>>>>> 52d7e42228b6b5787ccc5588c485001b4a8754e8
 
 ```
 
@@ -241,7 +273,7 @@ Now that we know there is recombination, we know that we need to filter out the 
 
 > ***i. Run gubbins on your fasta alignment***
 
-Go back on flux and load modules required by gubbins
+Go back on great lakes and load modules required by gubbins
 
 <!---
 Older version:
@@ -250,28 +282,32 @@ module load python/2.7.3 biopython dendropy reportlab fasttree RAxML fastml/gub 
 
 ```
 
-module load bioperl python-anaconda2/201607 biopython dendropy reportlab fasttree RAxML fastml/gub gubbins
+module load Bioinformatics
+
+module load gubbins/2.3.1
 
 ```
 
 Run gubbins on your fasta formatted alignment
 
 ```
+<<<<<<< HEAD
 d3m
 
 #or
 
 cd /scratch/micro612w21_class_root/micro612w21_class/username/day3am
+=======
+cd /scratch/micro612w21_class_root/micro612w21_class/username/day3am/Abau_genomes
+>>>>>>> 52d7e42228b6b5787ccc5588c485001b4a8754e8
 
-sed -i 's/.fa.*//g' mauve_ECII_outgroup.fasta
-
-run_gubbins.py -v -f 50 -o Abau_AB0057_genome mauve_ECII_outgroup.fasta
+run_gubbins -v -f 50 -o Abau_AB0057_genome mauve_ECII_outgroup.fasta
 
 ```
 
 > ***ii. Create gubbins output figure***
 
-Gubbins produces a series of output files, some of which can be run through another program to produce a visual display of filtered recombinant regions. Run the gubbins_drawer.py script to create a pdf visualization of recombinant regions. 
+Gubbins produces a series of output files, some of which can be run through another program to produce a visual display of filtered recombinant regions. Run the gubbins_drawer script to create a pdf visualization of recombinant regions. 
 
 The inputs are: 
 
@@ -283,7 +319,7 @@ The inputs are:
 
 ```
 
-gubbins_drawer.py -t mauve_ECII_outgroup.final_tree.tre -o mauve_ECII_outgroup.recombination.pdf mauve_ECII_outgroup.recombination_predictions.embl
+gubbins_drawer mauve_ECII_outgroup.final_tree.tre mauve_ECII_outgroup.recombination_predictions.embl -o mauve_ECII_outgroup.recombination.pdf
 
 ```
 > ***iii. Download and view gubbins figure and filtered tree***
@@ -294,8 +330,13 @@ Use cyberduck or scp to get gubbins output files into Abau_mauve on your local s
 
 cd ~/Desktop/Abau_mauve
 
+<<<<<<< HEAD
 scp username@flux-xfer.arc-ts.umich.edu:/scratch/micro612w21_class_root/micro612w21_class/username/day3am/mauve_ECII_outgroup.recombination.pdf  ./
 scp username@flux-xfer.arc-ts.umich.edu:/scratch/micro612w21_class_root/micro612w21_class/username/day3am/mauve_ECII_outgroup.final_tree.tre  ./
+=======
+scp username@greatlakes-xfer.arc-ts.umich.edu:/scratch/micro612w21_class_root/micro612w21_class/username/day3am/Abau_genomes/mauve_ECII_outgroup.recombination.pdf  ./
+scp username@greatlakes-xfer.arc-ts.umich.edu:/scratch/micro612w21_class_root/micro612w21_class/username/day3am/Abau_genomes/mauve_ECII_outgroup.final_tree.tre  ./
+>>>>>>> 52d7e42228b6b5787ccc5588c485001b4a8754e8
 
 ```
 
@@ -337,7 +378,7 @@ Overlay metadata on your tree using R
 
 For the final exercise we will use a different dataset, composed of USA300 methicillin-resistant Staphylococcus aureus genomes. USA300 is a strain of growing concern, as it has been observed to cause infections in both hospitals and in otherwise healthy individuals in the community. An open question is whether there are sub-clades of USA300 in the hospital and the community, or if they are all the same. Here you will create an annotated phylogenetic tree of strains from the community and the hospital, to discern if these form distinct clusters.
 
-> ***i. Download MRSA genome alignment from flux***
+> ***i. Download MRSA genome alignment from great lakes***
 
 Use cyberduck or scp to get genomes onto your laptop
 
@@ -347,8 +388,13 @@ cd ~/Desktop (or wherever your desktop is)
 mkdir MRSA_genomes 
 cd MRSA_genomes
 
+<<<<<<< HEAD
 scp username@flux-xfer.arc-ts.umich.edu:/scratch/micro612w21_class_root/micro612w21_class/username/day3am/2016-03-09_KP_BSI_USA300.fa  ./
 scp username@flux-xfer.arc-ts.umich.edu:/scratch/micro612w21_class_root/micro612w21_class/username/day3am/HA_vs_CA  ./
+=======
+scp username@greatlakes-xfer.arc-ts.umich.edu:/scratch/micro612w21_class_root/micro612w21_class/username/day3am/2016-03-09_KP_BSI_USA300.fa  ./
+scp username@greatlakes-xfer.arc-ts.umich.edu:/scratch/micro612w21_class_root/micro612w21_class/username/day3am/HA_vs_CA  ./
+>>>>>>> 52d7e42228b6b5787ccc5588c485001b4a8754e8
 
 
 ```
@@ -404,9 +450,9 @@ mrsa_msa_var = mrsa_msa[, mrsa_var_pos]
 dna_dist = dist.dna(mrsa_msa_var, model = 'N', as.matrix = TRUE)
 ```
 
-Finally, we can use the distance matrix to construct a neighbor joining tree using the function NJ()
+Finally, we can use the distance matrix to construct a neighbor joining tree using the function nj()
 ```
-NJ_tree = NJ(dna_dist) 
+NJ_tree = nj(dna_dist) 
 ```
 
 We can look at our tree using plot()
@@ -478,11 +524,20 @@ metadata = read.table('HA_vs_CA', header = TRUE, stringsAsFactors = FALSE)
 
 ```
 
-Next, we will create our isolate legend and assign colors to the legend. 
+Next, let's clean up the tree tip label names to match the metadata IDs, and then drop the tree tips we don't have metadata for. 
+```
+NJ_tree$tip.label = gsub('_R.*','',NJ_tree$tip.label)
+NJ_tree = drop.tip(NJ_tree, setdiff(NJ_tree$tip.label, metadata$ID))
 
 ```
-isolate_legend = structure(metadata[,2], names = metadata[,1])
-isolate_colors = structure(c('red', 'blue'), names = sort(unique(isolate_legend)))
+
+Next, we will create our isolate legend and assign colors to the legend. It's important that the labels are in the same order as the tree tips. So, we will use an sapply statement (which is like a for loop) to iterate through the tree tip labels, and figure out the label for each tree tip id. 
+
+```
+isolate_legend = sapply(NJ_tree$tip.label, function(id){
+  metadata$SOURCE[metadata$ID == id]
+})
+isolate_colors = structure(c('blue', 'red'), names = sort(unique(isolate_legend)))
 
 ```
 

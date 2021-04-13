@@ -68,9 +68,9 @@ The fastq files are located in:
 
 Rather than copying these to your directory, analyze the files directly in that directory, so everyone doesn’t have to copy 25G to their home directories. 
 
-Copy and paste commands to run fastqc.sh as PBS script, into a PBS script and submit this PBS script as a job to the flux.
+Copy and paste commands to run fastqc.sh as slurm script, into a slurm script and submit this slurm script as a job to great lakes.
 
-Your PBS script wil contain the following command after the PBS preamble stuff(Make sure your $PBS_O_WORKDIR is set inside the pbs script):
+Your slurm script wil contain the following command after the slurm preamble stuff(Make sure your $SLURM_SUBMIT_DIR is set inside the slurm script):
 
 ```bash fastqc.sh /scratch/micro612w21_class_root/micro612w21_class/shared/data/day3pm_fastq/ ```
 
@@ -78,6 +78,40 @@ Your PBS script wil contain the following command after the PBS preamble stuff(M
 > ***ii. Examine output of FastQC to verify that all samples are OK***
 
 Check the multiqc report of your fastq files.
+
+Run ARIBA CARD and MLST typing on day3pm_fastq samples
+------------------------------------------------------
+[[back to top]](https://github.com/alipirani88/Comparative_Genomics/blob/master/day3pmnoon/README.md)
+[[HOME]](https://github.com/alipirani88/Comparative_Genomics/blob/master/README.md)
+
+On Day 2 afternoon, you ran ARIBA to perform sequence typing of a single genome using ARIBA tool. However, a typical public epidimiology project will include many genomes sampled from different sites and you will want to sequence type each of these samples to study their genetic diversity and determine if these samples contain antibiotic resistance genes. 
+
+Since both MLST typing and CARD resistance gene detection takes a while to run on these samples, We already processed them and have placed the results in day3pm folder.
+
+> i. Explore MLST typing results. 
+
+Try exploring mlst.sh and mlst.sbat scripts that were used to generate these results and try to understand the implementation of for loop in running them sequentially.
+
+You can find the processed MLST results for day3pm_fastq samples in this folder:
+
+/scratch/micro612w21_class_root/micro612w21_class/shared/data/day3pm/MLST_results
+
+Run summarize_mlst.sh and check the dominant sequence type that these samples belong to.
+
+> ii. Summarize ARIBA CARD results
+
+Try exploring card.sh and card.sbat scripts that were used to generate these results and try to understand the implementation of for loop in running them sequentially.
+
+Use Ariba's summary function and summarize ARIBA CARD results that are placed in:
+
+/scratch/micro612w21_class_root/micro612w21_class/shared/data/day3pm/CARD_results
+
+> iii. Drag and drop Phandango associated files onto the Phandango website and check what type of actibiotic resistance genes are present in these genomes?
+
+> iv. Explore full ARIBA matrix in R and plot a heatmap to visualize the presence/absence of various resistancve genes.
+
+how many of these samples contain carbapenam resistant gene - KPC?
+
 
 Examine results of [SPANDx](http://www.ncbi.nlm.nih.gov/pubmed/25201145) pipeline
 ---------------------------
@@ -121,7 +155,7 @@ This summary file is:
 Use cyberduck/scp to download this file and view in excel
 
 - View SPANDx manual for interpretation of different columns which can be found [here](https://sourceforge.net/projects/spandx/files/SPANDx%20Manual_v3.1.pdf/download)
-- Back on Flux, use grep to pull SNPs that have HIGH impact
+- Back on great lakes, use grep to pull SNPs that have HIGH impact
 - What types of mutations are predicted to have “HIGH” impact?
 - How many genomes do these HIGH impact mutations tend to be present in? How do you interpret this?
 
@@ -165,7 +199,6 @@ This file Outputs/Comparative/Ortho_SNP_matrix.fasta should now exist
 
 Download Ortho_SNP_matrix.fasta to your home computer
 Read the fasta file into R, create a distance matrix, and make a neighbor joining tree. Make sure you load in the necessary packages! 
-Save tree for later analysis using write.tree()
 
 ```
 
@@ -173,6 +206,34 @@ Phylogenetic tree annotation and visualization
 ----------------------------------------------
 [[back to top]](https://github.com/alipirani88/Comparative_Genomics/blob/master/day3pmnoon/README.md)
 [[HOME]](https://github.com/alipirani88/Comparative_Genomics/blob/master/README.md)
+
+Follow along with the Day 3 morning exercise where we annotated a MRSA tree with CA vs. HA metadata to overlay facility information on your _Klebsiella_ neighbor-joining tree you just made. 
+
+1. Read in annotation file called Rush_KPC_facility_codes.txt to R. This file is comma delimited. 
+
+2. Drop tip labels from the tree that are not in the annotation file. Hint use ```setdiff()``` and ```drop.tip()```
+
+3. Midpoint root the tree for visualization purposes using the function ```midpoint.root()```
+
+```
+my_tree = midpoint.root(my_tree) #where my_tree is what you named your neighbor-joining tree above 
+
+```
+
+4. Use ```sapply()``` to make your isolate_legend in the same order as your ```my_tree$tip.labels```. 
+
+5. We provided color hex codes in Rush_KPC_facility_codes.txt so everyone's facilities are labeled with the same color. Use the following commands to extract the colors from the metadata and create your legend colors. 
+```
+colors = metadata[,c('Color', 'Facility')] # metadata = whatever your variable from reading in the annotation file from step 1 is called 
+colors = colors[!duplicated(metadata[,c('Color', 'Facility')]),]
+isolate_colors = structure(colors[,'Color'], names = colors[,'Facility'])
+```
+
+6. Use ```plot()```, ```tiplabels()``` and ```legend()``` to plot your tree with metadata overlayed as we did previously. 
+
+To visualize the data on the tree better, you can use the argument ```show.tip.label = FALSE``` in ```plot()``` to remove the tree tip labels from the plot. You can also play around with the tree layout type  (e.g. phylogram, fan, etc) using the argument ```type```. You can change the placement of the colored tip labels by changing the number value of the parameter ```adj``` in ```tiplabels()```.  
+
+<!---
 
 > ***i. Load the neighbor-joining tree into iTOL***
 
@@ -186,7 +247,9 @@ Note that because the out-group is so distantly related it is difficult to make 
 - Click on the extended branch leading to where KPNIH1 was, go to the “tree structure” menu and click “collapse branch”
 
 > ***ii. Load the annotation file ‘Rush_KPC_facility_codes_iTOL.txt’ to view the facility of isolation, play with tree visualization properties to understand how isolates group by facility, Circular vs. normal tree layout, Bootstrap values, Ignoring branch lengths***
+-->
 
+After you've overlayed facility metadata on your tree, answer the following questions: 
 ```
 
 Which facilities appear to have a lot of intra-facility transmission based on grouping of isolates from the same facility? 
@@ -194,6 +257,7 @@ Which patient’s infections might have originated from the blue facility?
 
 ```
 
+<!---
 Assessment of genomic deletions
 -------------------------------
 [[back to top]](https://github.com/alipirani88/Comparative_Genomics/blob/master/day3pmnoon/README.md)
@@ -240,3 +304,4 @@ iii. Explore genomic deletion in more detail with ACT
 What genes appear to have been lost?
 
 ```
+-->
