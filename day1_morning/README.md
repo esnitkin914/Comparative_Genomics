@@ -2,7 +2,14 @@ Day 1 Morning
 =============
 [[HOME]](https://github.com/alipirani88/Comparative_Genomics/blob/master/README.md)
 
-This morning we will learn how to set up our unix and conda environment which is a necessity when it comes to working on command line. Setting up an environment will make our life easier and running commands more enjoyable. We will brush up on few unix programs that some of you learned in Data Carpentry workshop and see how they can be employed for accessing and parsing omics datasets. We will also learn how for loops and awk can be employed to parse and extract complex information from common bioinformatics file formats. At the end of the session, an R exercise will give you an overview as to how you can parse and visualize omics datasets. 
+Goals
+-----
+
+- This morning we will learn how to set up our unix and conda environment which is a necessity when it comes to working on command line. 
+- Setting up an environment will make our life easier and running commands more enjoyable. 
+- We will brush up on few unix programs that some of you learned in Data Carpentry workshop and see how they can be employed for accessing and parsing omics datasets. 
+- We will also learn how for loops and awk can be employed to parse and extract complex information from common bioinformatics file formats. 
+- At the end of the session, an R exercise will give you an overview as to how you can parse and visualize omics datasets. 
 
 
 Installing and setting up Cyberduck for file transfer
@@ -14,7 +21,7 @@ During workshop, we will transfer different output files from great lakes to you
 
 > ***2. Double-click on the downloaded zip file to unzip it and double click cyberduck icon.***
 
-> ***3. Type sftp://greatlakes-xfer.arc-ts.umich.edu in quickconnect bar, press enter and enter your great lakes username and password.***
+> ***3. Type sftp://greatlakes-xfer.arc-ts.umich.edu in quickconnect bar(or click on Open Connection button on top left corner), press enter and enter your great lakes username and password.***
 
 > ***4. This will take you to your great lakes home directory /home/username. Select "Go" from tool bar at the top then select "Go to folder" and enter workshop home directory path: /scratch/micro612w21_class_root/micro612w21_class/***
 
@@ -77,16 +84,17 @@ cp ~/.bashrc ~/bashrc_backup
 #Aliases
 alias islurm='srun --account=micro612w21_class --nodes=1 --ntasks-per-node=1 --mem-per-cpu=1GB --cpus-per-task=1 --time=12:00:00 --pty /bin/bash'
 alias wd='cd /scratch/micro612w21_class_root/micro612w21_class/username/'
-alias d1m='cd /scratch/micro612w21_class_root/micro612w21_class/username/day1am'
-alias d1a='cd /scratch/micro612w21_class_root/micro612w21_class/username/day1pm'
-alias d2m='cd /scratch/micro612w21_class_root/micro612w21_class/username/day2am'
-alias d2a='cd /scratch/micro612w21_class_root/micro612w21_class/username/day2pm'
-alias d3m='cd /scratch/micro612w21_class_root/micro612w21_class/username/day3am'
-alias d3a='cd /scratch/micro612w21_class_root/micro612w21_class/username/day3pm'
+alias d1am='cd /scratch/micro612w21_class_root/micro612w21_class/username/day1am'
+alias d1pm='cd /scratch/micro612w21_class_root/micro612w21_class/username/day1pm'
+alias d2am='cd /scratch/micro612w21_class_root/micro612w21_class/username/day2am'
+alias d2pm='cd /scratch/micro612w21_class_root/micro612w21_class/username/day2pm'
+alias d3am='cd /scratch/micro612w21_class_root/micro612w21_class/username/day3am'
+alias d3pm='cd /scratch/micro612w21_class_root/micro612w21_class/username/day3pm'
 
 
-#Flux Modules
-module load perl-modules
+#Great Lakes Modules
+#module load Bioinformatics
+#module load perl-modules
 
 #Perl Libraries
 export PERL5LIB=/scratch/micro612w21_class_root/micro612w21_class/shared/bin/PAGIT/lib:/scratch/micro612w21_class_root/micro612w21_class/shared/bin/vcftools_0.1.12b/perl:$PERL5LIB
@@ -120,21 +128,6 @@ export PATH=$PATH:/scratch/micro612w21_class_root/micro612w21_class/shared/bin/L
 export PATH=$PATH:/scratch/micro612w21_class_root/micro612w21_class/shared/bin/bowtie2-2.2.6/
 export PATH=$PATH:/scratch/micro612w21_class_root/micro612w21_class/shared/bin/mcl-14-137/src/alien/oxygen/src/
 
-=======
-# Interactive great lakes SLURM node
-alias islurm='srun --account=micro612w21_class --nodes=1 --ntasks-per-node=1 --mem-per-cpu=5GB --cpus-per-task=1 --time=12:00:00 --export=ALL --pty /bin/bash'
-
-# Set up Directory shortcuts
-alias wd='cd /scratch/micro612w21_class_root/micro612w21_class/username/'
-alias d1am='cd /scratch/micro612w21_class_root/micro612w21_class/username/day1am'
-alias d1pm='cd /scratch/micro612w21_class_root/micro612w21_class/username/day1pm'
-alias d2am='cd /scratch/micro612w21_class_root/micro612w21_class/username/day2am'
-alias d2pm='cd /scratch/micro612w21_class_root/micro612w21_class/username/day2pm'
-alias d3am='cd /scratch/micro612w21_class_root/micro612w21_class/username/day3am'
-alias d3pm='cd /scratch/micro612w21_class_root/micro612w21_class/username/day3pm'
-
-# Add tools to PATH
-export PATH=$PATH:/scratch/micro612w21_class_root/micro612w21_class/shared/bin/quast/
 
 ```
 
@@ -174,7 +167,7 @@ You should be in your workshop working directory that is /scratch/micro612w21_cl
 
 > ***v. Set up a conda environment using a YML file***
 
-The YML file required for generating the conda environment is located here:
+The YML file - micro612.yml required for generating the conda environment is located here:
 
 ```
 /scratch/micro612w21_class_root/micro612w21_class/shared/conda_envs/
@@ -527,7 +520,8 @@ Now we're going to play around with a GFF in R. Specifically, we're interested i
 Copy the sample.gff file to your computer using scp or cyberduck:
 
 ```
-scp username@greatlakes-xfer.arc-ts.umich.edu:/nfs/esnitkin/micro612w21_class_root/micro612w21_class/shared/data/day1am/sample.gff ~/Desktop/
+scp username@greatlakes-xfer.arc-ts.umich.edu:/scratch/micro612w21_class_root/micro612w21_class/shared/data/day1am/sample.gff ~/Desktop/
+
 Note: You can use your choice of folder/path to copy the file instead of  “~/Desktop/”
 ```
 
@@ -559,7 +553,7 @@ hist(gene_lengths,
 
 What information do you learn about gene lengths in this genome?
 
-
+<!---
 Plotting genomic coverage in R
 ------------------------------
 
@@ -570,13 +564,13 @@ One such parameter is validating how well your sequencing experiment performed a
 
 The input for this task is a comma-separated file, which contains average sequencing coverage information i.e average number of reads mapped to each 1000 base pairs in reference genome. You can find this input file in your day1am directory by the name, Ecoli_coverage_average_bed.csv
 
-<!---
+
 Let’s copy Ecoli_coverage_average_bed.csv file from flux shared directory to your desktop using ‘
 ’. ‘
 ’ stands for secure copy and is used for securely transferring files between remote host/server(flux) and your local computer system. (Both directions)
 scp username@flux-xfer.arc-ts.umich.edu:/scratch/micro612w21_class_root/micro612w21_class/shared/Ecoli_coverage_average_bed.csv ~/Desktop/
 Note: You can use your choice of folder/path to copy the file instead of  “~/Desktop/”
--->
+
 
 Drag and drop this Ecoli_coverage_average_bed.csv to your local system using cyberduck.
 
@@ -595,6 +589,8 @@ An example plot.ts plot for Ecoli_coverage_average_bed.csv is shown below for yo
 For advance and more beautiful visualization, ggplot2 can be employed to display the same plot. An example ggplot2 plot for Ecoli_coverage_average_bed.csv is shown below for your reference.
 
 ![alt tag](https://github.com/alipirani88/Comparative_Genomics/blob/master/_img/day1aming/plot_2.png)
+
+-->
 
 - Challenge: Now that you know the gene lengths, get the length of the smallest and largest gene. Then get the attribute of the smallest and largest gene. 
 
@@ -640,13 +636,12 @@ We will be using sequencing reads from an Illumina-sequenced *Klebsiella pneumon
 Change directory to the variant calling folder inside day1pm directory and list all the files to search variant_call.sh script.
 
 ```
-<<<<<<< HEAD
-cd /scratch/micro612w21_class_root/micro612w21_class/username/day1pm/
+d1pm
+
+cd variant_calling/
 
 #or
 
-d1a
-=======
 cd /scratch/micro612w21_class_root/micro612w21_class/username/day1pm/variant_calling/
 
 ls variant_call.sh

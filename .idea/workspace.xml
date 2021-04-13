@@ -1,7 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="2cb8308d-7ce8-4120-94ed-2b6a9668ebf1" name="Default" comment="" />
+    <list default="true" id="2cb8308d-7ce8-4120-94ed-2b6a9668ebf1" name="Default" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/day1_morning/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/day1_morning/README.md" afterDir="false" />
+    </list>
     <ignored path="Comparative_Genomics.iws" />
     <ignored path=".idea/workspace.xml" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -65,8 +68,8 @@
         <entry file="file://$PROJECT_DIR$/day1_morning/README.md">
           <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
             <state split_layout="SPLIT">
-              <first_editor relative-caret-position="499">
-                <caret line="558" lean-forward="true" selection-start-line="558" selection-end-line="558" />
+              <first_editor relative-caret-position="544">
+                <caret line="653" column="20" lean-forward="true" selection-start-line="653" selection-end-line="653" selection-end-column="20" />
               </first_editor>
               <second_editor />
             </state>
@@ -373,7 +376,7 @@
     <frame x="0" y="23" width="2560" height="979" extended-state="0" />
     <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.20770453" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.12549643" />
       <window_info anchor="bottom" id="TODO" order="6" />
       <window_info anchor="right" id="R Packages" />
       <window_info anchor="right" id="R Graphics" />
@@ -665,8 +668,8 @@
     <entry file="file://$PROJECT_DIR$/day1_morning/README.md">
       <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
         <state split_layout="SPLIT">
-          <first_editor relative-caret-position="499">
-            <caret line="558" lean-forward="true" selection-start-line="558" selection-end-line="558" />
+          <first_editor relative-caret-position="544">
+            <caret line="653" column="20" lean-forward="true" selection-start-line="653" selection-end-line="653" selection-end-column="20" />
           </first_editor>
           <second_editor />
         </state>
