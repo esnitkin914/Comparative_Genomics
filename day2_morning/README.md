@@ -13,15 +13,15 @@ wd
 
 #or 
 
-cd /scratch/micro612w20_class_root/micro612w20_class/username
+cd /scratch/micro612w21_class_root/micro612w21_class/username
 
-> Note: Check if you are in your home directory(/scratch/micro612w20_class_root/micro612w20_class/username) by executing 'pwd' in terminal. 'pwd' stands for present working directory and it will display the directory you are in.
+> Note: Check if you are in your home directory(/scratch/micro612w21_class_root/micro612w21_class/username) by executing 'pwd' in terminal. 'pwd' stands for present working directory and it will display the directory you are in.
 
 pwd
 
 > Note: Copy files for this morning's exercise in your home directory.
 
-cp -r /scratch/micro612w20_class_root/micro612w20_class/shared/data/day2am ./
+cp -r /scratch/micro612w21_class_root/micro612w21_class/shared/data/day2am ./
 ```
 
 Genome Assembly using [Spades](http://bioinf.spbau.ru/spades) Pipeline
@@ -46,7 +46,7 @@ d2m
 
 #or
 
-cd /scratch/micro612w20_class_root/micro612w20_class/username/day2am
+cd /scratch/micro612w21_class_root/micro612w21_class/username/day2am
 
 > We will create a new directory in day2am to save genome assembly results:
 
@@ -150,7 +150,7 @@ Now to check the example assemblies residing in your day2am folder, run the belo
 quast.py -o quast SRR5244781_contigs.fasta SRR5244821_contigs.fasta
 ```
 
-The command above will generate a report file in /scratch/micro612w20_class_root/micro612w20_class/username/day2am/quast
+The command above will generate a report file in /scratch/micro612w21_class_root/micro612w21_class/username/day2am/quast
 
 > ***ii. Explore quast output***
 
@@ -182,7 +182,7 @@ Download the html report Cdiff_multiqc_report.html from your day2am folder.
 ```
 #Note: Make sure you change 'username' in the below command to your 'uniqname'.
 
-scp username@flux-xfer.arc-ts.umich.edu:/scratch/micro612w20_class_root/micro612w20_class/username/day2am/Cdiff_multiqc_report.html /path-to-local-directory/
+scp username@flux-xfer.arc-ts.umich.edu:/scratch/micro612w21_class_root/micro612w21_class/username/day2am/Cdiff_multiqc_report.html /path-to-local-directory/
 
 ```
 
@@ -201,7 +201,7 @@ d2m
 
 #or
 
-cd /scratch/micro612w20_class_root/micro612w20_class/username/day2am/
+cd /scratch/micro612w21_class_root/micro612w21_class/username/day2am/
 
 cd multiqc_analysis
 
@@ -221,7 +221,7 @@ ls
 
 #transfer this report to your local system and open it in a browser for visual inspection
 
-scp username@flux-xfer.arc-ts.umich.edu:/scratch/micro612w20_class_root/micro612w20_class/username/day2am/workshop_multiqc.html /path-to-local-directory/
+scp username@flux-xfer.arc-ts.umich.edu:/scratch/micro612w21_class_root/micro612w21_class/username/day2am/workshop_multiqc.html /path-to-local-directory/
 
 ```
 
@@ -248,10 +248,10 @@ To do this we need to first align our genome assembly to our reference. We will 
 >i. Align unordered contigs to reference
 Create a BLAST database from your reference genome using the makeblastdb command.
 ```
-> Make sure you are in /scratch/micro612w20_class_root/micro612w20_class/username/day2am directory
+> Make sure you are in /scratch/micro612w21_class_root/micro612w21_class/username/day2am directory
 d2m
 #or
-cd /scratch/micro612w20_class_root/micro612w20_class/username/day2am
+cd /scratch/micro612w21_class_root/micro612w21_class/username/day2am
 makeblastdb -in KPNIH1.fasta -dbtype nucl -out KPNIH1.fasta
 ```
 >ii. Stitch together your contigs into a single sequence
@@ -278,7 +278,7 @@ cp KPNIH.gb KPNIH1.fasta concat_comp.blast sample_266_contigs_concat.fasta ACT_c
 Use scp to get sequences and BLAST alignments onto your laptop 
 ```
 > Note: Make sure you change 'username' in the below command with your 'uniqname'.
-scp -r username@flux-xfer.arc-ts.umich.edu:/scratch/micro612w20_class_root/micro612w20_class/username/day2am/ACT_contig_comparison/ /path-to-local-directory/
+scp -r username@flux-xfer.arc-ts.umich.edu:/scratch/micro612w21_class_root/micro612w21_class/username/day2am/ACT_contig_comparison/ /path-to-local-directory/
 ```
 >iii. Read these Input files in ACT_contig_comparison folder into ACT
 ```
@@ -306,7 +306,7 @@ d2m
 
 #or
 
-cd /scratch/micro612w20_class_root/micro612w20_class/username/day2am/
+cd /scratch/micro612w21_class_root/micro612w21_class/username/day2am/
 ```
 
 Now, we will run abacas using these input parameters: 
@@ -353,7 +353,7 @@ cp FPR3757.gb SRR5244781_contigs_ordered* ACT_contig_comparison/
 ```
 > Dont forget to change username and /path-to-local-ACT_contig_comparison-directory/ in the below command
 
-scp -r username@flux-xfer.arc-ts.umich.edu:/scratch/micro612w20_class_root/micro612w20_class/username/day2am/ACT_contig_comparison/ /path-to-local-directory/
+scp -r username@flux-xfer.arc-ts.umich.edu:/scratch/micro612w21_class_root/micro612w21_class/username/day2am/ACT_contig_comparison/ /path-to-local-directory/
 
 ```
 
@@ -415,7 +415,7 @@ d2m
 
 #or
 
-cd /scratch/micro612w20_class_root/micro612w20_class/username/day2am/
+cd /scratch/micro612w21_class_root/micro612w21_class/username/day2am/
 
 mkdir SRR5244781_prokka 
 

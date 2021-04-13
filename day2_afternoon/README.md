@@ -19,13 +19,13 @@ Execute the following command to copy files for this afternoon’s exercises to 
 
 ```  
 
-cd /scratch/micro612w20_class_root/micro612w20_class/username
+cd /scratch/micro612w21_class_root/micro612w21_class/username
 
 or
 
 wd
 
-cp -r /scratch/micro612w20_class_root/micro612w20_class/shared_data/day2pm/data ./
+cp -r /scratch/micro612w21_class_root/micro612w21_class/shared_data/day2pm/data ./
 
 ```
 
