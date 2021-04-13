@@ -557,7 +557,6 @@ hist(gene_lengths,
      main = '') # no title
 ```
 
-<<<<<<< HEAD
 What information do you learn about gene lengths in this genome?
 
 

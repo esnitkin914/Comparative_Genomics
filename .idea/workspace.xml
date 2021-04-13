@@ -1,16 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="2cb8308d-7ce8-4120-94ed-2b6a9668ebf1" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/Comparative_Genomics.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/Comparative_Genomics.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/day1_afternoon/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/day1_afternoon/README.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/day1_morning/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/day1_morning/README.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/day2_afternoon/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/day2_afternoon/README.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/day2_morning/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/day2_morning/README.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/day3_morning/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/day3_morning/README.md" afterDir="false" />
-    </list>
+    <list default="true" id="2cb8308d-7ce8-4120-94ed-2b6a9668ebf1" name="Default" comment="" />
     <ignored path="Comparative_Genomics.iws" />
     <ignored path=".idea/workspace.xml" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -70,12 +61,12 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="README.md" pinned="false" current-in-tab="false">
+      <file leaf-file-name="README.md" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/day1_morning/README.md">
           <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
             <state split_layout="SPLIT">
-              <first_editor relative-caret-position="252">
-                <caret line="30" column="3" lean-forward="true" selection-start-line="30" selection-start-column="3" selection-end-line="30" selection-end-column="3" />
+              <first_editor relative-caret-position="499">
+                <caret line="558" lean-forward="true" selection-start-line="558" selection-end-line="558" />
               </first_editor>
               <second_editor />
             </state>
@@ -130,7 +121,7 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="README.md" pinned="false" current-in-tab="true">
+      <file leaf-file-name="README.md" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/day3_afternoon/README.md">
           <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
             <state split_layout="SPLIT">
@@ -148,6 +139,7 @@
     <findStrings>
       <find>&gt;&gt;&gt;&gt;</find>
       <find>&gt;&gt;&gt;</find>
+      <find>head</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -165,18 +157,18 @@
         <option value="$PROJECT_DIR$/docs/source/day3_morning.md" />
         <option value="$PROJECT_DIR$/docs/source/index.md" />
         <option value="$PROJECT_DIR$/README.md" />
-        <option value="$PROJECT_DIR$/day1_morning/README.md" />
         <option value="$PROJECT_DIR$/day1_afternoon/README.md" />
         <option value="$PROJECT_DIR$/day2_morning/README.md" />
         <option value="$PROJECT_DIR$/day2_afternoon/README.md" />
         <option value="$PROJECT_DIR$/day3_morning/README.md" />
+        <option value="$PROJECT_DIR$/day1_morning/README.md" />
       </list>
     </option>
   </component>
-  <component name="ProjectFrameBounds" extendedState="6">
+  <component name="ProjectFrameBounds">
     <option name="y" value="23" />
     <option name="width" value="2560" />
-    <option name="height" value="969" />
+    <option name="height" value="979" />
   </component>
   <component name="ProjectView">
     <navigator proportions="" version="1">
@@ -378,7 +370,7 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="0" y="23" width="2560" height="979" extended-state="6" />
+    <frame x="0" y="23" width="2560" height="979" extended-state="0" />
     <editor active="true" />
     <layout>
       <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.20770453" />
@@ -620,16 +612,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/day1_morning/README.md">
-      <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
-        <state split_layout="SPLIT">
-          <first_editor relative-caret-position="252">
-            <caret line="30" column="3" lean-forward="true" selection-start-line="30" selection-start-column="3" selection-end-line="30" selection-end-column="3" />
-          </first_editor>
-          <second_editor />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/day1_afternoon/README.md">
       <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
         <state split_layout="SPLIT">
@@ -675,6 +657,16 @@
         <state split_layout="SPLIT">
           <first_editor relative-caret-position="499">
             <caret line="20" column="26" lean-forward="true" selection-start-line="20" selection-start-column="26" selection-end-line="20" selection-end-column="26" />
+          </first_editor>
+          <second_editor />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/day1_morning/README.md">
+      <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
+        <state split_layout="SPLIT">
+          <first_editor relative-caret-position="499">
+            <caret line="558" lean-forward="true" selection-start-line="558" selection-end-line="558" />
           </first_editor>
           <second_editor />
         </state>
