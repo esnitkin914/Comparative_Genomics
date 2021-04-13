@@ -28,13 +28,7 @@ conda activate micro612
 Navigate to kraken directory placed under day1pm directory.
 
 ```
-
-<<<<<<< HEAD
-ls /scratch/micro612w21_class_root/micro612w21_class/shared/bin/fastq_screen_v0.5.2/data/
-=======
 cd /scratch/micro612w21_class_root/micro612w21_class/username/day1pm/kraken/
->>>>>>> 52d7e42228b6b5787ccc5588c485001b4a8754e8
-
 ```
 
 > ii. Lets run kraken on samples MRSA_CO_HA_473_R1_001.fastq.gz and MRSA_CO_HA_479_R1_001.fastq.gz which were part of the same sequencing library***
@@ -72,10 +66,6 @@ The output of kraken-report is tab-delimited, with one line per taxon. The field
 5. NCBI taxonomy ID
 6. indented scientific name
 
-<<<<<<< HEAD
-cd /scratch/micro612w21_class_root/micro612w21_class/username/day1pm/
-=======
->>>>>>> 52d7e42228b6b5787ccc5588c485001b4a8754e8
 
 ```
 less MRSA_CO_HA_473_kraken_report.txt
@@ -116,11 +106,8 @@ ktUpdateTaxonomy.sh
 Use scp command as shown below or use cyberduck. If you dont the file in cyberduck window, try refreshing it using the refresh button at the top.
 
 ```
-<<<<<<< HEAD
-scp username@flux-xfer.arc-ts.umich.edu:/scratch/micro612w21_class_root/micro612w21_class/username/day1pm/fastq_screen_screen.png /path-to-local-directory/
-=======
+
 scp username@greatlakes-xfer.arc-ts.umich.edu:/scratch/micro612w21_class_root/micro612w21_class/username/day1pm/kraken/*.html /path-to-local-directory/
->>>>>>> 52d7e42228b6b5787ccc5588c485001b4a8754e8
 
 #You can use ~/Desktop/ as your local directory path
 
@@ -165,11 +152,9 @@ You can visualize and assess the quality of data by opening html report in a loc
 > ***v. Download the FastQC html report to your home computer to examine using scp or cyberduck***
 
 ```
-<<<<<<< HEAD
-scp username@flux-xfer.arc-ts.umich.edu:/scratch/micro612w21_class_root/micro612w21_class/username/day1pm/Rush_KPC_266_FastQC_results/before_trimmomatic/*.html /path-to-local-directory/
-=======
+
 scp username@greatlakes-xfer.arc-ts.umich.edu:/scratch/micro612w21_class_root/micro612w21_class/username/day1pm/Rush_KPC_266_FastQC_results/before_trimmomatic/*.html /path-to-local-directory/
->>>>>>> 52d7e42228b6b5787ccc5588c485001b4a8754e8
+
 ```
 
 The analysis in FastQC is broken down into a series of analysis modules. The left hand side of the main interactive display or the top of the HTML report show a summary of the modules which were run, and a quick evaluation of whether the results of the module seem entirely normal (green tick), slightly abnormal (orange triangle) or very unusual (red cross). 
@@ -224,21 +209,17 @@ mkdir Rush_KPC_266_trimmomatic_results
 > ***iii. Try to invoke trimmomatic from command line.***
 
 ```
-<<<<<<< HEAD
-java -jar /scratch/micro612w21_class_root/micro612w21_class/shared/bin/Trimmomatic/trimmomatic-0.33.jar –h
-=======
+
 trimmomatic –h
->>>>>>> 52d7e42228b6b5787ccc5588c485001b4a8754e8
+
 ```
 
 > ***iv. Run the below trimmomatic commands on raw reads.***
 
 ```
-<<<<<<< HEAD
-java -jar /scratch/micro612w21_class_root/micro612w21_class/shared/bin/Trimmomatic/trimmomatic-0.33.jar PE Rush_KPC_266_1_combine.fastq.gz Rush_KPC_266_2_combine.fastq.gz Rush_KPC_266_trimmomatic_results/forward_paired.fq.gz Rush_KPC_266_trimmomatic_results/forward_unpaired.fq.gz Rush_KPC_266_trimmomatic_results/reverse_paired.fq.gz Rush_KPC_266_trimmomatic_results/reverse_unpaired.fq.gz ILLUMINACLIP:/scratch/micro612w21_class_root/micro612w21_class/shared/bin/Trimmomatic/adapters/TruSeq3-PE.fa:2:30:10:8:true SLIDINGWINDOW:4:15 MINLEN:40 HEADCROP:0
-=======
+
 trimmomatic PE Rush_KPC_266_1_combine.fastq.gz Rush_KPC_266_2_combine.fastq.gz Rush_KPC_266_trimmomatic_results/forward_paired.fq.gz Rush_KPC_266_trimmomatic_results/forward_unpaired.fq.gz Rush_KPC_266_trimmomatic_results/reverse_paired.fq.gz Rush_KPC_266_trimmomatic_results/reverse_unpaired.fq.gz ILLUMINACLIP:/scratch/micro612w21_class_root/micro612w21_class/shared/conda_envs/day1pm/share/trimmomatic-0.39-1/adapters/TruSeq3-PE.fa:2:30:10:8:true SLIDINGWINDOW:4:15 MINLEN:40 HEADCROP:0
->>>>>>> 52d7e42228b6b5787ccc5588c485001b4a8754e8
+
 ```
 
 
@@ -263,11 +244,9 @@ fastqc -o Rush_KPC_266_FastQC_results/after_trimmomatic/ Rush_KPC_266_trimmomati
 Get these html reports to your local system.
 
 ```
-<<<<<<< HEAD
-scp username@flux-xfer.arc-ts.umich.edu:/scratch/micro612w21_class_root/micro612w21_class/username/day1pm/Rush_KPC_266_FastQC_results/after_trimmomatic/*.html /path-to-local-directory/
-=======
+
 scp username@greatlakes-xfer.arc-ts.umich.edu:/scratch/micro612w21_class_root/micro612w21_class/username/day1pm/Rush_KPC_266_FastQC_results/after_trimmomatic/*.html /path-to-local-directory/
->>>>>>> 52d7e42228b6b5787ccc5588c485001b4a8754e8
+
 ```
 
 ![alt tag](https://github.com/alipirani88/Comparative_Genomics/blob/master/_img/day1_morning/3.png)
@@ -286,11 +265,9 @@ This doesn't look very bad but you can remove the red cross sign by trimming the
 ```
 mkdir Rush_KPC_266_trimmomatic_results_with_headcrop/
 
-<<<<<<< HEAD
-time java -jar /scratch/micro612w21_class_root/micro612w21_class/shared/bin/Trimmomatic/trimmomatic-0.33.jar PE Rush_KPC_266_1_combine.fastq.gz Rush_KPC_266_2_combine.fastq.gz Rush_KPC_266_trimmomatic_results_with_headcrop/forward_paired.fq.gz Rush_KPC_266_trimmomatic_results_with_headcrop/forward_unpaired.fq.gz Rush_KPC_266_trimmomatic_results_with_headcrop/reverse_paired.fq.gz Rush_KPC_266_trimmomatic_results_with_headcrop/reverse_unpaired.fq.gz ILLUMINACLIP:/scratch/micro612w21_class_root/micro612w21_class/shared/bin/Trimmomatic/adapters/TruSeq3-PE.fa:2:30:10:8:true SLIDINGWINDOW:4:20 MINLEN:40 HEADCROP:9
-=======
+
 trimmomatic PE Rush_KPC_266_1_combine.fastq.gz Rush_KPC_266_2_combine.fastq.gz Rush_KPC_266_trimmomatic_results_with_headcrop/forward_paired.fq.gz Rush_KPC_266_trimmomatic_results_with_headcrop/forward_unpaired.fq.gz Rush_KPC_266_trimmomatic_results_with_headcrop/reverse_paired.fq.gz Rush_KPC_266_trimmomatic_results_with_headcrop/reverse_unpaired.fq.gz ILLUMINACLIP:/scratch/micro612w21_class_root/micro612w21_class/shared/conda_envs/day1pm/share/trimmomatic-0.39-1/adapters/TruSeq3-PE.fa:2:30:10:8:true SLIDINGWINDOW:4:20 MINLEN:40 HEADCROP:9
->>>>>>> 52d7e42228b6b5787ccc5588c485001b4a8754e8
+
 ```
 
 Unix gem: time in above command shows how long a command takes to run?
@@ -304,11 +281,9 @@ fastqc -o Rush_KPC_266_FastQC_results/after_trimmomatic_headcrop/ --extract -f f
 ```
 Download the reports again and see the difference.
 ```
-<<<<<<< HEAD
-scp username@flux-xfer.arc-ts.umich.edu:/scratch/micro612w21_class_root/micro612w21_class/username/day1pm/Rush_KPC_266_FastQC_results/after_trimmomatic_headcrop/*.html /path-to-local-directory/
-=======
+
 scp username@greatlakes-xfer.arc-ts.umich.edu:/scratch/micro612w21_class_root/micro612w21_class/username/day1pm/Rush_KPC_266_FastQC_results/after_trimmomatic_headcrop/*.html /path-to-local-directory/
->>>>>>> 52d7e42228b6b5787ccc5588c485001b4a8754e8
+
 ```
 
 The red cross sign disappeared!
@@ -552,11 +527,8 @@ To run this step, we first need to create a dictionary for reference fasta file 
 
 ```
 
-<<<<<<< HEAD
-java -jar /scratch/micro612w21_class_root/micro612w21_class/shared/bin/picard-tools-1.130/picard.jar CreateSequenceDictionary REFERENCE=KPNIH1.fasta OUTPUT=KPNIH1.dict
-=======
 picard CreateSequenceDictionary REFERENCE=KPNIH1.fasta OUTPUT=KPNIH1.dict
->>>>>>> 52d7e42228b6b5787ccc5588c485001b4a8754e8
+
 
 ```
 
@@ -564,11 +536,8 @@ Once the sequence dictionary is created, PICARD can be run for removing duplicat
 
 ```
 
-<<<<<<< HEAD
-java -jar /scratch/micro612w21_class_root/micro612w21_class/shared/bin/picard-tools-1.130/picard.jar MarkDuplicates REMOVE_DUPLICATES=true INPUT=PCMP_H326__aln_sort.bam OUTPUT=PCMP_H326__aln_marked.bam METRICS_FILE=PCMP_H326__markduplicates_metrics CREATE_INDEX=true VALIDATION_STRINGENCY=LENIENT
-=======
 picard MarkDuplicates REMOVE_DUPLICATES=true INPUT=./PCMP_H326__varcall_result/PCMP_H326__aln_sort.bam OUTPUT=./PCMP_H326__varcall_result/PCMP_H326__aln_marked.bam METRICS_FILE=./PCMP_H326__varcall_result/PCMP_H326__markduplicates_metrics CREATE_INDEX=true VALIDATION_STRINGENCY=LENIENT
->>>>>>> 52d7e42228b6b5787ccc5588c485001b4a8754e8
+
 
 ```
 
@@ -657,12 +626,7 @@ Make sure you change the directory to Step6_variantfilteraion
 ```
 cd ../Step6_variantfilteraion
 
-<<<<<<< HEAD
-java -jar /scratch/micro612w21_class_root/micro612w21_class/shared/bin/GenomeAnalysisTK-3.3-0/GenomeAnalysisTK.jar -T VariantFiltration -R KPNIH1.fasta -o PCMP_H326__filter_gatk.vcf --variant PCMP_H326__aln_mpileup_raw.vcf --filterExpression "FQ < 0.025 && MQ > 50 && QUAL > 100 && DP > 15" --filterName pass_filter
-=======
 gatk VariantFiltration -R KPNIH1.fasta -O ./PCMP_H326__varcall_result/PCMP_H326__filter_gatk.vcf --variant ./PCMP_H326__varcall_result/PCMP_H326__aln_mpileup_raw.vcf --filter-expression "FQ < 0.025 && MQ > 50 && QUAL > 100 && DP > 15" --filter-name pass_filter
->>>>>>> 52d7e42228b6b5787ccc5588c485001b4a8754e8
-
 
 ```
 
@@ -746,11 +710,9 @@ cd PCMP_H326__varcall_result/Step6_variantfilteraion
 > ***i. Check snpEff internal database for your reference genome:***
 
 ```     
-<<<<<<< HEAD
-java -jar /scratch/micro612w21_class_root/micro612w21_class/shared/bin/snpEff/snpEff.jar databases | grep 'kpnih1'
-=======
+
 snpEff databases | grep -w 'Klebsiella_pneumoniae_subsp_pneumoniae_kpnih1'
->>>>>>> 52d7e42228b6b5787ccc5588c485001b4a8754e8
+
 ```
 
 The existing KPNIH1 reference database doesn't contain mgrB annotation in it so we built a custom database out of a custom KPNIH1 genbank file. The procedure to configure a custom database can be found [here](http://snpeff.sourceforge.net/SnpEff_manual.html#databases). 
@@ -759,11 +721,9 @@ The existing KPNIH1 reference database doesn't contain mgrB annotation in it so 
 
 ```
 
-<<<<<<< HEAD
-java -Xmx4g -jar /scratch/micro612w21_class_root/micro612w21_class/shared/bin/snpEff/snpEff.jar -csvStats PCMP_H326__filter_gatk_stats -dataDir /scratch/micro612w21_class_root/micro612w21_class/shared/bin/snpEff/data/ -d -no-downstream -no-upstream -c /scratch/micro612w21_class_root/micro612w21_class/shared/bin/snpEff/snpEff.config KPNIH1 PCMP_H326__filter_gatk.vcf > PCMP_H326__filter_gatk_ann.vcf
-=======
+
 snpEff -csvStats PCMP_H326__filter_gatk_stats -dataDir /scratch/micro612w21_class_root/micro612w21_class/shared/bin/snpEff/data/ -d -no-downstream -no-upstream -c /scratch/micro612w21_class_root/micro612w21_class/shared/bin/snpEff/snpEff.config KPNIH1 PCMP_H326__filter_gatk.vcf > PCMP_H326__filter_gatk_ann.vcf
->>>>>>> 52d7e42228b6b5787ccc5588c485001b4a8754e8
+
 
 ```
 
@@ -826,15 +786,12 @@ conda activate micro612
 # change to variant_calling directory
 cd ../..
 
-<<<<<<< HEAD
-python /scratch/micro612w21_class_root/micro612w21_class/shared/bin/snpEff_parse.py -genbank /path-to/day1pm/KPNIH1.gb -vcf PCMP_H326__filter_gatk_ann.vcf
-=======
 # look at how to run the script
 python scripts/parse_snpEff.py -h
 
 # run the script
 python scripts/parse_snpEff.py -genbank KPNIH1.gb -vcf PCMP_H326__varcall_result/Step6_variantfilteraion/PCMP_H326__filter_gatk_ann.vcf
->>>>>>> 52d7e42228b6b5787ccc5588c485001b4a8754e8
+
 
 ```
 
@@ -905,11 +862,7 @@ Run the below command on your marked.bam file
 
 ```
 
-<<<<<<< HEAD
-java -jar /scratch/micro612w21_class_root/micro612w21_class/shared/bin/picard-tools-1.130/picard.jar CollectAlignmentSummaryMetrics R=KPNIH1.fasta I=PCMP_H326__varcall_result/Step5_variantcalling/PCMP_H326__aln_marked.bam O=AlignmentSummaryMetrics.txt
-=======
 picard CollectAlignmentSummaryMetrics R=KPNIH1.fasta I=PCMP_H326__varcall_result/Step5_variantcalling/PCMP_H326__aln_marked.bam O=AlignmentSummaryMetrics.txt
->>>>>>> 52d7e42228b6b5787ccc5588c485001b4a8754e8
 
 ```
 Open the file AlignmentSummaryMetrics.txt and explore various statistics. It will generate various statistics and the definition for each can be found [here](http://broadinstitute.github.io/picard/picard-metric-definitions.html#AlignmentSummaryMetrics)
@@ -939,11 +892,9 @@ Read coverage/depth describes the average number of reads that align to, or "cov
 After read mapping, it is important to make sure that the reference bases are represented by enough read depth before making any inferences such as variant calling.
 
 ```
-<<<<<<< HEAD
-java -jar /scratch/micro612w21_class_root/micro612w21_class/shared/bin/picard-tools-1.130/picard.jar CollectWgsMetrics R=KPNIH1.fasta I=PCMP_H326__varcall_result/Step5_variantcalling/PCMP_H326__aln_marked.bam O=WgsMetrics.txt
-=======
+
 picard CollectWgsMetrics R=KPNIH1.fasta I=PCMP_H326__varcall_result/Step5_variantcalling/PCMP_H326__aln_marked.bam O=WgsMetrics.txt
->>>>>>> 52d7e42228b6b5787ccc5588c485001b4a8754e8
+
 
 ```
 
@@ -989,11 +940,8 @@ qualimap bamqc -bam Rush_KPC_266__aln_sort.bam -outdir ./ -outfile Rush_KPC_266_
 ```
 Lets get this pdf report onto our local system and check the chromosome stats table, mapping quality and coverage across the entire reference genome.
 ```
-<<<<<<< HEAD
-scp username@flux-xfer.arc-ts.umich.edu:/scratch/micro612w21_class_root/micro612w21_class/username/day1pm/Rush_KPC_266_varcall_result/Rush_KPC_266__report.pdf /path-to-local-directory/
-=======
+
 scp username@greatlakes-xfer.arc-ts.umich.edu:/scratch/micro612w21_class_root/micro612w21_class/username/day1pm/Rush_KPC_266_varcall_result/Rush_KPC_266__report.pdf /path-to-local-directory/
->>>>>>> 52d7e42228b6b5787ccc5588c485001b4a8754e8
 ```
 -->
 
@@ -1034,11 +982,9 @@ Open a new terminal and run the scp command or cyberduck to get these files to y
 
 ```
 
-<<<<<<< HEAD
-scp -r username@flux-xfer.arc-ts.umich.edu:/scratch/micro612w21_class_root/micro612w21_class/username/day1pm/PCMP_H326__varcall_result/IGV_files/ /path-to-local-directory/
-=======
+
 scp -r username@greatlakes-xfer.arc-ts.umich.edu:/scratch/micro612w21_class_root/micro612w21_class/username/day1pm/PCMP_H326__varcall_result/IGV_files/ /path-to-local-directory/
->>>>>>> 52d7e42228b6b5787ccc5588c485001b4a8754e8
+
 
 #You can use ~/Desktop/ as your local directory path
 ```

@@ -54,11 +54,9 @@ cd Abau_mauve
 
 - Now copy Abau_genomes folder residing in your day3am folder using scp or cyberduck:
 
-<<<<<<< HEAD
-scp -r username@flux-xfer.arc-ts.umich.edu:/scratch/micro612w21_class_root/micro612w21_class/username/day3am/Abau_genomes ./
-=======
+
 scp -r username@greatlakes-xfer.arc-ts.umich.edu:/scratch/micro612w21_class_root/micro612w21_class/username/day3am/Abau_genomes ./
->>>>>>> 52d7e42228b6b5787ccc5588c485001b4a8754e8
+
 
 ```
 
@@ -79,14 +77,11 @@ Use cyberduck or scp to transfer your alignment back to great lakes for some pro
 
 ```
 
-<<<<<<< HEAD
-scp ~/Desktop/Abau_mauve/mauve_ECII_outgroup username@flux-xfer.arc-ts.umich.edu:/scratch/micro612w21_class_root/micro612w21_class/username/day3am 
-=======
+
 scp ~/Desktop/Abau_mauve/mauve_ECII_outgroup username@greatlakes-xfer.arc-ts.umich.edu:/scratch/micro612w21_class_root/micro612w21_class/username/day3am 
 
 ```
--->
->>>>>>> 52d7e42228b6b5787ccc5588c485001b4a8754e8
+
 
 ```
 # Change directory to Abau_genomes under day3am that contains input fasta files for alignment
@@ -133,12 +128,8 @@ Note that ape has a ton of useful functions for more sophisticated phylogenetic 
 
 cd ~/Desktop/Abau_mauve
 
-
-<<<<<<< HEAD
-scp username@flux-xfer.arc-ts.umich.edu:/scratch/micro612w21_class_root/micro612w21_class/username/day3am/mauve_ECII_outgroup.fasta ./
-=======
 scp username@greatlakes-xfer.arc-ts.umich.edu:/scratch/micro612w21_class_root/micro612w21_class/username/day3am/Abau_genomes/mauve_ECII_outgroup.fasta ./
->>>>>>> 52d7e42228b6b5787ccc5588c485001b4a8754e8
+
 
 ```
 
@@ -291,15 +282,13 @@ module load gubbins/2.3.1
 Run gubbins on your fasta formatted alignment
 
 ```
-<<<<<<< HEAD
 d3m
 
 #or
 
-cd /scratch/micro612w21_class_root/micro612w21_class/username/day3am
-=======
+
 cd /scratch/micro612w21_class_root/micro612w21_class/username/day3am/Abau_genomes
->>>>>>> 52d7e42228b6b5787ccc5588c485001b4a8754e8
+
 
 run_gubbins -v -f 50 -o Abau_AB0057_genome mauve_ECII_outgroup.fasta
 
@@ -330,13 +319,8 @@ Use cyberduck or scp to get gubbins output files into Abau_mauve on your local s
 
 cd ~/Desktop/Abau_mauve
 
-<<<<<<< HEAD
-scp username@flux-xfer.arc-ts.umich.edu:/scratch/micro612w21_class_root/micro612w21_class/username/day3am/mauve_ECII_outgroup.recombination.pdf  ./
-scp username@flux-xfer.arc-ts.umich.edu:/scratch/micro612w21_class_root/micro612w21_class/username/day3am/mauve_ECII_outgroup.final_tree.tre  ./
-=======
 scp username@greatlakes-xfer.arc-ts.umich.edu:/scratch/micro612w21_class_root/micro612w21_class/username/day3am/Abau_genomes/mauve_ECII_outgroup.recombination.pdf  ./
 scp username@greatlakes-xfer.arc-ts.umich.edu:/scratch/micro612w21_class_root/micro612w21_class/username/day3am/Abau_genomes/mauve_ECII_outgroup.final_tree.tre  ./
->>>>>>> 52d7e42228b6b5787ccc5588c485001b4a8754e8
 
 ```
 
@@ -388,13 +372,8 @@ cd ~/Desktop (or wherever your desktop is)
 mkdir MRSA_genomes 
 cd MRSA_genomes
 
-<<<<<<< HEAD
-scp username@flux-xfer.arc-ts.umich.edu:/scratch/micro612w21_class_root/micro612w21_class/username/day3am/2016-03-09_KP_BSI_USA300.fa  ./
-scp username@flux-xfer.arc-ts.umich.edu:/scratch/micro612w21_class_root/micro612w21_class/username/day3am/HA_vs_CA  ./
-=======
 scp username@greatlakes-xfer.arc-ts.umich.edu:/scratch/micro612w21_class_root/micro612w21_class/username/day3am/2016-03-09_KP_BSI_USA300.fa  ./
 scp username@greatlakes-xfer.arc-ts.umich.edu:/scratch/micro612w21_class_root/micro612w21_class/username/day3am/HA_vs_CA  ./
->>>>>>> 52d7e42228b6b5787ccc5588c485001b4a8754e8
 
 
 ```

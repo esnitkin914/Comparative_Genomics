@@ -199,11 +199,9 @@ Download the html report Cdiff_multiqc_report.html from your day2am folder.
 ```
 #Note: Make sure you change 'username' in the below command to your 'uniqname'.
 
-<<<<<<< HEAD
-scp username@flux-xfer.arc-ts.umich.edu:/scratch/micro612w21_class_root/micro612w21_class/username/day2am/Cdiff_multiqc_report.html /path-to-local-directory/
-=======
+
 scp username@greatlakes-xfer.arc-ts.umich.edu:/scratch/micro612w21_class_root/micro612w21_class/username/day2am/Cdiff_multiqc_report.html /path-to-local-directory/
->>>>>>> 52d7e42228b6b5787ccc5588c485001b4a8754e8
+
 
 ```
 
@@ -263,7 +261,7 @@ Compare assembly to reference genome and post-assembly genome improvement
 
 Once we feel confident in our assembly by using quast or multiQC, let's compare it to our reference to see if we can identify any large insertions/deletions using a graphical user interface called Artemis Comparison Tool (ACT) for visualization. 
 
-<<<<<<< HEAD
+
 <!---
 changed on 23 feb 2018
 To do this we need to first align our genome assembly to our reference. We will accomplish this using command-line BLAST.
@@ -314,8 +312,7 @@ Click Apply button
 > Notice that it is a complete mess!!!! The reason is that the contigs are in random order, so it is very difficult to visually compare to the reference. 
 ![alt tag](https://github.com/alipirani88/Comparative_Genomics/blob/master/_img/day2aming/mess.png)
 -->
-=======
->>>>>>> 52d7e42228b6b5787ccc5588c485001b4a8754e8
+
 
 In order to simplify the comparison between assembly and reference, we first need to orient the order of the contigs to reference. 
 
@@ -429,7 +426,7 @@ scp -r username@flux-xfer.arc-ts.umich.edu:/scratch/micro612w16_fluxod/username/
 
 ```
 
-<<<<<<< HEAD
+
 <!--
  Run Prokka on assembly***
 
@@ -460,8 +457,7 @@ scp -r username@flux-xfer.arc-ts.umich.edu:/scratch/micro612w16_fluxod/username/
 
 -->
 
-=======
->>>>>>> 52d7e42228b6b5787ccc5588c485001b4a8754e8
+
 > ***ii. Reload comparison into ACT now that we’ve annotated the un-annotated!***
 
 ![prokka](annotation_details_ACT.png)

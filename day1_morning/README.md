@@ -16,11 +16,8 @@ During workshop, we will transfer different output files from great lakes to you
 
 > ***3. Type sftp://greatlakes-xfer.arc-ts.umich.edu in quickconnect bar, press enter and enter your great lakes username and password.***
 
-<<<<<<< HEAD
-> ***4. This will take you to your flux home directory /home/username. Select "Go" from tool bar at the top then select "Go to folder" and enter workshop home directory path: /scratch/micro612w21_class_root/micro612w21_class/***
-=======
 > ***4. This will take you to your great lakes home directory /home/username. Select "Go" from tool bar at the top then select "Go to folder" and enter workshop home directory path: /scratch/micro612w21_class_root/micro612w21_class/***
->>>>>>> 52d7e42228b6b5787ccc5588c485001b4a8754e8
+
 
 To transfer or upload a file, you can drag and drop it into the location you want. 
 
@@ -78,7 +75,6 @@ cp ~/.bashrc ~/bashrc_backup
 ##Micro612 Workshop ENV
 
 #Aliases
-<<<<<<< HEAD
 alias islurm='srun --account=micro612w21_class --nodes=1 --ntasks-per-node=1 --mem-per-cpu=1GB --cpus-per-task=1 --time=12:00:00 --pty /bin/bash'
 alias wd='cd /scratch/micro612w21_class_root/micro612w21_class/username/'
 alias d1m='cd /scratch/micro612w21_class_root/micro612w21_class/username/day1am'
@@ -139,7 +135,7 @@ alias d3pm='cd /scratch/micro612w21_class_root/micro612w21_class/username/day3pm
 
 # Add tools to PATH
 export PATH=$PATH:/scratch/micro612w21_class_root/micro612w21_class/shared/bin/quast/
->>>>>>> 52d7e42228b6b5787ccc5588c485001b4a8754e8
+
 ```
 
 
@@ -531,11 +527,7 @@ Now we're going to play around with a GFF in R. Specifically, we're interested i
 Copy the sample.gff file to your computer using scp or cyberduck:
 
 ```
-<<<<<<< HEAD
-scp username@flux-xfer.arc-ts.umich.edu:/nfs/esnitkin/micro612w21_class_root/micro612w21_class/shared/data/day1am/sample.gff ~/Desktop/
-=======
 scp username@greatlakes-xfer.arc-ts.umich.edu:/nfs/esnitkin/micro612w21_class_root/micro612w21_class/shared/data/day1am/sample.gff ~/Desktop/
->>>>>>> 52d7e42228b6b5787ccc5588c485001b4a8754e8
 Note: You can use your choice of folder/path to copy the file instead of  “~/Desktop/”
 ```
 
@@ -604,9 +596,8 @@ An example plot.ts plot for Ecoli_coverage_average_bed.csv is shown below for yo
 For advance and more beautiful visualization, ggplot2 can be employed to display the same plot. An example ggplot2 plot for Ecoli_coverage_average_bed.csv is shown below for your reference.
 
 ![alt tag](https://github.com/alipirani88/Comparative_Genomics/blob/master/_img/day1aming/plot_2.png)
-=======
+
 - Challenge: Now that you know the gene lengths, get the length of the smallest and largest gene. Then get the attribute of the smallest and largest gene. 
->>>>>>> 52d7e42228b6b5787ccc5588c485001b4a8754e8
 
 <details>
   <summary>Solution</summary>
@@ -658,7 +649,6 @@ cd /scratch/micro612w21_class_root/micro612w21_class/username/day1pm/
 d1a
 =======
 cd /scratch/micro612w21_class_root/micro612w21_class/username/day1pm/variant_calling/
->>>>>>> 52d7e42228b6b5787ccc5588c485001b4a8754e8
 
 ls variant_call.sh
 ```
