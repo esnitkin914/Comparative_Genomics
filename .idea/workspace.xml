@@ -3,7 +3,7 @@
   <component name="ChangeListManager">
     <list default="true" id="2cb8308d-7ce8-4120-94ed-2b6a9668ebf1" name="Default" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/day1_morning/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/day1_morning/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/day1_afternoon/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/day1_afternoon/README.md" afterDir="false" />
     </list>
     <ignored path="Comparative_Genomics.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -64,11 +64,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="README.md" pinned="false" current-in-tab="true">
+      <file leaf-file-name="README.md" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/day1_morning/README.md">
           <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
             <state split_layout="SPLIT">
-              <first_editor relative-caret-position="544">
+              <first_editor relative-caret-position="3374">
                 <caret line="653" column="20" lean-forward="true" selection-start-line="653" selection-end-line="653" selection-end-column="20" />
               </first_editor>
               <second_editor />
@@ -76,12 +76,12 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="README.md" pinned="false" current-in-tab="false">
+      <file leaf-file-name="README.md" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/day1_afternoon/README.md">
           <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
             <state split_layout="SPLIT">
-              <first_editor relative-caret-position="205">
-                <caret line="986" selection-start-line="986" selection-end-line="986" />
+              <first_editor relative-caret-position="356">
+                <caret line="782" column="122" selection-start-line="782" selection-start-column="122" selection-end-line="782" selection-end-column="122" />
               </first_editor>
               <second_editor />
             </state>
@@ -143,6 +143,7 @@
       <find>&gt;&gt;&gt;&gt;</find>
       <find>&gt;&gt;&gt;</find>
       <find>head</find>
+      <find>Plotting genomic coverage in R</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -160,11 +161,11 @@
         <option value="$PROJECT_DIR$/docs/source/day3_morning.md" />
         <option value="$PROJECT_DIR$/docs/source/index.md" />
         <option value="$PROJECT_DIR$/README.md" />
-        <option value="$PROJECT_DIR$/day1_afternoon/README.md" />
         <option value="$PROJECT_DIR$/day2_morning/README.md" />
         <option value="$PROJECT_DIR$/day2_afternoon/README.md" />
         <option value="$PROJECT_DIR$/day3_morning/README.md" />
         <option value="$PROJECT_DIR$/day1_morning/README.md" />
+        <option value="$PROJECT_DIR$/day1_afternoon/README.md" />
       </list>
     </option>
   </component>
@@ -185,6 +186,11 @@
             <path>
               <item name="Comparative_Genomics" type="b2602c69:ProjectViewProjectNode" />
               <item name="Comparative_Genomics" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="Comparative_Genomics" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Comparative_Genomics" type="462c0819:PsiDirectoryNode" />
+              <item name="day1_afternoon" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="Comparative_Genomics" type="b2602c69:ProjectViewProjectNode" />
@@ -615,16 +621,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/day1_afternoon/README.md">
-      <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
-        <state split_layout="SPLIT">
-          <first_editor relative-caret-position="205">
-            <caret line="986" selection-start-line="986" selection-end-line="986" />
-          </first_editor>
-          <second_editor />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/day2_morning/README.md">
       <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
         <state split_layout="SPLIT">
@@ -668,8 +664,18 @@
     <entry file="file://$PROJECT_DIR$/day1_morning/README.md">
       <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
         <state split_layout="SPLIT">
-          <first_editor relative-caret-position="544">
+          <first_editor relative-caret-position="3374">
             <caret line="653" column="20" lean-forward="true" selection-start-line="653" selection-end-line="653" selection-end-column="20" />
+          </first_editor>
+          <second_editor />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/day1_afternoon/README.md">
+      <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
+        <state split_layout="SPLIT">
+          <first_editor relative-caret-position="356">
+            <caret line="782" column="122" selection-start-line="782" selection-start-column="122" selection-end-line="782" selection-end-column="122" />
           </first_editor>
           <second_editor />
         </state>

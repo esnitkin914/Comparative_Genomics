@@ -736,7 +736,6 @@ Now go to Step6_variantfilteraion folder under PCMP_H326__varcall_result.
 ```
 cd PCMP_H326__varcall_result/Step6_variantfilteraion
 
-# Make sure your vcf file is bgzipped and tabix indexed
 bgzip -fc PCMP_H326__filter_gatk_ann.vcf > PCMP_H326__filter_gatk_ann.vcf.gz
 
 tabix PCMP_H326__filter_gatk_ann.vcf.gz
@@ -781,6 +780,7 @@ We wrote a small python script parser to parse the annotated vcf file and print 
 Run the below parser on your final annotated file PCMP_H326__filter_gatk_ann.vcf as shown below
 
 ```
+Note: parse_snpEff.py currently doesn't work with micro612 due to conflicts in dependencies. I am resolving it. 04-13-2021
 conda activate micro612
 
 # change to variant_calling directory
