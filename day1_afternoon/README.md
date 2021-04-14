@@ -1162,7 +1162,9 @@ Your steps should be:
 1) Load the conda environment.
 2) Create two SLURM scripts comparing your colR and colS genomes to the reference genomes and submit to cluster
 3) Once the job completes, Make sure you bgzip and tabix index your vcf files (in folder Step6_variantfilteraion) for IGV visualization since it is not included in variant calling shell script.
-4) Perform variant annotation against the ACICU reference genome with snpEff. snpEff already has prebuilt files built for our reference genome ACICU.fasta. We will use this internal ACICU database while runniung snpEff. The variant_call.sh script under Acinetobacter_colistin_resistance doesn't include snpEff, bgzip, tabix and parse_snpEff.py commands, so you will run these commands on \*_filter_gatk.vcf generated under Step6_variantfilteraion.
+4) Perform variant annotation against the ACICU reference genome with snpEff. snpEff already has prebuilt files built for our reference genome ACICU.fasta. We will use this internal ACICU database while runniung snpEff. 
+
+**Note: The variant_call.sh script under Acinetobacter_colistin_resistance doesn't include snpEff, bgzip, tabix and parse_snpEff.py commands, so you will run these commands on \*_filter_gatk.vcf generated under Step6_variantfilteraion.**
 
 To find out if we have our reference genome database available, try searching it with - 
 
@@ -1170,7 +1172,9 @@ To find out if we have our reference genome database available, try searching it
 snpEff databases | grep 'acicu'
 ```
 
-In the STDOUT results, you will find the name of ACICU internal database - Acinetobacter_baumannii_acicu which should be used your database name argument in snpEff command. For example, earlier we used KPNIH1 as our database to annotate our vcf. For this exercise, yopu would be using Acinetobacter_baumannii_acicu as your database name.
+In the STDOUT results, you will find the name of ACICU internal database - Acinetobacter_baumannii_acicu which should be used as your database name argument in snpEff command. 
+
+For example, earlier we used KPNIH1 as our database to annotate our vcf. For this exercise, you would be using Acinetobacter_baumannii_acicu as your database name.
 
 
 5) Create parsed annotated variant matrix using the parse_snpEff.py script that we used in the earlier example.
