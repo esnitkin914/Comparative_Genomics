@@ -2,6 +2,14 @@ Day 2 AM
 =============
 [[HOME]](https://github.com/alipirani88/Comparative_Genomics/blob/master/README.md)
 
+Goal
+----
+
+- Assemble short reads illumina data into a genomic assembly using Spades Assembler, assess the quality of assembly with Quast and annotate genome assembly using Prokka.
+- Generate multiple sample report using a bunch of pre-assembled data as input and visualize the summary report.
+- Compare assembled genome to a reference genome using Abacas and ACT.
+
+
 On day 1 we worked through a pipeline to map short-read data to a pre-existing assembly and identify single-nucleotide variants (SNVs) and small insertions/deletions. However, what this sort of analysis misses is the existence of sequence that is not present in your reference. Today we will tackle this issue by assembling our short reads into larger sequences, which we will then analyze to characterize the functions unique to our sequenced genome.   
 
 ![roadmap](genome_assembly.png)
