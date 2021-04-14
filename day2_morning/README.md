@@ -539,6 +539,12 @@ conda activate day2pm
 Next, let's start the ariba job:
 
 ```
+d2m
+
+# or 
+
+cd /scratch/micro612w21_class_root/micro612w21_class/username/day2am
+
 # list files
 ls
 
