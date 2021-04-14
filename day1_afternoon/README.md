@@ -351,9 +351,11 @@ If you remember, we ran the shell script in following fashion inside variant_cal
 
 ```
 
-./variant_call.sh PCMP_H326_R1.fastq.gz PCMP_H326_R2.fastq.gz KPNIH1.fasta ./ PCMP_H326_
+./variant_call.sh PCMP_H326_R1.fastq.gz PCMP_H326_R2.fastq.gz KPNIH1.fasta ./ PCMP_H326_ 1>variant_call.log 2> variant_call.err
 
 ```
+
+Note: "1>" will print the standard output of the script to variant_call.log and "2>" will print standard error to variant_call.err.
 
 The script generates PCMP_H326__varcall_result folder in your day1pm folder and the results for each step of variant calling will be organized in 6 different steps folder. Each of these steps represents a particular step involved in variant calling starting from cleaning the reads to calling variants.
 
