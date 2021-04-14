@@ -30,8 +30,11 @@ wd
 cp -r /scratch/micro612w21_class_root/micro612w21_class/shared_data/day2pm/data ./
 
 
-```  
+```
+
 # Load your environment and use the tools
+
+```
 conda activate day2pm
 ```
 
