@@ -384,6 +384,8 @@ ls -1ad PCMP_H326__varcall_result/*
 
 Let's visualize the steps of this process:
 
+Note: We ran all the commands involved in these steps for you in variant_call.sh and in the next section we will concentrate on exploring the output files.
+
 ![var_call_steps](detailed_var_call.png)
 
 Step1_cleaning
