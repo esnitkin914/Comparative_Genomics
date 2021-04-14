@@ -84,12 +84,12 @@ cp ~/.bashrc ~/bashrc_backup
 #Aliases
 alias islurm='srun --account=micro612w21_class --nodes=1 --ntasks-per-node=1 --mem-per-cpu=5GB --cpus-per-task=1 --time=12:00:00 --pty /bin/bash'
 alias wd='cd /scratch/micro612w21_class_root/micro612w21_class/username/'
-alias d1am='cd /scratch/micro612w21_class_root/micro612w21_class/username/day1am'
-alias d1pm='cd /scratch/micro612w21_class_root/micro612w21_class/username/day1pm'
-alias d2am='cd /scratch/micro612w21_class_root/micro612w21_class/username/day2am'
-alias d2pm='cd /scratch/micro612w21_class_root/micro612w21_class/username/day2pm'
-alias d3am='cd /scratch/micro612w21_class_root/micro612w21_class/username/day3am'
-alias d3pm='cd /scratch/micro612w21_class_root/micro612w21_class/username/day3pm'
+alias d1m='cd /scratch/micro612w21_class_root/micro612w21_class/username/day1am'
+alias d1a='cd /scratch/micro612w21_class_root/micro612w21_class/username/day1pm'
+alias d2m='cd /scratch/micro612w21_class_root/micro612w21_class/username/day2am'
+alias d2a='cd /scratch/micro612w21_class_root/micro612w21_class/username/day2pm'
+alias d3m='cd /scratch/micro612w21_class_root/micro612w21_class/username/day3am'
+alias d3a='cd /scratch/micro612w21_class_root/micro612w21_class/username/day3pm'
 
 
 #Great Lakes Modules
@@ -218,7 +218,7 @@ cd day1am/
 
 #or 
 
-d1am
+d1m
 
 ls
 
@@ -636,7 +636,7 @@ We will be using sequencing reads from an Illumina-sequenced *Klebsiella pneumon
 Change directory to the variant calling folder inside day1pm directory and list all the files to search variant_call.sh script.
 
 ```
-d1pm
+d1a
 
 cd variant_calling/
 
