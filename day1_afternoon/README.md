@@ -423,12 +423,14 @@ Most of the Bioinformatics programs as BWA and Bowtie use a computational strate
 The following command creates an index for the reference genome required for BWA aligner. 
 
 ```
+# Dont run this command - we already ran it as a part of variant_call.sh script.
 bwa index KPNIH1.fasta
 ```
  
 This command creates fai index file using samtools that is required by GATK in downstream steps.
 
 ```
+# Dont run this command - we already ran it as a part of variant_call.sh script.
 samtools faidx KPNIH1.fasta
 ```
 
@@ -442,6 +444,7 @@ The second part of read mapping involves aligning both left and right end reads 
 The following command was used to do this job using both forward and reverse end reads along with a reference genome.
 
 ```
+# Dont run this command - we already ran it as a part of variant_call.sh script.
 
 bwa mem -M -R "@RG     ID:16   SM:PCMP_H326_R1.fastq.gz        LB:1    PL:Illumina" -t 8 /nfs/esnitkin/micro612w21_class_root/micro612w21_class/shared/data/day1pm/KPNIH1.fasta /nfs/esnitkin/micro612w21_class_root/micro612w21_class/shared/data/day1pm/PCMP_H326__varcall_result/forward_paired.fq.gz /nfs/esnitkin/micro612w21_class_root/micro612w21_class/shared/data/day1pm/PCMP_H326__varcall_result/reverse_paired.fq.gz > /nfs/esnitkin/micro612w21_class_root/micro612w21_class/shared/data/day1pm/PCMP_H326__varcall_result/PCMP_H326__aln.sam
 
@@ -513,6 +516,8 @@ BAM is the compressed binary equivalent of SAM but are usually quite smaller in 
 The first section for this step will ask samtools to convert SAM format(-S) to BAM format(-b)
 
 ```
+# Dont run this command - we already ran it as a part of variant_call.sh script.
+
 samtools view -Sb ./PCMP_H326__varcall_result/PCMP_H326__aln.sam > ./PCMP_H326__varcall_result/PCMP_H326__aln.bam
 ```
 
@@ -523,6 +528,8 @@ Most of the downstream tools such as GATK requires your BAM file to be indexed a
 Now before indexing this BAM file, we will sort the data by positions(default) using samtools. Some RNA Seq/Gene expression tools require it to be sorted by read name which is achieved by passing -n flag.
 
 ```
+# Dont run this command - we already ran it as a part of variant_call.sh script.
+
 samtools sort -O BAM -o ./PCMP_H326__varcall_result/PCMP_H326__aln_sort.bam ./PCMP_H326__varcall_result/PCMP_H326__aln.bam
 ```
 
@@ -542,6 +549,7 @@ Picard identifies duplicates by searching reads that have same start position on
 To remove PCR duplicate reads from BAM file, PICARD needs a sequence dictionary of reference fasta file which can be generated with picard CreateSequenceDictionary command.
 
 ```
+# Dont run this command - we already ran it as a part of variant_call.sh script.
 
 picard CreateSequenceDictionary REFERENCE=KPNIH1.fasta OUTPUT=KPNIH1.dict
 
@@ -551,6 +559,7 @@ picard CreateSequenceDictionary REFERENCE=KPNIH1.fasta OUTPUT=KPNIH1.dict
 Once the sequence dictionary is created, PICARD can be run for removing duplicates
 
 ```
+# Dont run this command - we already ran it as a part of variant_call.sh script.
 
 picard MarkDuplicates REMOVE_DUPLICATES=true INPUT=./PCMP_H326__varcall_result/PCMP_H326__aln_sort.bam OUTPUT=./PCMP_H326__varcall_result/PCMP_H326__aln_marked.bam METRICS_FILE=./PCMP_H326__varcall_result/PCMP_H326__markduplicates_metrics CREATE_INDEX=true VALIDATION_STRINGENCY=LENIENT
 
@@ -563,6 +572,8 @@ This bam file should be indexed before it can be used for variant calling.
 
 
 ```
+# Dont run this command - we already ran it as a part of variant_call.sh script.
+
 samtools index ./PCMP_H326__varcall_result/PCMP_H326__aln_marked.bam
 ```
 
@@ -595,6 +606,7 @@ Here we will use samtools mpileup to perform this operation on our BAM file and 
 This step will Call variants using [samtools](http://www.htslib.org/doc/samtools.html "samtools manual") mpileup and [bcftools](https://samtools.github.io/bcftools/bcftools.html "bcftools")**
 
 ```
+# Dont run this command - we already ran it as a part of variant_call.sh script.
 
 samtools mpileup -ug -f KPNIH1.fasta ./PCMP_H326__varcall_result/PCMP_H326__aln_marked.bam | bcftools call -O v -v -c -o ./PCMP_H326__varcall_result/PCMP_H326__aln_mpileup_raw.vcf
 
@@ -647,6 +659,7 @@ cd ../Step6_variantfilteraion
 The GATK VariantFiltration command that was used to filter the variants is:
 
 ```
+# Dont run this command - we already ran it as a part of variant_call.sh script.
 
 gatk VariantFiltration -R KPNIH1.fasta -O ./PCMP_H326__varcall_result/PCMP_H326__filter_gatk.vcf --variant ./PCMP_H326__varcall_result/PCMP_H326__aln_mpileup_raw.vcf --filter-expression "FQ < 0.025 && MQ > 50 && QUAL > 100 && DP > 15" --filter-name pass_filter
 
@@ -674,6 +687,7 @@ vcftools is a program package that is especially written to work with vcf file f
 Now, The below command was used to remove indels from our final vcf file and keep only variants that passed the filter criteria (positions with pass_filter in their FILTER column).
 
 ```
+# Dont run this command - we already ran it as a part of variant_call.sh script.
 
 vcftools --vcf ./PCMP_H326__varcall_result/PCMP_H326__filter_gatk.vcf --keep-filtered 
 pass_filter --remove-indels --recode --recode-INFO-all --out ./PCMP_H326__varcall_result/PCMP_H326__filter_onlysnp
@@ -704,6 +718,8 @@ Step 7 bgzip and Tabix index vcf files for IGV visualization.
 The below command were used to compress final annotated vcf file and were tabix indexed so that it can be used for IGV visualization.
 
 ```
+# Dont run this command - we already ran it as a part of variant_call.sh script.
+
 bgzip -fc PCMP_H326__filter_gatk_ann.vcf > PCMP_H326__filter_gatk_ann.vcf.gz
 
 tabix PCMP_H326__filter_gatk_ann.vcf.gz
@@ -743,7 +759,9 @@ The existing KPNIH1 reference database doesn't contain mgrB annotation in it so 
 > ***ii. Run snpEff for variant annotation.***
 
 The variants in PCMP_H326__filter_gatk.vcf file were annotated using this snpEff command and the annotated variants were printed in PCMP_H326__filter_gatk_ann.vcf.
+
 ```
+# Dont run this command - we already ran it as a part of variant_call.sh script.
 
 snpEff -csvStats PCMP_H326__filter_gatk_stats -dataDir /scratch/micro612w21_class_root/micro612w21_class/shared/bin/snpEff/data/ -d -no-downstream -no-upstream -c /scratch/micro612w21_class_root/micro612w21_class/shared/bin/snpEff/snpEff.config KPNIH1 PCMP_H326__filter_gatk.vcf > PCMP_H326__filter_gatk_ann.vcf
 
@@ -899,6 +917,7 @@ cd variant_calling
 The below picard CollectAlignmentSummaryMetrics command can be used to generate alignment statistics from the input PCMP_H326__aln_marked.bam file. The output of this command is stored in AlignmentSummaryMetrics.txt file.
 
 ```
+# Dont run this command - we already ran it as a part of variant_call.sh script.
 
 picard CollectAlignmentSummaryMetrics R=KPNIH1.fasta I=PCMP_H326__varcall_result/Step5_variantcalling/PCMP_H326__aln_marked.bam O=AlignmentSummaryMetrics.txt
 
@@ -933,6 +952,7 @@ To extract this information, we ran PICARD's CollectWgsMetrics as a part of vari
 
 
 ```
+# Dont run this command - we already ran it as a part of variant_call.sh script.
 
 picard CollectWgsMetrics R=KPNIH1.fasta I=PCMP_H326__varcall_result/Step5_variantcalling/PCMP_H326__aln_marked.bam O=WgsMetrics.txt
 
