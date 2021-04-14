@@ -82,7 +82,7 @@ cp ~/.bashrc ~/bashrc_backup
 ##Micro612 Workshop ENV
 
 #Aliases
-alias islurm='srun --account=micro612w21_class --nodes=1 --ntasks-per-node=1 --mem-per-cpu=1GB --cpus-per-task=1 --time=12:00:00 --pty /bin/bash'
+alias islurm='srun --account=micro612w21_class --nodes=1 --ntasks-per-node=1 --mem-per-cpu=5GB --cpus-per-task=1 --time=12:00:00 --pty /bin/bash'
 alias wd='cd /scratch/micro612w21_class_root/micro612w21_class/username/'
 alias d1am='cd /scratch/micro612w21_class_root/micro612w21_class/username/day1am'
 alias d1pm='cd /scratch/micro612w21_class_root/micro612w21_class/username/day1pm'
