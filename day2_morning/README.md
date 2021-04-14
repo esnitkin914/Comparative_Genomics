@@ -55,7 +55,7 @@ Create a new directory for the spades output in your day2am folder
 ```
 > Note: Make sure you change 'username' in the below command with your 'uniqname'. 
 
-d2am
+d2m
 
 #or
 
@@ -224,7 +224,7 @@ Lets run multiqc on one such directory where we ran and stored FastQC, FastQ Scr
 if you are not in day2am folder, navigate to it and change directory to multiqc_analysis
 
 ```
-d2am 
+d2m
 
 #or
 
@@ -333,7 +333,7 @@ To orient our contigs relative to the reference we will use a tool called abacas
 Go back to flux and into the directory where the assembly is located.
 
 ```
-d2am
+d2m
 
 #or
 
