@@ -823,7 +823,7 @@ grep '^gi|.*pass_filter' PCMP_H326__filter_gatk_ann.vcf | grep 'INDEL' | wc -l
 
 ```
 
-We wrote a small python script parser to parse the annotated vcf file and print out some important annotation related fields in a table format. we already ran this script as part of variant_call.sh. Lets explore the annotated variants that were parsed and printed out in snpEff_parsed.csv
+We wrote a small python script parser - scripts/parse_snpEff.py to parse the annotated vcf file and print out some important annotation related fields in a table format. we already ran this script as part of variant_call.sh. Lets explore the annotated variants that were parsed and printed out in snpEff_parsed.csv
 
 <!--
 Run the below parser on your final annotated file PCMP_H326__filter_gatk_ann.vcf as shown below
