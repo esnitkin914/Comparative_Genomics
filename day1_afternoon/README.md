@@ -539,8 +539,7 @@ Picard identifies duplicates by searching reads that have same start position on
 
 ![alt tag](https://github.com/alipirani88/Comparative_Genomics/blob/master/_img/day1_after/picard.png)
 
-To run this step, we first need to create a dictionary for reference fasta file that is required by PICARD
-
+To remove PCR duplicate reads from BAM file, PICARD needs a sequence dictionary of reference fasta file which can be generated with picard CreateSequenceDictionary command.
 
 ```
 
@@ -560,7 +559,7 @@ picard MarkDuplicates REMOVE_DUPLICATES=true INPUT=./PCMP_H326__varcall_result/P
 
 The output of Picard remove duplicate step is a new bam file "PCMP_H326__aln_marked.bam" without PCR duplicates.
 
-This bam file should be indexed before we can use it for variant calling.
+This bam file should be indexed before it can be used for variant calling.
 
 
 ```
