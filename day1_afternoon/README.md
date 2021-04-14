@@ -1139,13 +1139,18 @@ Your steps should be:
 
 2) Create a SLURM script to run the shell script in VRE_dapto_resistance directory and submit to cluster. Read comments in variant_call.sbat for assistance.
 
-3) Once the job completes, Make sure you bgzip and tabix index your vcf file - \*_filter_gatk.vcf (in folder Step6_variantfilteraion) for IGV visualization since it is not included in variant calling shell script. (*Note - snpEff annotation should be skipped because our reference genome is not available in snpEff database and therfore the variant_call.sh under VRE_dapto_resistance doesn't include snpEff commands)
+3) Once the job completes, Make sure you bgzip and tabix index your vcf file - \*_filter_gatk.vcf (in folder Step6_variantfilteraion) for IGV visualization since it is not included in variant calling shell script.
+
+
+**Note - snpEff annotation should be skipped because our reference genome is not available in snpEff database and therfore the variant_call.sh under VRE_dapto_resistance doesn't include snpEff commands**
 
 Wait for this variant call job to finish before you proceed to next exercise.
 
 4) Examine onlysnp vcf file and check how many high quality SNPs we end up with.
 
-5) Load files into IGV and examine annotations of variants in or around cardiolipin synthases in filtered vcf. Use VRE_daptoS_gene_annot.gff3, VRE_daptoS_ref_strain.fasta, relevant bam and vcf files for IGV (*note snpEff annotation should be skipped because our reference is not in the database)
+5) Load files into IGV and examine annotations of variants in or around cardiolipin synthases in filtered vcf. Use VRE_daptoS_gene_annot.gff3, VRE_daptoS_ref_strain.fasta, relevant bam and vcf files for IGV 
+
+**(Note snpEff annotation should be skipped because our reference is not in the database)**
 
 Exercise: Colistin resistance in Acinetobacter
 ----------------------------------------------
@@ -1157,7 +1162,7 @@ Your steps should be:
 1) Load the conda environment.
 2) Create two SLURM scripts comparing your colR and colS genomes to the reference genomes and submit to cluster
 3) Once the job completes, Make sure you bgzip and tabix index your vcf files (in folder Step6_variantfilteraion) for IGV visualization since it is not included in variant calling shell script.
-4) Perform variant annotation against the ACICU reference genome with snpEff. snpEff already has prebuilt files built for our reference genome ACICU.fasta. We will use this internal ACICU database while runniung snpEff.
+4) Perform variant annotation against the ACICU reference genome with snpEff. snpEff already has prebuilt files built for our reference genome ACICU.fasta. We will use this internal ACICU database while runniung snpEff. The variant_call.sh script under Acinetobacter_colistin_resistance doesn't include snpEff, bgzip, tabix and parse_snpEff.py commands, so you will run these commands on \*_filter_gatk.vcf generated under Step6_variantfilteraion.
 
 To find out if we have our reference genome database available, try searching it with - 
 
