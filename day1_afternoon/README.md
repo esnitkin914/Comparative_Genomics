@@ -774,20 +774,20 @@ The STDOUT of snpEff prints out some useful details such as genome name and vers
 
 snpEff will add an extra field named 'ANN' at the end of INFO field. Lets go through the ANN field added after annotation step.
 
-<!--
+
 
 Now go to Step6_variantfilteraion folder under PCMP_H326__varcall_result. 
 
 ```
 cd PCMP_H326__varcall_result/Step6_variantfilteraion
 
+# Dont run this command - we already ran it as a part of variant_call.sh script.
 bgzip -fc PCMP_H326__filter_gatk_ann.vcf > PCMP_H326__filter_gatk_ann.vcf.gz
-
 tabix PCMP_H326__filter_gatk_ann.vcf.gz
 
 ```
 We compressed this final annotated vcf file and tabix indexed it so that it can be used for IGV visualization
--->
+
 
 Now go to Step6_variantfilteraion folder under PCMP_H326__varcall_result and look at one of the annotated variants. 
 
@@ -823,7 +823,15 @@ grep '^gi|.*pass_filter' PCMP_H326__filter_gatk_ann.vcf | grep 'INDEL' | wc -l
 
 ```
 
-We wrote a small python script parser - scripts/parse_snpEff.py to parse the annotated vcf file and print out some important annotation related fields in a table format. we already ran this script as part of variant_call.sh. Lets explore the annotated variants that were parsed and printed out in snpEff_parsed.csv
+We wrote a small python script parser "parse_snpEff.py" located under scripts folder to parse the annotated vcf file and print out some important annotation related fields in a table format. We already ran this script as part of variant_call.sh as shown below. 
+
+```
+# Dont run this command - we already ran it as a part of variant_call.sh script.
+
+python scripts/parse_snpEff.py -genbank KPNIH1.gb -vcf PCMP_H326__varcall_result/Step6_variantfilteraion/PCMP_H326__filter_gatk_ann.vcf
+```
+
+Lets explore the annotated variants that were parsed and printed out in snpEff_parsed.csv
 
 <!--
 Run the below parser on your final annotated file PCMP_H326__filter_gatk_ann.vcf as shown below
