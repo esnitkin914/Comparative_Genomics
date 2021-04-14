@@ -137,7 +137,7 @@ Now add these line at the end of the slurm script.
 ```
 
 mkdir SRR5244781_prokka 
-prokka -kingdom Bacteria -outdir SRR5244781_prokka -force -prefix SRR5244781 SRR5244781_contigs_ordered.fasta
+prokka -kingdom Bacteria -outdir SRR5244781_prokka -force -prefix SRR5244781_contigs_ordered SRR5244781_contigs_ordered.fasta
 
 ```
 
