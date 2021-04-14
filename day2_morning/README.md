@@ -5,7 +5,7 @@ Day 2 AM
 Goal
 ----
 
-- Assemble short reads illumina data into a genomic assembly using Spades Assembler, assess the quality of assembly with Quast and annotate genome assembly using Prokka.
+- Assemble short reads illumina data into a genomic assembly using Spades Assembler, assess the quality of assembly with Quast and annotate it using Prokka.
 - Generate multiple sample report using a bunch of pre-assembled data as input and visualize the summary report.
 - Compare assembled genome to a reference genome using Abacas and ACT.
 
