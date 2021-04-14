@@ -37,10 +37,10 @@ Since Kraken takes time to run, we have already placed the output of Kraken comm
 
 ```
 
-kraken --quick --fastq-input --gzip-compressed --unclassified-out MRSA_CO_HA_473_unclassified.txt --db minikraken_20171013_4GB/ --output MRSA_CO_HA_473_kraken /MRSA_CO_HA_473_R1_001.fastq.gz
+kraken --quick --fastq-input --gzip-compressed --unclassified-out MRSA_CO_HA_473_unclassified.txt --db minikraken_20171013_4GB/ --output MRSA_CO_HA_473_kraken MRSA_CO_HA_473_R1_001.fastq.gz
 
 
-kraken --quick --fastq-input --gzip-compressed --unclassified-out MRSA_CO_HA_479_unclassified.txt --db minikraken_20171013_4GB/ --output MRSA_CO_HA_479_kraken /MRSA_CO_HA_479_R1_001.fastq.gz
+kraken --quick --fastq-input --gzip-compressed --unclassified-out MRSA_CO_HA_479_unclassified.txt --db minikraken_20171013_4GB/ --output MRSA_CO_HA_479_kraken MRSA_CO_HA_479_R1_001.fastq.gz
 ```
 
 
