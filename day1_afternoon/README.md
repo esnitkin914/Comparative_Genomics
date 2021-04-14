@@ -127,7 +127,7 @@ cd /scratch/micro612w21_class_root/micro612w21_class/username/day1pm/
 
 #or
 
-d1pm
+d1a
 
 mkdir Rush_KPC_266_FastQC_results
 mkdir Rush_KPC_266_FastQC_results/before_trimmomatic
