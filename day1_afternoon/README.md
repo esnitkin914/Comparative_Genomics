@@ -123,6 +123,12 @@ Now we will run FastQC on some sample raw data to assess its quality. FastQC is 
 > ***i. In your day1pm directory, create a new directory for saving FastQC results.***
 
 ```
+cd /scratch/micro612w21_class_root/micro612w21_class/username/day1pm/
+
+#or
+
+d1pm
+
 mkdir Rush_KPC_266_FastQC_results
 mkdir Rush_KPC_266_FastQC_results/before_trimmomatic
 ```
