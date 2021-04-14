@@ -424,6 +424,7 @@ The following command creates an index for the reference genome required for BWA
 
 ```
 # Dont run this command - we already ran it as a part of variant_call.sh script.
+
 bwa index KPNIH1.fasta
 ```
  
@@ -431,6 +432,7 @@ This command creates fai index file using samtools that is required by GATK in d
 
 ```
 # Dont run this command - we already ran it as a part of variant_call.sh script.
+
 samtools faidx KPNIH1.fasta
 ```
 
