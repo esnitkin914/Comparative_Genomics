@@ -543,7 +543,7 @@ d2m
 
 # or 
 
-cd /scratch/micro612w21_class_root/micro612w21_class/username/day2am
+cd /scratch/micro612w21_class_root/micro612w21_class/username/day2pm
 
 # list files
 ls
