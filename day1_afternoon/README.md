@@ -1131,7 +1131,7 @@ Your steps should be:
 
 2) Create a SLURM script to run the shell script in VRE_dapto_resistance directory and submit to cluster. Read comments in variant_call.sbat for assistance.
 
-3) Once the job completes, Make sure you bgzip and tabix index your vcf files (in folder Step6_variantfilteraion) for IGV visualization since it is not included in variant calling shell script. (*note snpEff annotation should be skipped because our reference is not in the database)
+3) Once the job completes, Make sure you bgzip and tabix index your vcf file - \*_filter_gatk.vcf (in folder Step6_variantfilteraion) for IGV visualization since it is not included in variant calling shell script. (*Note - snpEff annotation should be skipped because our reference genome is not available in snpEff database and therfore the variant_call.sh under VRE_dapto_resistance doesn't include snpEff commands)
 
 Wait for this variant call job to finish before you proceed to next exercise.
 
