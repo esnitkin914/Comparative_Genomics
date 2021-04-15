@@ -122,19 +122,6 @@ An alternative approach for identification of variants among genomes is to perfo
 
 > ***i. Perform genome alignment with Parsnp***
 
-Navigate to your working directory and copy day3pm directory from shared directory.
-
-```
-wd
-
-cp -r /scratch/micro612w21_class_root/micro612w21_class/shared/data/day3am/ ./
-
-# change directory to day3am
-d3m
-
-```
-
-
 Create a conda environment day3am that will install Parsnp/Harvesttools for you. Run these commands to generate a new conda environment.
 
 ```
