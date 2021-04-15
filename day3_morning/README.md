@@ -149,10 +149,10 @@ parsnp -c -d Abau_genomes/ -r Abau_genomes/ACICU_genome.fasta -o parsnp_results 
 
 Parsnp will generate various output files in parsnp_results folder:
 
-- Newick formatted core genome SNP tree: $outputdir/parsnp.tree
-- SNPs used to infer phylogeny: $outputdir/parsnp.vcf
-- Gingr formatted binary archive: $outputdir/parsnp.ggr
-- XMFA formatted multiple alignment: $outputdir/parsnp.xmfa
+- Newick formatted core genome SNP tree: parsnp_results/parsnp.tree
+- SNPs used to infer phylogeny: parsnp_results/parsnp.vcf
+- Gingr formatted binary archive: parsnp_results/parsnp.ggr
+- XMFA formatted multiple alignment: parsnp_results/parsnp.xmfa
 
 > ***ii. Convert ginger formatted binary file to fasta format***
 
