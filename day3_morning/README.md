@@ -159,6 +159,8 @@ Parsnp will generate various output files in parsnp_results folder:
 We will use harvesttools to convert parsnp.ggr to a multi-fasta alignment output (concatenated LCBs) file - parsnpLCB.aln
 
 ```
+cd parsnp_results
+
 harvesttools -i parsnp.ggr -M parsnpLCB.aln
 ```
 
