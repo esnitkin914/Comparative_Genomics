@@ -112,14 +112,70 @@ perl ../convert_msa_format.pl -i mauve_ECII_outgroup -o mauve_ECII_outgroup.fast
 sed -i 's/.fa.*//g' mauve_ECII_outgroup.fasta 
 
 ```
-
+commenting out Mauve and switching it to Parsnp 2021-04-15
 -->
 
-Perform core genome alignment with [Parsnp](https://harvest.readthedocs.io/en/latest/content/parsnp.html) and convert alignment to other useful formats
+Perform Whole genome alignment with [Parsnp](https://harvest.readthedocs.io/en/latest/content/parsnp.html) and convert alignment to other useful formats
 -------------------------------------------------------------------------------------------------------------------------------------------------------
 
+An alternative approach for identification of variants among genomes is to perform whole genome alignments of assemblies. If the original short read data is unavailable, this might be the only approach available to you. Typically, these programs don’t scale well to large numbers of genomes (e.g. > 100), but they are worth being familiar with. We will use the tool mauve for constructing whole genome alignments of our five A. baumannii genomes.
+
+> ***i. Perform genome alignment with Parsnp***
+
+Navigate to your working directory and copy day3pm directory from shared directory.
+
+```
+wd
+
+cp -r /scratch/micro612w21_class_root/micro612w21_class/shared/data/day3am/ ./
+
+# change directory to day3am
+d3m
+
+```
 
 
+Create a conda environment day3am that will install Parsnp/Harvesttools for you. Run these commands to generate a new conda environment.
+
+```
+# Deactivate conda environment if you have loaded it.
+conda deactivate
+
+conda env create -f /scratch/micro612w21_class_root/micro612w21_class/shared/data/day3am/day3am.yml -n day3am
+
+conda activate day3am
+
+# invoke parsnp and harvesttool's help menu to check if it was installed properly
+parsnp -h
+
+harvesttools -h
+
+```
+
+Now we will ask Parsnp to align all the genomes in Abau_genomes directory and also ask Parsnp to use ACICU_genome.fasta as a reference.
+
+```
+
+parsnp -c -d Abau_genomes/ -r Abau_genomes/ACICU_genome.fasta -o parsnp_results -p 2 -v
+
+```
+
+Parsnp will generate various output files:
+
+- Newick formatted core genome SNP tree: $outputdir/parsnp.tree
+- SNPs used to infer phylogeny: $outputdir/parsnp.vcf
+- Gingr formatted binary archive: $outputdir/parsnp.ggr
+- XMFA formatted multiple alignment: $outputdir/parsnp.xmfa
+
+> ***ii. Convert ginger formatted binary file to fasta format***
+
+We will use harvesttools to convert parsnp.ggr to a multi-fasta alignment output (concatenated LCBs) file - parsnpLCB.aln
+
+```
+harvesttools -i parsnp.ggr -M parsnpLCB.aln
+```
+
+**Replacing this section with loading parsnp.tree into R and plotting it.**
 Perform some DNA sequence comparisons and phylogenetic analysis in [APE](http://ape-package.ird.fr/), an R package
 ------------------------------------------------------------------------
 [[back to top]](https://github.com/alipirani88/Comparative_Genomics/blob/master/day3aming/README.md)
