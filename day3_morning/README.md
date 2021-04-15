@@ -139,11 +139,11 @@ harvesttools -h
 
 ```
 
-Now we will ask Parsnp to align all the genomes in Abau_genomes directory and also ask Parsnp to use ACICU_genome.fasta as a reference.
+Now we will ask parsnp to align all the genomes in Abau_genomes directory and also ask parsnp to use Reference_genome/ACICU_genome.fasta as a reference genome.
 
 ```
 
-parsnp -c -d Abau_genomes/ -r Abau_genomes/ACICU_genome.fasta -o parsnp_results -p 2 -v
+parsnp -c -d Abau_genomes/ -r Abau_genomes/Reference_genome/ACICU_genome.fasta -o parsnp_results -p 2 -v
 
 ```
 
@@ -323,6 +323,8 @@ module load python/2.7.3 biopython dendropy reportlab fasttree RAxML fastml/gub 
 -->
 
 ```
+# Deactivate day3am conda environment
+conda deactivate
 
 module load Bioinformatics
 
@@ -338,10 +340,9 @@ d3m
 #or
 
 
-cd /scratch/micro612w21_class_root/micro612w21_class/username/day3am/Abau_genomes
+cd /scratch/micro612w21_class_root/micro612w21_class/username/day3am/parsnp_results
 
-
-run_gubbins -v -f 50 -o Abau_AB0057_genome mauve_ECII_outgroup.fasta
+run_gubbins -v -f 50 -o Abau_AB0057_genome.fa parsnpLCB.aln
 
 ```
 
