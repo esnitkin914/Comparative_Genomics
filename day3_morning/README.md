@@ -163,6 +163,7 @@ harvesttools -i parsnp.ggr -M parsnpLCB.aln
 ```
 
 **Replacing this section with loading parsnp.tree into R and plotting it.**
+
 Perform some DNA sequence comparisons and phylogenetic analysis in [APE](http://ape-package.ird.fr/), an R package
 ------------------------------------------------------------------------
 [[back to top]](https://github.com/alipirani88/Comparative_Genomics/blob/master/day3aming/README.md)
