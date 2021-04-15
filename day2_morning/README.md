@@ -541,7 +541,7 @@ conda activate day2pm
 Next, let's start the ariba job:
 
 ```
-d2m
+d2a
 
 # or 
 
