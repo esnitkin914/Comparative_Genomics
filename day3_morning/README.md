@@ -147,7 +147,7 @@ parsnp -c -d Abau_genomes/ -r Abau_genomes/ACICU_genome.fasta -o parsnp_results 
 
 ```
 
-Parsnp will generate various output files:
+Parsnp will generate various output files in parsnp_results folder:
 
 - Newick formatted core genome SNP tree: $outputdir/parsnp.tree
 - SNPs used to infer phylogeny: $outputdir/parsnp.vcf
