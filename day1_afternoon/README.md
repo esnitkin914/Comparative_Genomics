@@ -1157,7 +1157,7 @@ Wait for this variant call job to finish before you proceed to next exercise.
 
 4) Examine onlysnp vcf file and check how many high quality SNPs we end up with.
 
-5) Load files into IGV and examine annotations of variants in or around cardiolipin synthases in filtered vcf file - \*_filter_gatk.vcf. Use VRE_daptoS_gene_annot.gff3, VRE_daptoS_ref_strain.fasta, relevant bam and vcf files for IGV 
+5) Load files into IGV and examine annotations of variants in or around cardiolipin synthases. You would need - VRE_daptoS_gene_annot.gff3, VRE_daptoS_ref_strain.fasta, relevant bam and vcf files for visualizing the alignments/variants in IGV.
 
 Exercise: Colistin resistance in Acinetobacter
 ----------------------------------------------
