@@ -31,6 +31,7 @@ cp -r /scratch/micro612w21_class_root/micro612w21_class/shared/data/day3am ./
 
 ```
 
+<!---commenting out Mauve and switching it to Parsnp 2021-04-15
 Perform whole genome alignment with [Mauve](http://darlinglab.org/mauve/mauve.html) and convert alignment to other useful formats
 -------------------------------------------
 [[back to top]](https://github.com/alipirani88/Comparative_Genomics/blob/master/day3aming/README.md)
@@ -111,6 +112,13 @@ perl ../convert_msa_format.pl -i mauve_ECII_outgroup -o mauve_ECII_outgroup.fast
 sed -i 's/.fa.*//g' mauve_ECII_outgroup.fasta 
 
 ```
+
+-->
+
+Perform core genome alignment with [Parsnp](https://harvest.readthedocs.io/en/latest/content/parsnp.html) and convert alignment to other useful formats
+-------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
 
 Perform some DNA sequence comparisons and phylogenetic analysis in [APE](http://ape-package.ird.fr/), an R package
 ------------------------------------------------------------------------
