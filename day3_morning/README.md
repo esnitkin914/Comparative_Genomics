@@ -115,6 +115,9 @@ sed -i 's/.fa.*//g' mauve_ECII_outgroup.fasta
 commenting out Mauve and switching it to Parsnp 2021-04-15
 -->
 
+
+
+
 Perform Whole genome alignment with [Parsnp](https://harvest.readthedocs.io/en/latest/content/parsnp.html) and convert alignment to other useful formats
 -------------------------------------------------------------------------------------------------------------------------------------------------------
 
@@ -164,7 +167,7 @@ cd parsnp_results
 harvesttools -i parsnp.ggr -M parsnpLCB.aln
 ```
 
-**Replacing this section with loading parsnp.tree into R and plotting it.**
+**Replace this section with loading parsnp.tree into R and plotting it.**
 
 Perform some DNA sequence comparisons and phylogenetic analysis in [APE](http://ape-package.ird.fr/), an R package
 ------------------------------------------------------------------------
@@ -348,6 +351,9 @@ run_gubbins -v -f 50 -o Abau_AB0057_genome.fa parsnpLCB.aln
 
 ```
 
+*** Commenting out gubbins drawer section and replacing it with Phandango visualization.***
+
+<!---
 > ***ii. Create gubbins output figure***
 
 Gubbins produces a series of output files, some of which can be run through another program to produce a visual display of filtered recombinant regions. Run the gubbins_drawer script to create a pdf visualization of recombinant regions. 
@@ -401,7 +407,7 @@ tree <- read.tree(tree_file)
 plot(tree)
 
 ```
-
+-->
 
 How does the structure look different than the unfiltered tree?
 
