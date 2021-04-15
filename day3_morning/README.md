@@ -351,7 +351,7 @@ run_gubbins -v -f 50 -o Abau_AB0057_genome.fa parsnpLCB.aln
 
 ```
 
-*** Commenting out gubbins drawer section and replacing it with Phandango visualization.***
+**Commenting out gubbins drawer section and replacing it with Phandango visualization.**
 
 <!---
 > ***ii. Create gubbins output figure***
