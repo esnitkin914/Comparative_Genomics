@@ -1162,27 +1162,14 @@ Wait for this variant call job to finish before you proceed to next exercise.
 Exercise: Colistin resistance in Acinetobacter
 ----------------------------------------------
 
-In the second exercise we will try and find a mutation that is in a colistin resistant Acinetobacter isolate from a patient, but not in a colistin susceptible isolate from the same patient. In this case, it turned out that despite being from the same patient, the resistant and susceptible genomes are quite different. Therefore, we will focus on differences in a known resistance gene (pmrB). Your task is to run the variant calling and annotation pipelines for SRR7591081 (colR) and SRR6513781 (colS) against the ACICU reference genome (ACICU.fasta). You will then look for pmrB mutations that are in the resistant strain, that are not in the susceptible one. Did the mutation you found match the one from the [paper](https://aac.asm.org/content/early/2019/01/04/AAC.01586-18.abstract) i.e patient 1.
+In the second exercise we will try and find a mutation that is in a colistin resistant Acinetobacter isolate from a patient, but not in a colistin susceptible isolate from the same patient. In this case, it turned out that despite being from the same patient, the resistant and susceptible genomes are quite different. Therefore, we will focus on differences in a known resistance gene (pmrB). Your task is to run the variant calling for SRR7591080 (colR) and SRR7591083 (colS) against the ACICU reference genome (ACICU.fasta). You will then look for pmrB mutations that are in the resistant strain, that are not in the susceptible one. Did the mutation you found match the one from the [paper](https://aac.asm.org/content/early/2019/01/04/AAC.01586-18.abstract) i.e patient 1.
 
 Your steps should be:
 
-1) Load the conda environment.
-2) Create two SLURM scripts comparing your colR and colS genomes to the reference genomes and submit to cluster
-3) Once the job completes, Make sure you bgzip and tabix index your vcf files (in folder Step6_variantfilteraion) for IGV visualization since it is not included in variant calling shell script.
-4) Perform variant annotation against the ACICU reference genome with snpEff. snpEff already has prebuilt files built for our reference genome ACICU.fasta. We will use this internal ACICU database while runniung snpEff. 
+1) Load micro612 environment.
 
-**Note: The variant_call.sh script under Acinetobacter_colistin_resistance doesn't include snpEff, bgzip, tabix and parse_snpEff.py commands, so you will run these commands on \*_filter_gatk.vcf generated under Step6_variantfilteraion.**
+2) Create two SLURM scripts comparing your colR and colS genomes to the reference genomes and submit both of them to cluster. We have already placed two SLURM scripts - SRR7591080.sbat and SRR7591083.sbat that you can edit and add in the variant_call.sh commands at the end with forward read, reverse read, reference genome, output directory path and a prefix as parameters for respective samples.
 
-To find out if we have our reference genome database available, try searching it with - 
+3) This version of variant_call.sh also includes snpEff commands so you will find the annotated vcf file in Step6_variantfilteraion folder. Once the job completes, 
+Load files into IGV and determine if colR has a pmrB mutation that the colS isolate does not, and compare it to the mutation found in the paper. You would need - ACICU.gb, ACICU.fasta, relevant bam and vcf files of two samples for visualizing alignments/variants in IGV.
 
-```
-snpEff databases | grep 'acicu'
-```
-
-In the STDOUT results, you will find the name of ACICU internal database - Acinetobacter_baumannii_acicu which should be used as your database name argument in snpEff command. 
-
-For example, earlier we used KPNIH1 as our database to annotate our vcf. For this exercise, you would be using Acinetobacter_baumannii_acicu as your database name.
-
-
-5) Create parsed annotated variant matrix using the parse_snpEff.py script that we used in the earlier example.
-6) Determine if colR has a pmrB mutation that the colS isolate does not, and compare it to the mutation found in the paper
