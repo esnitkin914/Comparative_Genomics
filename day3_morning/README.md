@@ -40,7 +40,6 @@ An alternative approach for identification of variants among genomes is to perfo
 
 > ***i. Perform mauve alignment and transfer xmfa back to great lakes***
 
-<!---
 Use cyberduck/scp to get genomes folder Abau_genomes onto your laptop
 
 ```
