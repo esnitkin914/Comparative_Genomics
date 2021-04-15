@@ -1137,20 +1137,27 @@ Your steps should be:
 
 1) Load micro612 environment.
 
-2) Create a SLURM script to run the shell script in VRE_dapto_resistance directory and submit to cluster. Read comments in variant_call.sbat for assistance.
+2) Change directory to VRE_dapto_resistance under day1pm folder.
 
-3) Once the job completes, Make sure you bgzip and tabix index your vcf file - \*_filter_gatk.vcf (in folder Step6_variantfilteraion) for IGV visualization since it is not included in variant calling shell script.
+3) We have placed a SLURM script - variant_call.sbat that you would need to edit before submitting it to cluster. You would need to add variant_call.sh command at the end of the SLURM script by giving VRE_daptoR_R1.fastq.gz, VRE_daptoR_R2.fastq.gz and VRE_daptoS_ref_strain.fasta as your inputs. Read comments in variant_call.sbat for more assistance. 
 
+One last thing - dont forget to add path to an output directory and a unique name for saving the results.
 
-**Note - snpEff annotation should be skipped because our reference genome is not available in snpEff database and therfore the variant_call.sh under VRE_dapto_resistance doesn't include snpEff commands**
+Your command should look like this:
+
+```
+
+./variant_call.sh Forward_reads Reverse_reads Reference.fasta output_directory_path(ex: ./) unique_prefix(ex: VRE_daptoR)
+
+```
+
+**Note - we skipped snpEff annotation command because our reference genome is not available in snpEff database and therefore the variant_call.sh under VRE_dapto_resistance doesn't include snpEff commands**
 
 Wait for this variant call job to finish before you proceed to next exercise.
 
 4) Examine onlysnp vcf file and check how many high quality SNPs we end up with.
 
-5) Load files into IGV and examine annotations of variants in or around cardiolipin synthases in filtered vcf. Use VRE_daptoS_gene_annot.gff3, VRE_daptoS_ref_strain.fasta, relevant bam and vcf files for IGV 
-
-**(Note snpEff annotation should be skipped because our reference is not in the database)**
+5) Load files into IGV and examine annotations of variants in or around cardiolipin synthases in filtered vcf file - \*_filter_gatk.vcf. Use VRE_daptoS_gene_annot.gff3, VRE_daptoS_ref_strain.fasta, relevant bam and vcf files for IGV 
 
 Exercise: Colistin resistance in Acinetobacter
 ----------------------------------------------
