@@ -166,7 +166,6 @@ commenting out SPANDx and substituting it with snippy 2021-04-16
 
 -->
 
-***In Contruction***
 
 Run [Snippy](https://github.com/tseemann/snippy) variant calling pipeline on a set of Genomes and generate a core genome alignment
 ----------------------------------------------------------------------------------------------------------------------------------
@@ -175,21 +174,21 @@ Run [Snippy](https://github.com/tseemann/snippy) variant calling pipeline on a s
 
 On the afternoon of day 1 we saw how many steps are involved in calling variants relative to a reference genome. However, the same steps are applied to every sample, which makes this very pipeline friendly!  So, you could write your own shell script to string together these commands, or take advantage of one of several published pipelines. 
 
-Here, we will use Snippy to perform rapid haploid variant calling and generate a core genome alignment. Snippy takes a tab delimited file containing list of paths to your fastq samples and a reference genome in Genbank format and generates a runme.sh shell script that you can then run inside a SLURM script.   
+Here, we will use Snippy to perform rapid haploid variant calling and generate a core genome alignment. Snippy takes a tab delimited file containing list of paths to your fastq samples and a reference genome in Genbank format to generate a runme.sh shell script that you can then run inside a SLURM script.   
 
 We have already created a runme.sh under snippy_results using snippy-multi command from snippy. Try exploring this shell script and understand what it means.
 
 Every line of runme.sh contains a snippy command for each of your samples that are placed in - /nfs/esnitkin/Workshop_Backups/micro612w20_class/shared/data/day3pm_fastq/
 
-Go to snippy_results folder and edit the snippy.sbat script by commenting out the snippy bash command - bash runme.sh and submit this SLURM script.
+Go to snippy_results folder and edit the snippy.sbat script by commenting out snippy bash command - bash runme.sh and submit this SLURM script.
 
-Make sure to change the username to your uniqname.
+Make sure to change username to your uniqname.
 
 Once the job finishes, You would have individual folders Rush_KPC_* for each of the samples and their variant call results. The description of each of the output files are documented on Snippy's Github page - Section Calling SNPs -> Output Files
 
-Since we are running Snippy pipeline on multiple samples, Snippy also produces an alignment of "core SNPs" which can be used to build a high-resolution phylogeny. 
+Since we are running Snippy pipeline on multiple samples, Snippy also produces an alignment of "core SNPs" which can be used to build high-resolution phylogeny. 
 
-Snippy generates various other files with a prefix core.* that can be further used for downstream phylogenetic/recombinant detection analysis or can be used to explore the variants/alignment statistics file.
+Snippy generates various other files with a prefix core.* that can be further used to explore variants/alignment statistics.
 
 > ***i. Look at overall statistics for variant calling in excel***
 
@@ -207,6 +206,7 @@ The following unix commands can be used to get sorted list of number of VARIANT 
 > ***ii. Add in another exercise here to explore either core.vcf or generate a file that looks like SPANDx's All_SNPs_annotated.txt***
 
 
+**In construction**
 
 Recombination detection and tree generation
 -------------------------------------------
