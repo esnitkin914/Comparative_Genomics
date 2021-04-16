@@ -167,6 +167,7 @@ commenting out SPANDx and substituting it with snippy 2021-04-16
 -->
 
 ***In Contruction***
+
 Run [Snippy](https://github.com/tseemann/snippy) variant calling pipeline on a set of Genomes and generate a core genome alignment
 ----------------------------------------------------------------------------------------------------------------------------------
 [[back to top]](https://github.com/alipirani88/Comparative_Genomics/blob/master/day3pmnoon/README.md)
