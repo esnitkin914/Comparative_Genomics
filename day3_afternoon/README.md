@@ -96,7 +96,7 @@ You can find the processed MLST results for day3pm_fastq samples in this folder:
 
 /scratch/micro612w21_class_root/micro612w21_class/shared/data/day3pm/MLST_results
 
-Run summarize_mlst.sh and check the dominant sequence type that these samples belong to.
+Explore and run summarize_mlst.sh and check the dominant sequence type that these samples belong to.
 
 > ii. Summarize ARIBA CARD results
 
