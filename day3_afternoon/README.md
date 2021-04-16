@@ -84,7 +84,7 @@ Explore ARIBA CARD and MLST typing on day3pm_fastq samples
 [[back to top]](https://github.com/alipirani88/Comparative_Genomics/blob/master/day3pmnoon/README.md)
 [[HOME]](https://github.com/alipirani88/Comparative_Genomics/blob/master/README.md)
 
-On Day 2 afternoon, you ran ARIBA to perform sequence typing of a single genome using ARIBA tool. However, a typical public epidimiology project will include many genomes sampled from different sites and you will want to sequence type each of these samples to study their genetic diversity and determine if these samples contain antibiotic resistance genes. 
+On Day 2 afternoon, you explored ARIBA's MLST results that were performed on a single genome. However, a typical public epidimiology project will include many genomes sampled from different sites and you will want to sequence type each of these samples to study their genetic diversity and determine if these samples contain antibiotic resistance genes. 
 
 Since both MLST typing and CARD resistance gene detection takes a while to run on these samples, We already processed them and have placed the results in day3pm folder.
 
