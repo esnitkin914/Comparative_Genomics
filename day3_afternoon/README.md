@@ -174,19 +174,17 @@ Run [Snippy](https://github.com/tseemann/snippy) variant calling pipeline on a s
 
 On the afternoon of day 1 we saw how many steps are involved in calling variants relative to a reference genome. However, the same steps are applied to every sample, which makes this very pipeline friendly!  So, you could write your own shell script to string together these commands, or take advantage of one of several published pipelines. 
 
-Here, we will use Snippy to perform rapid haploid variant calling and generate a core genome alignment. Snippy takes a tab delimited file containing list of paths to your fastq samples and a reference genome in Genbank format to generate a runme.sh shell script that you can then run inside a SLURM script.   
+Here, we will use Snippy to perform rapid haploid variant calling and generate a core genome alignment. Snippy takes a tab delimited file containing list of paths to your fastq samples and a reference genome in Genbank format to generate a runme.sh shell script that can be run inside a SLURM script.   
 
-We have already created a runme.sh under snippy_results using snippy-multi command from snippy. Try exploring this shell script and understand what it means.
+We already created a runme.sh under snippy_results using snippy-multi command from snippy. Try exploring this shell script and understand what it means.
 
 Every line of runme.sh contains a snippy command for each of your samples that are placed in - /nfs/esnitkin/Workshop_Backups/micro612w20_class/shared/data/day3pm_fastq/
 
-Go to snippy_results folder and edit the snippy.sbat script by commenting out snippy bash command - bash runme.sh and submit this SLURM script.
+Using runme.sh inside a slurm script - snippy.sbat, we already ran the pipeline for you since it takes ~2Hrs to run on 44 samples. The results of this run are located in snippy_results folder.
 
-Make sure to change username to your uniqname.
+Snippy will create an individual folder Rush_KPC_* for each of the samples and their variant call results. The description of each of the output files are documented on Snippy's Github page - Section Calling SNPs -> Output Files
 
-Once the job finishes, You would have individual folders Rush_KPC_* for each of the samples and their variant call results. The description of each of the output files are documented on Snippy's Github page - Section Calling SNPs -> Output Files
-
-Since we are running Snippy pipeline on multiple samples, Snippy also produces an alignment of "core SNPs" which can be used to build high-resolution phylogeny. 
+Since we are running Snippy pipeline on multiple samples, Snippy also produces an alignment of "core SNPs" which can be used to build a phylogeny. 
 
 Snippy generates various other files with a prefix core.* that can be further used to explore variants/alignment statistics.
 
@@ -195,7 +193,9 @@ Snippy generates various other files with a prefix core.* that can be further us
 Snippy produces an overall summary file - core.txt of its run that includes tab-separated list of alignment/core-size statistics such as:
 
 1) Number of ALIGNED and UNALIGNED bases for a given sample.
+
 2) Number of filtered VARIANT (variants passing all the filters)
+
 3) Number of bases with low coverage - LOWCOV
 
 Use less to look at this file and then apply unix commands to extract and sort individual columns 
@@ -226,7 +226,7 @@ The positions of variants are embedded in the second column of core.tab, but you
 ```
 
 - Finally, download this file, read it into R using ‘read.table’ and use ‘hist’ to plot a histogram of these core positions
-- Do you observe clustering of variants that would be indicative of recombination? #No clustering since they are only core variants
+- Do you observe clustering of variants that would be indicative of recombination? #Doubt: No clustering since they are only core variants and High Quality as compared to Spandx
 
 
 > ***ii. Create a neighboring-joining tree from core SNP alignment in R***
