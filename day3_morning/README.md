@@ -167,29 +167,30 @@ cd parsnp_results
 harvesttools -i parsnp.ggr -M parsnpLCB.aln
 ```
 
-**Replace this section with loading parsnp.tree into R and plotting it.**
+> ***iii. View multiple genome alignment in gingr***
+
+Gingr is a visualization tool that accompanies parsnp. So, let's download the files we created using parsnp and load them into gingr.
+
+```
+
+cd ~/Desktop/Abau_parsnp
+
+scp username@greatlakes-xfer.arc-ts.umich.edu:/scratch/micro612w21_class_root/micro612w21_class/username/day3am/Abau_genomes/parsnpLCB.aln ./
+scp username@greatlakes-xfer.arc-ts.umich.edu:/scratch/micro612w21_class_root/micro612w21_class/username/day3am/Abau_genomes/parsnp.tree ./
+scp username@greatlakes-xfer.arc-ts.umich.edu:/scratch/micro612w21_class_root/micro612w21_class/username/day3am/Abau_genomes/ACICU.gb ./
+
+```
+Now, fire up gingr and use File->open to read in the .aln, .tree and .gb files. Notice the structure of the tree (i.e. which genomes are closely related to one another) and whether variants are or aren't evenly spaced across the genome.
+
 
 Perform some DNA sequence comparisons and phylogenetic analysis in [APE](http://ape-package.ird.fr/), an R package
 ------------------------------------------------------------------------
 [[back to top]](https://github.com/alipirani88/Comparative_Genomics/blob/master/day3aming/README.md)
 [[HOME]](https://github.com/alipirani88/Comparative_Genomics/blob/master/README.md)
 
-There are lots of options for phylogenetic analysis. Here, we will use the ape package in R to look at our multiple alignments and construct a tree using the Neighbor Joining method. 
+We've done some initial visualization of the parsnp output files in gingr, now we are going to do some further exploration in R. First we will determine how many variants separate each genome, second we will visualize the phylogenetic tree produced by parsnp and finally we will look for evidence of recombination among our genomes.
 
-Note that ape has a ton of useful functions for more sophisticated phylogenetic analyses!
-
-> ***i. Get fasta alignment you just converted to your own computer using cyberduck or scp***
-
-```
-
-cd ~/Desktop/Abau_mauve
-
-scp username@greatlakes-xfer.arc-ts.umich.edu:/scratch/micro612w21_class_root/micro612w21_class/username/day3am/Abau_genomes/mauve_ECII_outgroup.fasta ./
-
-
-```
-
-> ***ii. Read alignment into R***
+> ***i. Read alignment into R***
 
 Fire up RStudio, set your working directory to ~/Desktop/Abau_mauve/ or wherever you have downloaded mauve_ECII_outgroup.fasta file and install/load ape
 
@@ -197,13 +198,19 @@ Use the read.dna function in ape to read in you multiple alignments.
 Print out the variable to get a summary.
 
 ```
-setwd("~/Desktop/Abau_mauve/")
+#SET YOUR DIRECTORY
+setwd("~/Desktop/Abau_parsnp/")
+
+#INSTALL THE ape PACKAGE FOR PHYLOGENETIC ANALYSIS
 install.packages("ape")
 library(ape)
-abau_msa = read.dna('mauve_ECII_outgroup.fasta', format = "fasta") 
+
+#READ IN THE MULTIPLE GENOME ALIGNMENT AND CHANGE THE NAMES TO REMOVE FILE EXTENSIONS
+abau_msa = read.dna('parsnpLCB.aln', format = "fasta") 
+row.names(abau_msa) = gsub(".fa|.fasta", "", row.names(abau_msa))
 ```
 
-> ***iii. Get variable positions***
+> ***ii. Get variable positions***
 
 The DNA object created by read.dna can also be addressed as a matrix, where the columns are positions in the alignment and rows are your sequences. We will next treat our alignment as a matrix, and use apply and colSums to get positions in the alignment that vary among our sequences. Examine these commands in detail to understand how they are working together to give you a logical vector indicating which positions vary in your alignment.
 
@@ -214,7 +221,7 @@ abau_msa_bin = apply(abau_msa, 2, FUN = function(x){x == x[1]})
 abau_var_pos = colSums(abau_msa_bin) < 5
 ```
 
-> ***iv. Get non-gap positions***
+> ***iii. Get non-gap positions***
 
 For our phylogenetic analysis we want to focus on the core genome, so we will next identify positions in the alignment where all our genomes have sequence.
 
@@ -222,7 +229,7 @@ For our phylogenetic analysis we want to focus on the core genome, so we will ne
 non_gap_pos = colSums(as.character(abau_msa) == '-') == 0
 ```
 
-> ***v. Count number of variants between sequences***
+> ***iv. Count number of variants between sequences***
 
 Now that we know which positions in the alignment are core and variable, we can extract these positions and count how many variants there are among our genomes. Do count pairwise variants we will use the dist.dna function in ape. The model parameter indicates that we want to compare sequences by counting differences. Print out the resulting matrix to see how different our genomes are.
 
@@ -233,8 +240,11 @@ var_count_matrix = dist.dna(abau_msa_var, model = "N")
 
 ```
 
-> ***vi. Construct phylogenetic tree***
+Examining the pairwise distances among our isolates, we see that our genomes have thousands of variants between them. Based on the estimated evolutionary rate of Acinetobacter, we would expect this amount of variation  to take hundreds of years to accumulate via mutation and vertical inherentence. Thus, based on this observation it seems unlikely that these are related by recent transmission. However, before we reach our final conclusion we need to assess whether all of this variation was due to mutation and vertical inheretance, or if some of the variation is due to horizontal transfer via recombination.
 
+> ***vi. View phylogenetic tree***
+
+<!---commenting out building NJ tree 2021-04-15
 Now we are ready to construct our first phylogenetic tree! 
 
 We are going to use the Neighbor Joining algorithm, which takes a matrix of pairwise distances among the input sequences and produces the tree with the minimal total distance. In essence, you can think of this as a distance-based maximum parsimony algorithm, with the advantage being that it runs way faster than if you were to apply a standard maximum parsimony phylogenetic reconstruction.
@@ -256,6 +266,33 @@ Finally, plot your tree to see how the genomes group.
 ```
 plot(abau_nj_tree)
 ```
+commenting out building NJ tree 2021-04-15
+-->
+
+First, let's read in the tree produced by parsnp and plot it using ape.
+
+```
+parsnp_tree = read.tree('parsnp.tree')
+plot(parsnp_tree)
+```
+
+Next, let's root our tree by the outgroup so that the structure is correct.
+
+```
+parsnp_tree_rooted = root(parsnp_tree, 'Abau_AB0057_genome')
+plot(parsnp_tree_rooted)
+
+```
+
+Now that the tree is rooted, let's drop the outgroup so we can more clearly see the tree structure for our isolates of interest.
+
+```
+parsnp_tree_rooted_drop = drop.tip(parsnp_tree_rooted, c('Abau_AB0057_genome.fa', 'ACICU_genome.fasta.ref'))
+plot(parsnp_tree_rooted_drop)
+```
+
+Notice that with this tree, genomes A and B are more closely related, suggesting that they share a more recent common ancestor than C. In the realm of genomic epidemiology we would infer that A and B are more closely related in a putative transmission chain. Let's see if the tree structure, and therefore our understanding of the outbreak is influenced by filtering out recombinant regions.
+
 
 Perform SNP density analysis to discern evidence of recombination
 -----------------------------------------------------------------
@@ -272,12 +309,7 @@ For this analysis we want to exclude the out-group, because we are interested in
 abau_msa_no_outgroup to check that it worked.
 
 ```
-
-abau_msa_no_outgroup = abau_msa[c('ACICU_genome','AbauA_genome','AbauC_genome','AbauB_genome'),]
-
-or 
-
-abau_msa_no_outgroup = abau_msa[c('ACICU_genome.fasta/1-3996847','AbauA_genome.fasta/1-3953855','AbauB_genome.fasta/1-4014916','AbauC_genome.fasta/1-4200364', 'Abau_AB0057_genome.fa/1-4050513'),]
+abau_msa_no_outgroup = abau_msa[c('ACICU_genome','AbauA_genome','AbauB_genome','AbauC_genome'),]
 
 ```
 
@@ -351,9 +383,25 @@ run_gubbins -v -f 50 -o Abau_AB0057_genome.fa parsnpLCB.aln
 
 ```
 
-**Commenting out gubbins drawer section and replacing it with Phandango visualization.**
+> ***ii. View recombination regions detected by gubbins in Phandango***
+Phandango is a web based tool that is useful for visualizing output from many common microbial genomic analysis programs. Here we will use it to visualize the recombination regions detected by gubbins. 
+
+First let's download a summary of recombinant regions in gff format.
+
+```
+
+cd ~/Desktop/Abau_parsnp
+
+scp username@greatlakes-xfer.arc-ts.umich.edu:/scratch/micro612w21_class_root/micro612w21_class/username/day3am/Abau_genomes/parsnpLCB.recombination_predictions.gff  ./
+
+```
+
+Next, go the the phandango website (https://jameshadfield.github.io/phandango/#/), and just drag the gff file and your parsnp tree into your web browser. Does gubbins seem to have identified recombinant regions where we saw elevated variant density? In addition, which genomes seem to share the most recombinant regions?
+
 
 <!---
+Commenting out gubbins drawer 2021-04-15
+
 > ***ii. Create gubbins output figure***
 
 Gubbins produces a series of output files, some of which can be run through another program to produce a visual display of filtered recombinant regions. Run the gubbins_drawer script to create a pdf visualization of recombinant regions. 
@@ -371,7 +419,7 @@ The inputs are:
 gubbins_drawer mauve_ECII_outgroup.final_tree.tre mauve_ECII_outgroup.recombination_predictions.embl -o mauve_ECII_outgroup.recombination.pdf
 
 ```
-> ***iii. Download and view gubbins figure and filtered tree***
+> ***iii. Download and view gubbins figure and filtered tree in R***
 
 Use cyberduck or scp to get gubbins output files into Abau_mauve on your local system
 
@@ -386,6 +434,10 @@ scp username@greatlakes-xfer.arc-ts.umich.edu:/scratch/micro612w21_class_root/mi
 
 Open up the pdf and observe the recombinant regions filtered out by gubbins. Does it roughly match your expectations based upon your SNP density plots?
 
+commenting out building NJ tree 2021-04-15
+-->
+
+
 Finally, lets look at the recombination-filtered tree to see if this alters our conclusions. 
 
 To view the tree we will use the ape package in R:
@@ -398,16 +450,17 @@ To view the tree we will use the ape package in R:
 library(ape)
 
 # Path to tree file
-tree_file <- '~/Desktop/Abau_mauve/mauve_ECII_outgroup.final_tree.tre'
+tree_file <- '~/Desktop/Abau_parsnp/parsnpLCB.node_labelled.final_tree.tre'
 
 # Read in tree
-tree <- read.tree(tree_file)
+gubbins_tree <- read.tree(tree_file)
 
-# Plot tree
-plot(tree)
+# Drop the outgroup for visualization purposes
+gubbins_tree_noOG = drop.tip(gubbins_tree, c('Abau_AB0057_genome.fa'))
+
+plot(gubbins_tree_noOG)
 
 ```
--->
 
 How does the structure look different than the unfiltered tree?
 
