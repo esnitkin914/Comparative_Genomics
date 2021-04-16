@@ -100,9 +100,11 @@ Explore and run summarize_mlst.sh and check the dominant sequence type that thes
 
 > ii. Summarize ARIBA CARD results
 
-Try exploring card.sh and card.sbat scripts that were used to generate these results and try to understand the implementation of for loop in running them sequentially.
+Now go to CARD_results folder under day3pm and explore card.sh and card.sbat scripts that were used to generate these results.
 
-Use Ariba's summary function and summarize ARIBA CARD results that are placed in:
+Try to understand the implementation of for loop in running them sequentially.
+
+Use Ariba's summary function that we used in day2pm and summarize ARIBA CARD results that are placed in:
 
 /scratch/micro612w21_class_root/micro612w21_class/shared/data/day3pm/CARD_results
 
