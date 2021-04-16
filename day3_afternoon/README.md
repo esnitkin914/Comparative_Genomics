@@ -79,8 +79,8 @@ Your slurm script wil contain the following command after the slurm preamble stu
 
 Check the multiqc report of your fastq files.
 
-Run ARIBA CARD and MLST typing on day3pm_fastq samples
-------------------------------------------------------
+Explore ARIBA CARD and MLST typing on day3pm_fastq samples
+----------------------------------------------------------
 [[back to top]](https://github.com/alipirani88/Comparative_Genomics/blob/master/day3pmnoon/README.md)
 [[HOME]](https://github.com/alipirani88/Comparative_Genomics/blob/master/README.md)
 
