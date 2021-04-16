@@ -140,6 +140,7 @@ parsnp -h
 
 harvesttools -h
 
+cd day3am
 ```
 
 Now we will ask parsnp to align all the genomes in Abau_genomes directory and also ask parsnp to use Reference_genome/ACICU_genome.fasta as a reference genome.
