@@ -166,6 +166,64 @@ commenting out SPANDx and substituting it with snippy 2021-04-16
 
 -->
 
+***In Contruction***
+Run [Snippy](https://github.com/tseemann/snippy) variant calling pipeline on a set of Genomes and generate a core genome alignment
+----------------------------------------------------------------------------------------------------------------------------------
+[[back to top]](https://github.com/alipirani88/Comparative_Genomics/blob/master/day3pmnoon/README.md)
+[[HOME]](https://github.com/alipirani88/Comparative_Genomics/blob/master/README.md)
+
+On the afternoon of day 1 we saw how many steps are involved in calling variants relative to a reference genome. However, the same steps are applied to every sample, which makes this very pipeline friendly!  So, you could write your own shell script to string together these commands, or take advantage of one of several published pipelines. 
+
+Here, we will use Snippy to perform rapid haploid variant calling and generate a core genome alignment. Snippy takes a tab delimited file containing list of paths to your fastq samples and a reference genome in Genbank format and generates a runme.sh shell script that you can then run inside a SLURM script.   
+
+We have already created a runme.sh using snippy-multi command from snippy. Try exploring this shell script and understand what it means.
+
+Every line of runme.sh contains a snippy command for each of your samples that are placed in - /nfs/esnitkin/Workshop_Backups/micro612w20_class/shared/data/day3pm_fastq/
+
+
+More information on Snippy pipeline can be obtained from [this](https://github.com/tseemann/snippy) manual.
+
+The detailed information about how to interpret the output is on Snippy github page mentioned above. 
+
+> ***i. Look at overall statistics for variant calling in excel***
+
+SPANDx produces an overall summary file of its run that includes:
+
+1) numbers of SNPs/indels,
+
+2) numbers of filtered SNPs/indels and 
+
+3) average coverage across the reference genome. 
+
+This summary file is in:  Outputs/Single_sample_summary.txt
+
+Use less to look at this file and then apply unix commands to extract and sort individual columns 
+
+**HINTS**
+The following unix commands can be used to get sorted lists of coverage and numbers of SNPs/indels: tail, cut, sort
+
+> ***ii. Look at filtered variants produced by SPANDx in excel***
+
+SPANDx also produces a summary file of the variants/indels it identified in the core genome. 
+
+This summary file is: 
+```/scratch/micro612w21_class_root/micro612w21_class/username/day3pm/SPANDx_output/Outputs/All_SNPs_annotated.txt ```
+
+Use cyberduck/scp to download this file and view in excel
+
+- View SPANDx manual for interpretation of different columns which can be found [here](https://sourceforge.net/projects/spandx/files/SPANDx%20Manual_v3.1.pdf/download)
+- Back on great lakes, use grep to pull SNPs that have HIGH impact
+- What types of mutations are predicted to have “HIGH” impact?
+- How many genomes do these HIGH impact mutations tend to be present in? How do you interpret this?
+
+
+
+
+
+
+
+
+
 Recombination detection and tree generation
 -------------------------------------------
 [[back to top]](https://github.com/alipirani88/Comparative_Genomics/blob/master/day3pmnoon/README.md)
