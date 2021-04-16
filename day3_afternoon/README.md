@@ -115,7 +115,7 @@ Use Ariba's summary function that we used in day2pm and summarize ARIBA CARD res
 how many of these samples contain carbapenam resistant gene - KPC?
 
 <!---
-commenting out SPANDx and substituting it with snippy 2021-04-16
+commenting out SPANDx and replacing it with snippy 2021-04-16
 Examine results of [SPANDx](http://www.ncbi.nlm.nih.gov/pubmed/25201145) pipeline
 ---------------------------
 [[back to top]](https://github.com/alipirani88/Comparative_Genomics/blob/master/day3pmnoon/README.md)
@@ -162,7 +162,7 @@ Use cyberduck/scp to download this file and view in excel
 - What types of mutations are predicted to have “HIGH” impact?
 - How many genomes do these HIGH impact mutations tend to be present in? How do you interpret this?
 
-commenting out SPANDx and substituting it with snippy 2021-04-16
+commenting out SPANDx and replacing it with snippy 2021-04-16
 
 -->
 
@@ -205,8 +205,6 @@ The following unix commands can be used to get sorted list of number of VARIANT 
 
 > ***ii. Add in another exercise here to explore either core.vcf or generate a file that looks like SPANDx's All_SNPs_annotated.txt***
 
-
-**In construction**
 
 Recombination detection and tree generation
 -------------------------------------------
@@ -271,22 +269,6 @@ isolate_colors = structure(colors[,'Color'], names = colors[,'Facility'])
 
 To visualize the data on the tree better, you can use the argument ```show.tip.label = FALSE``` in ```plot()``` to remove the tree tip labels from the plot. You can also play around with the tree layout type  (e.g. phylogram, fan, etc) using the argument ```type```. You can change the placement of the colored tip labels by changing the number value of the parameter ```adj``` in ```tiplabels()```.  
 
-<!---
-
-> ***i. Load the neighbor-joining tree into iTOL***
-
-Instead of annotating your tree in R, this time, let's use iTOL to make a publication quality tree. iTOL is a web-based tool to visualize trees and metadata of the taxa. 
-
-Note that because the out-group is so distantly related it is difficult to make out the structure of the rest of the tree. 
-
-**To remedy this:**
-
-- Click on the KPNIH1 leaf, go to the “tree structure” menu and “delete leaf” 
-- Click on the extended branch leading to where KPNIH1 was, go to the “tree structure” menu and click “collapse branch”
-
-> ***ii. Load the annotation file ‘Rush_KPC_facility_codes_iTOL.txt’ to view the facility of isolation, play with tree visualization properties to understand how isolates group by facility, Circular vs. normal tree layout, Bootstrap values, Ignoring branch lengths***
--->
-
 After you've overlayed facility metadata on your tree, answer the following questions: 
 ```
 
@@ -295,51 +277,3 @@ Which patient’s infections might have originated from the blue facility?
 
 ```
 
-<!---
-Assessment of genomic deletions
--------------------------------
-[[back to top]](https://github.com/alipirani88/Comparative_Genomics/blob/master/day3pmnoon/README.md)
-[[HOME]](https://github.com/alipirani88/Comparative_Genomics/blob/master/README.md)
-
-> ***i. Download genome coverage bed file and load into R***
-
-This file is located in: Outputs/Comparative/Bedcov_merge.txt
-This file contains information regarding locations in the reference genome that each sequenced genome does and does not map to.
-
-The first 3 columns of the file are:
-
-1) the name of the reference, 
-
-2) the start coordinate of the window and 
-
-3) the end coordinate of the window
-
-The remaining columns are your analyzed genomes, with the values indicating the fraction of the window covered by reads in that genome.
-
-In essence, this file contains information on parts of the reference genome that might have been deleted in one of our sequenced genomes.
-
-After you download this file, read it into R
-
-**HINTS**
-- Use the read.table function with the relevant parameters being: header and sep
-
-> ***ii. Plot heatmap of genome coverage bed file***
-
-**HINTS**
-
-- The first 3 columns of the bed file specify the name of the chromosome and the genome coordinates – therefore you want to subset your matrix to not include these columns 
-- Use the heatmap3 function to make your heatmap with the following parameters: scale = “none” (keeps original values), Rowv = NA (suppress clustering by rows – why might we not want to cluster by rows for this analysis?)
-
-- Note a large genomic deletion among a subset of isolates. Does this deletion fit with the phylogeny from above?
-
-iii. Explore genomic deletion in more detail with ACT
-
-- Use abacus to orient contigs from Rush_KPC_298 to KPNIH 
-- Load KPNIH.gb, Rush_KPC_298_ordered and the .crunch alignment into ACT
-
-```
-
-What genes appear to have been lost?
-
-```
--->
