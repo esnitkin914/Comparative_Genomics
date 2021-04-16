@@ -172,16 +172,23 @@ harvesttools -i parsnp.ggr -M parsnpLCB.aln
 
 Gingr is a visualization tool that accompanies parsnp. So, let's download the files we created using parsnp and load them into gingr.
 
+Go to your local system terminal or open a new terminal tab and run these commands to create a new directory and copy files from great lakes to your local Desktop.
+
 ```
+mkdir ~/Desktop/Abau_parsnp
 
 cd ~/Desktop/Abau_parsnp
 
-scp username@greatlakes-xfer.arc-ts.umich.edu:/scratch/micro612w21_class_root/micro612w21_class/username/day3am/Abau_genomes/parsnpLCB.aln ./
-scp username@greatlakes-xfer.arc-ts.umich.edu:/scratch/micro612w21_class_root/micro612w21_class/username/day3am/Abau_genomes/parsnp.tree ./
-scp username@greatlakes-xfer.arc-ts.umich.edu:/scratch/micro612w21_class_root/micro612w21_class/username/day3am/Abau_genomes/ACICU.gb ./
+# Make sure to replace username with your uniq name
+scp username@greatlakes-xfer.arc-ts.umich.edu:/scratch/micro612w21_class_root/micro612w21_class/username/day3am/parsnp_results/parsnpLCB.aln ./
+scp username@greatlakes-xfer.arc-ts.umich.edu:/scratch/micro612w21_class_root/micro612w21_class/username/day3am/parsnp_results/parsnp.tree ./
+scp username@greatlakes-xfer.arc-ts.umich.edu:/scratch/micro612w21_class_root/micro612w21_class/username/day3am/Abau_genomes/Reference_genome/ACICU.gb ./
 
 ```
-Now, fire up gingr and use File->open to read in the .aln, .tree and .gb files. Notice the structure of the tree (i.e. which genomes are closely related to one another) and whether variants are or aren't evenly spaced across the genome.
+
+Now, fire up gingr and use File->open tab to read in these files one by one - .aln, .tree and .gb files. 
+
+Notice the structure of the tree (i.e. which genomes are closely related to one another) and whether variants are or aren't evenly spaced across the genome.
 
 
 Perform some DNA sequence comparisons and phylogenetic analysis in [APE](http://ape-package.ird.fr/), an R package
@@ -189,11 +196,13 @@ Perform some DNA sequence comparisons and phylogenetic analysis in [APE](http://
 [[back to top]](https://github.com/alipirani88/Comparative_Genomics/blob/master/day3aming/README.md)
 [[HOME]](https://github.com/alipirani88/Comparative_Genomics/blob/master/README.md)
 
-We've done some initial visualization of the parsnp output files in gingr, now we are going to do some further exploration in R. First we will determine how many variants separate each genome, second we will visualize the phylogenetic tree produced by parsnp and finally we will look for evidence of recombination among our genomes.
+We've done some initial visualization of the parsnp output files in gingr, now we are going to do some further exploration in R. 
+
+First we will determine how many variants separate each genome, second we will visualize the phylogenetic tree produced by parsnp and finally we will look for evidence of recombination among our genomes.
 
 > ***i. Read alignment into R***
 
-Fire up RStudio, set your working directory to ~/Desktop/Abau_mauve/ or wherever you have downloaded mauve_ECII_outgroup.fasta file and install/load ape
+Fire up RStudio, set your working directory to ~/Desktop/Abau_parsnp/ or wherever you have downloaded your parsnp files and install/load ape
 
 Use the read.dna function in ape to read in you multiple alignments. 
 Print out the variable to get a summary.
@@ -232,7 +241,7 @@ non_gap_pos = colSums(as.character(abau_msa) == '-') == 0
 
 > ***iv. Count number of variants between sequences***
 
-Now that we know which positions in the alignment are core and variable, we can extract these positions and count how many variants there are among our genomes. Do count pairwise variants we will use the dist.dna function in ape. The model parameter indicates that we want to compare sequences by counting differences. Print out the resulting matrix to see how different our genomes are.
+Now that we know which positions in the alignment are core and variable, we can extract these positions and count how many variants there are among our genomes. To count pairwise variants we will use the dist.dna function in ape. The model parameter indicates that we want to compare sequences by counting differences. Print out the resulting matrix to see how different our genomes are.
 
 ```
 
@@ -241,7 +250,7 @@ var_count_matrix = dist.dna(abau_msa_var, model = "N")
 
 ```
 
-Examining the pairwise distances among our isolates, we see that our genomes have thousands of variants between them. Based on the estimated evolutionary rate of Acinetobacter, we would expect this amount of variation  to take hundreds of years to accumulate via mutation and vertical inherentence. Thus, based on this observation it seems unlikely that these are related by recent transmission. However, before we reach our final conclusion we need to assess whether all of this variation was due to mutation and vertical inheretance, or if some of the variation is due to horizontal transfer via recombination.
+Examining the pairwise distances among our isolates, we see that our genomes have thousands of variants between them. Based on the estimated evolutionary rate of Acinetobacter, we would expect this amount of variation to take hundreds of years to accumulate via mutation and vertical inherentence. Thus, based on this observation it seems unlikely that these are related by recent transmission. However, before we reach our final conclusion we need to assess whether all of this variation was due to mutation and vertical inheretance, or if some of the variation is due to horizontal transfer via recombination.
 
 > ***vi. View phylogenetic tree***
 
@@ -280,7 +289,7 @@ plot(parsnp_tree)
 Next, let's root our tree by the outgroup so that the structure is correct.
 
 ```
-parsnp_tree_rooted = root(parsnp_tree, 'Abau_AB0057_genome')
+parsnp_tree_rooted = root(parsnp_tree, 'Abau_AB0057_genome.fa')
 plot(parsnp_tree_rooted)
 
 ```
@@ -310,7 +319,7 @@ For this analysis we want to exclude the out-group, because we are interested in
 abau_msa_no_outgroup to check that it worked.
 
 ```
-abau_msa_no_outgroup = abau_msa[c('ACICU_genome','AbauA_genome','AbauB_genome','AbauC_genome'),]
+abau_msa_no_outgroup = abau_msa[c('ACICU_genome.ref','AbauA_genome','AbauB_genome','AbauC_genome'),]
 
 ```
 
@@ -338,11 +347,13 @@ abau_no_outgroup_non_gap_pos = colSums(as.character(abau_msa_no_outgroup) == '-'
 
 > ***iv. Create overall histogram of SNP density***
 
-Finally, create a histogram of SNP density across the genome. Does the density look even, or do you think there might be just a touch of recombination?
+Finally, create a histogram of SNP density across the genome. 
 
 ```
 hist(which(abau_no_outgroup_var_pos & abau_no_outgroup_non_gap_pos), 10000)
 ```
+
+Does the density look even, or do you think there might be just a touch of recombination?
 
 Perform recombination filtering with [Gubbins](https://www.google.com/search?q=gubbins+sanger&ie=utf-8&oe=utf-8)
 ----------------------------------------------
@@ -375,29 +386,31 @@ Run gubbins on your fasta formatted alignment
 ```
 d3m
 
-#or
-
-
-cd /scratch/micro612w21_class_root/micro612w21_class/username/day3am/parsnp_results
+cd parsnp_results
 
 run_gubbins -v -f 50 -o Abau_AB0057_genome.fa parsnpLCB.aln
 
 ```
 
 > ***ii. View recombination regions detected by gubbins in Phandango***
+
 Phandango is a web based tool that is useful for visualizing output from many common microbial genomic analysis programs. Here we will use it to visualize the recombination regions detected by gubbins. 
 
-First let's download a summary of recombinant regions in gff format.
+First let's download a summary of recombinant regions in gff format onto your local system. Type these commands on your local terminal.
 
 ```
 
 cd ~/Desktop/Abau_parsnp
 
-scp username@greatlakes-xfer.arc-ts.umich.edu:/scratch/micro612w21_class_root/micro612w21_class/username/day3am/Abau_genomes/parsnpLCB.recombination_predictions.gff  ./
+scp username@greatlakes-xfer.arc-ts.umich.edu:/scratch/micro612w21_class_root/micro612w21_class/username/day3am/parsnp_results/parsnpLCB.recombination_predictions.gff  ./
+
+scp username@greatlakes-xfer.arc-ts.umich.edu:/scratch/micro612w21_class_root/micro612w21_class/username/day3am/parsnp_results/parsnpLCB.node_labelled.final_tree.tre  ./
 
 ```
 
-Next, go the the phandango website (https://jameshadfield.github.io/phandango/#/), and just drag the gff file and your parsnp tree into your web browser. Does gubbins seem to have identified recombinant regions where we saw elevated variant density? In addition, which genomes seem to share the most recombinant regions?
+Next, go the the phandango website (https://jameshadfield.github.io/phandango/#/), and just drag the gff file - parsnpLCB.recombination_predictions.gff and your parsnp tree - parsnp.tree into your web browser. 
+
+Does gubbins seem to have identified recombinant regions where we saw elevated variant density? In addition, which genomes seem to share the most recombinant regions?
 
 
 <!---
@@ -563,46 +576,7 @@ plot(NJ_tree, type = 'phylogram') #default
 ```
 
 
-<!-- ***iv. Read alignment into Seaview and construct Neighbor Joining tree***-->
 
-<!--In the previous exercise, we used Seaview to look at a pre-existing tree, here we will use Seaview to create a tree from a
-multiple sequence alignment -->
-
-<!--Read in multiple alignment of variable positions-->
-
-<!--```-->
-<!--<!--Go to File -> open ('2016-3-9_KP_BSI_USA300_var_pos.fa)-->
-<!--```-->
-
-<!--Construct Neighbor Joining phylogenetic tree with default parameters (note, this will take a few minutes)-->
-
-<!--```-->
-<!--Go to Trees -> select Distance Methods -> BioNJ -> (Select Bootstrap with 20 replicates) -> Go-->
-<!--```-->
-
-<!--Save your tree-->
-
-<!--```-->
-<!--File -> Save rooted tree-->
-<!--```-->
-
-<!--Note that in your research it is not a good idea to use these phylogenetic tools completely blind and I strongly encourage embarking on deeper learning yourself, or consulting with an expert before doing an analysis for a publication-->
-
-<!-- > ***v. Read tree into iTOL*** -->
-
-<!--```-->
-
-<!--To make a prettier tree and add annotations we will use iTOL (http://itol.embl.de/). 
-
-<!--Go to http://itol.embl.de/-->
-
-<!--To load your tree, click on upload, and select the rooted tree you just created in Seaview-->
-
-<!--```-->
-
-<!--Explore different visualization options for your tree (e.g. make it circular, show bootstrap values, try collapsing nodes/branches)-->
-
-<!--Note that you can always reset your tree if you are unhappy with the changes you’ve made-->
 
 > ***iv. Add annotations to tree in R ***
 
