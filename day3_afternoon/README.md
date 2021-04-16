@@ -177,51 +177,34 @@ On the afternoon of day 1 we saw how many steps are involved in calling variants
 
 Here, we will use Snippy to perform rapid haploid variant calling and generate a core genome alignment. Snippy takes a tab delimited file containing list of paths to your fastq samples and a reference genome in Genbank format and generates a runme.sh shell script that you can then run inside a SLURM script.   
 
-We have already created a runme.sh using snippy-multi command from snippy. Try exploring this shell script and understand what it means.
+We have already created a runme.sh under snippy_results using snippy-multi command from snippy. Try exploring this shell script and understand what it means.
 
 Every line of runme.sh contains a snippy command for each of your samples that are placed in - /nfs/esnitkin/Workshop_Backups/micro612w20_class/shared/data/day3pm_fastq/
 
+Go to snippy_results folder and edit the snippy.sbat script by commenting out the snippy bash command - bash runme.sh and submit this SLURM script.
 
-More information on Snippy pipeline can be obtained from [this](https://github.com/tseemann/snippy) manual.
+Make sure to change the username to your uniqname.
 
-The detailed information about how to interpret the output is on Snippy github page mentioned above. 
+Once the job finishes, You would have individual folders Rush_KPC_* for each of the samples and their variant call results. The description of each of the output files are documented on Snippy's Github page - Section Calling SNPs -> Output Files
+
+Since we are running Snippy pipeline on multiple samples, Snippy also produces an alignment of "core SNPs" which can be used to build a high-resolution phylogeny. 
+
+Snippy generates various other files with a prefix core.* that can be further used for downstream phylogenetic/recombinant detection analysis or can be used to explore the variants/alignment statistics file.
 
 > ***i. Look at overall statistics for variant calling in excel***
 
-SPANDx produces an overall summary file of its run that includes:
+Snippy produces an overall summary file - core.txt of its run that includes tab-separated list of alignment/core-size statistics such as:
 
-1) numbers of SNPs/indels,
-
-2) numbers of filtered SNPs/indels and 
-
-3) average coverage across the reference genome. 
-
-This summary file is in:  Outputs/Single_sample_summary.txt
+1) Number of ALIGNED and UNALIGNED bases for a given sample.
+2) Number of filtered VARIANT (variants passing all the filters)
+3) Number of bases with low coverage - LOWCOV
 
 Use less to look at this file and then apply unix commands to extract and sort individual columns 
 
 **HINTS**
-The following unix commands can be used to get sorted lists of coverage and numbers of SNPs/indels: tail, cut, sort
+The following unix commands can be used to get sorted list of number of VARIANT and number of ALIGNED bases: tail, cut, sort
 
-> ***ii. Look at filtered variants produced by SPANDx in excel***
-
-SPANDx also produces a summary file of the variants/indels it identified in the core genome. 
-
-This summary file is: 
-```/scratch/micro612w21_class_root/micro612w21_class/username/day3pm/SPANDx_output/Outputs/All_SNPs_annotated.txt ```
-
-Use cyberduck/scp to download this file and view in excel
-
-- View SPANDx manual for interpretation of different columns which can be found [here](https://sourceforge.net/projects/spandx/files/SPANDx%20Manual_v3.1.pdf/download)
-- Back on great lakes, use grep to pull SNPs that have HIGH impact
-- What types of mutations are predicted to have “HIGH” impact?
-- How many genomes do these HIGH impact mutations tend to be present in? How do you interpret this?
-
-
-
-
-
-
+> ***ii. Add in another exercise here to explore either core.vcf or generate a file that looks like SPANDx's All_SNPs_annotated.txt***
 
 
 
