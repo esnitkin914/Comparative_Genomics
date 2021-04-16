@@ -215,38 +215,27 @@ Recombination detection and tree generation
 
 > ***i. Plot the distribution of variants across the genome in R***
 
-The positions of variants are embedded in the first column of Outputs/Comparative/All_SNPs_annotated.txt, but you have to do some work to isolate them! 
+The positions of variants are embedded in the second column of core.tab, but you have to do some work to isolate them! 
 
 **HINTS**  
 
-- You will need to pipe together two “cut” commands: the first command will use tab as a delimiter and the second will use _. 
-- Note that for cut you can specify tab as the delimiter as follows: cut –d$’\t’ and _ as: cut -d ‘_’
-- You should redirect the output of your cut commands (a list of SNP positions) to a file called ‘snp_positions.txt’. For example, the first line of your snp_positions.txt should be:
+- You will need to use “cut” command to extract the second column "POS" from core.tab
+- Note that for cut you can specify tab as the delimiter as follows: cut –d$’\t’
+- You should redirect the output of your cut command (a list of SNP positions) to a file called ‘snp_positions.txt’. For example, the first line of your snp_positions.txt should be:
+
 ```
 12695
 ```
-- Finally, download this file, read it into R using ‘read.table’ and use ‘hist’ to plot a histogram of the positions
-- Do you observe clustering of variants that would be indicative of recombination?
 
-> ***ii.  Create fasta file of variants from nexus file***
+- Finally, download this file, read it into R using ‘read.table’ and use ‘hist’ to plot a histogram of these core positions
+- Do you observe clustering of variants that would be indicative of recombination? #No clustering since they are only core variants
 
-SPANDx creates a file of core SNPs in a slightly odd format (transposed nexus). 
-This file is called: 
-```/scratch/micro612w21_class_root/micro612w21_class/username/day3pm/SPANDx_output/Outputs/Comparative/Ortho_SNP_matrix.nex ```
 
-For convenience, apply the custom perl script located in the same directory to convert it to fasta format
-
-```
-perl transpose_nex_to_fasta.pl Ortho_SNP_matrix.nex
-```
-
-This file Outputs/Comparative/Ortho_SNP_matrix.fasta should now exist
-
-> ***iii. Create a neighboring-joining tree in R***
+> ***ii. Create a neighboring-joining tree from core SNP alignment in R***
 
 ```
 
-Download Ortho_SNP_matrix.fasta to your home computer
+Download core.aln to your home computer
 Read the fasta file into R, create a distance matrix, and make a neighbor joining tree. Make sure you load in the necessary packages! 
 
 ```
