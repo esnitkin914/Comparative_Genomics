@@ -491,7 +491,7 @@ For the final exercise we will use a different dataset, composed of USA300 methi
 
 > ***i. Download MRSA genome alignment from great lakes***
 
-Use cyberduck or scp to get genomes onto your laptop
+Use cyberduck or scp to get genomes onto your local system.
 
 ```
 
@@ -507,7 +507,9 @@ scp username@greatlakes-xfer.arc-ts.umich.edu:/scratch/micro612w21_class_root/mi
 
 > ***ii. Look at SNP density for MRSA alignment in R***
 
-Before we embark on our phylogenetic analysis, lets look at the SNP density to verify that there is no recombination
+Before we embark on our phylogenetic analysis, lets look at the SNP density to verify that there is no recombination. 
+
+Fire up R studio and run these commands.
 
 ```
 library(ape)
