@@ -114,7 +114,8 @@ Use Ariba's summary function that we used in day2pm and summarize ARIBA CARD res
 
 how many of these samples contain carbapenam resistant gene - KPC?
 
-
+<!---
+commenting out SPANDx and substituting it with snippy 2021-04-16
 Examine results of [SPANDx](http://www.ncbi.nlm.nih.gov/pubmed/25201145) pipeline
 ---------------------------
 [[back to top]](https://github.com/alipirani88/Comparative_Genomics/blob/master/day3pmnoon/README.md)
@@ -160,6 +161,10 @@ Use cyberduck/scp to download this file and view in excel
 - Back on great lakes, use grep to pull SNPs that have HIGH impact
 - What types of mutations are predicted to have “HIGH” impact?
 - How many genomes do these HIGH impact mutations tend to be present in? How do you interpret this?
+
+commenting out SPANDx and substituting it with snippy 2021-04-16
+
+-->
 
 Recombination detection and tree generation
 -------------------------------------------
