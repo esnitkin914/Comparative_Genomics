@@ -1155,9 +1155,9 @@ Your command should look like this:
 
 Wait for this variant call job to finish before you proceed to next exercise.
 
-4) Examine onlysnp vcf file and check how many high quality SNPs we end up with.
+4) Examine onlysnp vcf file and check how many high quality SNPs we end up with. Note there aren't very many, supporting the premise that daptomycin resistance evolved in the patient during treatment.
 
-5) Load files into IGV and examine annotations of variants in or around cardiolipin synthases. You would need - VRE_daptoS_gene_annot.gff3, VRE_daptoS_ref_strain.fasta, relevant bam and vcf files for visualizing the alignments/variants in IGV.
+5) Since there are so few variants you will explore them in IGV to find the one putatively impacting cardiolipin synthase function. Load files into IGV and examine gene annotations around each variant, and see if any match cardiolipin synthase. You would need - VRE_daptoS_gene_annot.gff3, VRE_daptoS_ref_strain.fasta, relevant bam and vcf files for visualizing the alignments/variants in IGV.
 
 Exercise: Colistin resistance in Acinetobacter
 ----------------------------------------------
@@ -1170,6 +1170,5 @@ Your steps should be:
 
 2) Create two SLURM scripts comparing your colR and colS genomes to the reference genomes and submit both of them to cluster. We have already placed two SLURM scripts - SRR7591080.sbat and SRR7591083.sbat that you can edit and add in the variant_call.sh commands at the end with forward read, reverse read, reference genome, output directory path and a prefix as parameters for respective samples.
 
-3) This version of variant_call.sh also includes snpEff commands so you will find the annotated vcf file in Step6_variantfilteraion folder. Once the job completes, 
-Load files into IGV and determine if colR has a pmrB mutation that the colS isolate does not, and compare it to the mutation found in the paper. You would need - ACICU.gb, ACICU.fasta, relevant bam and vcf files of two samples for visualizing alignments/variants in IGV.
+3) This version of variant_call.sh also includes snpEff commands so you will find the annotated vcf file in Step6_variantfilteraion folder. Once the job completes, search the snpEff_parsed.csv of the colR and colS genomes for pmrB mutations. Did the resistant isolate have a unique mutation? Does this match the mutation found in the paper?
 
