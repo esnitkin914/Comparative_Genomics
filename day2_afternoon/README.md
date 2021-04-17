@@ -193,7 +193,7 @@ mkdir ~/Desktop/micro612/day2pm
 
 scp username@greatlakes-xfer.arc-ts.umich.edu:/scratch/micro612w21_class_root/micro612w21_class/username/day2pm/ariba/results/kpneumo_card* ~/Desktop/micro612/day2pm
 scp username@greatlakes-xfer.arc-ts.umich.edu:/scratch/micro612w21_class_root/micro612w21_class/username/day2pm/ariba/data/kpneumo_source.tsv ~/Desktop/micro612/day2pm
-scp username@greatlakes-xfer.arc-ts.umich.edu:/scratch/micro612w21_class_root/micro612w21_class/username/day2pm/ariba/results/mlst_typing/kpneumo_mlst.tsv ~/Desktop/micro612/day2pm
+scp username@greatlakes-xfer.arc-ts.umich.edu:/scratch/micro612w21_class_root/micro612w21_class/username/day2pm/ariba/data/mlst_typing/kpneumo_mlst.tsv ~/Desktop/micro612/day2pm
 
 ```
 
@@ -232,20 +232,18 @@ pheatmap(ariba_full_match,annotation_row = annots)
 
 Bacteria of the same species can be classified into different sequence types (STs) based on the sequence identity of certain housekeeping genes using a technique called [multilocus sequence typing (MLST)](https://en.wikipedia.org/wiki/Multilocus_sequence_typing). The different combination of these house keeping sequences present within a bacterial species are assigned as distinct alleles and, for each isolate, the alleles at each of the seven genes define the allelic profile or sequence type (ST). Sometimes, different sequence types are associated with different environments or different antibiotic resistance genes. We want to know what sequence type(s) our genomes come from, and if there are certain ones that are associated with certain sources or certain antibiotic resistance genes. 
 
-We already pre-ran Ariba MLST results on all 8 of our *K. pneumonia* genomes. Use the MLST results placed in `results/mlst_typing/kpneumo_mlst.tsv` to add a second annotation column to the heatmap we created above to visualize the results. 
+We already pre-ran Ariba MLST on all 8 of our *K. pneumonia* genomes. Use the MLST results kpneumo_mlst.tsv that we previously downloaded to add a second annotation column to the heatmap we created above to visualize the results. 
 
-Lets use the MLST typing metadata that you previously downloaded.
-
-Go to your R studio and overlay MLST metadata as an additional row annotation
+Go to your R studio and overlay MLST metadata as an additional row annotation to your previous heatmap
 
 ```
 annots_mlst = read.table('~/Desktop/micro612/day2pm/kpneumo_mlst.tsv',row.names=1)
 
-colnames(annots_ST) = 'ST'
+colnames(annots_mlst) = 'ST'
 
 Row_annotations <- cbind(annots, annots_mlst) 
 
-annoCol <- list(ST=c("11"="blue", "221"="red", "230"="orange", "258"="grey”))
+annoCol <- list(ST=c("11"="blue", "221"="red", "230"="orange", "258"="grey"))
 
 pheatmap(ariba_full_match,annotation_row = Row_annotations, annotation_colors = annoCol)
 ```
