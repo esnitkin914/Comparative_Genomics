@@ -50,7 +50,7 @@ First, change directories to the blast directory:
 
 ```
 #change directory to day2pm
-d2pm
+d2a
 
 cd blast
 ```
@@ -150,7 +150,7 @@ cd /scratch/micro612w21_class_root/micro612w21_class/username/day2pm
 
 # or
 
-d2pm
+d2a
 
 cd ariba
 
@@ -270,7 +270,7 @@ Steps:
 
 ```
 # Make sure you are in ariba directory under day2pm folder and running the below commands from ariba directory.
-d2pm
+d2a
 cd ariba
 
 # Check if you have an mlst database for your species of interest
@@ -502,7 +502,7 @@ cd /scratch/micro612w21_class_root/micro612w21_class/username/day2pm
 
 # or
 
-d2pm
+d2a
 cd act
 ```
 
