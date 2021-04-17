@@ -138,11 +138,11 @@ Now let's look at the full spectrum of antibiotic resistance genes in our *Klebs
 
 [ARIBA](https://github.com/sanger-pathogens/ariba/wiki) (Antimicrobial Resistance Identification By Assembly) is a tool that identifies antibiotic resistance genes by running local assemblies. The input is a FASTA file of reference sequences (can be a mix of genes and noncoding sequences) and paired sequencing reads. ARIBA reports which of the reference sequences were found, plus detailed information on the quality of the assemblies and any variants between the sequencing reads and the reference sequences.
 
-ARIBA is compatible with various databases and also contains a utility to download different databases such as: argannot, card, megares, plasmidfinder, resfinder, srst2_argannot, vfdb_core. Today, we will be working with the [card](https://card.mcmaster.ca/) database (`data/CARD` in your `day2pm` directory).
+ARIBA is compatible with various databases and also contains a utility to download different databases such as: argannot, card, megares, plasmidfinder, resfinder, srst2_argannot, vfdb_core. Today, we will be working with the [card](https://card.mcmaster.ca/) database (`ariba/data/CARD/` in your `day2pm` directory).
 
 > ***i. Run ARIBA on input paired-end fastq reads for resistance gene identification.***
 
-The fastq reads are in the `data/kpneumo_fastq` directory. Since ARIBA is a memory intensive, we started this at the beginning of the afternoon. We should have our results by now, but first let's look at the ARIBA command.
+The fastq reads are in the `ariba/data/kpneumo_fastq/` directory. Since ARIBA is a memory intensive, we started this at the beginning of the afternoon. We should have our results by now, but first let's look at the ARIBA command.
 
 ```
 # navigate to ariba directory
@@ -182,13 +182,19 @@ ariba summary --preset all results/kpneumo_card_all_results results/card/*/repor
 The ARIBA summary generates three output:
 
 1. `kpneumo_card*.csv` file that can be viewed in your favorite spreadsheet program (e.x. Microsoft Excel).
+
 2. `kpneumo_card*.phandango.{csv,tre}` that allow you to view the results in [Phandango](http://jameshadfield.github.io/phandango/#/). You can drag-and-drop these files straight into Phandango.
 
 Lets copy these  files, along with a metadata file, to the local system using cyberduck or scp.
 
 ```
+mkdir ~/Desktop/micro612
+mkdir ~/Desktop/micro612/day2pm
+
 scp username@greatlakes-xfer.arc-ts.umich.edu:/scratch/micro612w21_class_root/micro612w21_class/username/day2pm/ariba/results/kpneumo_card* ~/Desktop/micro612/day2pm
 scp username@greatlakes-xfer.arc-ts.umich.edu:/scratch/micro612w21_class_root/micro612w21_class/username/day2pm/ariba/data/kpneumo_source.tsv ~/Desktop/micro612/day2pm
+scp username@greatlakes-xfer.arc-ts.umich.edu:/scratch/micro612w21_class_root/micro612w21_class/username/day2pm/ariba/results/mlst_typing/kpneumo_mlst.tsv ~/Desktop/micro612/day2pm
+
 ```
 
 Drag and drop these two files onto the [Phandango](http://jameshadfield.github.io/phandango/#/) website. What types of resistance genes do you see in these *Klebsiella* genomes? 
@@ -224,24 +230,44 @@ colnames(annots) = 'Source'
 pheatmap(ariba_full_match,annotation_row = annots)
 ```
 
-- **Exercise:** Bacteria of the same species can be classified into different sequence types (STs) based on the sequence identity of certain housekeeping genes using a technique called [multilocus sequence typing (MLST)](https://en.wikipedia.org/wiki/Multilocus_sequence_typing). The different combination of these house keeping sequences present within a bacterial species are assigned as distinct alleles and, for each isolate, the alleles at each of the seven genes define the allelic profile or sequence type (ST). Sometimes, different sequence types are associated with different environments or different antibiotic resistance genes. We want to know what sequence type(s) our genomes come from, and if there are certain ones that are associated with certain sources or certain antibiotic resistance genes. 
+Bacteria of the same species can be classified into different sequence types (STs) based on the sequence identity of certain housekeeping genes using a technique called [multilocus sequence typing (MLST)](https://en.wikipedia.org/wiki/Multilocus_sequence_typing). The different combination of these house keeping sequences present within a bacterial species are assigned as distinct alleles and, for each isolate, the alleles at each of the seven genes define the allelic profile or sequence type (ST). Sometimes, different sequence types are associated with different environments or different antibiotic resistance genes. We want to know what sequence type(s) our genomes come from, and if there are certain ones that are associated with certain sources or certain antibiotic resistance genes. 
 
-Using the [ARIBA MLST manual](https://github.com/sanger-pathogens/ariba/wiki/MLST-calling-with-ARIBA), write and run a script (similar to the one above) to perform MLST calling with ARIBA on all 8 of our *K. pneumonia* genomes. Then, use this information to add a second annotation column to the heatmap we created above to visualize the results. Running ARIBA mlst requires a MLST species database, so don't forget to download "Klebsiella pneumoniae" database and give the path to this database while running ARIBA MLST detection.
+We already pre-ran Ariba MLST results on all 8 of our *K. pneumonia* genomes. Use the MLST results placed in `results/mlst_typing/kpneumo_mlst.tsv` to add a second annotation column to the heatmap we created above to visualize the results. 
 
-Steps:
-1. Check if you have an MLST database for your species of interest using `ariba pubmlstspecies`.
-1. Download your species MLST database. You can look at the manual or run the command `ariba pubmlstget -h` to help figure out how to download the correct MLST database. I would suggest downloading it to the `data` directory. 
-1. Copy the `ariba.sbatch` file to a new file called `mlst.sbatch`.
-1. Modify the `mlst.sbatch` script in the following ways:
-    1. Change the database directory to the _K. pneumoniae_ MLST database you just downloaded.
-    1. Change the `mkdir` line to make a `results/mlst` directory.
-    1. Modify the output directory `outdir` line: Change `card` to `mlst`.
-1. Submit the `mlst.sbatch` script. It should take about 7 minutes to run.
-1. Once the run completes, run `scripts/summarize_mlst.sh results/mlst` to look at the MLST results. If you want, you can save it to its own file. What sequence types are present? 
+Lets use the MLST typing metadata that you previously downloaded.
+
+Go to your R studio and overlay MLST metadata as an additional row annotation
+
+```
+annots_mlst = read.table('~/Desktop/micro612/day2pm/kpneumo_mlst.tsv',row.names=1)
+
+colnames(annots_ST) = 'ST'
+
+Row_annotations <- cbind(annots, annots_mlst) 
+
+annoCol <- list(ST=c("11"="blue", "221"="red", "230"="orange", "258"="grey”))
+
+pheatmap(ariba_full_match,annotation_row = Row_annotations, annotation_colors = annoCol)
+```
+
+
+The commands and steps that were used for MLST typing are given below:
 
 <details>
   <summary>Solution</summary>
-  
+
+Steps:
+1. Check if you have an MLST database for your species of interest using `ariba pubmlstspecies`.
+2. Download your species MLST database. You can look at the manual or run the command `ariba pubmlstget -h` to help figure out how to download the correct MLST database. I would suggest downloading it to the `data` directory. 
+3. Copy the `ariba.sbatch` file to a new file called `mlst.sbatch`.
+4. Modify the `mlst.sbatch` script in the following ways:
+    1. Change the database directory to the _K. pneumoniae_ MLST database you just downloaded.
+    1. Change the `mkdir` line to make a `results/mlst` directory.
+    1. Modify the output directory `outdir` line: Change `card` to `mlst`.
+5. Submit the `mlst.sbatch` script. It should take about 7 minutes to run.
+6. Once the run completes, run `scripts/summarize_mlst.sh results/mlst` to look at the MLST results. If you want, you can save it to its own file. What sequence types are present? 
+
+
 ```
 # Make sure you are in ariba directory under day2pm folder and running the below commands from ariba directory.
 d2pm
