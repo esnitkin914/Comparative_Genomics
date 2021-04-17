@@ -254,7 +254,7 @@ The commands and steps that were used for MLST typing are given below:
 <details>
   <summary>Solution</summary>
 
-**Dont run this exercise, we already rand and placed the MLST results in ariba/data/mlst_typing.**
+**Dont run this exercise**
 
 Steps:
 1. Check if you have an MLST database for your species of interest using `ariba pubmlstspecies`.
