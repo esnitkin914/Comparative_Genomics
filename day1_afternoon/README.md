@@ -43,7 +43,7 @@ cd /scratch/micro612w21_class_root/micro612w21_class/username/day1pm/kraken/
 Since Kraken takes time to run, we have already placed the output of Kraken command in day1pm/kraken directory.
 
 ```
-
+# Dont run these commands. MRSA_CO_HA_473_kraken and MRSA_CO_HA_479_kraken are already placed in day1pm/kraken directory
 kraken --quick --fastq-input --gzip-compressed --unclassified-out MRSA_CO_HA_473_unclassified.txt --db minikraken_20171013_4GB/ --output MRSA_CO_HA_473_kraken MRSA_CO_HA_473_R1_001.fastq.gz
 
 
