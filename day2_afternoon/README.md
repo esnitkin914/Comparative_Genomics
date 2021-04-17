@@ -113,11 +113,16 @@ Your steps should be:
   <summary>Solution</summary>
   
 ```
+d2a
+
+cd blast/data/blast_ent
+
+# Make sure you are in blast_ent folder
 cat *.fasta > VRE_VSE_genomes.fasta
 
-makeblastdb -in data/blast_ent/ardb_van.pfasta -dbtype prot
+makeblastdb -in ardb_van.pfasta -dbtype prot
 
-blastx -query VRE_VSE_genomes.fasta -db data/blast_ent/ardb_van.pfasta -out van_blastp_results.tsv -outfmt 6 -evalue 1e-100 -max_target_seqs 1
+blastx -query VRE_VSE_genomes.fasta -db ardb_van.pfasta -out van_blastp_results.tsv -outfmt 6 -evalue 1e-100 -max_target_seqs 1
 
 ```
 </details>
