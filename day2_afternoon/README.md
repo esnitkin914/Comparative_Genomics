@@ -27,7 +27,7 @@ or
 
 wd
 
-cp -r /scratch/micro612w21_class_root/micro612w21_class/shared_data/day2pm/data ./
+cp -r /scratch/micro612w21_class_root/micro612w21_class/shared/data/day2pm/ ./
 
 
 ```
