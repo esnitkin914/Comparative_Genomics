@@ -254,6 +254,8 @@ The commands and steps that were used for MLST typing are given below:
 <details>
   <summary>Solution</summary>
 
+**Dont run this exercise, we already rand and placed the MLST results in ariba/data/mlst_typing.**
+
 Steps:
 1. Check if you have an MLST database for your species of interest using `ariba pubmlstspecies`.
 2. Download your species MLST database. You can look at the manual or run the command `ariba pubmlstget -h` to help figure out how to download the correct MLST database. I would suggest downloading it to the `data` directory. 
