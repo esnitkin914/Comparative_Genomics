@@ -258,9 +258,9 @@ The report contains the Assembly, Fastq Screen and FastQC report for a mixture o
 
 - Question: Which two sample's genome length i.e column Length (Mbp) stand out from all the other genome lengths and what is the reason (hint – check their GC % and their FastQ Screen result)?
 
-- Question: Which sample has the worst N50 value? What do you think must be the reason?
+- Question: Which sample has the worst N50 value? What do you think must be the reason (hint - check out the general stats)?
 
-- Question: Which sample has the second worst N50 value? Is it the same or a different issue from the worst sample?
+- Question: Which sample has the second worst N50 value? Is it the same or a different issue from the worst sample (hint - check out general stats and then the fastQC results)?
 
 
 
