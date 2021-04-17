@@ -16,7 +16,7 @@ For BLAST and ARIBA, we will be looking at 8 *Klebsiella pneumoniae* genomes fro
 
 For the pan-genome analysis, we will be looking at four closely related *Acinetobacter baumannii* strains. However, despite being closely related, these genomes have major differences in gene content, as *A. baumannii* has a notoriously flexible genome! In fact, in large part due to its genomic flexibility, *A. baumannii* has transitioned from a harmless environmental contaminant to a pan-resistant super-bug in a matter of a few decades. If you are interested in learning more, check out this nature [review](http://www.nature.com/nrmicro/journal/v5/n12/abs/nrmicro1789.html) or [this](http://www.pnas.org/content/108/33/13758.abstract) paper I published a few years back analyzing the very same genomes you will be working with.
 
-Navigate to the `day2pm` directory and create a new conda environment for this session:
+Navigate to the `day2pm` directory and load the conda environment you created before break for this session:
 
 
 ```  
