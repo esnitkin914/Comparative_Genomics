@@ -1,6 +1,6 @@
 Day 3 Afternoon
 ===============
-[[HOME]](index.html)
+[[HOME]](https://github.com/alipirani88/Comparative_Genomics/blob/master/README.md)
 
 Klebsiella pneumoniae comparative genomic analysis 
 --------------------------------------------------
@@ -30,25 +30,25 @@ Execute the following command to copy files for this afternoon’s exercises to 
 
 ```
 
-cd /scratch/micro612w19_fluxod/username
+cd /scratch/micro612w21_class_root/micro612w21_class/username
 
 or 
 
 wd
 
-cp -r /scratch/micro612w19_fluxod/shared/data/day3_after ./
+cp -r /scratch/micro612w21_class_root/micro612w21_class/shared/data/day3pm ./
 
 ```
 
 Perform QC on fastq files
 -------------------------
-[[back to top]](day3_afternoon.html)
-[[HOME]](index.html)
+[[back to top]](https://github.com/alipirani88/Comparative_Genomics/blob/master/day3pmnoon/README.md)
+[[HOME]](https://github.com/alipirani88/Comparative_Genomics/blob/master/README.md)
 
 On the first morning you ran FastQC to evaluate the quality of a single genome. However, a typical project will include many genomes and you will want to check the quality of all of your samples. From the bash workshop, I hope you can appreciate that you do not want to process 100 genomes by typing 100 commands – rather you want to write a short shell script to do the work for you!
 
 
-> ***i. Edit the shell script fastqc.sh located in /scratch/micro612w19_fluxod/your username/day3_after to run FastQC on all fastq files.***
+> ***i. Edit the shell script fastqc.sh located in /scratch/micro612w21_class_root/micro612w21_class/your username/day3pm to run FastQC on all fastq files.***
 
 **Important info about this shell script** 
 - The shell script includes a for loop that loops over all of the genomes in the target directory
@@ -63,26 +63,63 @@ On the first morning you ran FastQC to evaluate the quality of a single genome. 
 The fastq files are located in:
 
 ```
-/scratch/micro612w19_fluxod/shared/data/day3_after_fastq/
+/scratch/micro612w21_class_root/micro612w21_class/shared/data/day3pm_fastq/
 ```
 
 Rather than copying these to your directory, analyze the files directly in that directory, so everyone doesn’t have to copy 25G to their home directories. 
 
-Copy and paste commands to run fastqc.sh as PBS script, into a PBS script and submit this PBS script as a job to the flux.
+Copy and paste commands to run fastqc.sh as slurm script, into a slurm script and submit this slurm script as a job to great lakes.
 
-Your PBS script wil contain the following command after the PBS preamble stuff(Make sure your $PBS_O_WORKDIR is set inside the pbs script):
+Your slurm script wil contain the following command after the slurm preamble stuff(Make sure your $SLURM_SUBMIT_DIR is set inside the slurm script):
 
-```bash fastqc.sh /scratch/micro612w19_fluxod/shared/data/day3_after_fastq/ ```
+```bash fastqc.sh /scratch/micro612w21_class_root/micro612w21_class/shared/data/day3pm_fastq/ ```
 
 
 > ***ii. Examine output of FastQC to verify that all samples are OK***
 
 Check the multiqc report of your fastq files.
 
+Explore ARIBA CARD and MLST typing on day3pm_fastq samples
+----------------------------------------------------------
+[[back to top]](https://github.com/alipirani88/Comparative_Genomics/blob/master/day3pmnoon/README.md)
+[[HOME]](https://github.com/alipirani88/Comparative_Genomics/blob/master/README.md)
+
+On Day 2 afternoon, you explored ARIBA's MLST results that were performed on a single genome. However, a typical public epidimiology project will include many genomes sampled from different sites and you will want to sequence type each of these samples to study their genetic diversity and determine if these samples contain antibiotic resistance genes. 
+
+Since both MLST typing and CARD resistance gene detection takes a while to run on these samples, We already processed them and have placed the results in day3pm folder.
+
+> i. Explore MLST typing results. 
+
+Try exploring mlst.sh and mlst.sbat scripts that were used to generate these results and try to understand the implementation of for loop in running them sequentially.
+
+You can find the processed MLST results for day3pm_fastq samples in this folder:
+
+/scratch/micro612w21_class_root/micro612w21_class/shared/data/day3pm/MLST_results
+
+Explore and run summarize_mlst.sh and check the dominant sequence type that these samples belong to.
+
+> ii. Summarize ARIBA CARD results
+
+Now go to CARD_results folder under day3pm and explore card.sh and card.sbat scripts that were used to generate these results.
+
+Try to understand the implementation of for loop in running them sequentially.
+
+Use Ariba's summary function that we used in day2pm and summarize ARIBA CARD results that are placed in:
+
+/scratch/micro612w21_class_root/micro612w21_class/shared/data/day3pm/CARD_results
+
+> iii. Drag and drop Phandango associated files onto the Phandango website and check what type of actibiotic resistance genes are present in these genomes?
+
+> iv. Explore full ARIBA matrix in R and plot a heatmap to visualize the presence/absence of various resistancve genes.
+
+how many of these samples contain carbapenam resistant gene - KPC?
+
+<!---
+commenting out SPANDx and replacing it with snippy 2021-04-16
 Examine results of [SPANDx](http://www.ncbi.nlm.nih.gov/pubmed/25201145) pipeline
 ---------------------------
-[[back to top]](day3_afternoon.html)
-[[HOME]](index.html)
+[[back to top]](https://github.com/alipirani88/Comparative_Genomics/blob/master/day3pmnoon/README.md)
+[[HOME]](https://github.com/alipirani88/Comparative_Genomics/blob/master/README.md)
 
 On the afternoon of day 1 we saw how many steps are involved in calling variants relative to a reference genome. However, the same steps are applied to every sample, which makes this very pipeline friendly!  So, you could write your own shell script to string together these commands, or take advantage of one of several published pipelines. Here, we will use the output of the SPANDx pipeline, which takes as input a directory of fastq files and produces core variant and indel calls.
 
@@ -90,7 +127,7 @@ More information on SPANDx pipeline can be obtained from [this](https://sourcefo
 
 A snapshot of the pipeline is shown below:
 
-![alt tag](spandx.jpg)
+![alt tag](https://github.com/alipirani88/Comparative_Genomics/blob/master/_img/spandx.jpg)
 
 Because it takes a while to run, we have pre-run it for you. Your task will be to sort through the outputs of SPANDx. The detailed information about how to interpret the output is in SPANDx manual(section INTERPRETING THE OUTPUTS). 
 
@@ -116,77 +153,123 @@ The following unix commands can be used to get sorted lists of coverage and numb
 SPANDx also produces a summary file of the variants/indels it identified in the core genome. 
 
 This summary file is: 
-```/scratch/micro612w19_fluxod/username/day3_after/SPANDx_output/Outputs/All_SNPs_annotated.txt ```
+```/scratch/micro612w21_class_root/micro612w21_class/username/day3pm/SPANDx_output/Outputs/All_SNPs_annotated.txt ```
 
 Use cyberduck/scp to download this file and view in excel
 
 - View SPANDx manual for interpretation of different columns which can be found [here](https://sourceforge.net/projects/spandx/files/SPANDx%20Manual_v3.1.pdf/download)
-- Back on Flux, use grep to pull SNPs that have HIGH impact
+- Back on great lakes, use grep to pull SNPs that have HIGH impact
 - What types of mutations are predicted to have “HIGH” impact?
 - How many genomes do these HIGH impact mutations tend to be present in? How do you interpret this?
 
+commenting out SPANDx and replacing it with snippy 2021-04-16
+
+-->
+
+
+Run [Snippy](https://github.com/tseemann/snippy) variant calling pipeline on a set of Genomes and generate a core genome alignment
+----------------------------------------------------------------------------------------------------------------------------------
+[[back to top]](https://github.com/alipirani88/Comparative_Genomics/blob/master/day3pmnoon/README.md)
+[[HOME]](https://github.com/alipirani88/Comparative_Genomics/blob/master/README.md)
+
+On the afternoon of day 1 we saw how many steps are involved in calling variants relative to a reference genome. However, the same steps are applied to every sample, which makes this very pipeline friendly!  So, you could write your own shell script to string together these commands, or take advantage of one of several published pipelines. 
+
+Here, we will use Snippy to perform rapid haploid variant calling and generate a core genome alignment. Snippy takes a tab delimited file containing list of paths to your fastq samples and a reference genome in Genbank format to generate a runme.sh shell script that can be run inside a SLURM script.   
+
+We already created a runme.sh under snippy_results using snippy-multi command from snippy. Try exploring this shell script and understand what it means.
+
+Every line of runme.sh contains a snippy command for each of your samples that are placed in - /nfs/esnitkin/Workshop_Backups/micro612w20_class/shared/data/day3pm_fastq/
+
+Using runme.sh inside a slurm script - snippy.sbat, we already ran the pipeline for you since it takes ~2Hrs to run on 44 samples. The results of this run are located in snippy_results folder.
+
+Snippy will create an individual folder Rush_KPC_* for each of the samples and their variant call results. The description of each of the output files are documented on Snippy's Github page - Section Calling SNPs -> Output Files
+
+Since we are running Snippy pipeline on multiple samples, Snippy also produces an alignment of "core SNPs" which can be used to build a phylogeny. 
+
+Snippy generates various other files with a prefix core.* that can be further used to explore variants/alignment statistics.
+
+> ***i. Look at overall statistics for variant calling in excel***
+
+Snippy produces an overall summary file - core.txt of its run that includes tab-separated list of alignment/core-size statistics such as:
+
+1) Number of ALIGNED and UNALIGNED bases for a given sample.
+
+2) Number of filtered VARIANT (variants passing all the filters)
+
+3) Number of bases with low coverage - LOWCOV
+
+Use less to look at this file and then apply unix commands to extract and sort individual columns 
+
+**HINTS**
+The following unix commands can be used to get sorted list of number of VARIANT and number of ALIGNED bases: tail, cut, sort
+
+> ***ii. Add in another exercise here to explore either core.vcf or generate a file that looks like SPANDx's All_SNPs_annotated.txt***
+
+
 Recombination detection and tree generation
 -------------------------------------------
-[[back to top]](day3_afternoon.html)
-[[HOME]](index.html)
+[[back to top]](https://github.com/alipirani88/Comparative_Genomics/blob/master/day3pmnoon/README.md)
+[[HOME]](https://github.com/alipirani88/Comparative_Genomics/blob/master/README.md)
 
 > ***i. Plot the distribution of variants across the genome in R***
 
-The positions of variants are embedded in the first column of Outputs/Comparative/All_SNPs_annotated.txt, but you have to do some work to isolate them! 
+The positions of variants are embedded in the second column of core.tab, but you have to do some work to isolate them! 
 
 **HINTS**  
 
-- You will need to pipe together two “cut” commands: the first command will use tab as a delimiter and the second will use _. 
-- Note that for cut you can specify tab as the delimiter as follows: cut –d$’\t’ and _ as: cut -d ‘_’
-- You should redirect the output of your cut commands (a list of SNP positions) to a file called ‘snp_positions.txt’. For example, the first line of your snp_positions.txt should be:
+- You will need to use “cut” command to extract the second column "POS" from core.tab
+- Note that for cut you can specify tab as the delimiter as follows: cut –d$’\t’
+- You should redirect the output of your cut command (a list of SNP positions) to a file called ‘snp_positions.txt’. For example, the first line of your snp_positions.txt should be:
+
 ```
 12695
 ```
-- Finally, download this file, read it into R using ‘read.table’ and use ‘hist’ to plot a histogram of the positions
-- Do you observe clustering of variants that would be indicative of recombination?
 
-> ***ii.  Create fasta file of variants from nexus file***
+- Finally, download this file, read it into R using ‘read.table’ and use ‘hist’ to plot a histogram of these core positions
+- Do you observe clustering of variants that would be indicative of recombination? #Doubt: No clustering since they are only core variants and High Quality as compared to Spandx
 
-SPANDx creates a file of core SNPs in a slightly odd format (transposed nexus). 
-This file is called: 
-```/scratch/micro612w19_fluxod/username/day3_after/SPANDx_output/Outputs/Comparative/Ortho_SNP_matrix.nex ```
 
-For convenience, apply the custom perl script located in the same directory to convert it to fasta format
-
-```
-perl transpose_nex_to_fasta.pl Ortho_SNP_matrix.nex
-```
-
-This file Outputs/Comparative/Ortho_SNP_matrix.fasta should now exist
-
-> ***iii. Create a neighboring-joining tree in R***
+> ***ii. Create a neighboring-joining tree from core SNP alignment in R***
 
 ```
 
-Download Ortho_SNP_matrix.fasta to your home computer
+Download core.aln to your home computer
 Read the fasta file into R, create a distance matrix, and make a neighbor joining tree. Make sure you load in the necessary packages! 
-Save tree for later analysis using write.tree()
 
 ```
 
 Phylogenetic tree annotation and visualization
 ----------------------------------------------
-[[back to top]](day3_afternoon.html)
-[[HOME]](index.html)
+[[back to top]](https://github.com/alipirani88/Comparative_Genomics/blob/master/day3pmnoon/README.md)
+[[HOME]](https://github.com/alipirani88/Comparative_Genomics/blob/master/README.md)
 
-> ***i. Load the neighbor-joining tree into iTOL***
+Follow along with the Day 3 morning exercise where we annotated a MRSA tree with CA vs. HA metadata to overlay facility information on your _Klebsiella_ neighbor-joining tree you just made. 
 
-Instead of annotating your tree in R, this time, let's use iTOL to make a publication quality tree. iTOL is a web-based tool to visualize trees and metadata of the taxa. 
+1. Read in annotation file called Rush_KPC_facility_codes.txt to R. This file is comma delimited. 
 
-Note that because the out-group is so distantly related it is difficult to make out the structure of the rest of the tree. 
+2. Drop tip labels from the tree that are not in the annotation file. Hint use ```setdiff()``` and ```drop.tip()```
 
-**To remedy this:**
+3. Midpoint root the tree for visualization purposes using the function ```midpoint.root()```
 
-- Click on the KPNIH1 leaf, go to the “tree structure” menu and “delete leaf” 
-- Click on the extended branch leading to where KPNIH1 was, go to the “tree structure” menu and click “collapse branch”
+```
+my_tree = midpoint.root(my_tree) #where my_tree is what you named your neighbor-joining tree above 
 
-> ***ii. Load the annotation file ‘Rush_KPC_facility_codes_iTOL.txt’ to view the facility of isolation, play with tree visualization properties to understand how isolates group by facility, Circular vs. normal tree layout, Bootstrap values, Ignoring branch lengths***
+```
 
+4. Use ```sapply()``` to make your isolate_legend in the same order as your ```my_tree$tip.labels```. 
+
+5. We provided color hex codes in Rush_KPC_facility_codes.txt so everyone's facilities are labeled with the same color. Use the following commands to extract the colors from the metadata and create your legend colors. 
+```
+colors = metadata[,c('Color', 'Facility')] # metadata = whatever your variable from reading in the annotation file from step 1 is called 
+colors = colors[!duplicated(metadata[,c('Color', 'Facility')]),]
+isolate_colors = structure(colors[,'Color'], names = colors[,'Facility'])
+```
+
+6. Use ```plot()```, ```tiplabels()``` and ```legend()``` to plot your tree with metadata overlayed as we did previously. 
+
+To visualize the data on the tree better, you can use the argument ```show.tip.label = FALSE``` in ```plot()``` to remove the tree tip labels from the plot. You can also play around with the tree layout type  (e.g. phylogram, fan, etc) using the argument ```type```. You can change the placement of the colored tip labels by changing the number value of the parameter ```adj``` in ```tiplabels()```.  
+
+After you've overlayed facility metadata on your tree, answer the following questions: 
 ```
 
 Which facilities appear to have a lot of intra-facility transmission based on grouping of isolates from the same facility? 
@@ -194,49 +277,3 @@ Which patient’s infections might have originated from the blue facility?
 
 ```
 
-Assessment of genomic deletions
--------------------------------
-[[back to top]](day3_afternoon.html)
-[[HOME]](index.html)
-
-> ***i. Download genome coverage bed file and load into R***
-
-This file is located in: Outputs/Comparative/Bedcov_merge.txt
-This file contains information regarding locations in the reference genome that each sequenced genome does and does not map to.
-
-The first 3 columns of the file are:
-
-1) the name of the reference, 
-
-2) the start coordinate of the window and 
-
-3) the end coordinate of the window
-
-The remaining columns are your analyzed genomes, with the values indicating the fraction of the window covered by reads in that genome.
-
-In essence, this file contains information on parts of the reference genome that might have been deleted in one of our sequenced genomes.
-
-After you download this file, read it into R
-
-**HINTS**
-- Use the read.table function with the relevant parameters being: header and sep
-
-> ***ii. Plot heatmap of genome coverage bed file***
-
-**HINTS**
-
-- The first 3 columns of the bed file specify the name of the chromosome and the genome coordinates – therefore you want to subset your matrix to not include these columns 
-- Use the heatmap3 function to make your heatmap with the following parameters: scale = “none” (keeps original values), Rowv = NA (suppress clustering by rows – why might we not want to cluster by rows for this analysis?)
-
-- Note a large genomic deletion among a subset of isolates. Does this deletion fit with the phylogeny from above?
-
-iii. Explore genomic deletion in more detail with ACT
-
-- Use abacus to orient contigs from Rush_KPC_298 to KPNIH 
-- Load KPNIH.gb, Rush_KPC_298_ordered and the .crunch alignment into ACT
-
-```
-
-What genes appear to have been lost?
-
-```

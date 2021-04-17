@@ -1,8 +1,10 @@
 Day 3 Morning
 =============
-[[HOME]](index.html)
+[[HOME]](https://github.com/alipirani88/Comparative_Genomics/blob/master/README.md)
 
 On day 1, we ran through a pipeline to map reads against a reference genome and call variants, but didn’t do much with the variants we identified. Among the most common analyses to perform on a set of variants is to construct phylogenetic trees. Here we will explore different tools for generating and visualizing phylogenetic trees, and also see how recombination can distort phylogenetic signal.
+
+![phylo](phylo.png)
 
 For the first several exercises, we will use the A. baumannii genomes that we worked with yesterday afternoon. 
 The backstory on these genomes is that Abau_A, Abau_B and Abau_C are representatives of three clones (as defined by pulsed-field gel electrophoresis - a low-resolution typing method) that were circulating in our hospital. 
@@ -23,20 +25,21 @@ wd
 
 #or
 
-cd /scratch/micro612w19_fluxod/username
+cd /scratch/micro612w21_class_root/micro612w21_class/username
 
-cp -r /scratch/micro612w19_fluxod/shared/data/day3_morn ./
+cp -r /scratch/micro612w21_class_root/micro612w21_class/shared/data/day3am ./
 
 ```
 
+<!---commenting out Mauve and switching it to Parsnp 2021-04-15
 Perform whole genome alignment with [Mauve](http://darlinglab.org/mauve/mauve.html) and convert alignment to other useful formats
 -------------------------------------------
-[[back to top]](day3_morning.html)
-[[HOME]](index.html)
+[[back to top]](https://github.com/alipirani88/Comparative_Genomics/blob/master/day3aming/README.md)
+[[HOME]](https://github.com/alipirani88/Comparative_Genomics/blob/master/README.md)
 
 An alternative approach for identification of variants among genomes is to perform whole genome alignments of assemblies. If the original short read data is unavailable, this might be the only approach available to you. Typically, these programs don’t scale well to large numbers of genomes (e.g. > 100), but they are worth being familiar with. We will use the tool mauve for constructing whole genome alignments of our five A. baumannii genomes.
 
-> ***i. Perform mauve alignment and transfer xmfa back to flux***
+> ***i. Perform mauve alignment and transfer xmfa back to great lakes***
 
 Use cyberduck/scp to get genomes folder Abau_genomes onto your laptop
 
@@ -49,9 +52,11 @@ mkdir Abau_mauve
 
 cd Abau_mauve 
 
-- Now copy Abau_genomes folder residing in your day3_morn folder using scp or cyberduck:
+- Now copy Abau_genomes folder residing in your day3am folder using scp or cyberduck:
 
-scp -r username@flux-xfer.arc-ts.umich.edu:/scratch/micro612w19_fluxod/username/day3_morn/Abau_genomes ./
+
+scp -r username@greatlakes-xfer.arc-ts.umich.edu:/scratch/micro612w21_class_root/micro612w21_class/username/day3am/Abau_genomes ./
+
 
 ```
 
@@ -68,63 +73,154 @@ vi. Wait for Mauve to finish and explore the graphical interface
 
 ```
 
-Use cyberduck or scp to transfer your alignment back to flux for some processing
+Use cyberduck or scp to transfer your alignment back to great lakes for some processing
 
 ```
 
-scp ~/Desktop/Abau_mauve/mauve_ECII_outgroup username@flux-xfer.arc-ts.umich.edu:/scratch/micro612w19_fluxod/username/day3_morn 
+
+scp ~/Desktop/Abau_mauve/mauve_ECII_outgroup username@greatlakes-xfer.arc-ts.umich.edu:/scratch/micro612w21_class_root/micro612w21_class/username/day3am 
 
 ```
- 
+
+
+```
+# Change directory to Abau_genomes under day3am that contains input fasta files for alignment
+cd day3am/Abau_genomes/
+
+# Add command line mauve to your PATH variable
+export PATH=/scratch/micro612w21_class_root/micro612w21_class/shared/bin/mauve/linux-x64/:$PATH
+
+progressiveMauve --output=mauve_ECII_outgroup ACICU_genome.fasta AbauA_genome.fasta AbauB_genome.fasta AbauC_genome.fasta Abau_AB0057_genome.fa
+```
+
 > ***ii. Convert alignment to fasta format***
 
 Mauve produces alignments in .xmfa format (use less to see what this looks like), which is not compatible with other programs we want to use. We will use a custom script convert_msa_format.pl to change the alignment format to fasta format
 
 
 ```
-Now run these command in day3_morn folder on flux:
+# Now run these command in day3am folder on great lakes:
 
-module load bioperl
+module load Bioinformatics
 
-perl convert_msa_format.pl -i mauve_ECII_outgroup -o mauve_ECII_outgroup.fasta -f fasta -c
+module load bioperl/1.7.2
+
+conda activate micro612
+
+perl ../convert_msa_format.pl -i mauve_ECII_outgroup -o mauve_ECII_outgroup.fasta -f fasta -c
+
+sed -i 's/.fa.*//g' mauve_ECII_outgroup.fasta 
 
 ```
+commenting out Mauve and switching it to Parsnp 2021-04-15
+-->
+
+
+
+
+Perform Whole genome alignment with [Parsnp](https://harvest.readthedocs.io/en/latest/content/parsnp.html) and convert alignment to other useful formats
+-------------------------------------------------------------------------------------------------------------------------------------------------------
+
+An alternative approach for identification of variants among genomes is to perform whole genome alignments of assemblies. If the original short read data is unavailable, this might be the only approach available to you. Typically, these programs don’t scale well to large numbers of genomes (e.g. > 100), but they are worth being familiar with. We will use the tool mauve for constructing whole genome alignments of our five A. baumannii genomes.
+
+> ***i. Perform genome alignment with Parsnp***
+
+Create a conda environment day3am that will install Parsnp/Harvesttools for you. Run these commands to generate a new conda environment.
+
+```
+# Deactivate conda environment if you have loaded it.
+conda deactivate
+
+conda env create -f /scratch/micro612w21_class_root/micro612w21_class/shared/data/day3am/day3am.yml -n day3am
+
+conda activate day3am
+
+# invoke parsnp and harvesttool's help menu to check if it was installed properly
+parsnp -h
+
+harvesttools -h
+
+cd day3am
+```
+
+Now we will ask parsnp to align all the genomes in Abau_genomes directory and also ask parsnp to use Reference_genome/ACICU_genome.fasta as a reference genome.
+
+```
+
+parsnp -c -d Abau_genomes/ -r Abau_genomes/Reference_genome/ACICU_genome.fasta -o parsnp_results -p 2 -v
+
+```
+
+Parsnp will generate various output files in parsnp_results folder:
+
+- Newick formatted core genome SNP tree: parsnp_results/parsnp.tree
+- SNPs used to infer phylogeny: parsnp_results/parsnp.vcf
+- Gingr formatted binary archive: parsnp_results/parsnp.ggr
+- XMFA formatted multiple alignment: parsnp_results/parsnp.xmfa
+
+> ***ii. Convert ginger formatted binary file to fasta format***
+
+We will use harvesttools to convert parsnp.ggr to a multi-fasta alignment output (concatenated LCBs) file - parsnpLCB.aln
+
+```
+cd parsnp_results
+
+harvesttools -i parsnp.ggr -M parsnpLCB.aln
+```
+
+> ***iii. View multiple genome alignment in gingr***
+
+Gingr is a visualization tool that accompanies parsnp. So, let's download the files we created using parsnp and load them into gingr.
+
+Go to your local system terminal or open a new terminal tab and run these commands to create a new directory and copy files from great lakes to your local Desktop.
+
+```
+mkdir ~/Desktop/Abau_parsnp
+
+cd ~/Desktop/Abau_parsnp
+
+# Make sure to replace username with your uniq name
+scp username@greatlakes-xfer.arc-ts.umich.edu:/scratch/micro612w21_class_root/micro612w21_class/username/day3am/parsnp_results/parsnpLCB.aln ./
+scp username@greatlakes-xfer.arc-ts.umich.edu:/scratch/micro612w21_class_root/micro612w21_class/username/day3am/parsnp_results/parsnp.tree ./
+scp username@greatlakes-xfer.arc-ts.umich.edu:/scratch/micro612w21_class_root/micro612w21_class/username/day3am/Abau_genomes/Reference_genome/ACICU.gb ./
+
+```
+
+Now, fire up gingr and use File->open tab to read in these files one by one - .aln, .tree and .gb files. 
+
+Notice the structure of the tree (i.e. which genomes are closely related to one another) and whether variants are or aren't evenly spaced across the genome.
+
 
 Perform some DNA sequence comparisons and phylogenetic analysis in [APE](http://ape-package.ird.fr/), an R package
 ------------------------------------------------------------------------
-[[back to top]](day3_morning.html)
-[[HOME]](index.html)
+[[back to top]](https://github.com/alipirani88/Comparative_Genomics/blob/master/day3aming/README.md)
+[[HOME]](https://github.com/alipirani88/Comparative_Genomics/blob/master/README.md)
 
-There are lots of options for phylogenetic analysis. Here, we will use the ape package in R to look at our multiple alignments and construct a tree using the Neighbor Joining method. 
+We've done some initial visualization of the parsnp output files in gingr, now we are going to do some further exploration in R. 
 
-Note that ape has a ton of useful functions for more sophisticated phylogenetic analyses!
+First we will determine how many variants separate each genome, second we will visualize the phylogenetic tree produced by parsnp and finally we will look for evidence of recombination among our genomes.
 
-> ***i. Get fasta alignment you just converted to your own computer using cyberduck or scp***
+> ***i. Read alignment into R***
 
-```
-
-cd ~/Desktop/Abau_mauve
-
-
-scp username@flux-xfer.arc-ts.umich.edu:/scratch/micro612w19_fluxod/username/day3_morn/mauve_ECII_outgroup.fasta ./
-
-```
-
-> ***ii. Read alignment into R***
-
-Fire up RStudio, set your working directory to ~/Desktop/Abau_mauve/ or wherever you have downloaded mauve_ECII_outgroup.fasta file and install/load ape
+Fire up RStudio, set your working directory to ~/Desktop/Abau_parsnp/ or wherever you have downloaded your parsnp files and install/load ape
 
 Use the read.dna function in ape to read in you multiple alignments. 
 Print out the variable to get a summary.
 
 ```
-setwd("~/Desktop/Abau_mauve/")
+#SET YOUR DIRECTORY
+setwd("~/Desktop/Abau_parsnp/")
+
+#INSTALL THE ape PACKAGE FOR PHYLOGENETIC ANALYSIS
 install.packages("ape")
 library(ape)
-abau_msa = read.dna('mauve_ECII_outgroup.fasta', format = "fasta") 
+
+#READ IN THE MULTIPLE GENOME ALIGNMENT AND CHANGE THE NAMES TO REMOVE FILE EXTENSIONS
+abau_msa = read.dna('parsnpLCB.aln', format = "fasta") 
+row.names(abau_msa) = gsub(".fa|.fasta", "", row.names(abau_msa))
 ```
 
-> ***iii. Get variable positions***
+> ***ii. Get variable positions***
 
 The DNA object created by read.dna can also be addressed as a matrix, where the columns are positions in the alignment and rows are your sequences. We will next treat our alignment as a matrix, and use apply and colSums to get positions in the alignment that vary among our sequences. Examine these commands in detail to understand how they are working together to give you a logical vector indicating which positions vary in your alignment.
 
@@ -135,7 +231,7 @@ abau_msa_bin = apply(abau_msa, 2, FUN = function(x){x == x[1]})
 abau_var_pos = colSums(abau_msa_bin) < 5
 ```
 
-> ***iv. Get non-gap positions***
+> ***iii. Get non-gap positions***
 
 For our phylogenetic analysis we want to focus on the core genome, so we will next identify positions in the alignment where all our genomes have sequence.
 
@@ -143,9 +239,9 @@ For our phylogenetic analysis we want to focus on the core genome, so we will ne
 non_gap_pos = colSums(as.character(abau_msa) == '-') == 0
 ```
 
-> ***v. Count number of variants between sequences***
+> ***iv. Count number of variants between sequences***
 
-Now that we know which positions in the alignment are core and variable, we can extract these positions and count how many variants there are among our genomes. Do count pairwise variants we will use the dist.dna function in ape. The model parameter indicates that we want to compare sequences by counting differences. Print out the resulting matrix to see how different our genomes are.
+Now that we know which positions in the alignment are core and variable, we can extract these positions and count how many variants there are among our genomes. To count pairwise variants we will use the dist.dna function in ape. The model parameter indicates that we want to compare sequences by counting differences. Print out the resulting matrix to see how different our genomes are.
 
 ```
 
@@ -154,8 +250,11 @@ var_count_matrix = dist.dna(abau_msa_var, model = "N")
 
 ```
 
-> ***vi. Construct phylogenetic tree***
+Examining the pairwise distances among our isolates, we see that our genomes have thousands of variants between them. Based on the estimated evolutionary rate of Acinetobacter, we would expect this amount of variation to take hundreds of years to accumulate via mutation and vertical inherentence. Thus, based on this observation it seems unlikely that these are related by recent transmission. However, before we reach our final conclusion we need to assess whether all of this variation was due to mutation and vertical inheretance, or if some of the variation is due to horizontal transfer via recombination.
 
+> ***vi. View phylogenetic tree***
+
+<!---commenting out building NJ tree 2021-04-15
 Now we are ready to construct our first phylogenetic tree! 
 
 We are going to use the Neighbor Joining algorithm, which takes a matrix of pairwise distances among the input sequences and produces the tree with the minimal total distance. In essence, you can think of this as a distance-based maximum parsimony algorithm, with the advantage being that it runs way faster than if you were to apply a standard maximum parsimony phylogenetic reconstruction.
@@ -177,11 +276,38 @@ Finally, plot your tree to see how the genomes group.
 ```
 plot(abau_nj_tree)
 ```
+commenting out building NJ tree 2021-04-15
+-->
+
+First, let's read in the tree produced by parsnp and plot it using ape.
+
+```
+parsnp_tree = read.tree('parsnp.tree')
+plot(parsnp_tree)
+```
+
+Next, let's root our tree by the outgroup so that the structure is correct.
+
+```
+parsnp_tree_rooted = root(parsnp_tree, 'Abau_AB0057_genome.fa')
+plot(parsnp_tree_rooted)
+
+```
+
+Now that the tree is rooted, let's drop the outgroup so we can more clearly see the tree structure for our isolates of interest.
+
+```
+parsnp_tree_rooted_drop = drop.tip(parsnp_tree_rooted, c('Abau_AB0057_genome.fa', 'ACICU_genome.fasta.ref'))
+plot(parsnp_tree_rooted_drop)
+```
+
+Notice that with this tree, genomes A and B are more closely related, suggesting that they share a more recent common ancestor than C. In the realm of genomic epidemiology we would infer that A and B are more closely related in a putative transmission chain. Let's see if the tree structure, and therefore our understanding of the outbreak is influenced by filtering out recombinant regions.
+
 
 Perform SNP density analysis to discern evidence of recombination
 -----------------------------------------------------------------
-[[back to top]](day3_morning.html)
-[[HOME]](index.html)
+[[back to top]](https://github.com/alipirani88/Comparative_Genomics/blob/master/day3aming/README.md)
+[[HOME]](https://github.com/alipirani88/Comparative_Genomics/blob/master/README.md)
 
 An often-overlooked aspect of a proper phylogenetic analysis is to exclude recombinant sequences. Homologous recombination in bacterial genomes is a mode of horizontal transfer, wherein genomic DNA is taken up and swapped in for a homologous sequence. The reason it is critical to account for these recombinant regions is that these horizontally acquired sequences do not represent the phylogenetic history of the strain of interest, but rather in contains information regarding the strain in which the sequence was acquired from. One simple approach for detecting the presence of recombination is to look at the density of variants across a genome. The existence of unusually high or low densities of variants is suggestive that these regions of aberrant density were horizontally acquired. Here we will look at our closely related A. baumannii genomes to see if there is evidence of aberrant variant densities.
 
@@ -193,12 +319,7 @@ For this analysis we want to exclude the out-group, because we are interested in
 abau_msa_no_outgroup to check that it worked.
 
 ```
-
-abau_msa_no_outgroup = abau_msa[c('ACICU_genome','AbauA_genome','AbauC_genome','AbauB_genome'),]
-
-or 
-
-abau_msa_no_outgroup = abau_msa[c('ACICU_genome.fasta/1-3996847','AbauA_genome.fasta/1-3953855','AbauB_genome.fasta/1-4014916','AbauC_genome.fasta/1-4200364', 'Abau_AB0057_genome.fa/1-4050513'),]
+abau_msa_no_outgroup = abau_msa[c('ACICU_genome.ref','AbauA_genome','AbauB_genome','AbauC_genome'),]
 
 ```
 
@@ -226,22 +347,24 @@ abau_no_outgroup_non_gap_pos = colSums(as.character(abau_msa_no_outgroup) == '-'
 
 > ***iv. Create overall histogram of SNP density***
 
-Finally, create a histogram of SNP density across the genome. Does the density look even, or do you think there might be just a touch of recombination?
+Finally, create a histogram of SNP density across the genome. 
 
 ```
 hist(which(abau_no_outgroup_var_pos & abau_no_outgroup_non_gap_pos), 10000)
 ```
 
+Does the density look even, or do you think there might be just a touch of recombination?
+
 Perform recombination filtering with [Gubbins](https://www.google.com/search?q=gubbins+sanger&ie=utf-8&oe=utf-8)
 ----------------------------------------------
-[[back to top]](day3_morning.html)
-[[HOME]](index.html)
+[[back to top]](https://github.com/alipirani88/Comparative_Genomics/blob/master/day3aming/README.md)
+[[HOME]](https://github.com/alipirani88/Comparative_Genomics/blob/master/README.md)
 
 Now that we know there is recombination, we know that we need to filter out the recombinant regions to discern the true phylogenetic relationship among our strains. In fact, this is such an extreme case (~99% of variants of recombinant), that we could be totally misled without filtering recombinant regions. To accomplish this we will use the tool gubbins, which essentially relies on elevated regions of variant density to perform recombination filtering.
 
 > ***i. Run gubbins on your fasta alignment***
 
-Go back on flux and load modules required by gubbins
+Go back on great lakes and load modules required by gubbins
 
 <!---
 Older version:
@@ -249,8 +372,12 @@ module load python/2.7.3 biopython dendropy reportlab fasttree RAxML fastml/gub 
 -->
 
 ```
+# Deactivate day3am conda environment
+conda deactivate
 
-module load bioperl python-anaconda2/201607 biopython dendropy reportlab fasttree RAxML fastml/gub gubbins
+module load Bioinformatics
+
+module load gubbins/2.3.1
 
 ```
 
@@ -259,19 +386,39 @@ Run gubbins on your fasta formatted alignment
 ```
 d3m
 
-#or
+cd parsnp_results
 
-cd /scratch/micro612w19_fluxod/username/day3_morn
-
-sed -i 's/.fa.*//g' mauve_ECII_outgroup.fasta
-
-run_gubbins.py -v -f 50 -o Abau_AB0057_genome mauve_ECII_outgroup.fasta
+run_gubbins -v -f 50 -o Abau_AB0057_genome.fa parsnpLCB.aln
 
 ```
 
+> ***ii. View recombination regions detected by gubbins in Phandango***
+
+Phandango is a web based tool that is useful for visualizing output from many common microbial genomic analysis programs. Here we will use it to visualize the recombination regions detected by gubbins. 
+
+First let's download a summary of recombinant regions in gff format onto your local system. Type these commands on your local terminal.
+
+```
+
+cd ~/Desktop/Abau_parsnp
+
+scp username@greatlakes-xfer.arc-ts.umich.edu:/scratch/micro612w21_class_root/micro612w21_class/username/day3am/parsnp_results/parsnpLCB.recombination_predictions.gff  ./
+
+scp username@greatlakes-xfer.arc-ts.umich.edu:/scratch/micro612w21_class_root/micro612w21_class/username/day3am/parsnp_results/parsnpLCB.node_labelled.final_tree.tre  ./
+
+```
+
+Next, go the the phandango website (https://jameshadfield.github.io/phandango/#/), and just drag the gff file - parsnpLCB.recombination_predictions.gff and your parsnp tree - parsnp.tree into your web browser. 
+
+Does gubbins seem to have identified recombinant regions where we saw elevated variant density? In addition, which genomes seem to share the most recombinant regions?
+
+
+<!---
+Commenting out gubbins drawer 2021-04-15
+
 > ***ii. Create gubbins output figure***
 
-Gubbins produces a series of output files, some of which can be run through another program to produce a visual display of filtered recombinant regions. Run the gubbins_drawer.py script to create a pdf visualization of recombinant regions. 
+Gubbins produces a series of output files, some of which can be run through another program to produce a visual display of filtered recombinant regions. Run the gubbins_drawer script to create a pdf visualization of recombinant regions. 
 
 The inputs are: 
 
@@ -283,10 +430,10 @@ The inputs are:
 
 ```
 
-gubbins_drawer.py -t mauve_ECII_outgroup.final_tree.tre -o mauve_ECII_outgroup.recombination.pdf mauve_ECII_outgroup.recombination_predictions.embl
+gubbins_drawer mauve_ECII_outgroup.final_tree.tre mauve_ECII_outgroup.recombination_predictions.embl -o mauve_ECII_outgroup.recombination.pdf
 
 ```
-> ***iii. Download and view gubbins figure and filtered tree***
+> ***iii. Download and view gubbins figure and filtered tree in R***
 
 Use cyberduck or scp to get gubbins output files into Abau_mauve on your local system
 
@@ -294,12 +441,16 @@ Use cyberduck or scp to get gubbins output files into Abau_mauve on your local s
 
 cd ~/Desktop/Abau_mauve
 
-scp username@flux-xfer.arc-ts.umich.edu:/scratch/micro612w19_fluxod/username/day3_morn/mauve_ECII_outgroup.recombination.pdf  ./
-scp username@flux-xfer.arc-ts.umich.edu:/scratch/micro612w19_fluxod/username/day3_morn/mauve_ECII_outgroup.final_tree.tre  ./
+scp username@greatlakes-xfer.arc-ts.umich.edu:/scratch/micro612w21_class_root/micro612w21_class/username/day3am/Abau_genomes/mauve_ECII_outgroup.recombination.pdf  ./
+scp username@greatlakes-xfer.arc-ts.umich.edu:/scratch/micro612w21_class_root/micro612w21_class/username/day3am/Abau_genomes/mauve_ECII_outgroup.final_tree.tre  ./
 
 ```
 
 Open up the pdf and observe the recombinant regions filtered out by gubbins. Does it roughly match your expectations based upon your SNP density plots?
+
+commenting out building NJ tree 2021-04-15
+-->
+
 
 Finally, lets look at the recombination-filtered tree to see if this alters our conclusions. 
 
@@ -313,16 +464,17 @@ To view the tree we will use the ape package in R:
 library(ape)
 
 # Path to tree file
-tree_file <- '~/Desktop/Abau_mauve/mauve_ECII_outgroup.final_tree.tre'
+tree_file <- '~/Desktop/Abau_parsnp/parsnpLCB.node_labelled.final_tree.tre'
 
 # Read in tree
-tree <- read.tree(tree_file)
+gubbins_tree <- read.tree(tree_file)
 
-# Plot tree
-plot(tree)
+# Drop the outgroup for visualization purposes
+gubbins_tree_noOG = drop.tip(gubbins_tree, c('Abau_AB0057_genome.fa'))
+
+plot(gubbins_tree_noOG)
 
 ```
-
 
 How does the structure look different than the unfiltered tree?
 
@@ -332,14 +484,14 @@ How does the structure look different than the unfiltered tree?
 
 Overlay metadata on your tree using R 
 ------------------------------------------------------
-[[back to top]](day3_morning.html)
-[[HOME]](index.html)
+[[back to top]](https://github.com/alipirani88/Comparative_Genomics/blob/master/day3aming/README.md)
+[[HOME]](https://github.com/alipirani88/Comparative_Genomics/blob/master/README.md)
 
 For the final exercise we will use a different dataset, composed of USA300 methicillin-resistant Staphylococcus aureus genomes. USA300 is a strain of growing concern, as it has been observed to cause infections in both hospitals and in otherwise healthy individuals in the community. An open question is whether there are sub-clades of USA300 in the hospital and the community, or if they are all the same. Here you will create an annotated phylogenetic tree of strains from the community and the hospital, to discern if these form distinct clusters.
 
-> ***i. Download MRSA genome alignment from flux***
+> ***i. Download MRSA genome alignment from great lakes***
 
-Use cyberduck or scp to get genomes onto your laptop
+Use cyberduck or scp to get genomes onto your local system.
 
 ```
 
@@ -347,15 +499,17 @@ cd ~/Desktop (or wherever your desktop is)
 mkdir MRSA_genomes 
 cd MRSA_genomes
 
-scp username@flux-xfer.arc-ts.umich.edu:/scratch/micro612w19_fluxod/username/day3_morn/2016-03-09_KP_BSI_USA300.fa  ./
-scp username@flux-xfer.arc-ts.umich.edu:/scratch/micro612w19_fluxod/username/day3_morn/HA_vs_CA  ./
+scp username@greatlakes-xfer.arc-ts.umich.edu:/scratch/micro612w21_class_root/micro612w21_class/username/day3am/2016-03-09_KP_BSI_USA300.fa  ./
+scp username@greatlakes-xfer.arc-ts.umich.edu:/scratch/micro612w21_class_root/micro612w21_class/username/day3am/HA_vs_CA  ./
 
 
 ```
 
 > ***ii. Look at SNP density for MRSA alignment in R***
 
-Before we embark on our phylogenetic analysis, lets look at the SNP density to verify that there is no recombination
+Before we embark on our phylogenetic analysis, lets look at the SNP density to verify that there is no recombination. 
+
+Fire up R studio and run these commands.
 
 ```
 library(ape)
@@ -404,9 +558,9 @@ mrsa_msa_var = mrsa_msa[, mrsa_var_pos]
 dna_dist = dist.dna(mrsa_msa_var, model = 'N', as.matrix = TRUE)
 ```
 
-Finally, we can use the distance matrix to construct a neighbor joining tree using the function NJ()
+Finally, we can use the distance matrix to construct a neighbor joining tree using the function nj()
 ```
-NJ_tree = NJ(dna_dist) 
+NJ_tree = nj(dna_dist) 
 ```
 
 We can look at our tree using plot()
@@ -424,46 +578,7 @@ plot(NJ_tree, type = 'phylogram') #default
 ```
 
 
-<!-- ***iv. Read alignment into Seaview and construct Neighbor Joining tree***-->
 
-<!--In the previous exercise, we used Seaview to look at a pre-existing tree, here we will use Seaview to create a tree from a
-multiple sequence alignment -->
-
-<!--Read in multiple alignment of variable positions-->
-
-<!--```-->
-<!--<!--Go to File -> open ('2016-3-9_KP_BSI_USA300_var_pos.fa)-->
-<!--```-->
-
-<!--Construct Neighbor Joining phylogenetic tree with default parameters (note, this will take a few minutes)-->
-
-<!--```-->
-<!--Go to Trees -> select Distance Methods -> BioNJ -> (Select Bootstrap with 20 replicates) -> Go-->
-<!--```-->
-
-<!--Save your tree-->
-
-<!--```-->
-<!--File -> Save rooted tree-->
-<!--```-->
-
-<!--Note that in your research it is not a good idea to use these phylogenetic tools completely blind and I strongly encourage embarking on deeper learning yourself, or consulting with an expert before doing an analysis for a publication-->
-
-<!-- > ***v. Read tree into iTOL*** -->
-
-<!--```-->
-
-<!--To make a prettier tree and add annotations we will use iTOL (http://itol.embl.de/). 
-
-<!--Go to http://itol.embl.de/-->
-
-<!--To load your tree, click on upload, and select the rooted tree you just created in Seaview-->
-
-<!--```-->
-
-<!--Explore different visualization options for your tree (e.g. make it circular, show bootstrap values, try collapsing nodes/branches)-->
-
-<!--Note that you can always reset your tree if you are unhappy with the changes you’ve made-->
 
 > ***iv. Add annotations to tree in R ***
 
@@ -478,11 +593,20 @@ metadata = read.table('HA_vs_CA', header = TRUE, stringsAsFactors = FALSE)
 
 ```
 
-Next, we will create our isolate legend and assign colors to the legend. 
+Next, let's clean up the tree tip label names to match the metadata IDs, and then drop the tree tips we don't have metadata for. 
+```
+NJ_tree$tip.label = gsub('_R.*','',NJ_tree$tip.label)
+NJ_tree = drop.tip(NJ_tree, setdiff(NJ_tree$tip.label, metadata$ID))
 
 ```
-isolate_legend = structure(metadata[,2], names = metadata[,1])
-isolate_colors = structure(c('red', 'blue'), names = sort(unique(isolate_legend)))
+
+Next, we will create our isolate legend and assign colors to the legend. It's important that the labels are in the same order as the tree tips. So, we will use an sapply statement (which is like a for loop) to iterate through the tree tip labels, and figure out the label for each tree tip id. 
+
+```
+isolate_legend = sapply(NJ_tree$tip.label, function(id){
+  metadata$SOURCE[metadata$ID == id]
+})
+isolate_colors = structure(c('blue', 'red'), names = sort(unique(isolate_legend)))
 
 ```
 

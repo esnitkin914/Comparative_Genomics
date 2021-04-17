@@ -1,8 +1,21 @@
-Day 2 Morning
+
+
+Day 2 AM
 =============
-[[HOME]](index.html)
+[[HOME]](https://github.com/alipirani88/Comparative_Genomics/blob/master/README.md)
+
+Goal
+----
+
+- Assemble short reads illumina data into a genomic assembly using Spades Assembler, assess the quality of assembly with Quast and annotate it using Prokka.
+- Generate multiple sample report using a bunch of pre-assembled data as input and visualize the summary report.
+- Compare assembled genome to a reference genome using Abacas and ACT.
+
 
 On day 1 we worked through a pipeline to map short-read data to a pre-existing assembly and identify single-nucleotide variants (SNVs) and small insertions/deletions. However, what this sort of analysis misses is the existence of sequence that is not present in your reference. Today we will tackle this issue by assembling our short reads into larger sequences, which we will then analyze to characterize the functions unique to our sequenced genome.   
+
+![roadmap](genome_assembly.png)
+
 
 Execute the following command to copy files for this morning’s exercises to your workshop home directory: 
 
@@ -13,31 +26,33 @@ wd
 
 #or 
 
-cd /scratch/micro612w19_fluxod/username
+cd /scratch/micro612w21_class_root/micro612w21_class/username
 
-> Note: Check if you are in your home directory(/scratch/micro612w19_fluxod/username) by executing 'pwd' in terminal. 'pwd' stands for present working directory and it will display the directory you are in.
+> Note: Check if you are in your home directory(/scratch/micro612w21_class_root/micro612w21_class/username) by executing 'pwd' in terminal. 'pwd' stands for present working directory and it will display the directory you are in.
 
 pwd
 
 > Note: Copy files for this morning's exercise in your home directory.
 
-cp -r /scratch/micro612w19_fluxod/shared/data/day2_morn ./
+cp -r /scratch/micro612w21_class_root/micro612w21_class/shared/data/day2am ./
 ```
 
 Genome Assembly using [Spades](http://bioinf.spbau.ru/spades) Pipeline
 ------------------------------
-[[back to top]](day2_morning.html)
-[[HOME]](index.html)
+[[back to top]](https://github.com/alipirani88/Comparative_Genomics/blob/master/day2aming/README.md)
+[[HOME]](https://github.com/alipirani88/Comparative_Genomics/blob/master/README.md)
 
-![alt tag](intro.png)
+![alt tag](https://github.com/alipirani88/Comparative_Genomics/blob/master/_img/day2_morning/intro.png)
 
-There are a wide range of tools available for assembly of microbial genomes. These assemblers fall in to two general algorithmic categories, which you can learn more about [here](?). In the end, most assemblers will perform well on microbial genomes, unless there is unusually high GC-content or an over-abundance of repetitive sequences, both of which make accurate assembly difficult. 
+There are a wide range of tools available for the assembly of microbial genomes. These assemblers fall in to two general algorithmic categories, which you can learn more about [here](?). In the end, most assemblers will perform well on microbial genomes, unless there is unusually high GC-content or an over-abundance of repetitive sequences, both of which make accurate assembly difficult.
 
-Here we will use the Spades assembler with default parameters. Because genome assembly is a computationally intensive process, we will submit our assembly jobs to the cluster, and move ahead with some pre-assembled genomes, while your assemblies are running. 
+Here we will use the Spades assembler with default parameters. Because genome assembly is a computationally intensive process, we will submit our assembly jobs to the cluster, and move ahead with some pre-assembled genomes, while your assemblies are running.
+
+![spades](assembly_details_spades.png)
 
 > ***i. Create directory to hold your assembly output.***
 
-Create a new directory for the spades output in your day2_morn folder
+Create a new directory for the spades output in your day2am folder
 
 ```
 > Note: Make sure you change 'username' in the below command with your 'uniqname'. 
@@ -46,9 +61,9 @@ d2m
 
 #or
 
-cd /scratch/micro612w19_fluxod/username/day2_morn
+cd /scratch/micro612w21_class_root/micro612w21_class/username/day2am
 
-> We will create a new directory in day2_morn to save genome assembly results:
+> We will create a new directory in day2am to save genome assembly results:
 
 mkdir MSSA_SRR5244781_assembly_result 
 
@@ -58,10 +73,12 @@ Now, we will use a genome assembly tool called Spades for assembling the reads.
 
 > ***ii. Test out Spades to make sure it's in your path***
 
-To make sure that your paths are set up correctly, try running Spades with the –h (help) flag, which should produce usage instruction.
+Load the workshop conda environment micro612. To make sure that your conda paths are set up correctly, try running Spades with the –h (help) flag, which should produce usage instruction. 
 
 ```
 > check if spades is working. 
+
+conda activate micro612
 
 spades.py -h     
 
@@ -69,33 +86,33 @@ spades.py -h
 
 > ***iii. Submit a cluster job to assemble***
 
-Since it takes a huge amount of memory and time to assemble genomes using spades, we will run a pbs script on the cluster for this step.
+Since it takes a huge amount of memory and time to assemble genomes using spades, we will run a slurm script on great lakes cluster for this step.
 
-Now, open the spades.pbs file residing in the day2_morning folder with nano and add the following spades command to the bottom of the file. Replace the EMAIL_ADDRESS in spades.pbs file with your actual email-address. This will make sure that whenever the job starts, aborts or ends, you will get an email notification.
-
-```
-> Open the spades.pbs file using nano:
-
-nano spades.pbs
-
-> Now replace the EMAIL_ADDRESS in spades.pbs file with your actual email-address. This will make sure that whenever the job starts, aborts or ends, you will get an email notification.
-
-> Copy and paste the below command to the bottom of spades.pbs file.
-
-spades.py --pe1-1 forward_paired.fq.gz --pe1-2 reverse_paired.fq.gz --pe1-s forward_unpaired.fq.gz --pe1-s reverse_unpaired.fq.gz -o MSSA_SRR5244781_assembly_result/ --careful
+Now, open the spades.sbat file residing in the day2aming folder with nano and add the following spades command to the bottom of the file. Replace the EMAIL_ADDRESS in spades.sbat file with your actual email-address. This will make sure that whenever the job starts, aborts or ends, you will get an email notification.
 
 ```
+> Open the spades.sbat file using nano:
 
-> ***iv. Submit your job to the cluster with qsub***
+nano spades.sbat
+
+> Now replace the EMAIL_ADDRESS in spades.sbat file with your actual email-address. This will make sure that whenever the job starts, aborts or ends, you will get an email notification.
+
+> Copy and paste the below command to the bottom of spades.sbat file.
+
+spades.py -1 forward_paired.fq.gz -2 reverse_paired.fq.gz -o MSSA_SRR5244781_assembly_result/ --careful
 
 ```
-qsub -V spades.pbs
-```
 
-> ***v. Verify that your job is in the queue with the qstat command***
+> ***iv. Submit your job to the cluster with sbatch***
 
 ```
-qstat –u username 
+sbatch spades.sbat
+```
+
+> ***v. Verify that your job is in the queue with the squeue command***
+
+```
+squeue -u username 
 ```
 
 Submit PROKKA annotation job
@@ -110,47 +127,57 @@ Before we submit the job, run this command to make sure that prokka is setup pro
 prokka –setupdb
 ```
 
-In your day2_morn directory, you will find a prokka.pbs script. Open this file using nano and change the EMAIL_ADDRESS to your email address.
+In your day2am directory, you will find a prokka.sbat script. Open this file using nano and change the EMAIL_ADDRESS to your email address.
 
 ```
-nano prokka.pbs
+nano prokka.sbat
 
 ```
 
-Now add these line at the end of the pbs script.
+Now add these line at the end of the slurm script.
 
 ```
 
 mkdir SRR5244781_prokka 
-prokka -kingdom Bacteria -outdir SRR5244781_prokka -force -prefix SRR5244781 SRR5244781_contigs_ordered.fasta
+prokka -kingdom Bacteria -outdir SRR5244781_prokka -force -prefix SRR5244781_contigs_ordered SRR5244781_contigs_ordered.fasta
 
 ```
 
-Submit the job using qsub
+Submit the job using sbatch
 
 ```
-qsub prokka.pbs
+sbatch prokka.sbat
 ```
 
 
 Assembly evaluation using [QUAST](http://bioinf.spbau.ru/quast)
 ---------------------------------
-[[back to top]](day2_morning.html)
-[[HOME]](index.html)
+[[back to top]](https://github.com/alipirani88/Comparative_Genomics/blob/master/day2aming/README.md)
+[[HOME]](https://github.com/alipirani88/Comparative_Genomics/blob/master/README.md)
 
 The output of an assembler is a set of contigs (contiguous sequences), that are composed of the short reads that we fed in. Once we have an assembly we want to evaluate how good it is. This is somewhat qualitative, but there are some standard metrics that people use to quantify the quality of their assembly. Useful metrics include: i) number of contigs (the fewer the better), ii) N50 (the minimum contig size that at least 50% of your assembly belongs, the bigger the better). In general you want your assembly to be less than 200 contigs and have an N50 greater than 50 Kb, although these numbers are highly dependent on the properties of the assembled genome. 
 
 To evaluate some example assemblies we will use the tool quast. Quast produces a series of metrics describing the quality of your genome assemblies. 
 
+![spades](assembly_details_quast.png)
+
 > ***i. Run quast on a set of previously generated assemblies***
 
-Now to check the example assemblies residing in your day2_morn folder, run the below quast command. Make sure you are in day2_morn folder in your home directory using 'pwd'
+Now to check the example assemblies residing in your day2am folder, run the below quast command. Make sure you are in day2am folder in your home directory using 'pwd'
+
+SInce Quast needs an older version of python, we will deactivate the current environment and run quast outside micro612 environment.  
 
 ```
+conda deactivate 
+
+module load python2.7-anaconda/2019.03
+
+export PATH=$PATH:/scratch/micro612w21_class_root/micro612w21_class/shared/bin/quast/
+
 quast.py -o quast SRR5244781_contigs.fasta SRR5244821_contigs.fasta
 ```
 
-The command above will generate a report file in /scratch/micro612w19_fluxod/username/day2_morn/quast
+The command above will generate a report file in /scratch/micro612w21_class_root/micro612w21_class/username/day2am/quast
 
 > ***ii. Explore quast output***
 
@@ -165,7 +192,7 @@ Check the difference between the different assembly statistics. Also check the d
 Generating multiple sample reports using [multiqc](http://multiqc.info/)
 --------------------------------------------------
 
-![alt tag](multiqc.jpeg)
+![alt tag](https://github.com/alipirani88/Comparative_Genomics/blob/master/_img/day2_morning/multiqc.jpeg)
 
 Let's imagine a real-life scenario where you are working on a project which requires you to analyze and process hundreds of samples. Having a few samples with extremely bad quality is very commonplace. Including these bad samples into your analysis without adjusting their quality threshold can have a profound effect on downstream analysis and interpretations. 
 
@@ -177,12 +204,14 @@ Thankfully, there is a tool called multiqc which parses the results directory co
 
 Lets take a look at one such mutiqc report that was generated using FastQC results on *C. difficile* samples.
 
-Download the html report Cdiff_multiqc_report.html from your day2_morn folder.
+Download the html report Cdiff_multiqc_report.html from your day2am folder.
 
 ```
 #Note: Make sure you change 'username' in the below command to your 'uniqname'.
 
-scp username@flux-xfer.arc-ts.umich.edu:/scratch/micro612w19_fluxod/username/day2_morn/Cdiff_multiqc_report.html /path-to-local-directory/
+
+scp username@greatlakes-xfer.arc-ts.umich.edu:/scratch/micro612w21_class_root/micro612w21_class/username/day2am/Cdiff_multiqc_report.html /path-to-local-directory/
+
 
 ```
 
@@ -194,20 +223,20 @@ scp username@flux-xfer.arc-ts.umich.edu:/scratch/micro612w19_fluxod/username/day
 
 Lets run multiqc on one such directory where we ran and stored FastQC, FastQ Screen and Quast reports.
 
-if you are not in day2_morn folder, navigate to it and change directory to multiqc_analysis
+if you are not in day2am folder, navigate to it and change directory to multiqc_analysis
 
 ```
-d2m 
+d2m
 
 #or
 
-cd /scratch/micro612w19_fluxod/username/day2_morn/
+cd /scratch/micro612w21_class_root/micro612w21_class/username/day2am/
 
 cd multiqc_analysis
 
-#Load python and Try invoking multiqc 
+#Activate workshop conda environment
 
-module load python-anaconda2/latest
+conda activate micro612
 
 multiqc -h
 
@@ -221,7 +250,7 @@ ls
 
 #transfer this report to your local system and open it in a browser for visual inspection
 
-scp username@flux-xfer.arc-ts.umich.edu:/scratch/micro612w19_fluxod/username/day2_morn/workshop_multiqc.html /path-to-local-directory/
+scp username@flux-xfer.arc-ts.umich.edu:/scratch/micro612w21_class_root/micro612w21_class/username/day2am/workshop_multiqc.html /path-to-local-directory/
 
 ```
 
@@ -237,10 +266,11 @@ The report contains the Assembly, Fastq Screen and FastQC report for a mixture o
 
 Compare assembly to reference genome and post-assembly genome improvement
 -------------------------------------------------------------------------
-[[back to top]](day2_morning.html)
-[[HOME]](index.html)
+[[back to top]](https://github.com/alipirani88/Comparative_Genomics/blob/master/day2aming/README.md)
+[[HOME]](https://github.com/alipirani88/Comparative_Genomics/blob/master/README.md)
 
 Once we feel confident in our assembly by using quast or multiQC, let's compare it to our reference to see if we can identify any large insertions/deletions using a graphical user interface called Artemis Comparison Tool (ACT) for visualization. 
+
 
 <!---
 changed on 23 feb 2018
@@ -248,10 +278,10 @@ To do this we need to first align our genome assembly to our reference. We will 
 >i. Align unordered contigs to reference
 Create a BLAST database from your reference genome using the makeblastdb command.
 ```
-> Make sure you are in /scratch/micro612w19_fluxod/username/day2_morn directory
+> Make sure you are in /scratch/micro612w21_class_root/micro612w21_class/username/day2am directory
 d2m
 #or
-cd /scratch/micro612w19_fluxod/username/day2_morn
+cd /scratch/micro612w21_class_root/micro612w21_class/username/day2am
 makeblastdb -in KPNIH1.fasta -dbtype nucl -out KPNIH1.fasta
 ```
 >ii. Stitch together your contigs into a single sequence
@@ -270,7 +300,7 @@ The input parameters are:
 blastn -outfmt 6 -evalue 1e-20 -db KPNIH1.fasta -query sample_266_contigs_concat.fasta -out concat_comp.blast
 ```
 >ii. Use ACT(Installed in your local system) to compare stitched together contigs to reference.
-For these, first we will create a seperate directory called ACT_contig_comparison in day2_morn folder and copy all the necessary ACT input to this directory.
+For these, first we will create a seperate directory called ACT_contig_comparison in day2am folder and copy all the necessary ACT input to this directory.
 ```
 mkdir ACT_contig_comparison 
 cp KPNIH.gb KPNIH1.fasta concat_comp.blast sample_266_contigs_concat.fasta ACT_contig_comparison/
@@ -278,7 +308,7 @@ cp KPNIH.gb KPNIH1.fasta concat_comp.blast sample_266_contigs_concat.fasta ACT_c
 Use scp to get sequences and BLAST alignments onto your laptop 
 ```
 > Note: Make sure you change 'username' in the below command with your 'uniqname'.
-scp -r username@flux-xfer.arc-ts.umich.edu:/scratch/micro612w19_fluxod/username/day2_morn/ACT_contig_comparison/ /path-to-local-directory/
+scp -r username@flux-xfer.arc-ts.umich.edu:/scratch/micro612w21_class_root/micro612w21_class/username/day2am/ACT_contig_comparison/ /path-to-local-directory/
 ```
 >iii. Read these Input files in ACT_contig_comparison folder into ACT
 ```
@@ -290,10 +320,13 @@ Sequence file 2  = sample_266_contigs_concat.fasta
 Click Apply button
 ```
 > Notice that it is a complete mess!!!! The reason is that the contigs are in random order, so it is very difficult to visually compare to the reference. 
-![alt tag](mess.png)
+![alt tag](https://github.com/alipirani88/Comparative_Genomics/blob/master/_img/day2aming/mess.png)
 -->
 
+
 In order to simplify the comparison between assembly and reference, we first need to orient the order of the contigs to reference. 
+
+![spades](assembly_details_abacas.png)
 
 > ***i. Run abacas to orient contigs to the reference***
 
@@ -306,7 +339,7 @@ d2m
 
 #or
 
-cd /scratch/micro612w19_fluxod/username/day2_morn/
+cd /scratch/micro612w21_class_root/micro612w21_class/username/day2am/
 ```
 
 Now, we will run abacas using these input parameters: 
@@ -325,9 +358,11 @@ Now, we will run abacas using these input parameters:
 
 7) the prefix for your output files (–o SRR5244781_contigs_ordered) 
 
-Check if abacas can be properly invoked:
+Source the relevant abacas dependencies and Check if abacas can be properly invoked:
 
 ```
+source /scratch/micro612w21_class_root/micro612w21_class/shared/bin/PAGIT_2020/PAGIT/sourceme.pagit
+
 abacas.1.3.1.pl -h
 ```
 
@@ -339,7 +374,7 @@ abacas.1.3.1.pl -r FPR3757.fasta -q SRR5244781_contigs.fasta -p nucmer -b -d -a 
 
 > ***ii. Use ACT to view contig alignment to reference genome***
 
-- Make a new directory by the name ACT_contig_comparison in your day2_morn folder and copy relevant abacas/ACT comparison files to it. 
+- Make a new directory by the name ACT_contig_comparison in your day2am folder and copy relevant abacas/ACT comparison files to it. 
 
 
 ```
@@ -353,7 +388,7 @@ cp FPR3757.gb SRR5244781_contigs_ordered* ACT_contig_comparison/
 ```
 > Dont forget to change username and /path-to-local-ACT_contig_comparison-directory/ in the below command
 
-scp -r username@flux-xfer.arc-ts.umich.edu:/scratch/micro612w19_fluxod/username/day2_morn/ACT_contig_comparison/ /path-to-local-directory/
+scp -r username@flux-xfer.arc-ts.umich.edu:/scratch/micro612w21_class_root/micro612w21_class/username/day2am/ACT_contig_comparison/ /path-to-local-directory/
 
 ```
 
@@ -372,20 +407,22 @@ Dont close the ACT window
 
 - Notice that the alignment is totally beautiful now!!! Scan through the alignment and play with ACT features to look at genes present in reference but not in assembly. Keep the ACT window open for further visualizations.
 
-![alt tag](beautiful.png)
+![alt tag](https://github.com/alipirani88/Comparative_Genomics/blob/master/_img/day2_morning/beautiful.png)
  
 Genome Annotation
 -----------------
-[[back to top]](day2_morning.html)
-[[HOME]](index.html)
+[[back to top]](https://github.com/alipirani88/Comparative_Genomics/blob/master/day2aming/README.md)
+[[HOME]](https://github.com/alipirani88/Comparative_Genomics/blob/master/README.md)
+
+![annotation](genome_annotation.png)
 
 **Identify protein-coding genes with [Prokka](http://www.vicbioinformatics.com/software.prokka.shtml)**
+![prokka](annotation_details_prokka.png)
 
 From our ACT comparison of our assembly and the reference we can clearly see that there is unique sequence in our assembly. However, we still don’t know what that sequence encodes! To try to get some insight into the sorts of genes unique to our assembly we will run a genome annotation pipeline called Prokka. Prokka works by first running *de novo* gene prediction algorithms to identify protein coding genes and tRNA genes. Next, for protein coding genes Prokka runs a series of comparisons against databases of annotated genes to generate putative annotations for your genome. 
 
 
 Earlier, we submitted a prokka job which should be completed by now. In this exercise, we will go over the prokka results and copy annotation files to our local system that we can then use for ACT visualization.
-
 
 > ***i.  Use scp or cyberduck to get Prokka annotated genome on your laptop. Dont forget to change username in the below command
 
@@ -395,9 +432,10 @@ cd SRR5244781_prokka
 
 ls 
 
-scp -r username@flux-xfer.arc-ts.umich.edu:/scratch/micro612w16_fluxod/username/day2_morn/SRR5244781_prokka/ /path-to-local-ACT_contig_comparison-directory/
+scp -r username@flux-xfer.arc-ts.umich.edu:/scratch/micro612w16_fluxod/username/day2am/SRR5244781_prokka/ /path-to-local-ACT_contig_comparison-directory/
 
 ```
+
 
 <!--
  Run Prokka on assembly***
@@ -409,13 +447,13 @@ prokka –setupdb
 Execute Prokka on your ordered assembly 
 
 ```
-> Make sure you are in day2_morn directory.
+> Make sure you are in day2am directory.
 
 d2m
 
 #or
 
-cd /scratch/micro612w19_fluxod/username/day2_morn/
+cd /scratch/micro612w21_class_root/micro612w21_class/username/day2am/
 
 mkdir SRR5244781_prokka 
 
@@ -423,13 +461,16 @@ prokka -kingdom Bacteria -outdir SRR5244781_prokka -force -prefix SRR5244781 SRR
 
 > Use scp or cyberduck to get Prokka annotated genome on your laptop. Dont forget to change username in the below command
 
-scp -r username@flux-xfer.arc-ts.umich.edu:/scratch/micro612w16_fluxod/username/day2_morn/SRR5244781_prokka/ /path-to-local-ACT_contig_comparison-directory/
+scp -r username@flux-xfer.arc-ts.umich.edu:/scratch/micro612w16_fluxod/username/day2am/SRR5244781_prokka/ /path-to-local-ACT_contig_comparison-directory/
 
 ```
 
 -->
 
+
 > ***ii. Reload comparison into ACT now that we’ve annotated the un-annotated!***
+
+![prokka](annotation_details_ACT.png)
 
 Read files into ACT
 
@@ -454,17 +495,88 @@ Click on GoTo->FPR3757.gb->Navigator-> GoTo and search by gene name. Search for 
 
 Scroll through the length of the genome. Are there any genes in the MSSA genome that are not in the MRSA genome? 
 
-See [this](https://github.com/alipirani88/Comparative_Genomics/blob/master/_img/day2_morning/day2_morn_mecA.png) diagram and paper for more information on the features of USA300 MRSA: 
+See [this](https://github.com/alipirani88/Comparative_Genomics/blob/master/_img/day2_morning/day2am_mecA.png) diagram and paper for more information on the features of USA300 MRSA: 
 
 Image from David & Daum Clin Microbiol Rev. 2010 Jul;23(3):616-87. doi: 10.1128/CMR.00081-09.
 
 Using abacas and ACT to compare VRE/VSE genome 
 ----------------------------------------------
 
-Now that we learned how ACT can be used to explore and compare genome organization and differences, try comparing VSE_ERR374928_contigs.fasta, a Vancomycin-susceptible Enterococcus against a Vancomycin-resistant Enterococcus reference genome Efaecium_Aus0085.fasta that are placed in VRE_vanB_comparison folder under day2_morn directory. 
+Now that we learned how ACT can be used to explore and compare genome organization and differences, try comparing VSE_ERR374928_contigs.fasta, a Vancomycin-susceptible Enterococcus against a Vancomycin-resistant Enterococcus reference genome Efaecium_Aus0085.fasta that are placed in VRE_vanB_comparison folder under day2am directory. 
 
 The relevant reference genbank file that can be used in ACT is Efaecium_Aus0085.gbf.
 
 For this exercise, you will use abacas to order VSE_ERR374928_contigs.fasta against the reference genome Efaecium_Aus0085.fasta and then use the relevant ordered.crunch and ordered.fasta files along with Efaecium_Aus0085.gbf for ACT visualization. Use feature search tool in ACT to search for “vanB” in the resistant genome.
 
 
+Prep for this afternoon
+-----------------------
+
+Before lunch, we're going to start a job running ARIBA, which takes about 40 minutes to finish, and a job running Roray, which takes about 20 minutes to finish. That way, the results will be there when we're ready for them! 
+
+Execute the following command to copy files for this afternoon’s exercises to your scratch directory, and then load the `micro612` conda environment if it's not already loaded:
+
+
+```  
+cd /scratch/micro612w21_class_root/micro612w21_class/username
+
+# or
+
+wd
+
+cp -r /scratch/micro612w21_class_root/micro612w21_class/shared/data/day2pm/ ./
+
+# Deactivate current conda 
+conda deactivate 
+
+# Log out and log back in please
+
+# Create a new conda environment - micro612 from a YML file
+conda env create -f /scratch/micro612w21_class_root/micro612w21_class/shared/data/day2pm/day2pm.yaml -n day2pm
+
+# Load your environment and use the tools
+conda activate day2pm
+```
+
+Next, let's start the ariba job:
+
+```
+d2a
+
+# or 
+
+cd /scratch/micro612w21_class_root/micro612w21_class/username/day2pm
+
+# list files
+ls
+
+# change directories
+cd ariba
+
+# modify email address and look at ariba command
+nano ariba.sbat
+
+# run job
+sbatch ariba.sbat
+```
+
+Now, let's start the Roary job:
+
+```
+cd ../roary
+
+# or 
+
+d2pm
+cd roary
+```
+
+Start the Roary job:
+
+```
+# modify email address and look at roary command
+nano roary.sbat
+
+# run roary
+sbatch roary.sbat
+```
