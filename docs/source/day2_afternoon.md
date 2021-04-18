@@ -16,7 +16,7 @@ For BLAST and ARIBA, we will be looking at 8 *Klebsiella pneumoniae* genomes fro
 
 For the pan-genome analysis, we will be looking at four closely related *Acinetobacter baumannii* strains. However, despite being closely related, these genomes have major differences in gene content, as *A. baumannii* has a notoriously flexible genome! In fact, in large part due to its genomic flexibility, *A. baumannii* has transitioned from a harmless environmental contaminant to a pan-resistant super-bug in a matter of a few decades. If you are interested in learning more, check out this nature [review](http://www.nature.com/nrmicro/journal/v5/n12/abs/nrmicro1789.html) or [this](http://www.pnas.org/content/108/33/13758.abstract) paper I published a few years back analyzing the very same genomes you will be working with.
 
-Navigate to the `day2pm` directory and create a new conda environment for this session:
+Navigate to the `day2pm` directory and load the conda environment you created before break for this session:
 
 
 ```  
@@ -27,7 +27,7 @@ or
 
 wd
 
-cp -r /scratch/micro612w21_class_root/micro612w21_class/shared_data/day2pm/data ./
+cp -r /scratch/micro612w21_class_root/micro612w21_class/shared/data/day2pm/ ./
 
 
 ```
@@ -44,13 +44,13 @@ Determine which genomes contain KPC genes using [BLAST](https://blast.ncbi.nlm.n
 [[HOME]](index.html)
 
 ![blast](comp_genomics_details_blast.png)
-Before comparing full genomic content, lets start by looking for the presence of particular genes of interest. Some *K. pneumoniae* harbor a KPC gene that confers resistance to carbapenems, a class of antibiotics of last resort (more information [here](https://www.sciencedirect.com/science/article/pii/S1473309913701907?via%3Dihub) and [here](https://academic.oup.com/jid/article/215/suppl_1/S28/3092084)). We will see if any of our samples have a KPC gene, by comparing the genes in our genomes to KPC genes extracted from the antibiotic resistance database ([ARDB](http://ardb.cbcb.umd.edu/)). These extracted genes can be found in the file `data/blast_kleb/ardb_KPC_genes.pfasta`, which we will use to generate a BLAST database.
+Before comparing full genomic content, lets start by looking for the presence of particular genes of interest. Some *K. pneumoniae* harbor a KPC gene that confers resistance to carbapenems, a class of antibiotics of last resort (more information [here](https://www.sciencedirect.com/science/article/pii/S1473309913701907?via%3Dihub) and [here](https://academic.oup.com/jid/article/215/suppl_1/S28/3092084)). We will see if any of our samples have a KPC gene, by comparing the genes in our genomes to KPC genes extracted from the antibiotic resistance database ([ARDB](http://ardb.cbcb.umd.edu/)). These extracted genes can be found in the file `blast/data/blast_kleb/ardb_KPC_genes.pfasta`, which we will use to generate a BLAST database.
 
 First, change directories to the blast directory:
 
 ```
 #change directory to day2pm
-d2pm
+d2a
 
 cd blast
 ```
@@ -99,7 +99,7 @@ less KPC_blastp_results.tsv
 
 [Here](http://www.metagenomics.wiki/tools/blast/blastn-output-format-6) is more information about the content for each of the output file columns.
 
-- **Exercise:** In this exercise you will try a different type of blasting – blastx. Blastx compares a nucleotide sequence to a protein database by translating the nucleotide sequence in all six frames and running blastp. Your task is to determine which Enterococcus genomes are vancomycin resistant (VRE, vs. VSE) by blasting against a database of van genes. The required files are located in `data/blast_ent` folder in the `day2pm` directory.
+- **Exercise:** In this exercise you will try a different type of blasting – blastx. Blastx compares a nucleotide sequence to a protein database by translating the nucleotide sequence in all six frames and running blastp. Your task is to determine which Enterococcus genomes are vancomycin resistant (VRE, vs. VSE) by blasting against a database of van genes. The required files are located in `blast/data/blast_ent` folder in the `day2pm` directory.
 
 Your steps should be:
 
@@ -113,11 +113,16 @@ Your steps should be:
   <summary>Solution</summary>
   
 ```
+d2a
+
+cd blast/data/blast_ent
+
+# Make sure you are in blast_ent folder
 cat *.fasta > VRE_VSE_genomes.fasta
 
-makeblastdb -in data/blast_ent/ardb_van.pfasta -dbtype prot
+makeblastdb -in ardb_van.pfasta -dbtype prot
 
-blastx -query VRE_VSE_genomes.fasta -db data/blast_ent/ardb_van.pfasta -out van_blastp_results.tsv -outfmt 6 -evalue 1e-100 -max_target_seqs 1
+blastx -query VRE_VSE_genomes.fasta -db ardb_van.pfasta -out van_blastp_results.tsv -outfmt 6 -evalue 1e-100 -max_target_seqs 1
 
 ```
 </details>
@@ -133,11 +138,11 @@ Now let's look at the full spectrum of antibiotic resistance genes in our *Klebs
 
 [ARIBA](https://github.com/sanger-pathogens/ariba/wiki) (Antimicrobial Resistance Identification By Assembly) is a tool that identifies antibiotic resistance genes by running local assemblies. The input is a FASTA file of reference sequences (can be a mix of genes and noncoding sequences) and paired sequencing reads. ARIBA reports which of the reference sequences were found, plus detailed information on the quality of the assemblies and any variants between the sequencing reads and the reference sequences.
 
-ARIBA is compatible with various databases and also contains a utility to download different databases such as: argannot, card, megares, plasmidfinder, resfinder, srst2_argannot, vfdb_core. Today, we will be working with the [card](https://card.mcmaster.ca/) database (`data/CARD` in your `day2pm` directory).
+ARIBA is compatible with various databases and also contains a utility to download different databases such as: argannot, card, megares, plasmidfinder, resfinder, srst2_argannot, vfdb_core. Today, we will be working with the [card](https://card.mcmaster.ca/) database (`ariba/data/CARD/` in your `day2pm` directory).
 
 > ***i. Run ARIBA on input paired-end fastq reads for resistance gene identification.***
 
-The fastq reads are in the `data/kpneumo_fastq` directory. Since ARIBA is a memory intensive, we started this at the beginning of the afternoon. We should have our results by now, but first let's look at the ARIBA command.
+The fastq reads are in the `ariba/data/kpneumo_fastq/` directory. Since ARIBA is a memory intensive, we started this at the beginning of the afternoon. We should have our results by now, but first let's look at the ARIBA command.
 
 ```
 # navigate to ariba directory
@@ -145,7 +150,7 @@ cd /scratch/micro612w21_class_root/micro612w21_class/username/day2pm
 
 # or
 
-d2pm
+d2a
 
 cd ariba
 
@@ -153,7 +158,7 @@ cd ariba
 conda activate day2pm
 
 # look at ariba commands
-less ariba.sbatch
+less ariba.sbat
 ```
 
 
@@ -177,13 +182,19 @@ ariba summary --preset all results/kpneumo_card_all_results results/card/*/repor
 The ARIBA summary generates three output:
 
 1. `kpneumo_card*.csv` file that can be viewed in your favorite spreadsheet program (e.x. Microsoft Excel).
+
 2. `kpneumo_card*.phandango.{csv,tre}` that allow you to view the results in [Phandango](http://jameshadfield.github.io/phandango/#/). You can drag-and-drop these files straight into Phandango.
 
 Lets copy these  files, along with a metadata file, to the local system using cyberduck or scp.
 
 ```
+mkdir ~/Desktop/micro612
+mkdir ~/Desktop/micro612/day2pm
+
 scp username@greatlakes-xfer.arc-ts.umich.edu:/scratch/micro612w21_class_root/micro612w21_class/username/day2pm/ariba/results/kpneumo_card* ~/Desktop/micro612/day2pm
 scp username@greatlakes-xfer.arc-ts.umich.edu:/scratch/micro612w21_class_root/micro612w21_class/username/day2pm/ariba/data/kpneumo_source.tsv ~/Desktop/micro612/day2pm
+scp username@greatlakes-xfer.arc-ts.umich.edu:/scratch/micro612w21_class_root/micro612w21_class/username/day2pm/ariba/data/mlst_typing/kpneumo_mlst.tsv ~/Desktop/micro612/day2pm
+
 ```
 
 Drag and drop these two files onto the [Phandango](http://jameshadfield.github.io/phandango/#/) website. What types of resistance genes do you see in these *Klebsiella* genomes? 
@@ -219,49 +230,68 @@ colnames(annots) = 'Source'
 pheatmap(ariba_full_match,annotation_row = annots)
 ```
 
-- **Exercise:** Bacteria of the same species can be classified into different sequence types (STs) based on the sequence identity of certain housekeeping genes using a technique called [multilocus sequence typing (MLST)](https://en.wikipedia.org/wiki/Multilocus_sequence_typing). The different combination of these house keeping sequences present within a bacterial species are assigned as distinct alleles and, for each isolate, the alleles at each of the seven genes define the allelic profile or sequence type (ST). Sometimes, different sequence types are associated with different environments or different antibiotic resistance genes. We want to know what sequence type(s) our genomes come from, and if there are certain ones that are associated with certain sources or certain antibiotic resistance genes. 
+Bacteria of the same species can be classified into different sequence types (STs) based on the sequence identity of certain housekeeping genes using a technique called [multilocus sequence typing (MLST)](https://en.wikipedia.org/wiki/Multilocus_sequence_typing). The different combination of these house keeping sequences present within a bacterial species are assigned as distinct alleles and, for each isolate, the alleles at each of the seven genes define the allelic profile or sequence type (ST). Sometimes, different sequence types are associated with different environments or different antibiotic resistance genes. We want to know what sequence type(s) our genomes come from, and if there are certain ones that are associated with certain sources or certain antibiotic resistance genes. 
 
-Using the [ARIBA MLST manual](https://github.com/sanger-pathogens/ariba/wiki/MLST-calling-with-ARIBA), write and run a script (similar to the one above) to perform MLST calling with ARIBA on all 8 of our *K. pneumonia* genomes. Then, use this information to add a second annotation column to the heatmap we created above to visualize the results. Running ARIBA mlst requires a MLST species database, so don't forget to download "Klebsiella pneumoniae" database and give the path to this database while running ARIBA MLST detection.
+We already pre-ran Ariba MLST on all 8 of our *K. pneumonia* genomes. Use the MLST results kpneumo_mlst.tsv that we previously downloaded to add a second annotation column to the heatmap we created above to visualize the results. 
 
-Steps:
-1. Check if you have an MLST database for your species of interest using `ariba pubmlstspecies`.
-1. Download your species MLST database. You can look at the manual or run the command `ariba pubmlstget -h` to help figure out how to download the correct MLST database. I would suggest downloading it to the `data` directory. 
-1. Copy the `ariba.sbatch` file to a new file called `mlst.sbatch`.
-1. Modify the `mlst.sbatch` script in the following ways:
-    1. Change the database directory to the _K. pneumoniae_ MLST database you just downloaded.
-    1. Change the `mkdir` line to make a `results/mlst` directory.
-    1. Modify the output directory `outdir` line: Change `card` to `mlst`.
-1. Submit the `mlst.sbatch` script. It should take about 7 minutes to run.
-1. Once the run completes, run `scripts/summarize_mlst.sh results/mlst` to look at the MLST results. If you want, you can save it to its own file. What sequence types are present? 
+Go to your R studio and overlay MLST metadata as an additional row annotation to your previous heatmap
+
+```
+annots_mlst = read.table('~/Desktop/micro612/day2pm/kpneumo_mlst.tsv',row.names=1)
+
+colnames(annots_mlst) = 'ST'
+
+Row_annotations <- cbind(annots, annots_mlst) 
+
+annoCol <- list(ST=c("11"="blue", "221"="red", "230"="orange", "258"="grey"))
+
+pheatmap(ariba_full_match,annotation_row = Row_annotations, annotation_colors = annoCol)
+```
+
+
+The commands and steps that were used for MLST typing are given below:
 
 <details>
   <summary>Solution</summary>
-  
+
+**Dont run this exercise**
+
+Steps:
+1. Check if you have an MLST database for your species of interest using `ariba pubmlstspecies`.
+2. Download your species MLST database. You can look at the manual or run the command `ariba pubmlstget -h` to help figure out how to download the correct MLST database. I would suggest downloading it to the `data` directory. 
+3. Copy the `ariba.sbatch` file to a new file called `mlst.sbatch`.
+4. Modify the `mlst.sbatch` script in the following ways:
+    1. Change the database directory to the _K. pneumoniae_ MLST database you just downloaded.
+    1. Change the `mkdir` line to make a `results/mlst` directory.
+    1. Modify the output directory `outdir` line: Change `card` to `mlst`.
+5. Submit the `mlst.sbatch` script. It should take about 7 minutes to run.
+6. Once the run completes, run `scripts/summarize_mlst.sh results/mlst` to look at the MLST results. If you want, you can save it to its own file. What sequence types are present? 
+
+
 ```
 # Make sure you are in ariba directory under day2pm folder and running the below commands from ariba directory.
-d2pm
+d2a
 cd ariba
 
 # Check if you have an mlst database for your species of interest
 ariba pubmlstspecies
 
 # Download your species mlst database
-ariba pubmlstget "Klebsiella pneumoniae" data/kp_mlst
+ariba pubmlstget "Klebsiella pneumoniae" data/MLST_db
 
 # Set ARIBA database directory to the get_mlst database that we just downloaded.
-db_dir=data/kp_mlst/ref_db/
+db_dir=data/MLST_db/ref_db/
 
 # Run ariba mlst with this database
 samples=$(ls data/kpneumo_fastq/*1.fastq.gz) #forward reads
 
 # Generate mlst folder under results folder to save ariba MLST results
-mkdir results/mlst
+mkdir results/mlst_typing
 
 # Run for loop, where it generates ARIBA command for each of the forward end files.
 for samp in $samples; do   
 samp2=${samp//1.fastq/2.fastq} #reverse reads   
-#outdir=results/mlst/$(echo ${samp//.fastq.gz/} | cut -d/ -f2) #output directory #not working
-outdir=results/mlst/$(echo $samp | cut -d/ -f3 | sed 's/_.*1.fastq.gz//g')
+outdir=results/mlst_typing /$(echo $samp | cut -d/ -f3 | sed 's/_.*1.fastq.gz//g')
 echo "Results will be saved in $outdir"
 echo "Running: ariba run --force $db_dir $samp $samp2 $outdir  #ariba command "
 ariba run --force $db_dir $samp $samp2 $outdir  #ariba command 
@@ -471,7 +501,7 @@ cd /scratch/micro612w21_class_root/micro612w21_class/username/day2pm
 
 # or
 
-d2pm
+d2a
 cd act
 ```
 
