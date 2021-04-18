@@ -13,8 +13,6 @@ This morning we learned how to perform basic genome annotation and comparison us
 
 ![roadmap](comp_genomics.png)
 
-High-throughput BLAST and pan-genome analysis
----------------------------------------------
 
 For BLAST and ARIBA, we will be looking at 8 *Klebsiella pneumoniae* genomes from human and environmental sources. Six of these genomes are from [this paper](https://www.pnas.org/content/112/27/E3574), and the other two are sequences from our lab. We are interested in learning more about potential differences in the resistomes of human and environmental isolates. 
 
