@@ -2,7 +2,13 @@ Day 3 Morning
 =============
 [[HOME]](https://github.com/alipirani88/Comparative_Genomics/blob/master/README.md)
 
-On day 1, we ran through a pipeline to map reads against a reference genome and call variants, but didn’t do much with the variants we identified. Among the most common analyses to perform on a set of variants is to construct phylogenetic trees. Here we will explore different tools for generating and visualizing phylogenetic trees, and also see how recombination can distort phylogenetic signal.
+Goal
+----
+
+On day 1, we ran through a pipeline to map reads against a reference genome and call variants, but didn’t do much with the variants we identified. Among the most common analyses to perform on a set of variants is to construct phylogenetic trees. 
+- In this section, we will employ Parsnp to align genomes and create a multiple sequence alignment and visualize how they align in Gingr. 
+- Explore different tools for generating and visualizing phylogenetic trees.
+- Perform recombination filtering with Gubbins and see how recombination can distort phylogenetic signal.
 
 ![phylo](phylo.png)
 
