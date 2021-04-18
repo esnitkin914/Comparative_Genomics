@@ -158,7 +158,7 @@ cd ariba
 conda activate day2pm
 
 # look at ariba commands
-less ariba.sbatch
+less ariba.sbat
 ```
 
 
@@ -277,22 +277,21 @@ cd ariba
 ariba pubmlstspecies
 
 # Download your species mlst database
-ariba pubmlstget "Klebsiella pneumoniae" data/kp_mlst
+ariba pubmlstget "Klebsiella pneumoniae" data/MLST_db
 
 # Set ARIBA database directory to the get_mlst database that we just downloaded.
-db_dir=data/kp_mlst/ref_db/
+db_dir=data/MLST_db/ref_db/
 
 # Run ariba mlst with this database
 samples=$(ls data/kpneumo_fastq/*1.fastq.gz) #forward reads
 
 # Generate mlst folder under results folder to save ariba MLST results
-mkdir results/mlst
+mkdir results/mlst_typing
 
 # Run for loop, where it generates ARIBA command for each of the forward end files.
 for samp in $samples; do   
 samp2=${samp//1.fastq/2.fastq} #reverse reads   
-#outdir=results/mlst/$(echo ${samp//.fastq.gz/} | cut -d/ -f2) #output directory #not working
-outdir=results/mlst/$(echo $samp | cut -d/ -f3 | sed 's/_.*1.fastq.gz//g')
+outdir=results/mlst_typing /$(echo $samp | cut -d/ -f3 | sed 's/_.*1.fastq.gz//g')
 echo "Results will be saved in $outdir"
 echo "Running: ariba run --force $db_dir $samp $samp2 $outdir  #ariba command "
 ariba run --force $db_dir $samp $samp2 $outdir  #ariba command 
