@@ -2,15 +2,17 @@ Day 2 PM
 ========
 [[HOME]](https://github.com/alipirani88/Comparative_Genomics/blob/master/README.md)
 
-![roadmap](comp_genomics.png)
-High-throughput BLAST and pan-genome analysis
----------------------------------------------
+Goal
+----
 
 This morning we learned how to perform basic genome annotation and comparison using Prokka and ACT. Now we will up the ante and do some more sophisticated comparative genomics analyses! 
-First, we will create custom BLAST databases to identify specific antibiotic resistance genes of interest in a set of genomes. 
-Second, we will use the tool [ARIBA](https://github.com/sanger-pathogens/ariba/wiki) to identify the complete antibiotic resistome in our genomes. 
-Third, we will move beyond antibiotic resistance, and look at the complete set of protein coding genes in our input genomes. 
-Finally, we will go back to ACT to understand the sorts of genomic rearrangements underlying observed variation in gene content.
+- First, we will create custom BLAST databases to identify specific antibiotic resistance genes of interest in a set of genomes. 
+- Second, we will use the tool [ARIBA](https://github.com/sanger-pathogens/ariba/wiki) to identify the complete antibiotic resistome in our genomes. 
+- Third, we will move beyond antibiotic resistance, and look at the complete set of protein coding genes in our input genomes. 
+- Finally, we will go back to ACT to understand the sorts of genomic rearrangements underlying observed variation in gene content.
+
+![roadmap](comp_genomics.png)
+
 
 For BLAST and ARIBA, we will be looking at 8 *Klebsiella pneumoniae* genomes from human and environmental sources. Six of these genomes are from [this paper](https://www.pnas.org/content/112/27/E3574), and the other two are sequences from our lab. We are interested in learning more about potential differences in the resistomes of human and environmental isolates. 
 
@@ -40,8 +42,6 @@ conda activate day2pm
 
 Determine which genomes contain KPC genes using [BLAST](https://blast.ncbi.nlm.nih.gov/Blast.cgi)
 ----------------------------------------------------
-[[back to top]](day2_afternoon.html)
-[[HOME]](index.html)
 
 ![blast](comp_genomics_details_blast.png)
 Before comparing full genomic content, lets start by looking for the presence of particular genes of interest. Some *K. pneumoniae* harbor a KPC gene that confers resistance to carbapenems, a class of antibiotics of last resort (more information [here](https://www.sciencedirect.com/science/article/pii/S1473309913701907?via%3Dihub) and [here](https://academic.oup.com/jid/article/215/suppl_1/S28/3092084)). We will see if any of our samples have a KPC gene, by comparing the genes in our genomes to KPC genes extracted from the antibiotic resistance database ([ARDB](http://ardb.cbcb.umd.edu/)). These extracted genes can be found in the file `blast/data/blast_kleb/ardb_KPC_genes.pfasta`, which we will use to generate a BLAST database.
@@ -131,8 +131,6 @@ blastx -query VRE_VSE_genomes.fasta -db ardb_van.pfasta -out van_blastp_results.
 
 Identify antibiotic resistance genes with [ARIBA](https://github.com/sanger-pathogens/ariba) directly from paired end reads
 ----------------------------------------------------------
-[[back to top]](day2_afternoon.html)
-[[HOME]](index.html)
 
 Now let's look at the full spectrum of antibiotic resistance genes in our *Klebsiella* genomes!
 
@@ -483,8 +481,6 @@ Why does this make sense?
 
 Perform genome comparisons with [ACT](http://www.sanger.ac.uk/science/tools/artemis-comparison-tool-act)
 -------------------------------------
-[[back to top]](https://github.com/alipirani88/Comparative_Genomics/blob/master/day2_afternoon/README.md)
-[[HOME]](https://github.com/alipirani88/Comparative_Genomics/blob/master/README.md)
 
 ![act](comp_genomics_details_ACT.png)
 

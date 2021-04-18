@@ -42,8 +42,6 @@ cp -r /scratch/micro612w21_class_root/micro612w21_class/shared/data/day3pm ./
 
 Perform QC on fastq files
 -------------------------
-[[back to top]](https://github.com/alipirani88/Comparative_Genomics/blob/master/day3pmnoon/README.md)
-[[HOME]](https://github.com/alipirani88/Comparative_Genomics/blob/master/README.md)
 
 On the first morning you ran FastQC to evaluate the quality of a single genome. However, a typical project will include many genomes and you will want to check the quality of all of your samples. From the bash workshop, I hope you can appreciate that you do not want to process 100 genomes by typing 100 commands – rather you want to write a short shell script to do the work for you!
 
@@ -81,8 +79,6 @@ Check the multiqc report of your fastq files.
 
 Explore ARIBA CARD and MLST typing on day3pm_fastq samples
 ----------------------------------------------------------
-[[back to top]](https://github.com/alipirani88/Comparative_Genomics/blob/master/day3pmnoon/README.md)
-[[HOME]](https://github.com/alipirani88/Comparative_Genomics/blob/master/README.md)
 
 On Day 2 afternoon, you explored ARIBA's MLST results that were performed on a single genome. However, a typical public epidimiology project will include many genomes sampled from different sites and you will want to sequence type each of these samples to study their genetic diversity and determine if these samples contain antibiotic resistance genes. 
 
@@ -167,10 +163,8 @@ commenting out SPANDx and replacing it with snippy 2021-04-16
 -->
 
 
-Run [Snippy](https://github.com/tseemann/snippy) variant calling pipeline on a set of Genomes and generate a core genome alignment
-----------------------------------------------------------------------------------------------------------------------------------
-[[back to top]](https://github.com/alipirani88/Comparative_Genomics/blob/master/day3pmnoon/README.md)
-[[HOME]](https://github.com/alipirani88/Comparative_Genomics/blob/master/README.md)
+Examine results of [Snippy](https://github.com/tseemann/snippy) pipeline
+------------------------------------------------------------------------
 
 On the afternoon of day 1 we saw how many steps are involved in calling variants relative to a reference genome. However, the same steps are applied to every sample, which makes this very pipeline friendly!  So, you could write your own shell script to string together these commands, or take advantage of one of several published pipelines. 
 
@@ -208,8 +202,6 @@ The following unix commands can be used to get sorted list of number of VARIANT 
 
 Recombination detection and tree generation
 -------------------------------------------
-[[back to top]](https://github.com/alipirani88/Comparative_Genomics/blob/master/day3pmnoon/README.md)
-[[HOME]](https://github.com/alipirani88/Comparative_Genomics/blob/master/README.md)
 
 > ***i. Plot the distribution of variants across the genome in R***
 
@@ -240,8 +232,6 @@ Read the fasta file into R, create a distance matrix, and make a neighbor joinin
 
 Phylogenetic tree annotation and visualization
 ----------------------------------------------
-[[back to top]](https://github.com/alipirani88/Comparative_Genomics/blob/master/day3pmnoon/README.md)
-[[HOME]](https://github.com/alipirani88/Comparative_Genomics/blob/master/README.md)
 
 Follow along with the Day 3 morning exercise where we annotated a MRSA tree with CA vs. HA metadata to overlay facility information on your _Klebsiella_ neighbor-joining tree you just made. 
 
