@@ -199,8 +199,6 @@ Notice the structure of the tree (i.e. which genomes are closely related to one 
 
 Perform some DNA sequence comparisons and phylogenetic analysis in [APE](http://ape-package.ird.fr/), an R package
 ------------------------------------------------------------------------
-[[back to top]](https://github.com/alipirani88/Comparative_Genomics/blob/master/day3aming/README.md)
-[[HOME]](https://github.com/alipirani88/Comparative_Genomics/blob/master/README.md)
 
 We've done some initial visualization of the parsnp output files in gingr, now we are going to do some further exploration in R. 
 
@@ -312,8 +310,6 @@ Notice that with this tree, genomes A and B are more closely related, suggesting
 
 Perform SNP density analysis to discern evidence of recombination
 -----------------------------------------------------------------
-[[back to top]](https://github.com/alipirani88/Comparative_Genomics/blob/master/day3aming/README.md)
-[[HOME]](https://github.com/alipirani88/Comparative_Genomics/blob/master/README.md)
 
 An often-overlooked aspect of a proper phylogenetic analysis is to exclude recombinant sequences. Homologous recombination in bacterial genomes is a mode of horizontal transfer, wherein genomic DNA is taken up and swapped in for a homologous sequence. The reason it is critical to account for these recombinant regions is that these horizontally acquired sequences do not represent the phylogenetic history of the strain of interest, but rather in contains information regarding the strain in which the sequence was acquired from. One simple approach for detecting the presence of recombination is to look at the density of variants across a genome. The existence of unusually high or low densities of variants is suggestive that these regions of aberrant density were horizontally acquired. Here we will look at our closely related A. baumannii genomes to see if there is evidence of aberrant variant densities.
 
@@ -363,8 +359,6 @@ Does the density look even, or do you think there might be just a touch of recom
 
 Perform recombination filtering with [Gubbins](https://www.google.com/search?q=gubbins+sanger&ie=utf-8&oe=utf-8)
 ----------------------------------------------
-[[back to top]](https://github.com/alipirani88/Comparative_Genomics/blob/master/day3aming/README.md)
-[[HOME]](https://github.com/alipirani88/Comparative_Genomics/blob/master/README.md)
 
 Now that we know there is recombination, we know that we need to filter out the recombinant regions to discern the true phylogenetic relationship among our strains. In fact, this is such an extreme case (~99% of variants of recombinant), that we could be totally misled without filtering recombinant regions. To accomplish this we will use the tool gubbins, which essentially relies on elevated regions of variant density to perform recombination filtering.
 
@@ -490,8 +484,6 @@ How does the structure look different than the unfiltered tree?
 
 Overlay metadata on your tree using R 
 ------------------------------------------------------
-[[back to top]](https://github.com/alipirani88/Comparative_Genomics/blob/master/day3aming/README.md)
-[[HOME]](https://github.com/alipirani88/Comparative_Genomics/blob/master/README.md)
 
 For the final exercise we will use a different dataset, composed of USA300 methicillin-resistant Staphylococcus aureus genomes. USA300 is a strain of growing concern, as it has been observed to cause infections in both hospitals and in otherwise healthy individuals in the community. An open question is whether there are sub-clades of USA300 in the hospital and the community, or if they are all the same. Here you will create an annotated phylogenetic tree of strains from the community and the hospital, to discern if these form distinct clusters.
 
