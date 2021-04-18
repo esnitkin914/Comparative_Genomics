@@ -39,8 +39,6 @@ cp -r /scratch/micro612w21_class_root/micro612w21_class/shared/data/day2am ./
 
 Genome Assembly using [Spades](http://bioinf.spbau.ru/spades) Pipeline
 ------------------------------
-[[back to top]](https://github.com/alipirani88/Comparative_Genomics/blob/master/day2aming/README.md)
-[[HOME]](https://github.com/alipirani88/Comparative_Genomics/blob/master/README.md)
 
 ![alt tag](https://github.com/alipirani88/Comparative_Genomics/blob/master/_img/day2_morning/intro.png)
 
@@ -152,8 +150,6 @@ sbatch prokka.sbat
 
 Assembly evaluation using [QUAST](http://bioinf.spbau.ru/quast)
 ---------------------------------
-[[back to top]](https://github.com/alipirani88/Comparative_Genomics/blob/master/day2aming/README.md)
-[[HOME]](https://github.com/alipirani88/Comparative_Genomics/blob/master/README.md)
 
 The output of an assembler is a set of contigs (contiguous sequences), that are composed of the short reads that we fed in. Once we have an assembly we want to evaluate how good it is. This is somewhat qualitative, but there are some standard metrics that people use to quantify the quality of their assembly. Useful metrics include: i) number of contigs (the fewer the better), ii) N50 (the minimum contig size that at least 50% of your assembly belongs, the bigger the better). In general you want your assembly to be less than 200 contigs and have an N50 greater than 50 Kb, although these numbers are highly dependent on the properties of the assembled genome. 
 
@@ -266,8 +262,6 @@ The report contains the Assembly, Fastq Screen and FastQC report for a mixture o
 
 Compare assembly to reference genome and post-assembly genome improvement
 -------------------------------------------------------------------------
-[[back to top]](https://github.com/alipirani88/Comparative_Genomics/blob/master/day2aming/README.md)
-[[HOME]](https://github.com/alipirani88/Comparative_Genomics/blob/master/README.md)
 
 Once we feel confident in our assembly by using quast or multiQC, let's compare it to our reference to see if we can identify any large insertions/deletions using a graphical user interface called Artemis Comparison Tool (ACT) for visualization. 
 
@@ -411,8 +405,6 @@ Dont close the ACT window
  
 Genome Annotation
 -----------------
-[[back to top]](https://github.com/alipirani88/Comparative_Genomics/blob/master/day2aming/README.md)
-[[HOME]](https://github.com/alipirani88/Comparative_Genomics/blob/master/README.md)
 
 ![annotation](genome_annotation.png)
 
