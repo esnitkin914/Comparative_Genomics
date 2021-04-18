@@ -2,15 +2,19 @@ Day 2 PM
 ========
 [[HOME]](https://github.com/alipirani88/Comparative_Genomics/blob/master/README.md)
 
-![roadmap](comp_genomics.png)
-High-throughput BLAST and pan-genome analysis
----------------------------------------------
+Goal
+----
 
 This morning we learned how to perform basic genome annotation and comparison using Prokka and ACT. Now we will up the ante and do some more sophisticated comparative genomics analyses! 
-First, we will create custom BLAST databases to identify specific antibiotic resistance genes of interest in a set of genomes. 
-Second, we will use the tool [ARIBA](https://github.com/sanger-pathogens/ariba/wiki) to identify the complete antibiotic resistome in our genomes. 
-Third, we will move beyond antibiotic resistance, and look at the complete set of protein coding genes in our input genomes. 
-Finally, we will go back to ACT to understand the sorts of genomic rearrangements underlying observed variation in gene content.
+- First, we will create custom BLAST databases to identify specific antibiotic resistance genes of interest in a set of genomes. 
+- Second, we will use the tool [ARIBA](https://github.com/sanger-pathogens/ariba/wiki) to identify the complete antibiotic resistome in our genomes. 
+- Third, we will move beyond antibiotic resistance, and look at the complete set of protein coding genes in our input genomes. 
+- Finally, we will go back to ACT to understand the sorts of genomic rearrangements underlying observed variation in gene content.
+
+![roadmap](comp_genomics.png)
+
+High-throughput BLAST and pan-genome analysis
+---------------------------------------------
 
 For BLAST and ARIBA, we will be looking at 8 *Klebsiella pneumoniae* genomes from human and environmental sources. Six of these genomes are from [this paper](https://www.pnas.org/content/112/27/E3574), and the other two are sequences from our lab. We are interested in learning more about potential differences in the resistomes of human and environmental isolates. 
 
