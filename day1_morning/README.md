@@ -2,7 +2,7 @@ Day 1 Morning
 =============
 [[HOME]](https://github.com/alipirani88/Comparative_Genomics/blob/master/README.md)
 
-Goals
+Goal
 -----
 
 - This morning we will learn how to set up our unix and conda environment which is a necessity when it comes to working on command line. 
